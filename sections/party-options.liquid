@@ -36,11 +36,12 @@
   assign buffet_key = 'buffet-service'
 -%}
 
-<div class="section-wrapper color-scheme-{{ section.settings.color_scheme }} section-wrapper--y-offset--padding">
-  <div class="section__inner container">
-    <div class="party-options" id="PartyOptions-{{ uid }}">
+<div class="party-options" id="PartyOptions-{{ uid }}">
 
-      {%- comment -%} ── Chooser ─────────────────────────────────────── {%- endcomment -%}
+  {%- comment -%} ── Chooser band ──────────────────────────────────────── {%- endcomment -%}
+  <div class="section-wrapper color-scheme-{{ section.settings.color_scheme }} section-wrapper--y-offset--padding">
+    <div class="section__inner container">
+
       <div class="po-chooser">
         {% if section.settings.eyebrow != blank %}
           <p class="subheading po-eyebrow">{{ section.settings.eyebrow }}</p>
@@ -125,6 +126,13 @@
           {%- endcomment -%}
         </div>
       </div>
+
+    </div>
+  </div>
+
+  {%- comment -%} ── Panel band — its own colour scheme ────────────────── {%- endcomment -%}
+  <div class="section-wrapper color-scheme-{{ section.settings.panel_color_scheme }} section-wrapper--y-offset--padding">
+    <div class="section__inner container">
 
       {%- comment -%} ── Option 1 panel — rent a table ───────────────── {%- endcomment -%}
       <div
@@ -487,12 +495,6 @@
     top: 0;
     width: 100%;
     pointer-events: none;
-  }
-
-  {{ s }} .po-panel {
-    margin-top: 3rem;
-    padding-top: 3rem;
-    border-top: 1px solid var(--color-scheme-border);
   }
 
   {{ s }} .po-panel__grid {
@@ -1254,11 +1256,6 @@
       padding: 1.5rem 1.25rem;
     }
 
-    {{ s }} .po-panel {
-      margin-top: 2rem;
-      padding-top: 2rem;
-    }
-
     {{ s }} .po-package {
       padding: 1.5rem 1.25rem;
     }
@@ -1364,13 +1361,25 @@
     {
       "type": "select",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "Chooser color scheme",
       "options": [
         { "value": "main", "label": "White" },
         { "value": "alt", "label": "Light Gray" },
         { "value": "invert", "label": "Black" }
       ],
       "default": "main"
+    },
+    {
+      "type": "select",
+      "id": "panel_color_scheme",
+      "label": "Panel color scheme",
+      "info": "Background behind the selected option's details and booking form.",
+      "options": [
+        { "value": "main", "label": "White" },
+        { "value": "alt", "label": "Light Gray" },
+        { "value": "invert", "label": "Black" }
+      ],
+      "default": "alt"
     },
     {
       "type": "header",

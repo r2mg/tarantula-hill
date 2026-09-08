@@ -228,6 +228,7 @@
       "name": "Party Options",
       "settings": {
         "color_scheme": "main",
+        "panel_color_scheme": "alt",
         "eyebrow": "Book a Party",
         "heading": "Choose how to book",
         "description": "<p>Two ways to celebrate at Tarantula Hill. Pick the one that fits your group.</p>",
