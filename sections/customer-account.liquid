@@ -1,0 +1,93 @@
+<div class="section-wrapper section-wrapper--y-offset--padding">
+	<div class="container section-wrapper__body">
+		<div class="customer__page">
+			<h1 class="heading heading--size--h2 customer__page__heading">{{ 'customer.account.title' | t }}</h1>
+			<nav style="" class="stack customer__page__nav">
+				<a class="customer__page__nav-item" href="{{ routes.account_url }}">{{ 'customer.orders.title' | t }}</a
+				><a class="customer__page__nav-item" href="{{ routes.account_addresses_url }}">
+					{{- 'customer.addresses.title' | t -}}</a
+				><a class="customer__page__nav-item" href="{{ routes.account_logout_url }}">{{ 'customer.log_out' | t }}</a>
+			</nav>
+			<div class="customer__page__content">
+				{% paginate customer.orders by 20 %}
+					{% if customer.orders.size > 0 %}
+						<div class="customer__orders" data-lenis-prevent>
+							<span class="customer__orders__heading">{{ 'customer.orders.order_number' | t }}</span
+							><span class="customer__orders__heading">{{ 'customer.orders.date' | t }}</span
+							><span class="customer__orders__heading">{{ 'customer.orders.payment_status' | t }}</span
+							><span class="customer__orders__heading">{{ 'customer.orders.fulfillment_status' | t }}</span
+							><span class="customer__orders__heading">{{ 'customer.orders.total' | t }}</span>
+							{% for order in customer.orders -%}
+								<span>
+									<a href="{{ order.customer_url }}" style="" class="button button--variant--link button--size--sm">
+										{{- order.name -}}
+									</a></span
+								><span>{{ order.created_at | time_tag: format: 'date' }}</span
+								><span>{{ order.financial_status_label }}</span><span>{{ order.fulfillment_status_label }}</span
+								><span>{{ order.total_net_amount | money_with_currency }}</span>
+							{%- endfor %}
+						</div>
+					{% else %}
+						<div class="splash-msg">
+							<h2 class="heading heading--size--h2">{{ 'customer.orders.none' | t }}</h2>
+							<div class="splash-msg__action">
+								<a href="{{ routes.all_products_collection_url }}" style="" class="button">
+									{{- 'general.continue_shopping' | t -}}
+								</a>
+							</div>
+						</div>
+					{% endif %}
+					{% if paginate.parts.size > 0 %}
+						<nav class="paginate" role="navigation">
+							<a
+								class="paginate__item {% unless paginate.previous %}paginate__item--inert{% endunless %}"
+								href="{{ paginate.previous.url }}"
+								aria-label="{{ 'general.pagination.previous' | t }}"
+							>
+								<span>
+									<svg class="paginate__item__arrow">
+										<use  xlink:href="#svg-icon-arrow-left"></use>
+									</svg>
+								</span>
+							</a>
+							<span class="desktop-hidden"> {{ paginate.current_page }} / {{ paginate.pages }} </span>
+							{% for part in paginate.parts -%}
+								{%- if part.is_link -%}
+									<a
+										class="paginate__item mobile-hidden"
+										href="{{ part.url }}"
+										aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
+									>
+										<span>{{ part.title }}</span>
+									</a>
+								{%- else -%}
+									<span class="paginate__item {% if part.title == paginate.current_page %}paginate__item--active{% endif %} mobile-hidden">
+										{{ part.title }}
+									</span>
+								{%- endif -%}
+							{%- endfor %}
+							<a
+								class="paginate__item {% unless paginate.next %}paginate__item--inert{% endunless %}"
+								href="{{ paginate.next.url }}"
+								aria-label="{{ 'general.pagination.next' | t }}"
+							>
+								<span>
+									<svg class="paginate__item__arrow">
+										<use  xlink:href="#svg-icon-arrow-right"></use>
+									</svg>
+								</span>
+							</a>
+						</nav>
+					{% endif %}
+				{% endpaginate %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Customer account",
+		"class": "customer-account-section"
+	}
+{% endschema %}

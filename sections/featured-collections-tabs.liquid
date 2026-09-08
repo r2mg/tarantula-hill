@@ -1,0 +1,348 @@
+{% if section.settings.section_center_heading -%}
+	{%- assign heading_align = 'center' -%}
+{%- else -%}
+	{%- assign heading_align = 'left' -%}
+{%- endif %}
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.section_color_scheme.id }} {% if section.settings.section_center_heading %}section-wrapper--center-align{% endif %}">
+	{% if section.settings.section_heading != blank or section.settings.section_description != blank %}
+		<div class="container section-wrapper__header">
+			<div class="content content--align--{{ heading_align }}">
+				{% if section.settings.section_heading != blank %}
+					<div class="content__heading">
+						{% capture heading_capture %}
+							<h2 class="heading heading--size--{{ section.settings.section_heading_size }}">
+								{{ section.settings.section_heading }}
+							</h2>
+						{% endcapture %}
+						{% if section.settings.section_heading_animation %}
+							<div
+								class="scroll-animation scroll-animation--use--text-reveal scroll-animation--origin-align--{{ heading_align }} {% unless settings.appearance_animate_heading_on_mobile %}scroll-animation--only-desktop-animation{% endunless %}"
+								style=""
+							>
+								{{ heading_capture }}
+							</div>
+						{% else -%}
+							{{- heading_capture -}}
+						{%- endif %}
+					</div>
+				{% endif -%}
+				{%- if section.settings.section_description != blank %}
+					<div class="content__text">
+						<p class="text text--size--md">{{ section.settings.section_description }}</p>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+	<div class="section-wrapper__body">
+		<div class="tabs">
+			<div class="container">
+				<div class="tabs__nav {% if section.settings.section_center_heading %}tabs__nav--center-align{% endif %}">
+					{% for block in section.blocks %}
+						<div class="tabs__nav-item">
+							<input
+								class="tabs__nav-item__input"
+								data-nav="{{ forloop.index }}"
+								type="radio"
+								id="{{ block.id }}"
+								name="{{ section.id | append: '-tabs-nav' }}"
+								{% if forloop.first %}
+									checked
+								{% endif %}
+							>
+
+							<label for="{{ block.id }}" style="" class="button button--variant--link tabs__nav-item__button">
+								{% if block.settings.custom_heading != blank -%}
+									{{- block.settings.custom_heading -}}
+								{%- elsif block.settings.collection != blank -%}
+									{{- block.settings.collection.title -}}
+								{%- else -%}
+									{{- 'sections.collection_template.title' | t -}}
+								{%- endif %}
+							</label>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+			{% for block in section.blocks %}
+				<div class="tabs__body" data-content="{{ forloop.index }}">
+					{% capture capture_grid_content %}
+						{% if block.settings.collection == null -%}
+							{%- assign products_count = section.settings.max_products | minus: 1 -%}
+						{%- else -%}
+							{%- assign products_count = block.settings.collection.products.size
+								| at_most: section.settings.max_products
+							-%}
+						{%- endif -%}
+						{%- if block.settings.collection != blank -%}
+							{%- for collection_product in block.settings.collection.products limit: products_count -%}
+								{%- render 'product-card',
+									card_product: collection_product,
+									gyro_effect: section.settings.gyro_effect
+								-%}
+							{%- endfor -%}
+						{%- else -%}
+							{%- for i in (0..products_count) -%}
+								{%- render 'product-card', index_0: i -%}
+							{%- endfor -%}
+						{%- endif %}
+					{% endcapture %}
+					{% if section.settings.stack_grid_layout == 'grid' %}
+						<div class="container">
+							<div
+								class="grid"
+								style="--grid-columns: {{ section.settings.stack_grid_desktop_columns }};--grid-mobile-columns: {{ section.settings.stack_grid_mobile_columns }};"
+							>
+								{{ capture_grid_content }}
+							</div>
+						</div>
+					{% else -%}
+						{{- 'component-inline-carousel.css' | asset_url | stylesheet_tag }}
+						<x-inline-carousel
+							class="inline-carousel"
+							items-count="{{ products_count }}"
+							columns="{{ section.settings.stack_grid_desktop_columns }}"
+							style="--inline-carousel-columns: {{ section.settings.stack_grid_desktop_columns }};--inline-carousel-mobile-columns: {% if section.settings.stack_grid_mobile_columns == '1' %}1.25{% else %}{{ section.settings.stack_grid_mobile_columns }}{% endif %};--inline-carousel-items-count: {{ products_count }};"
+							section-id="{{ section.id }}"
+						>
+							<div class="inline-carousel__view" data-inline-carousel-element="view">
+								<div class="container inline-carousel__container container--size--adaptive">
+									<div class="inline-carousel__track" data-inline-carousel-element="track">
+										{{ capture_grid_content }}
+										{% unless section.settings.stack_grid_mobile_columns == '1' %}
+											<div class="inline-carousel__psuedo-item"></div>
+										{% endunless %}
+									</div>
+								</div>
+								<div class="container inline-carousel__nav-container">
+									<button
+										class="inline-carousel__nav-prev"
+										aria-label="{{ 'general.slider.previous_slide' | t }}"
+										data-inline-carousel-element="nav-prev"
+									>
+										<span class="carousel-arrow">
+											<svg class="carousel-arrow__icon">
+												<use  xlink:href="#svg-icon-arrow-left"></use>
+											</svg>
+										</span>
+									</button>
+									<button
+										class="inline-carousel__nav-next"
+										aria-label="{{ 'general.slider.next_slide' | t }}"
+										data-inline-carousel-element="nav-next"
+									>
+										<span class="carousel-arrow">
+											<svg class="carousel-arrow__icon">
+												<use  xlink:href="#svg-icon-arrow-right"></use>
+											</svg>
+										</span>
+									</button>
+								</div>
+							</div>
+							<div class="container">
+								<x-carousel-pagination
+									class="carousel-pagination inline-carousel__mobile-pagination"
+									section-id="{{ section.id }}"
+								>
+									{% for i in (0..products_count) -%}
+										{%- unless forloop.last -%}
+											<label>
+												<input
+													class="carousel-pagination__radio"
+													type="radio"
+													name="{{ section.id | append: 'carousel-pagination' | append: block.id }}"
+													value="{{ i }}"
+													data-carousel-pagination-element="radio"
+													{% if forloop.first %}
+														checked
+													{% endif %}
+												>
+												<div class="carousel-pagination__dot"></div>
+											</label>
+										{%- endunless -%}
+									{%- endfor %}
+								</x-carousel-pagination>
+								<script type="module" src="{{ 'component-carousel-pagination.js' | asset_url }}"></script>
+							</div>
+						</x-inline-carousel>
+
+						<script type="module" src="{{ 'component-inline-carousel.js' | asset_url }}"></script>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Featured collections tabs",
+		"class": "featured-collections-tabs-section",
+		"presets": [
+			{
+				"name": "Featured collections tabs",
+				"blocks": [
+					{
+						"type": "collection",
+						"settings": {
+							"collection": "all"
+						}
+					},
+					{
+						"type": "collection"
+					}
+				],
+				"category": "Collections"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "text",
+				"id": "section_heading",
+				"label": "Heading",
+				"default": "Featured collections"
+			},
+			{
+				"type": "select",
+				"id": "section_heading_size",
+				"label": "Heading size",
+				"options": [
+					{
+						"value": "h2",
+						"label": "Small"
+					},
+					{
+						"value": "h1",
+						"label": "Medium"
+					},
+					{
+						"value": "d3",
+						"label": "Large"
+					}
+				],
+				"default": "h1"
+			},
+			{
+				"type": "checkbox",
+				"id": "section_heading_animation",
+				"label": "Use heading animation",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "section_center_heading",
+				"label": "Center heading",
+				"default": true
+			},
+			{
+				"type": "inline_richtext",
+				"id": "section_description",
+				"label": "Text"
+			},
+			{
+				"type": "color_scheme",
+				"id": "section_color_scheme",
+				"label": "Color scheme",
+				"default": "alt"
+			},
+			{
+				"type": "header",
+				"content": "Format"
+			},
+			{
+				"id": "stack_grid_layout",
+				"label": "Layout",
+				"type": "select",
+				"options": [
+					{
+						"value": "stack",
+						"label": "Stack"
+					},
+					{
+						"value": "grid",
+						"label": "Grid"
+					}
+				],
+				"default": "stack"
+			},
+			{
+				"type": "select",
+				"id": "stack_grid_desktop_columns",
+				"label": "Desktop columns",
+				"options": [
+					{
+						"value": "2",
+						"label": "2"
+					},
+					{
+						"value": "3",
+						"label": "3"
+					},
+					{
+						"value": "4",
+						"label": "4"
+					},
+					{
+						"value": "5",
+						"label": "5"
+					}
+				],
+				"default": "3"
+			},
+			{
+				"type": "select",
+				"id": "stack_grid_mobile_columns",
+				"label": "Mobile columns",
+				"options": [
+					{
+						"value": "1",
+						"label": "1"
+					},
+					{
+						"value": "2",
+						"label": "2"
+					}
+				],
+				"default": "2"
+			},
+			{
+				"type": "range",
+				"id": "max_products",
+				"min": 3,
+				"max": 50,
+				"label": "Maximum products to show",
+				"default": 10
+			},
+			{
+				"type": "checkbox",
+				"id": "gyro_effect",
+				"label": "Enable 3D effect on mouseover",
+				"default": true
+			}
+		],
+		"blocks": [
+			{
+				"name": "Collection",
+				"type": "collection",
+				"limit": 5,
+				"settings": [
+					{
+						"type": "text",
+						"label": "Custom title",
+						"id": "custom_heading",
+						"info": "Collection title is used by default"
+					},
+					{
+						"type": "collection",
+						"id": "collection",
+						"label": "Collection"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

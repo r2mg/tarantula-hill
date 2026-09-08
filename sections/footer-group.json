@@ -1,0 +1,225 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "ss_footer_3_Ug3MPp": {
+      "type": "ss-footer-3",
+      "name": "SS - Footer #3",
+      "settings": {
+        "logo": "shopify://shop_images/Asset_2_3x_97ce8921-3913-4394-876d-d337c3aafd80.png",
+        "logo_width": 220,
+        "logo_width_mobile": 220,
+        "first_menu_title": "Featured Links",
+        "first_menu": "footer-1",
+        "second_menu_title": "",
+        "second_menu": "footer-2",
+        "third_menu_title": "",
+        "third_menu": "footer-3",
+        "title_custom": true,
+        "title_font": "poppins_n9",
+        "title_size": 16,
+        "title_size_mobile": 16,
+        "title_height": 130,
+        "link_custom": true,
+        "link_font": "poppins_n4",
+        "link_size": 16,
+        "link_size_mobile": 16,
+        "link_height": 200,
+        "social_text": "<h3>Tap In</h3>",
+        "social_text_custom": true,
+        "social_text_font": "poppins_n9",
+        "social_text_size": 24,
+        "social_text_size_mobile": 20,
+        "social_text_height": 130,
+        "twitter": "",
+        "facebook": "https://www.facebook.com/tarantulahillbrewco/",
+        "linkedin": "https://www.linkedin.com/company/tarantula-hill-brewing-company/",
+        "instagram": "https://www.instagram.com/tarantulahillbrewingco/?hl=en",
+        "youtube": "",
+        "pinterest": "",
+        "whatsapp": "",
+        "tiktok": "",
+        "social_icon": 35,
+        "social_icon_mobile": 25,
+        "title": "",
+        "main_title_custom": false,
+        "main_title_font": "josefin_sans_n4",
+        "main_title_size": 16,
+        "main_title_size_mobile": 16,
+        "main_title_height": 130,
+        "text": "",
+        "text_custom": true,
+        "text_font": "poppins_n4",
+        "text_size": 12,
+        "text_size_mobile": 12,
+        "text_height": 200,
+        "use_payments": false,
+        "copy": "<p>© 2025, Tarantula Hill Brewing Co.</p>",
+        "copy_custom": true,
+        "copy_font": "poppins_n4",
+        "copy_size": 13,
+        "copy_size_mobile": 13,
+        "copy_height": 130,
+        "use_newsletter": false,
+        "use_redirect": true,
+        "redirect_url": "",
+        "input_padding_vertical": 14,
+        "input_padding_horizontal": 16,
+        "input_radius": 6,
+        "input_border_thickness": 1,
+        "input_placeholder": "Email",
+        "input_custom": false,
+        "input_font": "josefin_sans_n4",
+        "input_size": 16,
+        "input_size_mobile": 16,
+        "input_height": 100,
+        "thanks_text": "Thanks for subscribing!",
+        "thanks_text_custom": false,
+        "thanks_text_font": "josefin_sans_n4",
+        "thanks_text_size": 14,
+        "thanks_text_size_mobile": 14,
+        "thanks_text_height": 150,
+        "thanks_text_mt": 24,
+        "thanks_text_mt_mobile": 20,
+        "submit": "Join",
+        "submit_custom": false,
+        "submit_font": "josefin_sans_n4",
+        "submit_size": 16,
+        "submit_size_mobile": 16,
+        "submit_height": 100,
+        "submit_padding_vertical": 16,
+        "submit_padding_horizontal": 16,
+        "submit_radius": 6,
+        "submit_border_thickness": 0,
+        "input_color": "#000000",
+        "input_placeholder_color": "#e6e6e6",
+        "input_border_color": "#c7c7c7",
+        "thanks_text_color": "#ffffff",
+        "submit_color": "#ffffff",
+        "submit_hover_color": "#ffffff",
+        "submit_bg_color": "#ffffff",
+        "submit_bg_hover_color": "#ffffff",
+        "submit_border_color": "#ffffff",
+        "submit_border_hover_color": "#ffffff",
+        "social_text_color": "#ffffff",
+        "social_icon_color": "#ffffff",
+        "title_color": "#ffffff",
+        "link_color": "#ececec",
+        "link_hover_color": "#ececec",
+        "main_title_color": "#ffffff",
+        "text_color": "#ffffff",
+        "copy_color": "#ffffff",
+        "footer_border_color": "#0b0b0b",
+        "background_style": "solid",
+        "background_color": "#000000",
+        "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 36,
+        "padding_bottom": 0,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": false,
+        "content_width": 1300,
+        "border_thickness": 0,
+        "lazy": true
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "text_DTfEqe": {
+          "type": "text",
+          "settings": {
+            "heading": "",
+            "show_logo": true,
+            "use_white_logo": false,
+            "description": "244 East Thousand Oaks Boulevard Thousand Oaks, CA",
+            "show_follow_on_shop": false,
+            "show_social_media": false
+          }
+        },
+        "text_FXihNz": {
+          "type": "text",
+          "settings": {
+            "heading": "Hours",
+            "show_logo": false,
+            "use_white_logo": false,
+            "description": "<strong>Mon:</strong> 3pm-10pm <strong>|</strong> <strong>Tue-Thu:</strong> 12pm-10pm <strong>|</strong> <strong>Fri-Sat:</strong> 12pm-1am <strong>|</strong> <strong>Sun:</strong> 12pm-10pm",
+            "show_follow_on_shop": false,
+            "show_social_media": false
+          }
+        },
+        "menu_KkApPX": {
+          "type": "menu",
+          "settings": {
+            "heading": "",
+            "link_list": "footer1"
+          }
+        },
+        "menu_dCDwMj": {
+          "type": "menu",
+          "settings": {
+            "heading": "",
+            "link_list": "footer2"
+          }
+        },
+        "newsletter_ziymGp": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Subscribe to our emails",
+            "show_social_media": true
+          }
+        }
+      },
+      "block_order": [
+        "text_DTfEqe",
+        "text_FXihNz",
+        "menu_KkApPX",
+        "menu_dCDwMj",
+        "newsletter_ziymGp"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "invert",
+        "show_payment": true,
+        "show_country_selector": true,
+        "show_language_selector": true
+      }
+    },
+    "custom_liquid_7xhBgb": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "/* Custom CSS for Brewery Hours Section */.brewery-hours-section {padding: 20px 0 0 20px !important; font-family: \"Poppins\", sans-serif !important;}",
+        ".brewery-hours-section .day {font-family: \"Poppins Black\", \"Poppins\", sans-serif !important; font-weight: 900 !important;}",
+        ".brewery-hours-section .time {font-family: \"Poppins\", sans-serif !important;}",
+        " /* Mobile responsive */@media screen and (max-width: 768px) {.brewery-hours-section {padding: 20px 0 0 20px !important; }}"
+      ],
+      "name": "Custom liquid",
+      "settings": {
+        "section_heading": "",
+        "section_heading_size": "h2",
+        "section_heading_animation": false,
+        "section_center_heading": false,
+        "section_description": "",
+        "section_color_scheme": "invert",
+        "liquid_content": "{% comment %}\n  Brewery Business Hours - Custom Liquid Section\n  Copy and paste this code directly into a Custom Liquid section in your theme editor\n{% endcomment %}\n\n<div class=\"brewery-hours-section\">\n  <div class=\"brewery-hours-container\">\n    <div class=\"brewery-hours__content\">\n      <ul class=\"hours-list\">\n        <li class=\"hours-item\">\n          <span class=\"day\">Monday</span>\n          <span class=\"time\">3PM-10PM</span>\n        </li>\n        <li class=\"hours-item\">\n          <span class=\"day\">Tuesday</span>\n          <span class=\"time\">12PM-10PM</span>\n        </li>\n        <li class=\"hours-item\">\n          <span class=\"day\">Wednesday</span>\n          <span class=\"time\">12PM-10PM</span>\n        </li>\n        <li class=\"hours-item\">\n          <span class=\"day\">Thursday</span>\n          <span class=\"time\">12PM-10PM</span>\n        </li>\n        <li class=\"hours-item\">\n          <span class=\"day\">Friday</span>\n          <span class=\"time\">12PM-1AM</span>\n        </li>\n        <li class=\"hours-item\">\n          <span class=\"day\">Saturday</span>\n          <span class=\"time\">12PM-1AM</span>\n        </li>\n        <li class=\"hours-item\">\n          <span class=\"day\">Sunday</span>\n          <span class=\"time\">12PM-10PM</span>\n        </li>\n      </ul>\n      \n      <!-- Optional: Add a special note here -->\n      <!-- <p class=\"brewery-hours__note\">Holiday hours may vary</p> -->\n    </div>\n  </div>\n</div>\n\n<style>\n  .brewery-hours-section {\n    padding: 0;\n    background-color: transparent;\n    color: inherit;\n    width: 100%;\n  }\n  \n  .brewery-hours-container {\n    max-width: 100%;\n    margin: 0 auto;\n  }\n  \n  .brewery-hours__content {\n    text-align: center;\n  }\n  \n  .hours-list {\n    list-style: none;\n    padding: 0;\n    margin: 0;\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n    gap: 1.5rem;\n    max-width: 100%;\n  }\n  \n  .hours-item {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    text-align: center;\n    padding: 0.5rem;\n    min-width: auto;\n  }\n  \n  .day {\n    font-weight: 600;\n    font-size: 1rem;\n    margin-bottom: 0.25rem;\n  }\n  \n  .time {\n    font-weight: 400;\n    font-size: 0.9rem;\n    margin-left: 0;\n  }\n  \n  .brewery-hours__note {\n    margin-top: 1rem;\n    font-style: italic;\n    font-size: 0.875rem;\n    opacity: 0.8;\n    text-align: center;\n  }\n  \n  /* Mobile Responsive */\n  @media screen and (max-width: 768px) {\n    .brewery-hours-section {\n      padding: 0;\n    }\n    \n    .hours-list {\n      gap: 1rem;\n    }\n    \n    .day {\n      font-size: 0.9rem;\n    }\n    \n    .time {\n      font-size: 0.8rem;\n    }\n  }\n  \n  @media screen and (max-width: 480px) {\n    .hours-list {\n      gap: 0.75rem;\n    }\n    \n    .day {\n      font-size: 0.85rem;\n    }\n    \n    .time {\n      font-size: 0.75rem;\n    }\n  }\n</style>"
+      }
+    }
+  },
+  "order": [
+    "ss_footer_3_Ug3MPp",
+    "footer",
+    "custom_liquid_7xhBgb"
+  ]
+}

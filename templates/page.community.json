@@ -1,0 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_RUxVbb": {
+      "type": "hero",
+      "blocks": {
+        "heading_xYUVGm": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "OUR MENU",
+            "heading_size": "h1"
+          }
+        },
+        "description_zkFtt8": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Give customers details about the banner image(s) or content on the template.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_8MnFME": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop all",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_xYUVGm",
+        "description_zkFtt8",
+        "button_8MnFME"
+      ],
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/THill_EK_102024_0907.jpg",
+        "banner_overlay": 15,
+        "banner_size": "medium",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    },
+    "page-header": {
+      "type": "page-header",
+      "disabled": true,
+      "settings": {
+        "page_header_color_scheme": "",
+        "page_header_center_text": true,
+        "page_header_heading_size": "h1",
+        "page_header_image_overlay": 30,
+        "page_header_image_size": "medium",
+        "page_header_scroll_clip": false,
+        "page_header_overlap": true
+      }
+    },
+    "page": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container_width": "normal"
+      }
+    }
+  },
+  "order": [
+    "hero_RUxVbb",
+    "page-header",
+    "page"
+  ]
+}

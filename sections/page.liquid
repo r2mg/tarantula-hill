@@ -1,0 +1,41 @@
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.color_scheme.id }}">
+	<div class="container section-wrapper__body container--size--{{ section.settings.container_width }}">
+		<div class="rte rte--spaced">
+			{{ page.content }}
+		</div>
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Page",
+		"class": "page-section",
+		"settings": [
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "select",
+				"id": "container_width",
+				"label": "Content width",
+				"options": [
+					{
+						"value": "x-small",
+						"label": "Narrow"
+					},
+					{
+						"value": "small",
+						"label": "Normal"
+					},
+					{
+						"value": "normal",
+						"label": "Wide"
+					}
+				],
+				"default": "normal"
+			}
+		]
+	}
+{% endschema %}

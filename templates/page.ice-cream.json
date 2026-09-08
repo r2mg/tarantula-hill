@@ -1,0 +1,377 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_aKVrHg": {
+      "type": "hero",
+      "blocks": {
+        "heading_GhMF87": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "CRAFT ICE CREAM",
+            "heading_size": "h1"
+          }
+        },
+        "description_xKzTVi": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>The same passion we put into brewing goes into every batch of our handmade super-premium ice cream. Our base is 18% butterfat and we use traditional methods to  create flavors that celebrate both classic favorites and innovative seasonal combinations.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_nrRVcM": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Shop all",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_GhMF87",
+        "description_xKzTVi",
+        "button_nrRVcM"
+      ],
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/THill_EK_052925_2350.jpg",
+        "banner_overlay": 40,
+        "banner_size": "medium",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    },
+    "ice_cream_locations1_9xReJt": {
+      "type": "ice-cream-locations1",
+      "blocks": {
+        "location_wAxDL3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Thousand Oaks",
+            "badge": "",
+            "image": "shopify://shop_images/THill_EK_052925_2350_cba939c4-6d04-4167-b00b-9b97fcfd2334.jpg",
+            "address": "244 E Thousand Oaks Blvd\nThousand Oaks, CA 91360",
+            "maps_url": "",
+            "phone": "(805) 538-1191",
+            "hours_mon": "3PM – 10PM",
+            "hours_tue": "12PM – 10PM",
+            "hours_wed": "12PM – 10PM",
+            "hours_thu": "12PM – 10PM",
+            "hours_fri": "12PM – 1AM",
+            "hours_sat": "12PM – 1AM",
+            "hours_sun": "12PM – 10PM",
+            "hours_note": "",
+            "button_label": "Get Directions",
+            "button_url": "https://www.google.com/maps/place/Tarantula+Hill+Brewing+Co./@34.1789053,-118.8756866,17z/data=!4m15!1m8!3m7!1s0x80e83ab9923b8a09:0xd2beff3ff0af952!2s244+E+Thousand+Oaks+Blvd,+Thousand+Oaks,+CA+91360!3b1!8m2!3d34.1789053!4d-118.8731063!16s%2Fg%2F11bw3hhjk8!3m5!1s0x80e83b41dc72eb7f:0x3ae28d31d6dd8be!8m2!3d34.178848!4d-118.873284!16s%2Fg%2F11f6385phq?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D"
+          }
+        },
+        "location_6X3TQN": {
+          "type": "location",
+          "settings": {
+            "location_name": "Westlake",
+            "badge": "New Location",
+            "image": "shopify://shop_images/THill_EK_022726_7261.jpg",
+            "address": "2847 Agoura Road\nWestlake, CA 91361",
+            "maps_url": "",
+            "phone": "(805) 418-7211",
+            "hours_mon": "10AM – 9PM",
+            "hours_tue": "10AM – 9PM",
+            "hours_wed": "10AM – 9PM",
+            "hours_thu": "10AM – 9PM",
+            "hours_fri": "10AM – 9PM",
+            "hours_sat": "10AM – 9PM",
+            "hours_sun": "8:30AM – 5PM",
+            "hours_note": "",
+            "button_label": "Get Directions",
+            "button_url": "https://google.com/maps/place/2847+Agoura+Rd,+Thousand+Oaks,+CA+91361/data=!4m2!3m1!1s0x80e824f210b9f7a1:0xc411fe72392d9818?sa=X&ved=1t:242&ictx=111"
+          }
+        }
+      },
+      "block_order": [
+        "location_wAxDL3",
+        "location_6X3TQN"
+      ],
+      "name": "Ice Cream Locations",
+      "settings": {
+        "color_scheme": "invert",
+        "eyebrow": "Find Us",
+        "heading": "Two Locations, One Obsession",
+        "description": "",
+        "heading_align": "center"
+      }
+    },
+    "image_with_text_aQzcqz": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_TfCDKE": {
+          "type": "subheading",
+          "settings": {
+            "subheading_text": "FRESH FLAVORS DAILY"
+          }
+        },
+        "heading_fXNFki": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Fresh & Seasonal",
+            "heading_animation": true,
+            "heading_size": "h1"
+          }
+        },
+        "description_X3LzUX": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Our ice cream menu changes with the seasons, featuring both beloved classics and creative new combinations. Made in small batches using the finest ingredients, every scoop delivers exceptional quality and taste.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_gbNRay": {
+          "type": "button",
+          "settings": {
+            "button_label": "SEE TODAY'S FLAVORS",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "https://gotab.io/loc/tarantulahillbrewingco/menu/dessert-menu"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_TfCDKE",
+        "heading_fXNFki",
+        "description_X3LzUX",
+        "button_gbNRay"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "color_scheme": "main",
+        "hover_parallax": false,
+        "use_bg": false,
+        "image": "shopify://shop_images/THill_EK_091525_4394.jpg",
+        "image_position": "right",
+        "image_width": "medium",
+        "image_size": "auto",
+        "text_align": "left",
+        "content_position": "middle-center"
+      }
+    },
+    "multicolumn_p7MHjw": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_JyckkE": {
+          "type": "column",
+          "settings": {
+            "link": "",
+            "subheading_text": "ARTISAN MADE",
+            "heading_text": "SMALL-BATCH CRAFTED",
+            "text_content": "Every scoop starts in our brewery kitchen, where we hand-craft small batches daily using traditional ice cream making techniques that prioritize quality over quantity. Each flavor is carefully developed and perfected.",
+            "button_label": "",
+            "button_variant": "outline"
+          }
+        },
+        "column_6R3JQC": {
+          "type": "column",
+          "settings": {
+            "link": "",
+            "subheading_text": "PREMIUM QUALITY",
+            "heading_text": "PREMIUM INGREDIENTS",
+            "text_content": "We source locally when possible - from Oxnard strawberries to seasonal California fruits - using only the finest ingredients to create flavors that celebrate our region's incredible bounty.",
+            "button_label": "",
+            "button_variant": "outline"
+          }
+        },
+        "column_6nwzWy": {
+          "type": "column",
+          "settings": {
+            "link": "",
+            "subheading_text": "SUPERIOR TEXTURE",
+            "heading_text": "RICH & DENSE",
+            "text_content": "Our high butterfat content creates a smooth, velvety texture that's impossibly rich. By incorporating minimal air during the freezing process, we create an exceptionally dense, creamy texture that delivers intense flavor in every spoonful. It's ice cream the way it was meant to be made.",
+            "button_label": "",
+            "button_variant": "outline"
+          }
+        }
+      },
+      "block_order": [
+        "column_JyckkE",
+        "column_6R3JQC",
+        "column_6nwzWy"
+      ],
+      "name": "Multicolumn",
+      "settings": {
+        "section_heading": "WHAT MAKES OURS SPECIAL",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "alt",
+        "stack_grid_layout": "grid",
+        "stack_grid_desktop_columns": "3",
+        "stack_grid_mobile_columns": "1",
+        "card_display_style": "card",
+        "card_image_ratio": "square",
+        "card_gyro_effect": false,
+        "card_center_content": false,
+        "card_color_scheme": ""
+      }
+    },
+    "hot_spots_NqLKMN": {
+      "type": "hot-spots",
+      "blocks": {
+        "card_8GHRfy": {
+          "type": "card",
+          "settings": {
+            "heading": "Chocolate Chips",
+            "text": "",
+            "x_position": 55,
+            "y_position": 40
+          }
+        },
+        "card_cn6BMB": {
+          "type": "card",
+          "settings": {
+            "heading": "Cookie Monster",
+            "text": "",
+            "x_position": 30,
+            "y_position": 76
+          }
+        },
+        "card_9EfdM4": {
+          "type": "card",
+          "settings": {
+            "heading": "T-Hilla Vanilla",
+            "text": "",
+            "x_position": 86,
+            "y_position": 66
+          }
+        },
+        "card_jdKfMR": {
+          "type": "card",
+          "disabled": true,
+          "settings": {
+            "heading": "Java Chip",
+            "text": "Give customers details about the banner image.",
+            "x_position": 54,
+            "y_position": 50
+          }
+        }
+      },
+      "block_order": [
+        "card_8GHRfy",
+        "card_cn6BMB",
+        "card_9EfdM4",
+        "card_jdKfMR"
+      ],
+      "name": "Hot spots",
+      "settings": {
+        "image": "shopify://shop_images/THill_EK_091525_4227.jpg",
+        "section_heading": "DISCOVER YOUR FAVORITE",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "invert",
+        "spots_color": "#ffffff",
+        "cards_color_scheme": ""
+      }
+    },
+    "page-header": {
+      "type": "page-header",
+      "disabled": true,
+      "settings": {
+        "page_header_color_scheme": "",
+        "page_header_center_text": true,
+        "page_header_heading_size": "h1",
+        "page_header_image_overlay": 30,
+        "page_header_image_size": "medium",
+        "page_header_scroll_clip": false,
+        "page_header_overlap": true
+      }
+    },
+    "page": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container_width": "normal"
+      }
+    },
+    "featured_product_jJxmbB": {
+      "type": "featured-product",
+      "blocks": {
+        "title_XLHWWw": {
+          "type": "title",
+          "settings": {
+            "title_size": "h2",
+            "show_vendor": false,
+            "show_rating": true
+          }
+        },
+        "price_FrLA4i": {
+          "type": "price",
+          "settings": {
+            "show_taxes_note": true
+          }
+        },
+        "variant_picker_eVJBb8": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "pills",
+            "enable_color_swatches": true,
+            "variant_image_options": ""
+          }
+        },
+        "buy_buttons_kWiqUg": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_recipient_form": true,
+            "show_payment_icons": false,
+            "show_qty_selector": true
+          }
+        }
+      },
+      "block_order": [
+        "title_XLHWWw",
+        "price_FrLA4i",
+        "variant_picker_eVJBb8",
+        "buy_buttons_kWiqUg"
+      ],
+      "name": "Featured product",
+      "settings": {
+        "product": "black-ice-cream-t-shirt",
+        "color_scheme": "main",
+        "enable_share": true,
+        "sticky_media": true,
+        "media_position": "left",
+        "media_size": "medium",
+        "thumbs_position": "aside",
+        "gallery_ratio": "square",
+        "media_fit": "original",
+        "enable_autoplay": false
+      }
+    }
+  },
+  "order": [
+    "hero_aKVrHg",
+    "ice_cream_locations1_9xReJt",
+    "image_with_text_aQzcqz",
+    "multicolumn_p7MHjw",
+    "hot_spots_NqLKMN",
+    "page-header",
+    "page",
+    "featured_product_jJxmbB"
+  ]
+}

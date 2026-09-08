@@ -1,0 +1,255 @@
+.zoom-gallery {
+  --zoom-gallery-active-item: 0;
+  --zoom-gallery-timeline-id: --zoom-scroll;
+  --zoom-gallery-unit-height: 200vh;
+  --zoom-gallery-units: 1;
+  --zoom-gallery-last-item-offset: .25;
+  --zoom-gallery-items-count: 3;
+  --zoom-gallery-units: calc(var(--zoom-gallery-items-count) / 2 + var(--zoom-gallery-last-item-offset));
+  height: calc(var(--zoom-gallery-units) * var(--zoom-gallery-unit-height));
+  view-timeline-name: var(--zoom-gallery-timeline-id);
+  view-timeline-axis: block;
+  position: relative;
+  overflow: clip;
+  display: block;
+}
+@supports not (animation-timeline: view()) {
+  .zoom-gallery {
+    height: auto;
+    padding-bottom: 10vh;
+  }
+}
+@media (max-width: 991px) {
+  .zoom-gallery {
+    height: auto;
+    padding-bottom: 10vh;
+  }
+}
+
+.zoom-gallery__stage {
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  position: relative;
+}
+@supports (animation-timeline: view()) {
+  @media (min-width: 992px) {
+    .zoom-gallery__stage {
+      position: sticky;
+      height: 100vh;
+    }
+  }
+}
+
+.zoom-gallery__text {
+  padding-top: min(10vh, 10rem);
+  width: 100%;
+}
+@supports (animation-timeline: view()) {
+  @media (min-width: 992px) {
+    .zoom-gallery__text {
+      animation: linear text-hide both;
+      animation-timeline: var(--zoom-gallery-timeline-id);
+      animation-range: entry 0 cover 150vh;
+      position: absolute;
+    }
+  }
+}
+
+.zoom-gallery__bg {
+  pointer-events: none;
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+.zoom-gallery__bg-inner {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  filter: grayscale(0.4) blur(20px);
+  transform: translateZ(0) scale(1.2);
+  backface-visibility: hidden;
+  contain: paint;
+}
+
+@keyframes text-hide {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    filter: blur(20px);
+    opacity: 0;
+  }
+}
+
+.zoom-gallery__item {
+  --zoom-gallery-item-spacer: 2rem;
+  --zoom-gallery-item-container-align: start;
+  --zoom-gallery-item-origin: right center;
+  --zoom-gallery-item-direction: -1;
+  --zoom-gallery-item-offset: -.25;
+  --zoom-gallery-item-index: 0;
+  inset: 0;
+  padding-inline: var(--zoom-gallery-item-spacer);
+  display: flex;
+  align-items: center;
+  width: var(--zoom-gallery-item-item-width);
+  transform: translateZ(0);
+  transform-origin: var(--zoom-gallery-item-origin);
+  justify-content: var(--zoom-gallery-item-container-align);
+  --zoom-gallery-item-item-width: min(80vw, 1200px);
+  --zoom-gallery-item-media-width: min(450px, 33vw);
+  height: auto;
+  padding-block: 7.5vh;
+}
+@supports (animation-timeline: view()) {
+  @media (min-width: 992px) {
+    .zoom-gallery__item {
+      --zoom-gallery-item-media-width: min(600px, 33vw);
+      --zoom-gallery-item-item-width: 50vw;
+      padding-block: 0;
+      height: 100%;
+      position: absolute;
+      animation: linear reveal-zoom both;
+      animation-timeline: var(--zoom-gallery-timeline-id);
+      animation-range-start: contain calc((var(--zoom-gallery-item-index) + var(--zoom-gallery-item-offset)) * var(--zoom-gallery-unit-height));
+      animation-range-end: contain calc((var(--zoom-gallery-item-index) + var(--zoom-gallery-item-offset) + 1) * var(--zoom-gallery-unit-height));
+    }
+  }
+}
+@supports not (animation-timeline: view()) {
+  @media (min-width: 992px) {
+    .zoom-gallery__item {
+      margin-inline: auto;
+    }
+  }
+}
+@media (max-width: 991px) {
+  .zoom-gallery__item {
+    --zoom-gallery-item-media-width: 75vw;
+    --zoom-gallery-item-item-width: 100%;
+    --zoom-gallery-item-spacer: 5vw;
+  }
+}
+
+.zoom-gallery__item--is-right {
+  --zoom-gallery-item-direction: 1;
+  --zoom-gallery-item-offset: .25;
+  --zoom-gallery-item-origin: left center;
+  left: auto;
+  --zoom-gallery-item-container-align: end;
+}
+
+.zoom-gallery__item__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.zoom-gallery__item__image {
+  width: var(--zoom-gallery-item-media-width);
+}
+
+.zoom-gallery__item__image-caption {
+  width: var(--zoom-gallery-item-media-width);
+  padding: var(--zoom-gallery-item-spacer);
+  flex-shrink: 0;
+}
+
+@keyframes reveal-zoom {
+  0% {
+    scale: 0.3;
+    opacity: 0;
+    filter: blur(20px);
+    pointer-events: none;
+  }
+  10% {
+    opacity: 1;
+  }
+  14% {
+    pointer-events: none;
+  }
+  15% {
+    filter: blur(0);
+    pointer-events: auto;
+  }
+  50% {
+    opacity: 1;
+    filter: blur(0);
+    scale: 1;
+    pointer-events: auto;
+  }
+  80% {
+    pointer-events: none;
+  }
+  100% {
+    scale: 2.5;
+    opacity: 0;
+    filter: blur(20px);
+  }
+}
+
+.zoom-gallery__bg-item {
+  --zoom-gallery-bg-item-index: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: calc(var(--zoom-gallery-bg-item-index) * -1);
+  overflow: hidden;
+  --zoom-gallery-bg-item-active: clamp(0, calc(var(--zoom-gallery-bg-item-index) + 1 - var(--zoom-gallery-active-item)), 1);
+  backface-visibility: hidden;
+}
+@supports (animation-timeline: view()) {
+  @media (min-width: 992px) {
+    .zoom-gallery__bg-item:not(:last-child) {
+      animation: linear fade-out both;
+      animation-timeline: var(--zoom-gallery-timeline-id);
+      animation-range-start: contain calc(var(--zoom-gallery-bg-item-index) * var(--zoom-gallery-unit-height) / 2);
+      animation-range-end: contain calc((var(--zoom-gallery-bg-item-index) + 1) * var(--zoom-gallery-unit-height) / 2);
+    }
+  }
+}
+@supports not (animation-timeline: view()) {
+  .zoom-gallery__bg-item {
+    opacity: var(--zoom-gallery-bg-item-active);
+    transition: opacity 0.5s ease-in-out;
+  }
+}
+@media (max-width: 991px) {
+  .zoom-gallery__bg-item {
+    opacity: var(--zoom-gallery-bg-item-active);
+    transition: opacity 0.5s ease-in-out;
+  }
+}
+
+.zoom-gallery__bg-item__placeholder {
+  background-color: var(--color-scheme-background);
+  fill: var(--color-scheme-text);
+}
+
+.zoom-gallery__bg-item__image img, .zoom-gallery__bg-item__video, .zoom-gallery__bg-item__placeholder {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

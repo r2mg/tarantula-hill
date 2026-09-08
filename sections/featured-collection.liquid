@@ -1,0 +1,302 @@
+{% if section.settings.collection == null -%}
+	{%- assign products_count = section.settings.max_products -%}
+{%- else -%}
+	{%- assign products_count = section.settings.collection.products.size | at_most: section.settings.max_products -%}
+{%- endif %}
+
+{% if section.settings.show_view_all and section.settings.collection -%}
+	{%- assign button_label = 'sections.collection_list.view_all' | t -%}
+{%- endif %}
+
+{% if section.settings.section_center_heading -%}
+	{%- assign heading_align = 'center' -%}
+{%- else -%}
+	{%- assign heading_align = 'left' -%}
+{%- endif %}
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.section_color_scheme.id }} {% if section.settings.section_center_heading %}section-wrapper--center-align{% endif %}">
+	{% if section.settings.section_heading != blank or section.settings.section_description != blank %}
+		<div class="container section-wrapper__header">
+			<div class="content content--align--{{ heading_align }}">
+				{% if section.settings.section_heading != blank %}
+					<div class="content__heading">
+						{% capture heading_capture %}
+							<h2 class="heading heading--size--{{ section.settings.section_heading_size }}">
+								{{ section.settings.section_heading }}
+							</h2>
+						{% endcapture %}
+						{% if section.settings.section_heading_animation %}
+							<div
+								class="scroll-animation scroll-animation--use--text-reveal scroll-animation--origin-align--{{ heading_align }} {% unless settings.appearance_animate_heading_on_mobile %}scroll-animation--only-desktop-animation{% endunless %}"
+								style=""
+							>
+								{{ heading_capture }}
+							</div>
+						{% else -%}
+							{{- heading_capture -}}
+						{%- endif %}
+					</div>
+				{% endif -%}
+				{%- if section.settings.section_description != blank %}
+					<div class="content__text">
+						<p class="text text--size--md">{{ section.settings.section_description }}</p>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+	<div class="section-wrapper__body">
+		{% capture capture_grid_content %}
+			{% if section.settings.collection != blank -%}
+				{%- for collection_product in section.settings.collection.products limit: products_count -%}
+					{%- render 'product-card', card_product: collection_product, gyro_effect: section.settings.gyro_effect -%}
+				{%- endfor -%}
+			{%- else -%}
+				{%- for i in (0..products_count) -%}
+					{%- render 'product-card', index_0: i -%}
+				{%- endfor -%}
+			{%- endif %}
+		{% endcapture %}
+		{% if section.settings.stack_grid_layout == 'grid' %}
+			<div class="container">
+				<div
+					class="grid"
+					style="--grid-columns: {{ section.settings.stack_grid_desktop_columns }};--grid-mobile-columns: {{ section.settings.stack_grid_mobile_columns }};"
+				>
+					{{ capture_grid_content }}
+				</div>
+			</div>
+		{% else -%}
+			{{- 'component-inline-carousel.css' | asset_url | stylesheet_tag }}
+			<x-inline-carousel
+				class="inline-carousel"
+				items-count="{{ products_count }}"
+				columns="{{ section.settings.stack_grid_desktop_columns }}"
+				style="--inline-carousel-columns: {{ section.settings.stack_grid_desktop_columns }};--inline-carousel-mobile-columns: {% if section.settings.stack_grid_mobile_columns == '1' %}1.25{% else %}{{ section.settings.stack_grid_mobile_columns }}{% endif %};--inline-carousel-items-count: {{ products_count }};"
+				section-id="{{ section.id }}"
+			>
+				<div class="inline-carousel__view" data-inline-carousel-element="view">
+					<div class="container inline-carousel__container container--size--adaptive">
+						<div class="inline-carousel__track" data-inline-carousel-element="track">
+							{{ capture_grid_content }}
+							{% unless section.settings.stack_grid_mobile_columns == '1' %}
+								<div class="inline-carousel__psuedo-item"></div>
+							{% endunless %}
+						</div>
+					</div>
+					<div class="container inline-carousel__nav-container">
+						<button
+							class="inline-carousel__nav-prev"
+							aria-label="{{ 'general.slider.previous_slide' | t }}"
+							data-inline-carousel-element="nav-prev"
+						>
+							<span class="carousel-arrow">
+								<svg class="carousel-arrow__icon">
+									<use  xlink:href="#svg-icon-arrow-left"></use>
+								</svg>
+							</span>
+						</button>
+						<button
+							class="inline-carousel__nav-next"
+							aria-label="{{ 'general.slider.next_slide' | t }}"
+							data-inline-carousel-element="nav-next"
+						>
+							<span class="carousel-arrow">
+								<svg class="carousel-arrow__icon">
+									<use  xlink:href="#svg-icon-arrow-right"></use>
+								</svg>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div class="container">
+					<x-carousel-pagination
+						class="carousel-pagination inline-carousel__mobile-pagination"
+						section-id="{{ section.id }}"
+					>
+						{% for i in (0..products_count) -%}
+							{%- unless forloop.last -%}
+								<label>
+									<input
+										class="carousel-pagination__radio"
+										type="radio"
+										name="{{ section.id | append: 'carousel-pagination' }}"
+										value="{{ i }}"
+										data-carousel-pagination-element="radio"
+										{% if forloop.first %}
+											checked
+										{% endif %}
+									>
+									<div class="carousel-pagination__dot"></div>
+								</label>
+							{%- endunless -%}
+						{%- endfor %}
+					</x-carousel-pagination>
+					<script type="module" src="{{ 'component-carousel-pagination.js' | asset_url }}"></script>
+				</div>
+			</x-inline-carousel>
+
+			<script type="module" src="{{ 'component-inline-carousel.js' | asset_url }}"></script>
+		{% endif %}
+	</div>
+	{% if button_label != blank %}
+		<div class="container section-wrapper__footer">
+			<a href="{{ section.settings.collection.url }}" style="" class="button">{{ button_label }}</a>
+		</div>
+	{% endif %}
+</div>
+
+{% schema %}
+	{
+		"name": "Featured collection",
+		"class": "featured-collection-section",
+		"presets": [
+			{
+				"name": "Featured collection",
+				"settings": {
+					"collection": "all"
+				},
+				"category": "Collections"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "collection",
+				"id": "collection",
+				"label": "Collection"
+			},
+			{
+				"type": "range",
+				"id": "max_products",
+				"min": 3,
+				"max": 50,
+				"label": "Maximum products to show",
+				"default": 10
+			},
+			{
+				"type": "text",
+				"id": "section_heading",
+				"label": "Heading",
+				"default": "Featured collection"
+			},
+			{
+				"type": "select",
+				"id": "section_heading_size",
+				"label": "Heading size",
+				"options": [
+					{
+						"value": "h2",
+						"label": "Small"
+					},
+					{
+						"value": "h1",
+						"label": "Medium"
+					},
+					{
+						"value": "d3",
+						"label": "Large"
+					}
+				],
+				"default": "h1"
+			},
+			{
+				"type": "checkbox",
+				"id": "section_heading_animation",
+				"label": "Use heading animation",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "section_center_heading",
+				"label": "Center heading",
+				"default": true
+			},
+			{
+				"type": "inline_richtext",
+				"id": "section_description",
+				"label": "Text"
+			},
+			{
+				"type": "color_scheme",
+				"id": "section_color_scheme",
+				"label": "Color scheme",
+				"default": "alt"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_view_all",
+				"label": "Show 'View all' button",
+				"default": false
+			},
+			{
+				"type": "header",
+				"content": "Format"
+			},
+			{
+				"id": "stack_grid_layout",
+				"label": "Layout",
+				"type": "select",
+				"options": [
+					{
+						"value": "stack",
+						"label": "Stack"
+					},
+					{
+						"value": "grid",
+						"label": "Grid"
+					}
+				],
+				"default": "stack"
+			},
+			{
+				"type": "select",
+				"id": "stack_grid_desktop_columns",
+				"label": "Desktop columns",
+				"options": [
+					{
+						"value": "2",
+						"label": "2"
+					},
+					{
+						"value": "3",
+						"label": "3"
+					},
+					{
+						"value": "4",
+						"label": "4"
+					},
+					{
+						"value": "5",
+						"label": "5"
+					}
+				],
+				"default": "3"
+			},
+			{
+				"type": "select",
+				"id": "stack_grid_mobile_columns",
+				"label": "Mobile columns",
+				"options": [
+					{
+						"value": "1",
+						"label": "1"
+					},
+					{
+						"value": "2",
+						"label": "2"
+					}
+				],
+				"default": "2"
+			},
+			{
+				"type": "checkbox",
+				"id": "gyro_effect",
+				"label": "Enable 3D effect on mouseover",
+				"default": true
+			}
+		]
+	}
+{% endschema %}

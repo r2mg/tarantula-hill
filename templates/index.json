@@ -1,0 +1,852 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_background_video_pN6tqA": {
+      "type": "hero-background-video",
+      "blocks": {
+        "heading_pwh3KM": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Not your average brewery",
+            "heading_size": "d3"
+          }
+        },
+        "description_4Xb8rM": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Award-winning IPAs, crisp lagers, Neapolitan style pizza & super-premium home made ice-cream—all under one lively roof in Thousand Oaks.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_rEiCDq": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Place an order",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "https://gotab.io/loc/tarantulahillbrewingco"
+          }
+        },
+        "button_hgcdG7": {
+          "type": "button",
+          "settings": {
+            "button_label": "Beer Finder",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "shopify://pages/beer-finder-1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_pwh3KM",
+        "description_4Xb8rM",
+        "button_rEiCDq",
+        "button_hgcdG7"
+      ],
+      "name": "Hero background video",
+      "settings": {
+        "banner_video": "shopify://files/videos/MVI_7245_4x.mp4",
+        "banner_overlay": 15,
+        "banner_size": "screen",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    },
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Not your average brewery",
+            "heading_size": "d3"
+          }
+        },
+        "text": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Award-winning IPAs, crisp lagers, Neapolitan style pizza & super-premium home made ice-cream—all under one lively roof in Thousand Oaks.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_WJGp3h": {
+          "type": "button",
+          "settings": {
+            "button_label": "order pick up",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "shopify://pages/the-kitchen"
+          }
+        },
+        "button_cytam7": {
+          "type": "button",
+          "settings": {
+            "button_label": "Beer finder",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "shopify://pages/beer-finder-1"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button_WJGp3h",
+        "button_cytam7"
+      ],
+      "disabled": true,
+      "settings": {
+        "banner_image": "shopify://shop_images/MacBook_Pro_14__-_2_5fb0a396-e435-410e-96e8-f22583dad81b.png",
+        "banner_mobile_image": "shopify://shop_images/MacBook_Pro_14__-_3.png",
+        "banner_overlay": 0,
+        "banner_size": "screen",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": "invert"
+      }
+    },
+    "multicolumn_media_4FAzEH": {
+      "type": "multicolumn-media",
+      "blocks": {
+        "image_LfKqgj": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/627178cad42a84a91d0e01b6_TAP.gif",
+            "image_overlay": 0,
+            "link": "https://untappd.com/v/tarantula-hill-brewing-company/9111980",
+            "content_position": "bottom-center",
+            "subheading_text": "",
+            "heading_text": "On-Tap",
+            "heading_size": "h5",
+            "text_content": "",
+            "color_scheme": ""
+          }
+        },
+        "image_yyTypT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/66565647008621dd7680922e_EVENTS.gif",
+            "image_overlay": 0,
+            "link": "shopify://pages/entertainment-1",
+            "content_position": "bottom-center",
+            "subheading_text": "",
+            "heading_text": "Entertainment",
+            "heading_size": "h5",
+            "text_content": "",
+            "color_scheme": ""
+          }
+        },
+        "image_egbjTW": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/622a5928a580fa329a1b3155_menu.gif",
+            "image_overlay": 0,
+            "link": "shopify://pages/food-menu",
+            "content_position": "bottom-center",
+            "subheading_text": "",
+            "heading_text": "Menu",
+            "heading_size": "h5",
+            "text_content": "",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_LfKqgj",
+        "image_yyTypT",
+        "image_egbjTW"
+      ],
+      "name": "Multicolumn media",
+      "settings": {
+        "section_heading": "",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "invert",
+        "stack_grid_layout": "grid",
+        "stack_grid_desktop_columns": "3",
+        "image_ratio": "portrait",
+        "gyro_effect": true
+      }
+    },
+    "featured_product_fQ74hT": {
+      "type": "featured-product",
+      "blocks": {
+        "title_ty4jVi": {
+          "type": "title",
+          "settings": {
+            "title_size": "h2",
+            "show_vendor": false,
+            "show_rating": true
+          }
+        },
+        "price_4Hx79G": {
+          "type": "price",
+          "settings": {
+            "show_taxes_note": true
+          }
+        },
+        "variant_picker_bR7Md8": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "pills",
+            "enable_color_swatches": true,
+            "variant_image_options": ""
+          }
+        },
+        "buy_buttons_njqyjX": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_recipient_form": true,
+            "show_payment_icons": false,
+            "show_qty_selector": false
+          }
+        }
+      },
+      "block_order": [
+        "title_ty4jVi",
+        "price_4Hx79G",
+        "variant_picker_bR7Md8",
+        "buy_buttons_njqyjX"
+      ],
+      "disabled": true,
+      "name": "Featured product",
+      "settings": {
+        "product": "midnight-kisser-foam-trucker",
+        "color_scheme": "invert",
+        "enable_share": false,
+        "sticky_media": true,
+        "media_position": "left",
+        "media_size": "small",
+        "thumbs_position": "aside",
+        "gallery_ratio": "square",
+        "media_fit": "fill",
+        "enable_autoplay": false
+      }
+    },
+    "image_with_text_NaXWcC": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_zFAJb7": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Midnight is calling",
+            "heading_animation": true,
+            "heading_size": "h1"
+          }
+        },
+        "description_LNawii": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Pre-order your Midnight Kisser hat befor our NYE party!</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_kVLthr": {
+          "type": "button",
+          "settings": {
+            "button_label": "Pre-Order",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "shopify://products/midnight-kisser-foam-trucker"
+          }
+        }
+      },
+      "block_order": [
+        "heading_zFAJb7",
+        "description_LNawii",
+        "button_kVLthr"
+      ],
+      "disabled": true,
+      "name": "Image with text",
+      "settings": {
+        "color_scheme": "invert",
+        "hover_parallax": true,
+        "use_bg": false,
+        "image": "shopify://shop_images/Artboard2copy.png",
+        "image_position": "left",
+        "image_width": "medium",
+        "image_size": "auto",
+        "text_align": "left",
+        "content_position": "middle-center"
+      }
+    },
+    "vertical_image_scroller_yy9ELH": {
+      "type": "vertical-image-scroller",
+      "blocks": {
+        "image_rBwePG": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_041125_1889.jpg",
+            "image_ratio": "auto",
+            "x_position": 5,
+            "y_position": 15,
+            "width": 15,
+            "speed": "normal"
+          }
+        },
+        "image_YwnY6m": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_091824_0232.jpg",
+            "image_ratio": "auto",
+            "x_position": 60,
+            "y_position": 0,
+            "width": 15,
+            "speed": "slow"
+          }
+        },
+        "image_rEp3Aj": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_073024_8555.jpg",
+            "image_ratio": "auto",
+            "x_position": 80,
+            "y_position": 22,
+            "width": 14,
+            "speed": "slow"
+          }
+        },
+        "image_j6RWjM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_041125_1893_1.jpg",
+            "image_ratio": "auto",
+            "x_position": 10,
+            "y_position": 50,
+            "width": 12,
+            "speed": "normal"
+          }
+        },
+        "image_TMX6Y9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_041125_1889.jpg",
+            "image_ratio": "auto",
+            "x_position": 95,
+            "y_position": 59,
+            "width": 15,
+            "speed": "normal"
+          }
+        },
+        "image_pdnitC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_073024_8697.jpg",
+            "image_ratio": "auto",
+            "x_position": 20,
+            "y_position": 75,
+            "width": 12,
+            "speed": "fast"
+          }
+        },
+        "image_96fpYT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_041125_1870.jpg",
+            "image_ratio": "auto",
+            "x_position": 0,
+            "y_position": 90,
+            "width": 16,
+            "speed": "fast"
+          }
+        },
+        "image_EnYHdN": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_1012_BW.jpg",
+            "image_ratio": "auto",
+            "x_position": 5,
+            "y_position": 87,
+            "width": 19,
+            "speed": "slow"
+          }
+        },
+        "image_yPc9Bi": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_073024_8497.jpg",
+            "image_ratio": "auto",
+            "x_position": 80,
+            "y_position": 100,
+            "width": 12,
+            "speed": "fast"
+          }
+        },
+        "image_yMirTB": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_041125_1930.jpg",
+            "image_ratio": "auto",
+            "x_position": 95,
+            "y_position": 95,
+            "width": 15,
+            "speed": "normal"
+          }
+        },
+        "image_jM6Eqm": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_091824_0226.jpg",
+            "image_ratio": "auto",
+            "x_position": 80,
+            "y_position": 98,
+            "width": 15,
+            "speed": "slow"
+          }
+        }
+      },
+      "block_order": [
+        "image_rBwePG",
+        "image_YwnY6m",
+        "image_rEp3Aj",
+        "image_j6RWjM",
+        "image_TMX6Y9",
+        "image_pdnitC",
+        "image_96fpYT",
+        "image_EnYHdN",
+        "image_yPc9Bi",
+        "image_yMirTB",
+        "image_jM6Eqm"
+      ],
+      "name": "Award Winning",
+      "settings": {
+        "text_align": "center",
+        "heading_text": "Award-Winning Craft Beers",
+        "heading_animation": true,
+        "heading_size": "d3",
+        "text_content": "At Tarantula Hill Brewing Co., we take pride in crafting unique beers that tantalize your taste buds. Each brew is a labor of love, made with the finest ingredients to ensure a memorable experience.",
+        "button_label": "Our History",
+        "button_variant": "outline",
+        "button_link": "shopify://pages/our-history",
+        "color_scheme": "invert"
+      }
+    },
+    "marquee_JBJGBB": {
+      "type": "marquee",
+      "blocks": {
+        "text_R3wDmF": {
+          "type": "text",
+          "settings": {
+            "text": "• Crafting beer & community since 2019",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_R3wDmF"
+      ],
+      "name": "Marquee",
+      "settings": {
+        "color_scheme": "invert",
+        "content_size": "h1",
+        "type": "auto",
+        "stop_on_hover": true,
+        "direction": "normal",
+        "speed": "0.5",
+        "space_between": "small"
+      }
+    },
+    "featured_collections_tabs_FmH4ag": {
+      "type": "featured-collections-tabs",
+      "blocks": {
+        "collection_CkJ6z6": {
+          "type": "collection",
+          "settings": {
+            "custom_heading": "Our Favorites",
+            "collection": "frontpage"
+          }
+        }
+      },
+      "block_order": [
+        "collection_CkJ6z6"
+      ],
+      "name": "Featured collections tabs",
+      "settings": {
+        "section_heading": "Featured collections",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "main",
+        "stack_grid_layout": "stack",
+        "stack_grid_desktop_columns": "4",
+        "stack_grid_mobile_columns": "2",
+        "max_products": 10,
+        "gyro_effect": true
+      }
+    },
+    "slideshow_ewNXh9": {
+      "type": "slideshow",
+      "blocks": {
+        "image_m7M8xf": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/IMG_3065.jpg",
+            "banner_overlay": 40,
+            "content_position": "middle-center",
+            "content_box": false,
+            "subheading_text": "Looking to reserve a table for a large party",
+            "heading_text": "Book a party",
+            "heading_size": "h1",
+            "text_content": "Got a big group coming? Perfect. We love when people bring their crew for good food and even better times. Just let us know what you need and we'll make it happen.",
+            "button_label": "reserve now",
+            "button_variant": "outline",
+            "button_link": "shopify://pages/book-a-party",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_m7M8xf"
+      ],
+      "disabled": true,
+      "name": "Slideshow",
+      "settings": {
+        "image_size": "medium",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "show_arrows_on_desktop": false,
+        "autoplay": "0"
+      }
+    },
+    "ss_map_xdXFRV": {
+      "type": "ss-map",
+      "name": "SS - Map",
+      "settings": {
+        "heading": "Come Visit Us",
+        "address": "<p>244 Thousand Oaks Blvd Thousand Oaks, CA</p><p><strong>Mon |  </strong>3pm - 10pm<strong> </strong></p><p><strong> Tues-Thur | </strong>12pm - 10pm</p><p><strong> Fri-Sat |  </strong>12pm - 1am  </p><p><strong>Sun | </strong>12pm - 10pm </p>",
+        "map_address": "244 Thousand Oaks Blvd, Thousand Oaks, CA 91360",
+        "google_map_api_key": "AIzaSyCS01_yBfcCEbkb24pwDhUCkVB6wAA6-vY",
+        "show_button": true,
+        "button_text": "Get directions",
+        "lazy_loading": true,
+        "heading_size": 24,
+        "address_size": 18,
+        "button_size": 12,
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "card_background_color": "#ffffff",
+        "btn_text_color": "#ffffff",
+        "btn_background_color": "#000000",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_x": 0,
+        "padding_x_desktop": 0,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "full_width": true,
+        "section_width": 120
+      }
+    },
+    "compared_images_rjhzgV": {
+      "type": "compared-images",
+      "blocks": {
+        "before_image_9ib97T": {
+          "type": "beforeImage",
+          "settings": {
+            "image": "shopify://shop_images/s.png",
+            "heading_text": "SEALED",
+            "subheading_text": "FRESH",
+            "text_content": "",
+            "color_scheme": "invert"
+          }
+        },
+        "after_image_QxhnHD": {
+          "type": "afterImage",
+          "settings": {
+            "image": "shopify://shop_images/u8339937669_Tall_beer_glass_with_golden_draft_beer_and_foam_hea_43cce4f7-e2b6-40c7-8d1b-8947148b4072.png",
+            "heading_text": "PERFECT",
+            "subheading_text": "POURED",
+            "text_content": "",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "before_image_9ib97T",
+        "after_image_QxhnHD"
+      ],
+      "disabled": true,
+      "name": "Compared images",
+      "settings": {
+        "section_heading": "The First Rule - COMING SOON",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "Introducing our latest creation: [Blank] West Coast IPA. Masterfully crafted with bold hop character and vibrant citrus notes, this brew delivers the perfect balance of dank aromatics and refreshing finish that defines the West Coast style. Each sip promises an unforgettable experience that will keep you coming back for more.",
+        "section_color_scheme": "invert",
+        "image_size": "large",
+        "text_position": "bottom"
+      }
+    },
+    "ss_countdown_timer_2_xDGizW": {
+      "type": "ss-countdown-timer-2",
+      "blocks": {
+        "timer_Mm4gkP": {
+          "type": "timer",
+          "settings": {
+            "year": "2025",
+            "month": "09",
+            "day": "19",
+            "hour": "00",
+            "minute": "00",
+            "hide_timer_on_completed": true,
+            "timer_completed_text": "",
+            "color": "#000000",
+            "days_translated": "Days",
+            "hours_translated": "Hours",
+            "minutes_translated": "Minutes",
+            "seconds_translated": "Seconds"
+          }
+        }
+      },
+      "block_order": [
+        "timer_Mm4gkP"
+      ],
+      "disabled": true,
+      "name": "SS - Countdown timer 2",
+      "settings": {
+        "full_width": false,
+        "border_radius": 0,
+        "bg_color": "#feb101",
+        "section-background-color": "#ffffff",
+        "pt": 32,
+        "pb": 32,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "horizontal_image_scroller_nXPngU": {
+      "type": "horizontal-image-scroller",
+      "blocks": {
+        "image_dMP8iU": {
+          "type": "image",
+          "settings": {
+            "banner_image": "{{ metaobjects.event_highlights.veterans.image.value }}",
+            "banner_overlay": 20,
+            "link": "",
+            "subheading_text": "NOV 11 | ALL DAY",
+            "heading_text": "{{ metaobjects.event_highlights.veterans.event_name.value }}",
+            "heading_size": "h3",
+            "text_content": "",
+            "content_position": "bottom-left",
+            "color_scheme": "invert"
+          }
+        },
+        "image_CUc7F6": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/20170813_082359_large_be418942-f169-4b95-b6b1-54756eef3c7c.webp",
+            "banner_overlay": 20,
+            "link": "",
+            "subheading_text": "NOV 13 | 5PM",
+            "heading_text": "Art Market",
+            "heading_size": "h3",
+            "text_content": "",
+            "content_position": "bottom-left",
+            "color_scheme": ""
+          }
+        },
+        "image_3CPPda": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/istockphoto-1127277595-612x612.jpg",
+            "banner_overlay": 40,
+            "link": "",
+            "subheading_text": "NOV 18 | 7PM",
+            "heading_text": "Speed Dating",
+            "heading_size": "h3",
+            "text_content": "",
+            "content_position": "bottom-left",
+            "color_scheme": ""
+          }
+        },
+        "image_RkMa74": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/25_MC-74000_2073.png",
+            "banner_overlay": 18,
+            "link": "",
+            "subheading_text": "NOV 20 | 7PM",
+            "heading_text": "Dueling Pianos",
+            "heading_size": "h3",
+            "text_content": "",
+            "content_position": "bottom-left",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_dMP8iU",
+        "image_CUc7F6",
+        "image_3CPPda",
+        "image_RkMa74"
+      ],
+      "disabled": true,
+      "name": "Event Highlights",
+      "settings": {
+        "scroll_clip": false,
+        "gyro_effect": true,
+        "scatter_images": false,
+        "image_width": "normal",
+        "subheading_text": "",
+        "heading_text": "EVENT HIGHLIGHTS",
+        "heading_animation": true,
+        "heading_size": "h2",
+        "text_content": "From beer releases to backyard bashes, here's what's brewing at the Hill. Check the calendar and come hang.",
+        "button_label": "Full calendar",
+        "button_variant": "outline",
+        "button_link": "shopify://pages/entertainment-1",
+        "color_scheme": "invert"
+      }
+    },
+    "scrolling_hero_images_zqDWgQ": {
+      "type": "scrolling-hero-images",
+      "blocks": {
+        "image_bJQxqR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_091824_0224.jpg",
+            "image_overlay": 20,
+            "subheading_text": "",
+            "heading_text": "The brewery",
+            "heading_size": "h1",
+            "text_content": "This is where it all starts. Our brewing team creates a wide range of styles, from hop-forward favorites to clean, classic lagers, all brewed with intention and quality ingredients.",
+            "button_label": "Learn More",
+            "button_variant": "outline",
+            "button_link": "shopify://pages/the-brewery",
+            "content_position": "middle-left",
+            "text_align": "left",
+            "color_scheme": ""
+          }
+        },
+        "image_Gk7qKB": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_102024_0907.jpg",
+            "image_overlay": 20,
+            "subheading_text": "",
+            "heading_text": "The Kitchen",
+            "heading_size": "h1",
+            "text_content": "Our kitchen serves up elevated comfort food built to match the beer. Fresh ingredients, bold flavors, and rotating specials—from pizzas to shareables—designed for easy hangs and long stays.",
+            "button_label": "Learn More",
+            "button_variant": "outline",
+            "button_link": "shopify://pages/the-kitchen",
+            "content_position": "middle-center",
+            "text_align": "center",
+            "color_scheme": ""
+          }
+        },
+        "image_NH4b9V": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_121024_1517.jpg",
+            "image_overlay": 20,
+            "subheading_text": "",
+            "heading_text": "Ice cream",
+            "heading_size": "h1",
+            "text_content": "House-made, small-batch ice cream crafted right here for the perfect sweet finish. Classic flavors, rotating specials, and seasonal drops.",
+            "button_label": "Learn More",
+            "button_variant": "outline",
+            "button_link": "shopify://pages/ice-cream",
+            "content_position": "middle-right",
+            "text_align": "right",
+            "color_scheme": "invert"
+          }
+        }
+      },
+      "block_order": [
+        "image_bJQxqR",
+        "image_Gk7qKB",
+        "image_NH4b9V"
+      ],
+      "name": "Brew-Kitch-Ice",
+      "settings": {
+        "heading_animation": true,
+        "scroll_clip": false
+      }
+    },
+    "image_with_text_4HCCe3": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_QP8GpD": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "CRAFT COCKTAILS & SPIRITS",
+            "heading_animation": true,
+            "heading_size": "h1"
+          }
+        },
+        "description_6a3gre": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Beyond our award-winning beer, discover our carefully curated selection of craft cocktails, premium spirits, and signature drinks. Each cocktail is expertly crafted to complement your brewery experience.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_QcegEQ": {
+          "type": "button",
+          "settings": {
+            "button_label": "VIEW COCKTAIL MENU",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "shopify://pages/the-bar"
+          }
+        }
+      },
+      "block_order": [
+        "heading_QP8GpD",
+        "description_6a3gre",
+        "button_QcegEQ"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "color_scheme": "invert",
+        "hover_parallax": false,
+        "use_bg": false,
+        "image": "shopify://shop_images/THill_EK_091525_4323.jpg",
+        "image_position": "left",
+        "image_width": "medium",
+        "image_size": "auto",
+        "text_align": "left",
+        "content_position": "middle-center"
+      }
+    }
+  },
+  "order": [
+    "hero_background_video_pN6tqA",
+    "hero",
+    "multicolumn_media_4FAzEH",
+    "featured_product_fQ74hT",
+    "image_with_text_NaXWcC",
+    "vertical_image_scroller_yy9ELH",
+    "marquee_JBJGBB",
+    "featured_collections_tabs_FmH4ag",
+    "slideshow_ewNXh9",
+    "ss_map_xdXFRV",
+    "compared_images_rjhzgV",
+    "ss_countdown_timer_2_xDGizW",
+    "horizontal_image_scroller_nXPngU",
+    "scrolling_hero_images_zqDWgQ",
+    "image_with_text_4HCCe3"
+  ]
+}

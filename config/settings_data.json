@@ -1,0 +1,178 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "brand_logo": "shopify://shop_images/Asset_2_3x_97ce8921-3913-4394-876d-d337c3aafd80.png",
+    "brand_logo_width": 100,
+    "brand_favicon": "shopify://shop_images/Artboasrd_1.jpg",
+    "appearance_heading_animation": "reveal",
+    "appearance_pill_buttons": true,
+    "colors_sale_color_scheme": "invert",
+    "typography_heading_font": "poppins_n9",
+    "typography_heading_letter_spacing": "normal",
+    "typography_body_font": "inter_n4",
+    "typography_buttons_font": "heading",
+    "typography_buttons_letter_spacing": "x-wide",
+    "typography_navigation_letter_spacing": "normal",
+    "cart_cart_icon": "cart",
+    "cart_type": "drawer",
+    "cart_drawer_color_scheme": "invert",
+    "cart_fallback_products": [
+      "black-w-orange-logo-for-locals-hoodie"
+    ],
+    "cart_note": true,
+    "social_media_facebook": "https://www.facebook.com/tarantulahillbrewco/",
+    "social_media_instagram": "https://www.instagram.com/tarantulahillbrewingco/?hl=en",
+    "content_for_index": [],
+    "blocks": {
+      "10560697916000961394": {
+        "type": "shopify://apps/blockify-age-verification/blocks/omg-app-age/92f920f4-d437-4eb4-9aab-e091741a3ce4",
+        "disabled": true,
+        "settings": {}
+      },
+      "9450951229966589494": {
+        "type": "shopify://apps/avp-age-verification/blocks/app-embed/0b530eb8-f19c-4a9b-87d4-bf625c71dec9",
+        "disabled": true,
+        "settings": {}
+      },
+      "13768625480086291342": {
+        "type": "shopify://apps/forms/blocks/forms/8744a304-fcb1-4347-b211-bb6b4759a76a",
+        "disabled": false,
+        "settings": {}
+      },
+      "3140817623390692025": {
+        "type": "shopify://apps/na-age-verification/blocks/agechecker_y1K8NR3dvv/15fad4c9-4ba9-4c27-8e6c-1f214a81924f",
+        "disabled": true,
+        "settings": {}
+      },
+      "18131037017812181619": {
+        "type": "shopify://apps/mailchimp-email-sms/blocks/mailchimp_for_shopify_script/e3b67dce-fd41-4b61-b3cf-961c12344cde",
+        "disabled": true,
+        "settings": {}
+      },
+      "16987187365865460165": {
+        "type": "shopify://apps/ez-preorder/blocks/pre-order/27f5c03b-584b-4f19-8dc2-99bf52c8c09f",
+        "disabled": false,
+        "settings": {}
+      },
+      "1513253815146976218": {
+        "type": "shopify://apps/omnisend-email-marketing-sms/blocks/app-embed/44704aa2-794f-4c5d-8c8e-039c841158e9",
+        "disabled": true,
+        "settings": {}
+      }
+    },
+    "color_schemes": {
+      "main": {
+        "settings": {
+          "text": "#282828",
+          "background": "#ffffff",
+          "background_gradient": "",
+          "button_text": "#ffffff",
+          "button_background": "#282828"
+        }
+      },
+      "invert": {
+        "settings": {
+          "text": "#ffffff",
+          "background": "#000000",
+          "background_gradient": "",
+          "button_text": "#000000",
+          "button_background": "#ffffff"
+        }
+      },
+      "alt": {
+        "settings": {
+          "text": "#282828",
+          "background": "#e6e6e6",
+          "background_gradient": "",
+          "button_text": "#ffffff",
+          "button_background": "#282828"
+        }
+      },
+      "red": {
+        "settings": {
+          "text": "#ffffff",
+          "background": "#ff0000",
+          "background_gradient": "",
+          "button_text": "#ff0000",
+          "button_background": "#ffffff"
+        }
+      },
+      "scheme-19c1893c-8da7-4347-a2a6-fbea7176ab91": {
+        "settings": {
+          "text": "#000000",
+          "background": "#feb101",
+          "background_gradient": "",
+          "button_text": "#000000",
+          "button_background": "#000000"
+        }
+      }
+    }
+  },
+  "presets": {
+    "Nova": {
+      "brand_logo_width": 50,
+      "typography_heading_font": "poppins_n7",
+      "typography_heading_letter_spacing": "wide",
+      "typography_body_font": "inter_n4",
+      "typography_buttons_letter_spacing": "x-wide",
+      "type_heading_font": "poppins_n7",
+      "type_heading_transform": "uppercase",
+      "type_heading_letter_spacing": 170,
+      "type_subheading_font": "body",
+      "type_subheading_font_scale": 90,
+      "type_subheading_letter_spacing": 190,
+      "type_subheading_text_transform": "uppercase",
+      "type_body_font": "inter_n4",
+      "button_letter_spacing": 180,
+      "button_text_transform": "uppercase",
+      "content_for_index": [],
+      "color_schemes": {
+        "main": {
+          "settings": {
+            "text": "#282828",
+            "background": "#ffffff",
+            "button_text": "#ffffff",
+            "button_background": "#282828"
+          }
+        },
+        "invert": {
+          "settings": {
+            "text": "#ffffff",
+            "background": "#282828",
+            "button_text": "#282828",
+            "button_background": "#ffffff"
+          }
+        },
+        "alt": {
+          "settings": {
+            "text": "#282828",
+            "background": "#e6e6e6",
+            "button_text": "#ffffff",
+            "button_background": "#282828"
+          }
+        },
+        "red": {
+          "settings": {
+            "text": "#ffffff",
+            "background": "#ff0000",
+            "button_text": "#ff0000",
+            "button_background": "#ffffff"
+          }
+        }
+      }
+    }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      "html {scroll-behavior: smooth;}"
+    ]
+  }
+}

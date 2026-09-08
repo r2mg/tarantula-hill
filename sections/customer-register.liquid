@@ -1,0 +1,91 @@
+<div class="section-wrapper section-wrapper--y-offset--padding">
+	<div class="container section-wrapper__body">
+		<div class="customer__fields">
+			<div style="" class="stack customer__fields__header stack--v">
+				<h1 class="heading heading--size--h2">{{ 'customer.register.title' | t }}</h1>
+			</div>
+			{% form 'create_customer', novalidate: 'novalidate' %}
+				{% if form.errors %}
+					<div class="customer__form-errors">
+						<h2 class="customer__form-errors__heading" tabindex="-1" autofocus>
+							<span class="screen-reader">
+								{{ 'accessibility.error' | t }}
+							</span>
+							{{ 'templates.contact.form.error_heading' | t }}
+						</h2>
+						{{ form.errors | default_errors }}
+					</div>
+				{% endif %}
+				<div style="" class="stack stack--v">
+					<div class="form-control">
+						<input
+							class="form-control__input"
+							type="text"
+							name="customer[first_name]"
+							placeholder="{{ 'customer.register.first_name' | t }}"
+							value="{{ form.first_name }}"
+							id="RegisterForm-FirstName"
+						>
+					</div>
+					<div class="form-control">
+						<input
+							class="form-control__input"
+							type="text"
+							name="customer[last_name]"
+							placeholder="{{ 'customer.register.last_name' | t }}"
+							value="{{ form.last_name }}"
+							id="RegisterForm-LastName"
+						>
+					</div>
+					<div class="form-control">
+						<input
+							class="form-control__input"
+							type="email"
+							name="customer[email]"
+							placeholder="{{ 'customer.login_page.email' | t }}"
+							value="{{ form.email }}"
+							id="RegisterForm-email"
+							{% if form.errors contains 'email' %}
+								aria-invalid="true" aria-describedby="RegisterForm-email-error"
+							{% endif %}
+						>
+
+						{% if form.errors contains 'email' %}
+							<div class="badge badge--type--danger badge--mini" id="RegisterForm-email-error">
+								{{ form.errors.translated_fields.email | capitalize }}
+								{{ form.errors.messages.email }}
+							</div>
+						{% endif %}
+					</div>
+					<div class="form-control">
+						<input
+							class="form-control__input"
+							type="password"
+							name="customer[password]"
+							placeholder="{{ 'customer.register.password' | t }}"
+							{% if form.errors contains 'password' %}
+								aria-invalid="true" aria-describedby="RegisterForm-password-error"
+							{% endif %}
+						>
+
+						{% if form.errors contains 'password' %}
+							<div class="badge badge--type--danger badge--mini" id="RegisterForm-password-error">
+								{{ form.errors.translated_fields.password | capitalize }}
+								{{ form.errors.messages.password }}
+							</div>
+						{% endif %}
+					</div>
+
+					<button type="submit" style="" class="button button--block">{{ 'customer.register.submit' | t }}</button>
+				</div>
+			{% endform %}
+		</div>
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Customer register",
+		"class": "customer-register-section"
+	}
+{% endschema %}

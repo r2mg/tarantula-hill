@@ -1,0 +1,62 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "page": {
+      "type": "page",
+      "settings": {}
+    },
+    "page-header": {
+      "type": "contact-page-header",
+      "settings": {}
+    },
+    "form": {
+      "type": "contact-page-form",
+      "blocks": {
+        "name": {
+          "type": "text",
+          "settings": {
+            "width": "6"
+          }
+        },
+        "email": {
+          "type": "email",
+          "settings": {
+            "width": "6"
+          }
+        },
+        "phone": {
+          "type": "phone_number",
+          "settings": {
+            "width": "12"
+          }
+        },
+        "message": {
+          "type": "textarea",
+          "settings": {
+            "width": "12"
+          }
+        }
+      },
+      "block_order": [
+        "name",
+        "email",
+        "phone",
+        "message"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "page-header",
+    "form",
+    "page"
+  ]
+}

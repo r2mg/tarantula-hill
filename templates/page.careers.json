@@ -1,0 +1,352 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_RUxVbb": {
+      "type": "hero",
+      "blocks": {
+        "heading_xYUVGm": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Join Our Team",
+            "heading_size": "h1"
+          }
+        },
+        "description_zkFtt8": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Be part of the Tarantula Hill family. We're looking for passionate individuals who share our commitment to great beer, exceptional food, and outstanding hospitality.</p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_xYUVGm",
+        "description_zkFtt8"
+      ],
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/THill_EK_102024_0948.jpg",
+        "banner_overlay": 40,
+        "banner_size": "screen",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    },
+    "page-header": {
+      "type": "page-header",
+      "disabled": true,
+      "settings": {
+        "page_header_color_scheme": "",
+        "page_header_center_text": true,
+        "page_header_heading_size": "h1",
+        "page_header_image_overlay": 30,
+        "page_header_image_size": "medium",
+        "page_header_scroll_clip": false,
+        "page_header_overlap": true
+      }
+    },
+    "page": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container_width": "normal"
+      }
+    },
+    "multicolumn_7Mf6hr": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_97KTMi": {
+          "type": "column",
+          "settings": {
+            "link": "",
+            "subheading_text": "",
+            "heading_text": "Craft Beer Perks",
+            "text_content": "Employee discounts on our award-winning beers and merchandise, plus special tasting opportunities for new releases.",
+            "button_label": "",
+            "button_variant": "outline"
+          }
+        },
+        "column_CkghFN": {
+          "type": "column",
+          "settings": {
+            "link": "",
+            "subheading_text": "",
+            "heading_text": "Great Team Culture",
+            "text_content": "Work alongside passionate brewers, chefs, and hospitality professionals in a supportive, family-like environment.",
+            "button_label": "",
+            "button_variant": "outline"
+          }
+        },
+        "column_gBUrXY": {
+          "type": "column",
+          "settings": {
+            "link": "",
+            "subheading_text": "",
+            "heading_text": "Growth Opportunities",
+            "text_content": "Join a rapidly expanding brewery with opportunities to grow your skills and advance your career in the craft beer industry.",
+            "button_label": "",
+            "button_variant": "outline"
+          }
+        },
+        "column_pnnzBR": {
+          "type": "column",
+          "settings": {
+            "link": "",
+            "subheading_text": "",
+            "heading_text": "Industry Recognition",
+            "text_content": "Be part of an award-winning brewery that's making its mark in the competitive Southern California craft beer scene.",
+            "button_label": "",
+            "button_variant": "outline"
+          }
+        }
+      },
+      "block_order": [
+        "column_97KTMi",
+        "column_CkghFN",
+        "column_gBUrXY",
+        "column_pnnzBR"
+      ],
+      "name": "Multicolumn",
+      "settings": {
+        "section_heading": "Why Work at Tarantula Hill?",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "At Tarantula Hill Brewing Co., we believe that great beer starts with great people. Our team is the heart of everything we do - from brewing award-winning craft beer to creating memorable experiences for every guest who walks through our doors.Join a locally-owned brewery that values creativity, teamwork, and community. We're not just colleagues, we're a family united by our passion for craft beer and hospitality.",
+        "section_color_scheme": "invert",
+        "stack_grid_layout": "stack",
+        "stack_grid_desktop_columns": "4",
+        "stack_grid_mobile_columns": "1",
+        "card_display_style": "card",
+        "card_image_ratio": "square",
+        "card_gyro_effect": false,
+        "card_center_content": false,
+        "card_color_scheme": "invert"
+      }
+    },
+    "rich_text_4Tkcfp": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_GecFLc": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Current Openings",
+            "heading_animation": true,
+            "heading_size": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_GecFLc"
+      ],
+      "disabled": true,
+      "name": "Rich text",
+      "settings": {
+        "color_scheme": "invert",
+        "text_align": "center",
+        "image_overlay": 30,
+        "blur_image": false
+      }
+    },
+    "slideshow_UaDAek": {
+      "type": "slideshow",
+      "blocks": {
+        "image_RJ9cAf": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/THill_EK_052925_2349.jpg",
+            "banner_overlay": 60,
+            "content_position": "middle-center",
+            "content_box": false,
+            "subheading_text": "Keep the dining room guest-ready.",
+            "heading_text": "Busser",
+            "heading_size": "h1",
+            "text_content": "Clear/reset tables, sanitize surfaces, restock stations, assist guests.<strong>$16.50/hr + tips • employee discounts • flexible schedule • growth opportunities.</strong> <em>CA Food Handler card required.</em>",
+            "button_label": "",
+            "button_variant": "outline",
+            "button_link": "",
+            "color_scheme": ""
+          }
+        },
+        "image_jejJa4": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/THill_EK_052925_2349.jpg",
+            "banner_overlay": 60,
+            "content_position": "middle-center",
+            "content_box": false,
+            "subheading_text": "Deliver exceptional service from kitchen to table.",
+            "heading_text": "RUNNER",
+            "heading_size": "h1",
+            "text_content": "Run food orders accurately, maintain stations, assist guests. <strong>$16.50/hr + tips • employee discounts • flexible schedule • growth opportunities.</strong> <em>CA Food Handler card required.</em>",
+            "button_label": "",
+            "button_variant": "outline",
+            "button_link": "",
+            "color_scheme": ""
+          }
+        },
+        "image_p43GD7": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "banner_overlay": 0,
+            "content_position": "middle-center",
+            "content_box": false,
+            "subheading_text": "",
+            "heading_text": "Slide text",
+            "heading_size": "h1",
+            "text_content": "Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.",
+            "button_label": "Button label",
+            "button_variant": "outline",
+            "button_link": "",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_RJ9cAf",
+        "image_jejJa4",
+        "image_p43GD7"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "image_size": "medium",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "show_arrows_on_desktop": false,
+        "autoplay": "4"
+      }
+    },
+    "1758047786811e208f": {
+      "type": "apps",
+      "blocks": {
+        "forms_inline_BDiYRK": {
+          "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "659019",
+            "text_color": "#202020",
+            "button_background_color": "#202020",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 40,
+            "padding_bottom": 24,
+            "padding_right": 15,
+            "padding_left": 15
+          }
+        }
+      },
+      "block_order": [
+        "forms_inline_BDiYRK"
+      ],
+      "settings": {}
+    },
+    "contact_form_GVJ7fz": {
+      "type": "contact-form",
+      "blocks": {
+        "text_mhPJE3": {
+          "type": "text",
+          "settings": {
+            "field_label": "Name",
+            "width": "6",
+            "is_required": false
+          }
+        },
+        "email_amgCRq": {
+          "type": "email",
+          "settings": {
+            "field_label": "Email",
+            "width": "6"
+          }
+        },
+        "phone_number_GUR9J8": {
+          "type": "phone_number",
+          "settings": {
+            "field_label": "Phone number",
+            "width": "12",
+            "is_required": false
+          }
+        },
+        "textarea_BRGxqD": {
+          "type": "textarea",
+          "settings": {
+            "field_label": "Message",
+            "width": "12",
+            "is_required": false
+          }
+        }
+      },
+      "block_order": [
+        "text_mhPJE3",
+        "email_amgCRq",
+        "phone_number_GUR9J8",
+        "textarea_BRGxqD"
+      ],
+      "disabled": true,
+      "name": "Contact form",
+      "settings": {
+        "section_heading": "Contact Us",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": ""
+      }
+    },
+    "custom_liquid_gMpaBB": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "Custom liquid",
+      "settings": {
+        "section_heading": "",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "alt",
+        "liquid_content": "{% comment %}\n  Busser Job Posting - Custom Liquid Section\n  Copy and paste this code directly into a Custom Liquid section in your theme editor\n{% endcomment %}\n\n<div class=\"job-posting-section\">\n  <div class=\"job-posting-container\">\n    <div class=\"job-posting__content\">\n      <div class=\"job-posting__header\">\n        <div class=\"job-posting__title-section\">\n          <h3 class=\"job-posting__title\">Busser</h3>\n          <p class=\"job-posting__details\">Full-Time • Thousand Oaks</p>\n        </div>\n      </div>\n      \n      <div class=\"job-posting__summary\">\n        <p>Join our hospitality team as a Busser and help create exceptional dining experiences for our guests. You'll be responsible for maintaining clean, welcoming spaces while supporting our servers to ensure smooth restaurant operations.</p>\n        \n        <div class=\"job-posting__highlights\">\n          <h4>What You'll Do:</h4>\n          <ul>\n            <li>Clear and reset tables efficiently between guests</li>\n            <li>Maintain cleanliness in dining areas and outdoor spaces</li>\n            <li>Assist servers with delivering food and beverages</li>\n            <li>Support kitchen and bar teams during busy periods</li>\n            <li>Help create a welcoming atmosphere for all guests</li>\n          </ul>\n          \n          <h4>What We're Looking For:</h4>\n          <ul>\n            <li>Positive attitude and strong work ethic</li>\n            <li>Ability to work in a fast-paced environment</li>\n            <li>Team player with excellent communication skills</li>\n            <li>Previous restaurant experience preferred but not required</li>\n            <li>Must be able to lift 50+ lbs and stand for extended periods</li>\n          </ul>\n        </div>\n      </div>\n      \n      <!-- UPDATE THIS LINKEDIN URL WITH YOUR ACTUAL JOB POSTING -->\n      <a href=\"https://www.linkedin.com/jobs/view/YOUR_BUSSER_JOB_ID\" \n         class=\"job-posting__apply-btn\" \n         target=\"_blank\">\n        <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n          <path d=\"M16 8C18.2091 8 20 9.79086 20 12V21H16V12C16 11.4477 15.5523 11 15 11C14.4477 11 14 11.4477 14 12V21H10V12C10 9.79086 11.7909 8 14 8H16Z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <rect x=\"6\" y=\"9\" width=\"4\" height=\"12\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <circle cx=\"8\" cy=\"6\" r=\"2\" stroke=\"currentColor\" stroke-width=\"2\"/>\n        </svg>\n        Apply on LinkedIn\n      </a>\n      \n      <p class=\"job-posting__contact-info\">\n        Questions? Contact us at <strong>careers@thillbc.com</strong>\n      </p>\n    </div>\n  </div>\n</div>\n\n<style>\n  .job-posting-section {\n    padding: 40px 0;\n    background-color: transparent;\n    color: #333333;\n    font-family: 'Poppins', sans-serif;\n  }\n  \n  .job-posting-container {\n    max-width: 800px;\n    margin: 0 auto;\n    padding: 0 20px;\n  }\n  \n  .job-posting__content {\n    background: #ffffff;\n    padding: 50px 40px;\n    border-radius: 15px;\n    box-shadow: 0 10px 30px rgba(0,0,0,0.1);\n    transition: transform 0.3s ease, box-shadow 0.3s ease;\n  }\n  \n  .job-posting__content:hover {\n    transform: translateY(-5px);\n    box-shadow: 0 20px 40px rgba(0,0,0,0.15);\n  }\n  \n  .job-posting__header {\n    margin-bottom: 30px;\n    text-align: center;\n  }\n  \n  .job-posting__icon {\n    color: #1a1a1a;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    width: 80px;\n    height: 80px;\n    background: #f0f0f0;\n    border-radius: 50%;\n    flex-shrink: 0;\n  }\n  \n  .job-posting__title-section {\n    width: 100%;\n  }\n  \n  .job-posting__title {\n    font-family: 'Poppins Black', 'Poppins', sans-serif;\n    font-weight: 900;\n    font-size: 36px;\n    margin-bottom: 10px;\n    color: #1a1a1a;\n    text-transform: uppercase;\n    letter-spacing: 1px;\n  }\n  \n  .job-posting__details {\n    font-size: 16px;\n    color: #666666;\n    font-weight: 600;\n  }\n  \n  .job-posting__summary {\n    margin-bottom: 40px;\n    line-height: 1.6;\n  }\n  \n  .job-posting__summary > p {\n    font-size: 18px;\n    color: #555;\n    margin-bottom: 30px;\n  }\n  \n  .job-posting__highlights h4 {\n    font-family: 'Poppins', sans-serif;\n    font-weight: 700;\n    font-size: 18px;\n    color: #1a1a1a;\n    margin: 25px 0 15px 0;\n  }\n  \n  .job-posting__highlights ul {\n    list-style: none;\n    padding: 0;\n    margin: 0 0 20px 0;\n  }\n  \n  .job-posting__highlights li {\n    padding: 8px 0 8px 25px;\n    position: relative;\n    color: #555;\n  }\n  \n  .job-posting__highlights li:before {\n    content: \"→\";\n    position: absolute;\n    left: 0;\n    top: 8px;\n    color: #1a1a1a;\n    font-weight: bold;\n  }\n  \n  .job-posting__apply-btn {\n    display: inline-flex;\n    align-items: center;\n    gap: 10px;\n    background: #1a1a1a;\n    color: #ffffff;\n    padding: 16px 32px;\n    border-radius: 25px;\n    text-decoration: none;\n    font-family: 'Poppins', sans-serif;\n    font-weight: 600;\n    font-size: 16px;\n    transition: all 0.3s ease;\n    text-transform: uppercase;\n    letter-spacing: 0.5px;\n    margin-bottom: 20px;\n  }\n  \n  .job-posting__apply-btn:hover {\n    background: #0066cc;\n    color: #ffffff;\n    transform: translateY(-2px);\n    box-shadow: 0 10px 25px rgba(0,0,0,0.2);\n  }\n  \n  .job-posting__contact-info {\n    font-size: 14px;\n    color: #666666;\n    text-align: center;\n    margin-top: 30px;\n    padding-top: 30px;\n    border-top: 1px solid rgba(0,0,0,0.1);\n  }\n  \n  /* Mobile responsive */\n  @media screen and (max-width: 768px) {\n    .job-posting-section {\n      padding: 20px 0;\n    }\n    \n    .job-posting-container {\n      padding: 0 15px;\n    }\n    \n    .job-posting__content {\n      padding: 30px 20px;\n    }\n    \n    .job-posting__header {\n      text-align: center;\n    }\n    \n    .job-posting__apply-btn {\n      padding: 14px 24px;\n      font-size: 15px;\n      width: 100%;\n      justify-content: center;\n    }\n    \n    .job-posting__summary > p {\n      font-size: 16px;\n    }\n  }\n</style>"
+      }
+    },
+    "custom_liquid_PT49AW": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "Custom liquid",
+      "settings": {
+        "section_heading": "",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "alt",
+        "liquid_content": "{% comment %}\n  Drink Runner Job Posting - Custom Liquid Section\n  Copy and paste this code directly into a Custom Liquid section in your theme editor\n{% endcomment %}\n\n<div class=\"job-posting-section\">\n  <div class=\"job-posting-container\">\n    <div class=\"job-posting__content\">\n      <div class=\"job-posting__header\">\n        <div class=\"job-posting__title-section\">\n          <h3 class=\"job-posting__title\">Drink Runner</h3>\n          <p class=\"job-posting__details\">Part-Time/Full-Time • Thousand Oaks</p>\n        </div>\n      </div>\n      \n      <div class=\"job-posting__summary\">\n        <p>Join our beverage team as a Drink Runner and be the bridge between our talented bartenders and happy guests. You'll ensure our award-winning craft beers and specialty drinks reach tables quickly and accurately while providing excellent customer service.</p>\n        \n        <div class=\"job-posting__highlights\">\n          <h4>What You'll Do:</h4>\n          <ul>\n            <li>Deliver craft beers, cocktails, and beverages to tables promptly</li>\n            <li>Support bartenders during peak hours and special events</li>\n            <li>Maintain knowledge of our beer menu and seasonal offerings</li>\n            <li>Take drink orders and relay them accurately to the bar team</li>\n            <li>Ensure proper presentation and quality of all beverages served</li>\n            <li>Assist with inventory management and restocking bar areas</li>\n          </ul>\n          \n          <h4>What We're Looking For:</h4>\n          <ul>\n            <li>Passion for craft beer and beverage service</li>\n            <li>Strong attention to detail and accuracy</li>\n            <li>Excellent communication and interpersonal skills</li>\n            <li>Ability to work efficiently in high-volume periods</li>\n            <li>Must be 21+ years old for alcohol service</li>\n            <li>Previous bar or restaurant experience a plus</li>\n          </ul>\n        </div>\n      </div>\n      \n      <!-- UPDATE THIS LINKEDIN URL WITH YOUR ACTUAL JOB POSTING -->\n      <a href=\"https://www.linkedin.com/jobs/view/YOUR_DRINK_RUNNER_JOB_ID\" \n         class=\"job-posting__apply-btn\" \n         target=\"_blank\">\n        <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n          <path d=\"M16 8C18.2091 8 20 9.79086 20 12V21H16V12C16 11.4477 15.5523 11 15 11C14.4477 11 14 11.4477 14 12V21H10V12C10 9.79086 11.7909 8 14 8H16Z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <rect x=\"6\" y=\"9\" width=\"4\" height=\"12\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <circle cx=\"8\" cy=\"6\" r=\"2\" stroke=\"currentColor\" stroke-width=\"2\"/>\n        </svg>\n        Apply on LinkedIn\n      </a>\n      \n      <p class=\"job-posting__contact-info\">\n        Questions? Contact us at <strong>careers@thillbc.com</strong>\n      </p>\n    </div>\n  </div>\n</div>\n\n<style>\n  .job-posting-section {\n    padding: 40px 0;\n    background-color: transparent;\n    color: #333333;\n    font-family: 'Poppins', sans-serif;\n  }\n  \n  .job-posting-container {\n    max-width: 800px;\n    margin: 0 auto;\n    padding: 0 20px;\n  }\n  \n  .job-posting__content {\n    background: #ffffff;\n    padding: 50px 40px;\n    border-radius: 15px;\n    box-shadow: 0 10px 30px rgba(0,0,0,0.1);\n    transition: transform 0.3s ease, box-shadow 0.3s ease;\n  }\n  \n  .job-posting__content:hover {\n    transform: translateY(-5px);\n    box-shadow: 0 20px 40px rgba(0,0,0,0.15);\n  }\n  \n  .job-posting__header {\n    margin-bottom: 30px;\n    text-align: center;\n  }\n  \n  .job-posting__icon {\n    color: #1a1a1a;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    width: 80px;\n    height: 80px;\n    background: #f0f0f0;\n    border-radius: 50%;\n    flex-shrink: 0;\n  }\n  \n  .job-posting__title-section {\n    width: 100%;\n  }\n  \n  .job-posting__title {\n    font-family: 'Poppins Black', 'Poppins', sans-serif;\n    font-weight: 900;\n    font-size: 36px;\n    margin-bottom: 10px;\n    color: #1a1a1a;\n    text-transform: uppercase;\n    letter-spacing: 1px;\n  }\n  \n  .job-posting__details {\n    font-size: 16px;\n    color: #666666;\n    font-weight: 600;\n  }\n  \n  .job-posting__summary {\n    margin-bottom: 40px;\n    line-height: 1.6;\n  }\n  \n  .job-posting__summary > p {\n    font-size: 18px;\n    color: #555;\n    margin-bottom: 30px;\n  }\n  \n  .job-posting__highlights h4 {\n    font-family: 'Poppins', sans-serif;\n    font-weight: 700;\n    font-size: 18px;\n    color: #1a1a1a;\n    margin: 25px 0 15px 0;\n  }\n  \n  .job-posting__highlights ul {\n    list-style: none;\n    padding: 0;\n    margin: 0 0 20px 0;\n  }\n  \n  .job-posting__highlights li {\n    padding: 8px 0 8px 25px;\n    position: relative;\n    color: #555;\n  }\n  \n  .job-posting__highlights li:before {\n    content: \"→\";\n    position: absolute;\n    left: 0;\n    top: 8px;\n    color: #1a1a1a;\n    font-weight: bold;\n  }\n  \n  .job-posting__apply-btn {\n    display: inline-flex;\n    align-items: center;\n    gap: 10px;\n    background: #1a1a1a;\n    color: #ffffff;\n    padding: 16px 32px;\n    border-radius: 25px;\n    text-decoration: none;\n    font-family: 'Poppins', sans-serif;\n    font-weight: 600;\n    font-size: 16px;\n    transition: all 0.3s ease;\n    text-transform: uppercase;\n    letter-spacing: 0.5px;\n    margin-bottom: 20px;\n  }\n  \n  .job-posting__apply-btn:hover {\n    background: #0066cc;\n    color: #ffffff;\n    transform: translateY(-2px);\n    box-shadow: 0 10px 25px rgba(0,0,0,0.2);\n  }\n  \n  .job-posting__contact-info {\n    font-size: 14px;\n    color: #666666;\n    text-align: center;\n    margin-top: 30px;\n    padding-top: 30px;\n    border-top: 1px solid rgba(0,0,0,0.1);\n  }\n  \n  /* Mobile responsive */\n  @media screen and (max-width: 768px) {\n    .job-posting-section {\n      padding: 20px 0;\n    }\n    \n    .job-posting-container {\n      padding: 0 15px;\n    }\n    \n    .job-posting__content {\n      padding: 30px 20px;\n    }\n    \n    .job-posting__header {\n      text-align: center;\n    }\n    \n    .job-posting__title {\n      font-size: 28px;\n    }\n    \n    .job-posting__apply-btn {\n      padding: 14px 24px;\n      font-size: 15px;\n      width: 100%;\n      justify-content: center;\n    }\n    \n    .job-posting__summary > p {\n      font-size: 16px;\n    }\n  }\n</style>"
+      }
+    }
+  },
+  "order": [
+    "hero_RUxVbb",
+    "page-header",
+    "page",
+    "multicolumn_7Mf6hr",
+    "rich_text_4Tkcfp",
+    "slideshow_UaDAek",
+    "1758047786811e208f",
+    "contact_form_GVJ7fz",
+    "custom_liquid_gMpaBB",
+    "custom_liquid_PT49AW"
+  ]
+}

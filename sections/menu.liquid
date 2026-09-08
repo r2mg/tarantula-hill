@@ -1,0 +1,481 @@
+{% comment %}
+  Section: Menu
+  Displays the full T-Hill menu organized by category.
+  Each category is a block — add, remove, or reorder in the theme editor.
+  Mobile: scrollable horizontal tab bar, single-column items.
+  Desktop: sticky sidebar nav on the left, two-column items on the right.
+  Add via: Online Store > Themes > Customize > Add Section
+{% endcomment %}
+
+{%- assign section_id = 'menu-' | append: section.id -%}
+
+<div class="section-wrapper color-scheme-{{ section.settings.color_scheme }} section-wrapper--y-offset--padding" id="{{ section_id }}">
+
+  {% if section.settings.heading != blank %}
+    <div class="container section-wrapper__header" style="margin-bottom: 2.5rem;">
+      <div class="content content--align--{{ section.settings.heading_align }}">
+        {% if section.settings.eyebrow != blank %}
+          <div class="content__subheading">
+            <div class="subheading">{{ section.settings.eyebrow }}</div>
+          </div>
+        {% endif %}
+        <div class="content__heading">
+          <h2 class="heading heading--size--h1">{{ section.settings.heading }}</h2>
+        </div>
+        {% if section.settings.description != blank %}
+          <div class="content__text"><div class="rte">{{ section.settings.description }}</div></div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="menu-tabs-bar" role="tablist" aria-label="Menu categories">
+    <div class="menu-tabs-inner">
+      {% for block in section.blocks %}
+        {% if block.type == 'category' %}
+          <button
+            class="menu-tab{% if forloop.first %} menu-tab--active{% endif %}"
+            role="tab"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            aria-controls="cat-{{ section.id }}-{{ forloop.index }}"
+            data-target="cat-{{ section.id }}-{{ forloop.index }}"
+            type="button"
+          >{{ block.settings.category_name }}</button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="container menu-body">
+
+    <nav class="menu-sidebar" aria-label="Jump to menu section">
+      {% for block in section.blocks %}
+        {% if block.type == 'category' %}
+          <a
+            href="#cat-{{ section.id }}-{{ forloop.index }}"
+            class="menu-sidebar__link{% if forloop.first %} menu-sidebar__link--active{% endif %}"
+            data-target="cat-{{ section.id }}-{{ forloop.index }}"
+          >{{ block.settings.category_name }}</a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+
+    <div class="menu-content" role="tabpanel">
+      {% for block in section.blocks %}
+        {% if block.type == 'category' %}
+          <div
+            class="menu-panel{% if forloop.first %} menu-panel--active{% endif %}"
+            id="cat-{{ section.id }}-{{ forloop.index }}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="menu-panel__header">
+              <h3 class="menu-panel__title heading">{{ block.settings.category_name }}</h3>
+              {% if block.settings.category_note != blank %}
+                <p class="menu-panel__note">{{ block.settings.category_note }}</p>
+              {% endif %}
+            </div>
+
+            <div class="menu-items">
+              {%- assign lines = block.settings.items | newline_to_br | split: '<br />' -%}
+              {%- assign iname = '' -%}
+              {%- assign iprice = '' -%}
+              {%- assign idesc = '' -%}
+
+              {%- for raw_line in lines -%}
+                {%- assign ln = raw_line | strip | strip_html -%}
+                {%- if ln == '' -%}
+                  {%- if iname != '' -%}
+                    <div class="menu-item">
+                      <div class="menu-item__top">
+                        <span class="menu-item__name">{{ iname }}</span>
+                        <span class="menu-item__dots" aria-hidden="true"></span>
+                        <span class="menu-item__price">{{ iprice }}</span>
+                      </div>
+                      {%- if idesc != '' -%}<p class="menu-item__desc">{{ idesc }}</p>{%- endif -%}
+                    </div>
+                    {%- assign iname = '' -%}{%- assign iprice = '' -%}{%- assign idesc = '' -%}
+                  {%- endif -%}
+                {%- elsif ln contains '$' and iname == '' -%}
+                  {%- assign parts = ln | split: '$' -%}
+                  {%- assign iname = parts[0] | strip -%}
+                  {%- assign iprice = '$' | append: parts[1] | strip -%}
+                {%- elsif iname == '' -%}
+                  {%- assign iname = ln -%}
+                {%- elsif iprice == '' and ln contains '$' -%}
+                  {%- assign iprice = ln -%}
+                {%- else -%}
+                  {%- if idesc == '' -%}
+                    {%- assign idesc = ln -%}
+                  {%- else -%}
+                    {%- assign idesc = idesc | append: ' ' | append: ln -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- if iname != '' -%}
+                <div class="menu-item">
+                  <div class="menu-item__top">
+                    <span class="menu-item__name">{{ iname }}</span>
+                    <span class="menu-item__dots" aria-hidden="true"></span>
+                    <span class="menu-item__price">{{ iprice }}</span>
+                  </div>
+                  {%- if idesc != '' -%}<p class="menu-item__desc">{{ idesc }}</p>{%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+
+            {% if block.settings.category_footer != blank %}
+              <p class="menu-panel__footer">{{ block.settings.category_footer }}</p>
+            {% endif %}
+
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .menu-tabs-bar {
+    border-bottom: 1px solid var(--color-scheme-border);
+    overflow: hidden;
+  }
+  .menu-tabs-inner {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 2rem;
+  }
+  .menu-tabs-inner::-webkit-scrollbar { display: none; }
+  .menu-tab {
+    flex-shrink: 0;
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.12em;
+    color: var(--color-scheme-text);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    opacity: 0.45;
+    transition: opacity 0.15s, border-color 0.15s;
+    white-space: nowrap;
+    margin-bottom: -1px;
+  }
+  .menu-tab:hover { opacity: 0.75; }
+  .menu-tab--active { opacity: 1; border-bottom-color: var(--color-scheme-text); }
+
+  .menu-body {
+    display: block;
+    padding-top: 3rem;
+  }
+
+  .menu-sidebar {
+    display: none;
+  }
+  .menu-sidebar__link {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.1em;
+    color: var(--color-scheme-text);
+    text-decoration: none;
+    padding: 0.6rem 0 0.6rem 1rem;
+    border-left: 2px solid transparent;
+    opacity: 0.4;
+    transition: opacity 0.15s, border-color 0.15s;
+    display: block;
+    line-height: 1.3;
+  }
+  .menu-sidebar__link:hover { opacity: 0.7; text-decoration: none; }
+  .menu-sidebar__link--active { opacity: 1; border-left-color: var(--color-scheme-text); }
+
+  .menu-panel { display: none; }
+  .menu-panel--active { display: block; }
+
+  .menu-panel__header {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-scheme-border);
+    margin-bottom: 1.5rem;
+  }
+  .menu-panel__title {
+    font-family: var(--glob-heading-font) !important;
+    font-weight: var(--glob-heading-font-weight) !important;
+    text-transform: var(--glob-heading-transform) !important;
+    font-size: clamp(1.5rem, 3vw, 2.25rem) !important;
+    margin: 0 0 0.3rem !important;
+  }
+  .menu-panel__note {
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    opacity: 0.5;
+    font-style: italic;
+    margin: 0;
+    line-height: 1.5;
+  }
+  .menu-panel__footer {
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    opacity: 0.5;
+    font-style: italic;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-scheme-border);
+    line-height: 1.6;
+  }
+
+  .menu-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 3rem;
+  }
+  .menu-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-scheme-border);
+  }
+  .menu-item__top {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-bottom: 0.25rem;
+  }
+  .menu-item__name {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    text-transform: var(--glob-subheading-text-transform);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    max-width: 62%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .menu-item__dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--color-scheme-border);
+    margin-bottom: 3px;
+    min-width: 8px;
+  }
+  .menu-item__price {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .menu-item__desc {
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    line-height: 1.55;
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .menu-body {
+      padding-top: 1.5rem;
+    }
+    .menu-items { grid-template-columns: 1fr; }
+    .menu-item__name { max-width: 58%; }
+    .menu-tabs-inner { padding: 0 1rem; }
+  }
+</style>
+
+<script>
+(function() {
+  var root = document.getElementById('{{ section_id }}');
+  if (!root) return;
+  var tabs = root.querySelectorAll('.menu-tab');
+  var panels = root.querySelectorAll('.menu-panel');
+  var links = root.querySelectorAll('.menu-sidebar__link');
+
+  function activate(id) {
+    tabs.forEach(function(t) {
+      var on = t.dataset.target === id;
+      t.classList.toggle('menu-tab--active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      if (on) t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+    panels.forEach(function(p) { p.classList.toggle('menu-panel--active', p.id === id); });
+    links.forEach(function(l) { l.classList.toggle('menu-sidebar__link--active', l.dataset.target === id); });
+  }
+
+  tabs.forEach(function(t) { t.addEventListener('click', function() { activate(this.dataset.target); }); });
+  links.forEach(function(l) { l.addEventListener('click', function(e) { e.preventDefault(); activate(this.dataset.target); }); });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Menu",
+  "tag": "section",
+  "class": "menu-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "main", "label": "White" },
+        { "value": "alt", "label": "Light Gray" },
+        { "value": "invert", "label": "Black" }
+      ],
+      "default": "main"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "The Kitchen"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Menu"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "info": "Leave blank to hide"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Menu Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_name",
+          "label": "Category name",
+          "default": "Pizza"
+        },
+        {
+          "type": "text",
+          "id": "category_note",
+          "label": "Category note",
+          "info": "Shown below the category name — modifiers, allergy notes, hours, etc."
+        },
+        {
+          "type": "textarea",
+          "id": "items",
+          "label": "Menu items",
+          "info": "Each item: 'Name $Price' on one line, description on the next. Separate items with a blank line.",
+          "default": "Item Name $00\nDescription of the item\n\nAnother Item $00\nDescription here"
+        },
+        {
+          "type": "textarea",
+          "id": "category_footer",
+          "label": "Footer note",
+          "info": "Optional — for add-ons, modifiers, or allergy info at the bottom of the category"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Menu",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Pizza",
+            "category_note": "*Gluten Free Pizza +$6.5  *Vegan Cheese +$4  *Add Egg +$3",
+            "items": "Cheese $19\nMozzarella, Parmesan, Tomato Sauce\n\nMargherita $19\nFresh Mozzarella, Tomato Sauce, Fresh Basil, Extra Virgin Olive Oil, Sea Salt\n\nHot Pepperoni $23\nPepperoni, Mozzarella, Oregano, Hot Honey Drizzle, Tomato Sauce\n\nThe Goomba $22\nPortobello, Cremini and Oyster Mushrooms, Fontina, Herbed Ricotta Sauce, True Salt\n\nHaole $21\nBacon, Mozzarella, Pineapple, Pickled Jalapeños, Tomato Sauce\n\nThe BBQ Chicken $22\nRoasted Chicken, Mozzarella, Fontina, Parmesan, Red Onions, Pickled Jalapeños, Cilantro Mix, BBQ Sauce\n\nThe Carnivore $25\nPepperoni, Fennel Sausage, Bacon, Calabrese, Mozzarella, Tomato Sauce\n\nGoat Arugula $21\nGoat Cheese, Mozzarella, Fresh Mozzarella, Parmesan, Fresh Arugula Tossed in Extra Virgin Olive Oil, Saba\n\nProsciutto Formaggio $25\nProsciutto di Parma, Burrata, Arugula, Oregano, Sea Salt, Saba, Tomato Sauce\n\nHot Honey Short Rib $27\nBraised Short Rib, Fontina, Mushrooms, Red Onions, Crispy Shallots, Hot Honey Drizzle, Herbed Ricotta Sauce\n\nSpecial Pizza $25\nThe Pizza Special of the Day!",
+            "category_footer": ""
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Sandwiches",
+            "category_note": "*Served with Adobo Fries  *Choice of Ketchup or Aioli",
+            "items": "The Veganiese Sando $19\nBlack Bean Patty, Hummus, Avocado, Heirloom Tomatoes, Baby Kale, Shaved Fennel, Onions, Peppers, Cucumber on Whole Grain\n\nCubano Sandwich $21\nProsciutto di Parma, Coto Ham, Fontina Cheese, Hot Pickles, Pickled Sriracha, Mojo Aioli on Pressed French Baguette\n\nWarm Chicken Club Sandwich $20\nChicken Breast, Bacon, Cheddar, Avocado, Baby Spinach, Tomatoes, Sriracha Aioli on Ciabatta\n\nCheeseburger $20\nBeef Patty or Lean Ground Turkey Patty, American Cheese, Lettuce, Tomatoes, House Pickles, T-Hill Dijonnaise on Brioche Bun\n\nShort Rib Dip $26\n12-Hour Braised Short Rib, Crispy Shallots, Pickled Serranos, Wild Leek Aioli, Short Rib Au Jus Dip on French Roll\n\nBBQ Sandwich $26\nGrilled Flank Steak, Bacon, Tillamook Cheddar, Avocado, Arugula, Hot Pickles, Shaved Onions, T-Hill BBQ Sauce on Sourdough\n\nSpicy Fried Chicken Ranch $20\nCrispy Chicken Breast, Bacon, Hot Pickles, Pickled Onions, Spicy Ranch on Brioche Bun",
+            "category_footer": "Add to Veganiese Sando | Chicken +$6.5  |  Shrimp +$8  |  Steak +$8.5  |  Ahi Tuna +$12.5"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Street Food",
+            "category_note": "",
+            "items": "Chicken Fajita Tacos (3) $16\nRoasted Chicken, Sweet Peppers, Onion, Cilantro Mix, Salsa Verde\n\nChicken Fajitas Burrito $17\nRoasted Chicken, Avocado, Sweet Onions and Peppers, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nAsada Tacos (3) $18\nFlank Steak, Sweet Onions, Cilantro Mix, Salsa Verde\n\nAsada Burrito $20\nFlank Steak, Cheese Blend, Queso Fresco, Avocado, Sweet Onions, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nVeggie Burrito $17\nRoasted Cauliflower, Queso Fresco, Avocado, Peppers, Onion and Corn Mix, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nShrimp Burrito $21\nSautéed Shrimp, Cheese Blend, Avocado, Pickled Onions, Adobo Fries, Cilantro Mix, Homemade Diablo Sauce, Salsa Verde Wrapped in Flour Tortilla\n\nFish Tacos (3) $19\nBeer Batter White Cod, T-Hill Coleslaw, Roasted Sriracha Yogurt\n\nSurf N' Turf Burrito $22\nFlank Steak, Shrimp (6), Cheese Blend, Avocado, Sweet Onion, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nQuesadilla $14\nCheese Blend\n\nChips N' Salsa $8\nHomemade Chips, Roasted Fire Tomato Salsa",
+            "category_footer": "Add to Quesadilla | Chicken +$6.5  |  Shrimp +$8  |  Steak +$8.5  |  Ahi Tuna +$12.5"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Salads",
+            "category_note": "",
+            "items": "Caesar $16\nBaby Gem and Romaine Lettuce, Parmesan, Garlic — House Caesar Dressing\n\nCobb $20\nArugula, Iceberg Mix, Chicken Breast, Bacon, Chino Valley Eggs, Point Reyes Blue Cheese, Avocado, Baby Tomatoes — Red Wine Vinaigrette\n\nMediterranean Salad $18\nBaby Kale, Feta Cheese, Kalamata Olives, Baby Heirloom Tomatoes, Quinoa, Shaved Fennel, Shaved Onions, Oregano — Sherry Vinegar, Extra Virgin Olive Oil\n\nThe Wedge $17\nBaby Iceberg, Bacon, Point Reyes Blue Cheese, Baby Heirloom Tomatoes — Point Reyes Blue Cheese Dressing",
+            "category_footer": "Add | Chicken +$6.5  |  Shrimp +$8  |  Steak +$8.5  |  Ahi Tuna +$12.5"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Bites",
+            "category_note": "",
+            "items": "Soft Pretzel $20\nJumbo Craft Bavarian Pretzel, IPA House Mustard — Add Ale Cheese Sauce +$4\n\nChicken Tenders $18\nFour Chicken Tenders — BBQ, Ranch, or Ketchup\n\nCharcuterie $75\nChef's Combination of Salumi and Cheese, Almonds, Traditional Condiments, Pretzel Bites and Pita Bread\n\nCheese Board $37\nChef's Choice of Two Imported Cheeses, Homemade Preserves, Almonds, Dried and Fresh Fruit, Toast Points\n\nBuffalo Cauliflower $13\nBeer Batter Cauliflower Tossed in Buffalo Sauce, Chives — Blue Cheese, Ranch\n\nFried Brussel Sprouts $13\nCrispy Shallots, Pickled Fresnos, Ponzu Sauce\n\nAdobo Fries $8.50\nFries Tossed in House Blend Spices — Sriracha Aioli, Ketchup\n\nTater Tots $9\nServed with Two Sauces — Sriracha Aioli, Ketchup\n\nHummus & Veggie Platter $15\nHummus, Lemon Segments, Sundried Tomato, Extra Virgin Olive Oil\n\nCrispy Chicken Caesar Wrap $18\nCrispy Chicken Tender, Parmesan, Baby Gem and Romaine, Garlic Croutons, House Caesar Dressing in Flour Tortilla\n\nGarlic Bread Bites $13\nRoasted Garlic, Oregano, Extra Virgin Olive Oil, Sea Salt — Marinara and Ranch\n\nHalf Dozen Oysters $30\nServed over Ice, Lemon, Tabasco, Cocktail Sauce\n\nT-Hill Wings (8) $20\nCarolina Gold, Buffalo, or BBQ — Ranch or Bleu Cheese\n\nT-Hill Wings (20) $30\nCarolina Gold, Buffalo, or BBQ — Ranch or Bleu Cheese",
+            "category_footer": ""
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Kids Menu",
+            "category_note": "",
+            "items": "Grilled Cheese $14\nAmerican and Tillamook Cheddar on Brioche — Tots\n\nPB & J $13\nPeanut Butter and Jelly on Brioche — Tots, Banana +$2\n\nChicken Tenders $14\nTwo Breaded Chicken Tenders — Tots\n\nKids Pizza $14\nMozzarella, Tomato Sauce\n\nKids Pasta $13\nSemolina Noodles, Parmesan Cheese — Red or Butter Sauce\n\nCheese Quesadilla $14\nCorn Tortilla, American Cheese, Cheese Blend",
+            "category_footer": ""
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Late Night",
+            "category_note": "Friday & Saturday  9PM – 11PM",
+            "items": "Asada Fries $18\nFlank Steak, Cheese Blend, Diced Onions, Cilantro Mix, Pickled Sriracha, Radishes on T-Hill Fries\n\nT-Hill Nachos $15\nCheese Blend, Black Beans, Onions, Cilantro Mix, Radishes, Pickled Jalapeños\n\nSoft Pretzel Bites & Cheese $18\n10 Pretzel Bites in Olive Oil and Sea Salt, Ale Cheese Sauce, IPA House Mustard\n\nCrispy Chicken Caesar Wrap $18\nCrispy Chicken Tender, Parmesan, Baby Gem and Romaine Lettuce, Garlic Croutons, House Caesar Dressing in Flour Tortilla\n\nWarm Chicken Club $18\nChicken Breast, Bacon, Cheddar, Avocado, Baby Spinach, Tomatoes on Ciabatta\n\nChicken Tenders $16\nFour Chicken Tenders, Adobo Fries — BBQ, Ranch, or Ketchup\n\nTater Tots $8\nServed with Two Sauces — Sriracha Aioli, Ketchup\n\nGarlic Bread Bites $11\nRoasted Garlic, Oregano, Extra Virgin Olive Oil, Sea Salt — Marinara, Ranch\n\nPizzas $18\nAll T-Hill Pizzas at Late Night Price",
+            "category_footer": ""
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Ice Cream",
+            "category_note": "Small-batch, made fresh in-house",
+            "items": "1 Scoop $6\n\n2 Scoops $8\n\nPint $14\n\nBrownie Sundae $15",
+            "category_footer": "Add | Cone +$1.50"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "N/A Beverages",
+            "category_note": "",
+            "items": "Fresh Squeezed Lemonade $4.50\n\nFresh Squeezed Orange Juice $4.50\n\nFresh Brewed Ice Tea $4.50\n\nCoke $4\n\nDiet Coke $4\n\nCream Soda $4\n\nGinger-Ale $4\n\nSprite $4\n\nSparkling Lemonade $4\n\nOrange Soda $4\n\nMilk $4\n\nSoda Water $3",
+            "category_footer": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

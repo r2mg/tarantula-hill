@@ -1,0 +1,319 @@
+{% style %}
+	.customer-order-section {
+		background-color: var(--color-scheme-background);
+		color: var(--color-scheme-text);
+	}
+
+	.customer-order-section__info-item {
+		margin-top: 2rem;
+	}
+
+	.customer-order-section__heading {
+		margin-bottom: 1rem;
+	}
+
+	.customer-order-section__grid-wrapper {
+		margin-top: 1rem;
+	}
+
+	.customer-order-section__grid {
+		overflow-x: auto;
+		display: grid;
+		grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+		border: 1px solid var(--color-scheme-border);
+	}
+
+	.customer-order-section__grid > .customer-order-section__grid-item {
+		display: flex;
+		flex-direction: column;
+		align-items: left;
+		justify-content: center;
+		padding: 0.5rem 0.5rem;
+	}
+
+	.customer-order-section__grid > .customer-order-section__grid-item:not(:nth-last-child(-n + 5)) {
+		border-bottom: 1px solid var(--color-scheme-border);
+	}
+
+	.customer-order-section__discounts-list {
+		list-style: none;
+		margin: 0;
+		padding-left: 0;
+		font-size: calc(var(--glob-text-scale-sm) * 1rem);
+	}
+
+	.customer-order-section__discount-icon {
+		display: inline;
+		height: 0.6rem;
+	}
+
+	.customer-order-section__compare-price {
+		font-size: calc(var(--glob-text-scale-sm) * 1rem);
+		opacity: 0.6;
+		text-decoration: line-through;
+	}
+
+	.customer-order-section__conclusion {
+		border: 1px solid var(--color-scheme-border);
+		margin-top: 1rem;
+		width: 50%;
+		padding: 1rem;
+	}
+
+	.customer-order-section__conclusion-row {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.customer-order-section__conclusion-row:last-child {
+		margin-top: 0.3rem;
+		font-size: calc(var(--glob-text-scale-lg) * 1rem);
+	}
+
+	.customer-order-section__conclusion-value {
+		text-align: end;
+	}
+
+	.customer-order-section__addresses {
+		display: flex;
+		gap: 2rem;
+	}
+
+	.customer-order-section__table-heading {
+		text-transform: uppercase;
+		opacity: 0.8;
+	}
+
+	.customer-order-section__link {
+		color: var(--color-scheme-link);
+		cursor: pointer;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.2em;
+		text-decoration-color: var(--color-scheme-link-a-06);
+		font-size: calc(var(--glob-text-scale-md) * 1rem);
+		color: currentColor;
+		text-align: center;
+	}
+	.customer-order-section__link:hover {
+		text-decoration-color: var(--color-scheme-link);
+	}
+{% endstyle %}
+<div class="section-wrapper section-wrapper--y-offset--padding">
+	<div class="container section-wrapper__body">
+		<div class="customer__page">
+			<h1 class="heading heading--size--h2 customer__page__heading">
+				{{ 'customer.order.title' | t: name: order.name }}
+			</h1>
+			<nav style="" class="stack customer__page__nav">
+				<a class="customer__page__nav-item" href="{{ routes.account_url }}">{{ 'customer.orders.title' | t }}</a
+				><a class="customer__page__nav-item" href="{{ routes.account_addresses_url }}">
+					{{- 'customer.addresses.title' | t -}}</a
+				><a class="customer__page__nav-item" href="{{ routes.account_logout_url }}">{{ 'customer.log_out' | t }}</a>
+			</nav>
+			<div class="customer__page__content">
+				<div class="customer__order">
+					{% assign order_date = order.created_at | time_tag: format: 'date_at_time' %}
+					<p class="subheading">
+						{{ 'customer.order.date_html' | t: date: order_date }}
+					</p>
+
+					{% if order.cancelled %}
+						<p>
+							{% assign cancell_date = order.cancelled_at | time_tag: format: 'date_at_time' %}
+							{{ 'customer.order.cancelled_html' | t: date: cancell_date }}
+						</p>
+						<p>
+							{{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason_label }}
+						</p>
+					{% endif %}
+
+					<div class="customer__order__grid" data-lenis-prevent>
+						<span class="customer__order__grid-item customer__order__table-heading">
+							{{- 'customer.order.product' | t -}}</span
+						><span class="customer__order__grid-item customer__order__table-heading">
+							{{- 'customer.order.sku' | t -}}</span
+						><span class="customer__order__grid-item customer__order__table-heading">
+							{{- 'customer.order.price' | t -}}</span
+						><span class="customer__order__grid-item customer__order__table-heading">
+							{{- 'customer.order.quantity' | t -}}</span
+						><span class="customer__order__grid-item customer__order__table-heading">
+							{{- 'customer.order.total' | t -}}
+						</span>
+
+						{% for line_item in order.line_items %}
+							<div class="customer__order__grid-item">
+								{% if line_item.url != blank -%}
+									<a class="link-like" href="{{ line_item.url }}">{{ line_item.title | escape }}</a>
+								{%- else %}
+									<p>{{ line_item.title | escape }}</p>
+								{% endif -%}
+								{%- assign property_size = line_item.properties | size -%}
+								{%- unless line_item.selling_plan_allocation == null and property_size == 0 -%}
+									{%- if property_size != 0 -%}
+										{%- for property in line_item.properties -%}
+											{%- assign property_first_char = property.first | slice: 0 -%}
+											{%- if property.last != blank and property_first_char != '_' %}
+												<p>
+													{{ property.first }}:
+													{% if property.last contains '/uploads/' -%}
+														<a class="link-like" href="{{ property.last }}">{{ property.last | split: '/' | last }}</a>
+													{%- else -%}
+														{{- property.last -}}
+													{%- endif %}
+												</p>
+											{% endif -%}
+										{%- endfor -%}
+									{%- endif -%}
+								{%- endunless -%}
+								{%- if line_item.line_level_discount_allocations != blank %}
+									<ul
+										class="customer__order__discounts-list"
+										role="list"
+										aria-label="{{ 'customer.order.discount' | t }}"
+									>
+										{% for discount_alocation in line_item.line_level_discount_allocations %}
+											<li class="customer__order__discount-row">
+												<span>
+													{{- discount_alocation.discount_application.title | escape }} (
+													{{ discount_alocation.amount | money }} )</span
+												>
+											</li>
+										{% endfor %}
+									</ul>
+								{% endif -%}
+								{%- if line_item.fulfillment %}
+									<div class="customer__order__fulfillment">
+										{% assign created_at = line_item.fulfillment.created_at | time_tag: format: 'date' %}
+										<p>{{ 'customer.order.fulfilled_at_html' | t: date: created_at }}</p>
+										{% if line_item.fulfillment.tracking_url -%}
+											<a class="link-like" href="{{ line_item.fulfillment.tracking_url }}">
+												{{- 'customer.order.track_shipment' | t -}}
+											</a>
+										{%- endif %}
+										<p>
+											{{ line_item.fulfillment.tracking_company }}
+											{% if line_item.fulfillment.tracking_number -%}
+												{{- line_item.fulfillment.tracking_number | prepend: '#' -}}
+											{%- endif %}
+										</p>
+									</div>
+								{% endif %}
+							</div>
+							<div class="customer__order__grid-item">{{ line_item.sku }}</div>
+							<div class="customer__order__grid-item">
+								{% if line_item.original_price != line_item.final_price or line_item.unit_price_measurement -%}
+									{%- if line_item.original_price != line_item.final_price %}
+										<p class="customer__order__compare-price">{{ line_item.original_price | money }}</p>
+										<p>{{ line_item.final_price | money }}</p>
+									{% else %}
+										<p>{{ line_item.original_price | money }}</p>
+									{% endif -%}
+									{%- if line_item.unit_price_measurement %}
+										<div class="customer__order__unit-price">
+											<span data-unit-price>{{ line_item.unit_price | money }}</span>
+											{% if line_item.unit_price_measurement.reference_value != 1 -%}
+												{{- line_item.unit_price_measurement.reference_value -}}
+											{%- endif %}
+											{{ line_item.unit_price_measurement.reference_unit }}
+										</div>
+									{% endif -%}
+								{%- else -%}
+									<span>{{ line_item.final_price | money }}</span>
+								{%- endif %}
+							</div>
+							<div class="customer__order__grid-item">{{ line_item.quantity }}</div>
+							<div class="customer__order__grid-item">
+								{% if line_item.original_line_price != line_item.final_line_price %}
+									<p class="customer__order__compare-price">{{ line_item.original_line_price | money }}</p>
+									<p>{{ line_item.final_line_price | money }}</p>
+								{% else -%}
+									{{- line_item.original_line_price | money -}}
+								{%- endif %}
+							</div>
+						{% endfor %}
+					</div>
+
+					<div class="customer__order__footer">
+						<div class="customer__order__summary">
+							{% assign tax_lines_size = order.tax_lines | size %}
+							<div class="customer__order__summary-row">
+								<span>{{ 'customer.order.subtotal' | t }}</span>
+								<p class="customer__order__summary-value">{{ order.line_items_subtotal_price | money }}</p>
+							</div>
+							{% if order.cart_level_discount_applications != blank %}
+								<div class="customer__order__summary-row">
+									<span>{{ 'customer.order.discount' | t }}</span>
+									<p class="customer__order__summary-value">
+										{% for discount_application in order.cart_level_discount_applications -%}
+											<span>{{ discount_application.total_allocated_amount | money | prepend: '-' }}</span><br>
+										{% endfor %}
+									</p>
+								</div>
+							{% endif -%}
+							{%- for shipping_method in order.shipping_methods %}
+								<div class="customer__order__summary-row">
+									<span>{{ 'customer.order.shipping' | t }} ({{ shipping_method.title | escape }})</span>
+									<p class="customer__order__summary-value">-{{ shipping_method.price | money }}</p>
+								</div>
+							{% endfor -%}
+							{%- if tax_lines_size > 0 %}
+								<div class="customer__order__summary-row">
+									<span>{{ 'customer.order.tax' | t }}</span>
+									<div>
+										{% for tax_line in order.tax_lines %}
+											<p class="customer__order__summary-value">
+												({{ tax_line.title | escape }}) - {{ tax_line.rate | times: 100 }} -
+												{{ tax_line.price | money }}
+											</p>
+										{% endfor %}
+									</div>
+								</div>
+							{% endif -%}
+							{%- if order.total_duties %}
+								<div class="customer__order__summary-row">
+									<span>{{ 'customer.order.total_duties' | t }}</span>
+									<p class="customer__order__summary-value">{{ order.total_duties | money }}</p>
+								</div>
+							{% endif -%}
+							{%- if order.total_refunded_amount > 0 %}
+								<div class="customer__order__summary-row">
+									<span>{{ 'customer.order.total_refunded' | t }}</span>
+									<p class="customer__order__summary-value">
+										{{ order.total_refunded_amount | money_with_currency | prepend: '-' }}
+									</p>
+								</div>
+							{% endif %}
+							<div class="customer__order__summary-row">
+								<span>{{ 'customer.order.total' | t }}</span>
+								<p class="customer__order__summary-value">{{ order.total_net_amount | money_with_currency }}</p>
+							</div>
+						</div>
+
+						<address class="customer__order__address">
+							<h2 class="heading heading--size--h6 customer__order__heading">
+								{{ 'customer.order.billing_address' | t }}
+							</h2>
+							<p>{{ 'customer.order.fulfillment_status' | t }}: {{ order.financial_status_label }}</p>
+							{{ order.billing_address | format_address }}
+						</address>
+						<address class="customer__order__address">
+							<h2 class="heading heading--size--h6 customer__order__heading">
+								{{ 'customer.order.shipping_address' | t }}
+							</h2>
+							<p>{{ 'customer.order.fulfillment_status' | t }}: {{ order.fulfillment_status_label }}</p>
+							{{ order.shipping_address | format_address }}
+						</address>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Customer order",
+		"class": "customer-order-section"
+	}
+{% endschema %}

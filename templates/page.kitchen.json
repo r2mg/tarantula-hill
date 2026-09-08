@@ -1,0 +1,533 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_BdCk4G": {
+      "type": "hero",
+      "blocks": {
+        "heading_D4NM3n": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "THE KITCHEN",
+            "heading_size": "h1"
+          }
+        },
+        "description_8RzQQD": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>More than just food - it's a culinary experience. Our chef crafts everything by hand, from Neapolitan-style pizzas to gourmet tacos, fresh salads, and crispy wings. Each dish is designed to complement our craft beer perfectly.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_NE3WJF": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Place an order",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "https://gotab.io/loc/tarantulahillbrewingco"
+          }
+        },
+        "button_EgByg7": {
+          "type": "button",
+          "settings": {
+            "button_label": "see menu",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "shopify://pages/food-menu"
+          }
+        }
+      },
+      "block_order": [
+        "heading_D4NM3n",
+        "description_8RzQQD",
+        "button_NE3WJF",
+        "button_EgByg7"
+      ],
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/THill_EK_102024_0907.jpg",
+        "banner_overlay": 40,
+        "banner_size": "screen",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    },
+    "page-header": {
+      "type": "page-header",
+      "disabled": true,
+      "settings": {
+        "page_header_color_scheme": "",
+        "page_header_center_text": true,
+        "page_header_heading_size": "h1",
+        "page_header_image_overlay": 30,
+        "page_header_image_size": "medium",
+        "page_header_scroll_clip": false,
+        "page_header_overlap": true
+      }
+    },
+    "page": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container_width": "normal"
+      }
+    },
+    "scrolling_image_reveal_JgGULh": {
+      "type": "scrolling-image-reveal",
+      "blocks": {
+        "image_W3hR7x": {
+          "type": "image",
+          "settings": {
+            "image_ratio": "auto",
+            "link": "",
+            "subheading_text": "",
+            "heading_text": "2019",
+            "heading_size": "h4",
+            "text_content": "Describe a product, make announcements, or welcome customers to your store.",
+            "color_scheme": ""
+          }
+        },
+        "image_6cdDLU": {
+          "type": "image",
+          "settings": {
+            "image_ratio": "auto",
+            "link": "",
+            "subheading_text": "",
+            "heading_text": "2021",
+            "heading_size": "h4",
+            "text_content": "Describe a product, make announcements, or welcome customers to your store.",
+            "color_scheme": ""
+          }
+        },
+        "image_etpaFh": {
+          "type": "image",
+          "settings": {
+            "image_ratio": "auto",
+            "link": "",
+            "subheading_text": "",
+            "heading_text": "2023",
+            "heading_size": "h4",
+            "text_content": "Describe a product, make announcements, or welcome customers to your store.",
+            "color_scheme": ""
+          }
+        },
+        "image_8w47BV": {
+          "type": "image",
+          "settings": {
+            "image_ratio": "auto",
+            "link": "",
+            "subheading_text": "",
+            "heading_text": "2025",
+            "heading_size": "h4",
+            "text_content": "Describe a product, make announcements, or welcome customers to your store.",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_W3hR7x",
+        "image_6cdDLU",
+        "image_etpaFh",
+        "image_8w47BV"
+      ],
+      "disabled": true,
+      "name": "Scrolling image reveal",
+      "settings": {
+        "heading_text": "Our History",
+        "heading_animation": true,
+        "heading_size": "d3",
+        "color_scheme": "",
+        "description": "Uncover the Rich History Behind Our Craft Brewery.",
+        "gyro_effect": true,
+        "scroll_clip": false
+      }
+    },
+    "image_with_text_V8RaKj": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_MiTHeq": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "MEET CHEF IVAN ARMENTA FUERTE",
+            "heading_animation": true,
+            "heading_size": "h1"
+          }
+        },
+        "description_nN4en7": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>With nearly three decades in the culinary world since 1996, Executive Chef Ivan brings passion, expertise, and a deep commitment to quality to every dish. Working closely with local farms and purveyors, he creates fresh, innovative cuisine that perfectly complements our craft beer and reflects our community values.</p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_MiTHeq",
+        "description_nN4en7"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "color_scheme": "",
+        "hover_parallax": false,
+        "use_bg": false,
+        "image": "shopify://shop_images/THill_EK_061025_2464.jpg",
+        "image_position": "left",
+        "image_width": "medium",
+        "image_size": "auto",
+        "text_align": "left",
+        "content_position": "middle-center"
+      }
+    },
+    "gallery_mqXzAr": {
+      "type": "gallery",
+      "blocks": {
+        "image_BhcbhY": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/THill_EK_100124_0495.jpg",
+            "banner_overlay": 0,
+            "row": "2",
+            "col": "6",
+            "link": "",
+            "content_position": "middle-center",
+            "subheading_text": "",
+            "heading_text": "Gallery item",
+            "heading_size": "h4",
+            "text_content": "",
+            "button_label": "",
+            "button_variant": "outline",
+            "color_scheme": ""
+          }
+        },
+        "image_UtT9Xf": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/THill_EK_100924_0671.jpg",
+            "banner_overlay": 0,
+            "row": "1",
+            "col": "6",
+            "link": "",
+            "content_position": "middle-center",
+            "subheading_text": "",
+            "heading_text": "Gallery item",
+            "heading_size": "h4",
+            "text_content": "",
+            "button_label": "",
+            "button_variant": "outline",
+            "color_scheme": ""
+          }
+        },
+        "image_KLErXX": {
+          "type": "image",
+          "settings": {
+            "banner_overlay": 0,
+            "row": "1",
+            "col": "6",
+            "link": "",
+            "content_position": "middle-center",
+            "subheading_text": "",
+            "heading_text": "Gallery item",
+            "heading_size": "h4",
+            "text_content": "",
+            "button_label": "",
+            "button_variant": "outline",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_BhcbhY",
+        "image_UtT9Xf",
+        "image_KLErXX"
+      ],
+      "disabled": true,
+      "name": "Gallery",
+      "settings": {
+        "section_heading": "The Gallery",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "",
+        "gyro_effect": false,
+        "row_size": "medium"
+      }
+    },
+    "featured_product_6yBha3": {
+      "type": "featured-product",
+      "blocks": {
+        "title_F777rz": {
+          "type": "title",
+          "settings": {
+            "title_size": "h2",
+            "show_vendor": false,
+            "show_rating": true
+          }
+        },
+        "price_nX9a8b": {
+          "type": "price",
+          "settings": {
+            "show_taxes_note": true
+          }
+        },
+        "variant_picker_nfXLzA": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "pills",
+            "enable_color_swatches": true,
+            "variant_image_options": ""
+          }
+        },
+        "buy_buttons_B9j7qF": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_recipient_form": true,
+            "show_payment_icons": true,
+            "show_qty_selector": true
+          }
+        }
+      },
+      "block_order": [
+        "title_F777rz",
+        "price_nX9a8b",
+        "variant_picker_nfXLzA",
+        "buy_buttons_B9j7qF"
+      ],
+      "disabled": true,
+      "name": "Featured product",
+      "settings": {
+        "product": "",
+        "color_scheme": "",
+        "enable_share": true,
+        "sticky_media": true,
+        "media_position": "right",
+        "media_size": "small",
+        "thumbs_position": "bottom",
+        "gallery_ratio": "square",
+        "media_fit": "original",
+        "enable_autoplay": false
+      }
+    },
+    "rich_text_VHCGU6": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_HKJapN": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Order a Keg",
+            "heading_animation": true,
+            "heading_size": "h1"
+          }
+        },
+        "description_nPz7dq": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_g9hNx4": {
+          "type": "button",
+          "settings": {
+            "button_label": "place an order",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_HKJapN",
+        "description_nPz7dq",
+        "button_g9hNx4"
+      ],
+      "disabled": true,
+      "name": "Rich text",
+      "settings": {
+        "color_scheme": "invert",
+        "text_align": "center",
+        "image_overlay": 30,
+        "blur_image": false
+      }
+    },
+    "slideshow_Jr4Qwm": {
+      "type": "slideshow",
+      "blocks": {
+        "image_ePFVJ9": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/THill_EK_100924_0671.jpg",
+            "banner_overlay": 0,
+            "content_position": "middle-center",
+            "content_box": false,
+            "subheading_text": "",
+            "heading_text": "",
+            "heading_size": "h1",
+            "text_content": "",
+            "button_label": "",
+            "button_variant": "outline",
+            "button_link": "",
+            "color_scheme": ""
+          }
+        },
+        "image_tNhqYp": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/THill_EK_100124_0495.jpg",
+            "banner_overlay": 0,
+            "content_position": "middle-center",
+            "content_box": false,
+            "subheading_text": "",
+            "heading_text": "",
+            "heading_size": "h1",
+            "text_content": "",
+            "button_label": "",
+            "button_variant": "outline",
+            "button_link": "",
+            "color_scheme": ""
+          }
+        },
+        "image_UCwyJg": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/THill_EK_052924_5445.jpg",
+            "banner_overlay": 0,
+            "content_position": "middle-center",
+            "content_box": false,
+            "subheading_text": "",
+            "heading_text": "",
+            "heading_size": "h1",
+            "text_content": "",
+            "button_label": "",
+            "button_variant": "outline",
+            "button_link": "",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_ePFVJ9",
+        "image_tNhqYp",
+        "image_UCwyJg"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "image_size": "screen",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "show_arrows_on_desktop": true,
+        "autoplay": "5"
+      }
+    },
+    "collapsible_content_38eDeU": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapse_7VgTQg": {
+          "type": "collapse",
+          "settings": {
+            "heading": "Do you offer gluten-free options?",
+            "text": "<p>Yes! We offer several items prepared gluten-free, including pizza options. However, please note that other items containing gluten are prepared in our kitchen, so cross-contamination is possible. Always notify your server of any food allergies or dietary restrictions.</p>",
+            "page": ""
+          }
+        },
+        "collapse_LA4zYt": {
+          "type": "collapse",
+          "settings": {
+            "heading": "How do I place a food order?",
+            "text": "<p>You have two convenient options: Visit any of our bar tops (beer bar, liquor bar, or ice cream bar) and let them know your table number when ordering, or stay at your table and order through the QR code for contactless ordering.</p>",
+            "page": ""
+          }
+        },
+        "collapse_6Q3iBH": {
+          "type": "collapse",
+          "settings": {
+            "heading": "Do you take reservations?",
+            "text": "<p>We operate on a first-come, first-served basis for parties under 15 people. Reservations are only available for groups of 15 or more. For large party bookings, please contact us directly to arrange your visit.</p>",
+            "page": ""
+          }
+        },
+        "collapse_9ENtJg": {
+          "type": "collapse",
+          "settings": {
+            "heading": "Is your restaurant family-friendly?",
+            "text": "<p>Yes! We're very kid-friendly and welcome families. We have a kids' menu and dogs are welcomed on both our front deck and the backyard.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapse_7VgTQg",
+        "collapse_LA4zYt",
+        "collapse_6Q3iBH",
+        "collapse_9ENtJg"
+      ],
+      "name": "Collapsible content",
+      "settings": {
+        "section_heading": "FOOD FAQ",
+        "section_heading_size": "h2",
+        "section_heading_animation": true,
+        "section_description": "",
+        "section_color_scheme": "main",
+        "collapse_color_scheme": ""
+      }
+    },
+    "scrolling_hero_images_rgMYkP": {
+      "type": "scrolling-hero-images",
+      "blocks": {
+        "image_ydrqei": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_052925_2349.jpg",
+            "image_overlay": 40,
+            "subheading_text": "",
+            "heading_text": "EXPLORE OUR MENU",
+            "heading_size": "h1",
+            "text_content": "Wood-fired pizzas, fresh tacos, gourmet sandwiches, crispy wings, and super-premium ice cream. Everything made fresh to order in our kitchen.",
+            "button_label": "SEE FULL MENU",
+            "button_variant": "outline",
+            "button_link": "shopify://pages/food-menu",
+            "content_position": "middle-left",
+            "text_align": "left",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_ydrqei"
+      ],
+      "name": "Scrolling hero images",
+      "settings": {
+        "heading_animation": true,
+        "scroll_clip": false
+      }
+    }
+  },
+  "order": [
+    "hero_BdCk4G",
+    "page-header",
+    "page",
+    "scrolling_image_reveal_JgGULh",
+    "image_with_text_V8RaKj",
+    "gallery_mqXzAr",
+    "featured_product_6yBha3",
+    "rich_text_VHCGU6",
+    "slideshow_Jr4Qwm",
+    "collapsible_content_38eDeU",
+    "scrolling_hero_images_rgMYkP"
+  ]
+}

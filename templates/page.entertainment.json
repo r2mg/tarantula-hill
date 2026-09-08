@@ -1,0 +1,209 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "page-header": {
+      "type": "page-header",
+      "disabled": true,
+      "settings": {
+        "page_header_color_scheme": "",
+        "page_header_center_text": true,
+        "page_header_heading_size": "h1",
+        "page_header_image_overlay": 30,
+        "page_header_image_size": "medium",
+        "page_header_scroll_clip": false,
+        "page_header_overlap": true
+      }
+    },
+    "page": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container_width": "normal"
+      }
+    },
+    "hero_J3Fm7p": {
+      "type": "hero",
+      "blocks": {
+        "heading_rdkQAf": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Entertainment",
+            "heading_size": "h1"
+          }
+        },
+        "description_TkDkez": {
+          "type": "description",
+          "settings": {
+            "text_content": "",
+            "enlarge_text": false
+          }
+        },
+        "button_Tz7ijK": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_rdkQAf",
+        "description_TkDkez",
+        "button_Tz7ijK"
+      ],
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/27dbec6f68fe56-QF473265815.webp",
+        "banner_overlay": 40,
+        "banner_size": "medium",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    },
+    "custom_liquid_Thkc9c": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "Custom liquid",
+      "settings": {
+        "section_heading": "Monthly Calendar",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "invert",
+        "liquid_content": "<div style=\"text-align: center;\">\n  <iframe src=\"https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FLos_Angeles&bgcolor=%23ffffff&title=Events&src=Y18zYmQxYzM3OGEzZjE1Y2UwN2U0ZDAwN2MyMmMyOGJiNjU5MDZiNzU1NWRhZmJlYzIzNzkzOGZhZjU0OTY3YmRjQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%237CB342\" style=\"border-width:0\" width=\"800\" height=\"600\" frameborder=\"0\" scrolling=\"no\"></iframe>\n</div>"
+      }
+    },
+    "custom_liquid_pifbEF": {
+      "type": "custom-liquid",
+      "name": "Custom liquid",
+      "settings": {
+        "section_heading": "Monthly Calendar",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "invert",
+        "liquid_content": "<div data-events-calendar-app data-project-id=\"proj_ouhWXOnxmxciFET9tx4gp\" ></div>\n<script type=\"text/javascript\" src=\"//dist.eventscalendar.co/embed.js\"></script>"
+      }
+    },
+    "contact_form_RQA3bT": {
+      "type": "contact-form",
+      "blocks": {
+        "text_pqH66a": {
+          "type": "text",
+          "settings": {
+            "field_label": "Name",
+            "width": "6",
+            "is_required": false
+          }
+        },
+        "email_QyffQG": {
+          "type": "email",
+          "settings": {
+            "field_label": "Email",
+            "width": "6"
+          }
+        },
+        "phone_number_VAgFGz": {
+          "type": "phone_number",
+          "settings": {
+            "field_label": "Phone number",
+            "width": "12",
+            "is_required": false
+          }
+        },
+        "textarea_6cGcE8": {
+          "type": "textarea",
+          "settings": {
+            "field_label": "Message",
+            "width": "12",
+            "is_required": false
+          }
+        }
+      },
+      "block_order": [
+        "text_pqH66a",
+        "email_QyffQG",
+        "phone_number_VAgFGz",
+        "textarea_6cGcE8"
+      ],
+      "disabled": true,
+      "name": "Contact form",
+      "settings": {
+        "section_heading": "Want to be featured?",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "‍We are always looking for new talent for our weekly events,if you are interested in being a featured artist in our events lineup please inquire below!",
+        "section_color_scheme": ""
+      }
+    },
+    "175321014423ba6e34": {
+      "type": "apps",
+      "blocks": {
+        "forms_inline_WzmFcU": {
+          "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "572514",
+            "text_color": "#202020",
+            "button_background_color": "#202020",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 40,
+            "padding_bottom": 40,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        }
+      },
+      "block_order": [
+        "forms_inline_WzmFcU"
+      ],
+      "settings": {}
+    },
+    "hero_J3ME4q": {
+      "type": "hero",
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/THill_EK_052925_2353.jpg",
+        "banner_overlay": 0,
+        "banner_size": "medium",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    }
+  },
+  "order": [
+    "page-header",
+    "page",
+    "hero_J3Fm7p",
+    "custom_liquid_Thkc9c",
+    "custom_liquid_pifbEF",
+    "contact_form_RQA3bT",
+    "175321014423ba6e34",
+    "hero_J3ME4q"
+  ]
+}

@@ -1,0 +1,593 @@
+{% style %}
+	.marquee-section__item {
+		position: relative;
+		flex-shrink: 0;
+		width: max-content;
+	}
+
+	.marquee-section__image {
+		height: 1em;
+	}
+
+	.marquee-section__image > img {
+		height: 1em;
+		width: auto;
+	}
+
+	.marquee-section__icon > svg {
+		width: 1em;
+		height: 1em;
+	}
+{% endstyle %}
+{%- if section.blocks.size > 0 -%}
+	{%- capture capture_blocks -%}
+		{%- for block in section.blocks %}
+			<div class="marquee-section__item">
+				{% case block.type -%}
+					{%- when 'text' -%}
+						{%- if block.settings.text != blank -%}
+							{%- assign link_aria_label = block.settings.text %}
+							<p class="heading heading--size--{{ section.settings.content_size }}">{{ block.settings.text }}</p>
+						{% endif -%}
+					{%- when 'image' -%}
+						{%- if block.settings.image != blank -%}
+							{%- assign link_aria_label = block.settings.image.alt %}
+							<div class="heading heading--size--{{ section.settings.content_size }}">
+								<picture class="marquee-section__image">
+									<source srcset="{{ block.settings.image | image_url: width: 200 }} 1x, {{ block.settings.image | image_url: width: 400 }} 2x, {{ block.settings.image | image_url: width: 600 }} 3x">
+
+									<img
+										src="{{ block.settings.image | image_url }}"
+										alt="{{ block.settings.image.alt | escape }}"
+										width="{{ block.settings.image.width }}"
+										height="{{ block.settings.image.height }}"
+										loading="lazy"
+										data-img-loading
+										onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+									>
+								</picture>
+							</div>
+						{% endif -%}
+					{%- when 'icon' -%}
+						{%- assign link_aria_label = block.settings.icon %}
+						<div class="heading heading--size--{{ section.settings.content_size }} marquee-section__icon">
+							{{ block.settings.icon | append: '.svg' | inline_asset_content }}
+						</div>
+				{% endcase %}
+				{% if block.settings.link != blank -%}
+					{%- if block.settings.link != blank -%}
+						<a class="stretched-link" href="{{ block.settings.link }}" aria-label="{{ link_aria_label }}"> </a>
+					{%- endif -%}
+				{%- endif %}
+			</div>
+		{% endfor -%}
+	{%- endcapture -%}
+{%- endif %}
+
+<div class="color-scheme-{{ section.settings.color_scheme.id }}">
+	<x-moving-line
+		class="moving-line moving-line--animation--{{ section.settings.type }} {% if section.settings.stop_on_hover %}moving-line--stop-on-hover{% endif %} moving-line--spacing--{{ section.settings.space_between }}"
+		style="--moving-line-direction: {{ section.settings.direction }};--moving-line-animation-speed-mult: {{ section.settings.speed }};"
+	>
+		<div class="moving-line__content" data-moving-line-element="content">
+			{{ capture_blocks }}
+		</div>
+	</x-moving-line>
+	<script type="module" src="{{ 'component-moving-line.js' | asset_url }}"></script>
+</div>
+
+{% schema %}
+	{
+		"name": "Marquee",
+		"class": "marquee-section",
+		"presets": [
+			{
+				"name": "Marquee",
+				"blocks": [
+					{
+						"type": "text"
+					}
+				],
+				"category": "Promotional"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "select",
+				"id": "content_size",
+				"label": "Content size",
+				"options": [
+					{
+						"value": "h2",
+						"label": "Small"
+					},
+					{
+						"value": "h1",
+						"label": "Medium"
+					},
+					{
+						"value": "d3",
+						"label": "Large"
+					}
+				],
+				"default": "h1"
+			},
+			{
+				"type": "select",
+				"id": "type",
+				"label": "Moving type",
+				"options": [
+					{
+						"label": "Auto",
+						"value": "auto"
+					},
+					{
+						"label": "On scroll",
+						"value": "scroll"
+					}
+				],
+				"default": "scroll"
+			},
+			{
+				"type": "checkbox",
+				"id": "stop_on_hover",
+				"label": "Stop on mouseover",
+				"default": true,
+				"info": "Affects only 'Auto' moving type"
+			},
+			{
+				"type": "select",
+				"id": "direction",
+				"label": "Moving direction",
+				"options": [
+					{
+						"label": "To left",
+						"value": "normal"
+					},
+					{
+						"label": "To right",
+						"value": "reverse"
+					}
+				],
+				"default": "normal"
+			},
+			{
+				"type": "select",
+				"id": "speed",
+				"label": "Moving speed",
+				"options": [
+					{
+						"label": "Slow",
+						"value": "2"
+					},
+					{
+						"label": "Normal",
+						"value": "1"
+					},
+					{
+						"label": "Fast",
+						"value": "0.5"
+					}
+				],
+				"default": "1"
+			},
+			{
+				"type": "select",
+				"id": "space_between",
+				"label": "Space between blocks",
+				"options": [
+					{
+						"label": "Small",
+						"value": "small"
+					},
+					{
+						"label": "Medium",
+						"value": "medium"
+					},
+					{
+						"label": "Large",
+						"value": "large"
+					}
+				],
+				"default": "medium"
+			}
+		],
+		"blocks": [
+			{
+				"name": "Text",
+				"type": "text",
+				"settings": [
+					{
+						"type": "text",
+						"id": "text",
+						"label": "Text",
+						"default": "Marquee text"
+					},
+					{
+						"type": "url",
+						"id": "link",
+						"label": "Link"
+					}
+				]
+			},
+			{
+				"name": "Image",
+				"type": "image",
+				"settings": [
+					{
+						"type": "image_picker",
+						"id": "image",
+						"label": "Image"
+					},
+					{
+						"type": "url",
+						"id": "link",
+						"label": "Link"
+					}
+				]
+			},
+			{
+				"name": "Icon",
+				"type": "icon",
+				"settings": [
+					{
+						"type": "select",
+						"id": "icon",
+						"label": "Icon",
+						"options": [
+							{
+								"label": "Smile",
+								"value": "smiley",
+								"group": "Common"
+							},
+							{
+								"label": "Heart",
+								"value": "heart",
+								"group": "Common"
+							},
+							{
+								"label": "Charity",
+								"value": "hand-heart",
+								"group": "Common"
+							},
+							{
+								"label": "Thumbs up",
+								"value": "thumbs-up",
+								"group": "Common"
+							},
+							{
+								"label": "Handshake",
+								"value": "handshake",
+								"group": "Common"
+							},
+							{
+								"label": "Fire",
+								"value": "fire",
+								"group": "Common"
+							},
+							{
+								"label": "Gift",
+								"value": "gift",
+								"group": "Common"
+							},
+							{
+								"label": "Award",
+								"value": "medal",
+								"group": "Common"
+							},
+							{
+								"label": "Trophy",
+								"value": "trophy",
+								"group": "Common"
+							},
+							{
+								"label": "Badge",
+								"value": "seal-check",
+								"group": "Common"
+							},
+							{
+								"label": "Gem",
+								"value": "sketch-logo",
+								"group": "Common"
+							},
+							{
+								"label": "Rocket",
+								"value": "rocket-launch",
+								"group": "Common"
+							},
+							{
+								"label": "Star",
+								"value": "star",
+								"group": "Common"
+							},
+							{
+								"label": "Flag",
+								"value": "flag",
+								"group": "Common"
+							},
+							{
+								"label": "Info",
+								"value": "info",
+								"group": "Common"
+							},
+							{
+								"label": "Checkmark",
+								"value": "check-circle",
+								"group": "Common"
+							},
+							{
+								"label": "Warning",
+								"value": "warning",
+								"group": "Common"
+							},
+							{
+								"label": "Ban",
+								"value": "prohibit",
+								"group": "Common"
+							},
+							{
+								"label": "Lock",
+								"value": "lock-key",
+								"group": "Common"
+							},
+							{
+								"label": "Clock",
+								"value": "clock",
+								"group": "Common"
+							},
+							{
+								"label": "Alarm",
+								"value": "bell-ringing",
+								"group": "Common"
+							},
+							{
+								"label": "Pencil",
+								"value": "pencil",
+								"group": "Common"
+							},
+							{
+								"label": "Pin",
+								"value": "push-pin",
+								"group": "Common"
+							},
+							{
+								"label": "Document",
+								"value": "file-text",
+								"group": "Common"
+							},
+							{
+								"label": "Calendar",
+								"value": "calendar-dots",
+								"group": "Common"
+							},
+							{
+								"label": "User",
+								"value": "user-circle",
+								"group": "Common"
+							},
+							{
+								"label": "Storefront",
+								"value": "storefront",
+								"group": "Shop"
+							},
+							{
+								"label": "Cart",
+								"value": "shopping-cart",
+								"group": "Shop"
+							},
+							{
+								"label": "Bag",
+								"value": "handbag",
+								"group": "Shop"
+							},
+							{
+								"label": "Wallet",
+								"value": "wallet",
+								"group": "Shop"
+							},
+							{
+								"label": "Card",
+								"value": "credit-card",
+								"group": "Shop"
+							},
+							{
+								"label": "Money",
+								"value": "money",
+								"group": "Shop"
+							},
+							{
+								"label": "Coins",
+								"value": "coins",
+								"group": "Shop"
+							},
+							{
+								"label": "Coupon",
+								"value": "tag",
+								"group": "Shop"
+							},
+							{
+								"label": "Return",
+								"value": "arrows-clockwise",
+								"group": "Shop"
+							},
+							{
+								"label": "Truck",
+								"value": "truck",
+								"group": "Logistics"
+							},
+							{
+								"label": "Plane",
+								"value": "airplane-tilt",
+								"group": "Logistics"
+							},
+							{
+								"label": "Map pin",
+								"value": "map-pin",
+								"group": "Logistics"
+							},
+							{
+								"label": "Package",
+								"value": "package",
+								"group": "Logistics"
+							},
+							{
+								"label": "Ruler",
+								"value": "ruler",
+								"group": "Measurement"
+							},
+							{
+								"label": "Scales",
+								"value": "scales",
+								"group": "Measurement"
+							},
+							{
+								"label": "Dimensions",
+								"value": "vector-three",
+								"group": "Measurement"
+							},
+							{
+								"label": "Percent",
+								"value": "seal-percent",
+								"group": "Measurement"
+							},
+							{
+								"label": "Chart",
+								"value": "chart-bar",
+								"group": "Measurement"
+							},
+							{
+								"label": "Calculator",
+								"value": "calculator",
+								"group": "Measurement"
+							},
+							{
+								"label": "At sign",
+								"value": "at",
+								"group": "Connection"
+							},
+							{
+								"label": "Envelope",
+								"value": "envelope",
+								"group": "Connection"
+							},
+							{
+								"label": "Phone",
+								"value": "phone",
+								"group": "Connection"
+							},
+							{
+								"label": "Support",
+								"value": "headset",
+								"group": "Connection"
+							},
+							{
+								"label": "Chat",
+								"value": "chats",
+								"group": "Connection"
+							},
+							{
+								"label": "Comment",
+								"value": "chat-centered-text",
+								"group": "Connection"
+							},
+							{
+								"label": "Link",
+								"value": "link-simple",
+								"group": "Connection"
+							},
+							{
+								"label": "External link",
+								"value": "arrow-square-out",
+								"group": "Connection"
+							},
+							{
+								"label": "Paper plane",
+								"value": "paper-plane-tilt",
+								"group": "Connection"
+							},
+							{
+								"label": "Bluetooth",
+								"value": "bluetooth",
+								"group": "Tech"
+							},
+							{
+								"label": "WIFI",
+								"value": "wifi-high",
+								"group": "Tech"
+							},
+							{
+								"label": "AI",
+								"value": "sparkle-star",
+								"group": "Tech"
+							},
+							{
+								"label": "Controller",
+								"value": "game-controller",
+								"group": "Tech"
+							},
+							{
+								"label": "Chip",
+								"value": "cpu",
+								"group": "Tech"
+							},
+							{
+								"label": "Power",
+								"value": "power",
+								"group": "Tech"
+							},
+							{
+								"label": "Gear",
+								"value": "gear",
+								"group": "Tech"
+							},
+							{
+								"label": "Battery",
+								"value": "battery-charging",
+								"group": "Tech"
+							},
+							{
+								"label": "Earth",
+								"value": "globe",
+								"group": "Ecology"
+							},
+							{
+								"label": "Tree",
+								"value": "tree",
+								"group": "Ecology"
+							},
+							{
+								"label": "Leaf",
+								"value": "leaf",
+								"group": "Ecology"
+							},
+							{
+								"label": "Paw",
+								"value": "paw-print",
+								"group": "Ecology"
+							},
+							{
+								"label": "Recycle",
+								"value": "recycle",
+								"group": "Ecology"
+							}
+						]
+					},
+					{
+						"type": "url",
+						"id": "link",
+						"label": "Link"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

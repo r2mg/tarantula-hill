@@ -1,0 +1,234 @@
+{% assign only_homepage = false -%}
+{%- if section.settings.only_homepage and template.name != 'index' %}{% assign only_homepage = true %}{% endif -%}
+{%- assign show_logged = false -%}
+{%- if section.settings.show_logged == false and customer != null %}{% assign show_logged = true %}{% endif %}
+
+{% if only_homepage == false and show_logged == false -%}
+	{%- capture capture_popup_body %}
+		<div class="newsletter-popup__body">
+			<button class="newsletter-popup__close" data-newsletter-popup-element="close">
+				<svg>
+					<use  xlink:href="#svg-icon-x"></use>
+				</svg>
+			</button>
+			{% if section.settings.image != null %}
+				<picture>
+					<source
+						srcset="
+							{% if section.settings.image.width >= 375 %}{{ section.settings.image | image_url: width: 375 }} 375w,{% endif %}
+							{% if section.settings.image.width >= 550 %}{{ section.settings.image | image_url: width: 550 }} 550w,{% endif %}
+							{% if section.settings.image.width >= 750 %}{{ section.settings.image | image_url: width: 750 }} 750w,{% endif %}
+							{% if section.settings.image.width >= 1100 %}{{ section.settings.image | image_url: width: 1100 }} 1100w,{% endif %}
+							{% if section.settings.image.width >= 1500 %}{{ section.settings.image | image_url: width: 1500 }} 1500w,{% endif %}
+							{% if section.settings.image.width >= 1780 %}{{ section.settings.image | image_url: width: 1780 }} 1780w,{% endif %}
+							{% if section.settings.image.width >= 2000 %}{{ section.settings.image | image_url: width: 2000 }} 2000w,{% endif %}
+							{{ section.settings.image | image_url }} {{ section.settings.image.width }}w
+						"
+						sizes="(min-width: 992px) 400px, (max-width: 992px) 90vw"
+					>
+
+					<img
+						src="{{ section.settings.image | image_url }}"
+						alt="{{ section.settings.image.alt | escape }}"
+						width="{{ section.settings.image.width }}"
+						height="{{ section.settings.image.height }}"
+						loading="lazy"
+						data-img-loading
+						onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+					>
+				</picture>
+			{%- endif %}
+			<div class="content newsletter-popup__content content--align--center">
+				{% if section.settings.heading_text != blank %}
+					<h4 class="heading heading--size--h5">{{ section.settings.heading_text }}</h4>
+				{% endif -%}
+				{%- if section.settings.description != blank %}
+					<p class="text text--size--sm text--mute">{{ section.settings.description }}</p>
+				{% endif %}
+				<div class="newsletter">
+					{% form 'customer', id: 'NewsletterPopupFormId' %}
+						{% if form.posted_successfully? %}
+							<div class="newsletter__feeback">
+								<div class="badge badge--type--success">
+									{{ 'newsletter.success' | t }}
+								</div>
+							</div>
+						{% endif -%}
+						{%- if form.errors %}
+							<div class="newsletter__feeback">
+								{% if form.errors %}
+									<div class="form-errors">
+										<h2 class="form-errors__heading" tabindex="-1" autofocus>
+											<span class="screen-reader">
+												{{ 'accessibility.error' | t }}
+											</span>
+											{{ 'templates.contact.form.error_heading' | t }}
+										</h2>
+										{{ form.errors | default_errors }}
+									</div>
+								{% endif %}
+							</div>
+						{% endif -%}
+						<input type="hidden" name="contact[tags]" value="newsletter">
+						<div class="newsletter__inner">
+							<input
+								class="newsletter__input"
+								type="email"
+								name="contact[email]"
+								aria-required="true"
+								autocorrect="off"
+								autocapitalize="off"
+								autocomplete="email"
+								placeholder="{{ 'templates.contact.form.email' | t }}"
+								aria-label="{{ 'templates.contact.form.email' | t }}"
+								required
+							>
+							<button class="newsletter__submit" type="submit" aria-label="{{ 'newsletter.button_label' | t }}">
+								<svg>
+									<use  xlink:href="#svg-icon-arrow-right"></use>
+								</svg>
+							</button>
+						</div>
+					{% endform %}
+				</div>
+			</div>
+		</div>
+	{% endcapture %}
+
+	<x-newsletter-popup
+		class="newsletter-popup color-scheme-{{ section.settings.color_scheme.id }} {% if section.settings.image != nil %}newsletter-popup--with-image{% endif %}"
+		popup-type="{{ section.settings.display }}"
+		popup-delay="{{ section.settings.delay }}"
+		{% if section.settings.single_session and request.design_mode == false %}
+			single-session
+		{% endif %}
+	>
+		{% if section.settings.display == 'modal' -%}
+			<x-modal class="modal" id="popup-newsletter-modal" style="">
+				<dialog class="modal__dialog" data-modal-element="dialog">
+					<div class="modal__content" data-modal-element="content">
+						{{ capture_popup_body }}
+					</div>
+				</dialog>
+			</x-modal>
+		{%- else %}
+			<div class="newsletter-popup__popover" popover="manual" data-newsletter-popup-element="popover">
+				{{ capture_popup_body }}
+			</div>
+		{% endif %}
+
+		<script type="module" src="{{ 'component-newsletter-popup.js' | asset_url }}"></script>
+	</x-newsletter-popup>
+{%- endif %}
+
+{% if request.design_mode %}
+	<script type="module">
+		class EditorNewsletterPopup extends window.Editor {
+			events = {
+				section: {
+					select: this._open,
+					deselect: this._close,
+				},
+			};
+
+			_close() {
+				setTimeout(() => {
+					this.$newsletterPopup.close();
+				}, 200);
+			}
+			_open() {
+				setTimeout(() => {
+					this.$newsletterPopup.open();
+				}, 200);
+			}
+
+			get $newsletterPopup() {
+				return document.querySelector('x-newsletter-popup');
+			}
+		}
+		const newsletterEditorUX = new EditorNewsletterPopup('{{ section.id }}');
+		newsletterEditorUX.render();
+	</script>
+{% endif %}
+
+{% schema %}
+	{
+		"name": "Newsletter popup",
+		"class": "newsletter-popup-section",
+		"settings": [
+			{
+				"type": "paragraph",
+				"content": "Signups add [customer profiles](https://help.shopify.com/manual/customers/manage-customers)"
+			},
+			{
+				"type": "select",
+				"id": "display",
+				"label": "Positioning",
+				"options": [
+					{
+						"value": "modal",
+						"label": "Center"
+					},
+					{
+						"value": "popover",
+						"label": "Corner"
+					}
+				],
+				"default": "popover"
+			},
+			{
+				"type": "range",
+				"id": "delay",
+				"label": "Popup delay",
+				"min": 0,
+				"max": 15,
+				"default": 3,
+				"step": 1,
+				"unit": "sec"
+			},
+			{
+				"type": "checkbox",
+				"id": "only_homepage",
+				"label": "Show only on home page"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_logged",
+				"label": "Display for logged-in buyers",
+				"default": false
+			},
+			{
+				"type": "checkbox",
+				"id": "single_session",
+				"label": "Show once per buyer session",
+				"default": true
+			},
+			{
+				"type": "header",
+				"content": "Content"
+			},
+			{
+				"type": "image_picker",
+				"id": "image",
+				"label": "Image"
+			},
+			{
+				"type": "text",
+				"id": "heading_text",
+				"label": "Heading",
+				"default": "Subscribe to our emails"
+			},
+			{
+				"type": "inline_richtext",
+				"id": "description",
+				"label": "Text",
+				"default": "Be the first to know about new collections and exclusive offers."
+			},
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme"
+			}
+		]
+	}
+{% endschema %}

@@ -1,0 +1,112 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_RUxVbb": {
+      "type": "hero",
+      "blocks": {
+        "heading_xYUVGm": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "News & Press",
+            "heading_size": "h1"
+          }
+        },
+        "description_zkFtt8": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Stay up to date with the latest brewery news, awards, press coverage, and company announcements.</p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_xYUVGm",
+        "description_zkFtt8"
+      ],
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/THill_EK_102024_0948.jpg",
+        "banner_overlay": 40,
+        "banner_size": "medium",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    },
+    "page-header": {
+      "type": "page-header",
+      "disabled": true,
+      "settings": {
+        "page_header_color_scheme": "",
+        "page_header_center_text": true,
+        "page_header_heading_size": "h1",
+        "page_header_image_overlay": 30,
+        "page_header_image_size": "medium",
+        "page_header_scroll_clip": false,
+        "page_header_overlap": true
+      }
+    },
+    "page": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container_width": "normal"
+      }
+    },
+    "featured_blog_Q4cjDP": {
+      "type": "featured-blog",
+      "name": "Featured blog",
+      "settings": {
+        "blog": "news",
+        "max_articles": 10,
+        "section_heading": "Latest News",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "",
+        "show_view_all": false,
+        "stack_grid_layout": "stack",
+        "stack_grid_desktop_columns": "3",
+        "stack_grid_mobile_columns": "2",
+        "card_display_style": "normal",
+        "card_image_ratio": "landscape",
+        "card_gyro_effect": true,
+        "card_center_content": false,
+        "card_color_scheme": ""
+      }
+    },
+    "custom_liquid_gMpaBB": {
+      "type": "custom-liquid",
+      "name": "Custom liquid",
+      "settings": {
+        "section_heading": "",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "",
+        "liquid_content": "{% comment %}\n  Press Kit Download - Custom Liquid Section\n  Copy and paste this code directly into a Custom Liquid section in your theme editor\n{% endcomment %}\n\n<div class=\"press-kit-section\">\n  <div class=\"press-kit-container\">\n    <h2 class=\"press-kit__heading\">Logo Pack & Resources</h2>\n    \n    <p class=\"press-kit__description\">Download our complete logo pack including high-resolution logos and brand assets for media use.</p>\n    \n    <div class=\"press-kit__content\">\n      <div class=\"press-kit__icon\">\n        <svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n          <path d=\"M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <polyline points=\"14,2 14,8 20,8\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <line x1=\"16\" y1=\"13\" x2=\"8\" y2=\"13\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <line x1=\"16\" y1=\"17\" x2=\"8\" y2=\"17\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <polyline points=\"10,9 9,9 8,9\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n        </svg>\n      </div>\n      \n      <!-- GOOGLE DRIVE LOGO PACK FOLDER -->\n      <a href=\"https://drive.google.com/drive/folders/1YeEu1zB1XaWAoZzKAwmEHRd5IXYi5PXL?usp=drive_link\" \n         class=\"press-kit__download-btn\" \n         target=\"_blank\">\n        <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n          <path d=\"M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <polyline points=\"7,10 12,15 17,10\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n        </svg>\n        Download Logo Pack\n      </a>\n    </div>\n    \n    <div class=\"press-kit__contact\">\n      For media inquiries: <strong>joshua@thillbc.com</strong>\n    </div>\n  </div>\n</div>\n\n<style>\n  .press-kit-section {\n    padding: 80px 0;\n    background-color: #f8f8f8;\n    color: #333333;\n    font-family: 'Poppins', sans-serif;\n  }\n  \n  .press-kit-container {\n    max-width: 1200px;\n    margin: 0 auto;\n    padding: 0 20px;\n    text-align: center;\n  }\n  \n  .press-kit__heading {\n    font-family: 'Poppins Black', 'Poppins', sans-serif;\n    font-weight: 900;\n    font-size: 48px;\n    margin-bottom: 20px;\n    color: #1a1a1a;\n    text-transform: uppercase;\n    letter-spacing: 1px;\n  }\n  \n  .press-kit__description {\n    font-family: 'Poppins', sans-serif;\n    font-size: 18px;\n    margin-bottom: 40px;\n    max-width: 600px;\n    margin-left: auto;\n    margin-right: auto;\n    line-height: 1.6;\n    color: #666666;\n  }\n  \n  .press-kit__content {\n    background: #ffffff;\n    padding: 50px 40px;\n    border-radius: 15px;\n    box-shadow: 0 10px 30px rgba(0,0,0,0.1);\n    margin: 40px auto;\n    max-width: 500px;\n    transition: transform 0.3s ease, box-shadow 0.3s ease;\n  }\n  \n  .press-kit__content:hover {\n    transform: translateY(-5px);\n    box-shadow: 0 20px 40px rgba(0,0,0,0.15);\n  }\n  \n  .press-kit__icon {\n    color: #1a1a1a;\n    margin-bottom: 30px;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    width: 80px;\n    height: 80px;\n    background: #f0f0f0;\n    border-radius: 50%;\n  }\n  \n  .press-kit__download-btn {\n    display: inline-flex;\n    align-items: center;\n    gap: 10px;\n    background: #1a1a1a;\n    color: #ffffff;\n    padding: 16px 32px;\n    border-radius: 25px;\n    text-decoration: none;\n    font-family: 'Poppins', sans-serif;\n    font-weight: 600;\n    font-size: 16px;\n    transition: all 0.3s ease;\n    text-transform: uppercase;\n    letter-spacing: 0.5px;\n  }\n  \n  .press-kit__download-btn:hover {\n    background: #333333;\n    color: #ffffff;\n    transform: translateY(-2px);\n    box-shadow: 0 10px 25px rgba(0,0,0,0.2);\n  }\n  \n  .press-kit__file-info {\n    margin-top: 20px;\n    font-size: 14px;\n    color: #999999;\n    font-style: italic;\n  }\n  \n  .press-kit__contact {\n    margin-top: 30px;\n    padding-top: 30px;\n    border-top: 1px solid rgba(0,0,0,0.1);\n    font-size: 14px;\n    color: #666666;\n  }\n  \n  /* Mobile responsive */\n  @media screen and (max-width: 768px) {\n    .press-kit-section {\n      padding: 50px 0;\n    }\n    \n    .press-kit-container {\n      padding: 0 15px;\n    }\n    \n    .press-kit__heading {\n      font-size: 36px;\n    }\n    \n    .press-kit__description {\n      font-size: 16px;\n    }\n    \n    .press-kit__content {\n      padding: 30px 20px;\n      margin: 20px auto;\n    }\n    \n    .press-kit__download-btn {\n      padding: 14px 24px;\n      font-size: 15px;\n    }\n    \n    .press-kit__icon {\n      width: 60px;\n      height: 60px;\n    }\n    \n    .press-kit__icon svg {\n      width: 36px;\n      height: 36px;\n    }\n  }\n</style>"
+      }
+    }
+  },
+  "order": [
+    "hero_RUxVbb",
+    "page-header",
+    "page",
+    "featured_blog_Q4cjDP",
+    "custom_liquid_gMpaBB"
+  ]
+}

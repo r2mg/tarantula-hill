@@ -1,0 +1,539 @@
+{% if section.settings.use_bg %}{% assign bg_image = section.settings.video.preview_image %}{% endif %}
+
+{% capture banner %}
+	<div class="banner banner--size--{{ section.settings.video_size }}" style="--banner-placeholder-ar: 1/1;">
+		{% if section.settings.video != blank -%}
+			<x-bg-video class="bg-video">
+				<video
+					class="banner__video"
+					loop
+					muted
+					preload="none"
+					width="{{ section.settings.video.sources.first.width }}"
+					height="{{ section.settings.video.sources.first.height }}"
+					data-bg-video-element="video"
+				>
+					{% for source in section.settings.video.sources %}
+						<source src="{{ source.url }}" type="{{ source.mime_type }}">
+					{% endfor %}
+				</video>
+			</x-bg-video>
+			<script type="module" src="{{ 'component-bg-video.js' | asset_url }}"></script>
+		{% endif %}
+		{% if section.settings.video.preview_image != blank %}
+			<picture class="banner__image">
+				<source
+					srcset="
+						{% if section.settings.video.preview_image.width >= 375 %}{{ section.settings.video.preview_image | image_url: width: 375 }} 375w,{% endif %}
+						{% if section.settings.video.preview_image.width >= 550 %}{{ section.settings.video.preview_image | image_url: width: 550 }} 550w,{% endif %}
+						{% if section.settings.video.preview_image.width >= 750 %}{{ section.settings.video.preview_image | image_url: width: 750 }} 750w,{% endif %}
+						{% if section.settings.video.preview_image.width >= 1100 %}{{ section.settings.video.preview_image | image_url: width: 1100 }} 1100w,{% endif %}
+						{% if section.settings.video.preview_image.width >= 1500 %}{{ section.settings.video.preview_image | image_url: width: 1500 }} 1500w,{% endif %}
+						{% if section.settings.video.preview_image.width >= 1780 %}{{ section.settings.video.preview_image | image_url: width: 1780 }} 1780w,{% endif %}
+						{% if section.settings.video.preview_image.width >= 2000 %}{{ section.settings.video.preview_image | image_url: width: 2000 }} 2000w,{% endif %}
+						{% if section.settings.video.preview_image.width >= 3000 %}{{ section.settings.video.preview_image | image_url: width: 3000 }} 3000w,{% endif %}
+						{{ section.settings.video.preview_image | image_url }} {{ section.settings.video.preview_image.width }}w
+					"
+					sizes="(min-width: 992px) 1066px, (max-width: 992px) 90vw"
+				>
+
+				<img
+					src="{{ section.settings.video.preview_image | image_url }}"
+					alt="{{ section.settings.video.preview_image.alt | escape }}"
+					width="{{ section.settings.video.preview_image.width }}"
+					height="{{ section.settings.video.preview_image.height }}"
+					loading="lazy"
+					data-img-loading
+					onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+				>
+			</picture>
+		{%- endif %}
+
+		{% if section.settings.video == blank and section.settings.video.preview_image == blank %}
+			{{ 0 | modulo: 6 | plus: 1 | prepend: '-' | prepend: 'collection' | placeholder_svg_tag: 'banner__placeholder' -}}
+		{%- endif %}
+	</div>
+{% endcapture %}
+
+{% capture text %}
+	<div class="content content--align--{{ section.settings.text_align }} content--compact content--spacing--lg">
+		{% for block in section.blocks -%}
+			{%- case block.type -%}
+				{%- when 'heading' -%}
+					{%- if block.settings.heading_text != blank %}
+						<div class="content__heading" {{ block.shopify_attributes }}>
+							{% capture heading_capture %}
+								<h2 class="heading heading--size--{{ block.settings.heading_size }}">
+									{{ block.settings.heading_text }}
+								</h2>
+							{% endcapture %}
+							{% if block.settings.heading_animation %}
+								<div
+									class="scroll-animation scroll-animation--use--text-reveal scroll-animation--origin-align--{{ section.settings.text_align }} {% unless settings.appearance_animate_heading_on_mobile %}scroll-animation--only-desktop-animation{% endunless %}"
+									style=""
+								>
+									{{ heading_capture }}
+								</div>
+							{% else -%}
+								{{- heading_capture -}}
+							{%- endif %}
+						</div>
+					{% endif -%}
+				{%- when 'subheading' -%}
+					{%- if block.settings.subheading_text != blank %}
+						<div class="content__subheading" {{ block.shopify_attributes }}>
+							<p class="subheading">
+								{{ block.settings.subheading_text }}
+							</p>
+						</div>
+					{% endif -%}
+				{%- when 'description' -%}
+					{%- if block.settings.text_content != blank %}
+						<div class="content__text" {{ block.shopify_attributes }}>
+							<div class="rte {% if block.settings.enlarge_text %}rte--enlarged{% endif %}">
+								{{ block.settings.text_content }}
+							</div>
+						</div>
+					{% endif -%}
+				{%- when 'button' -%}
+					{%- if block.settings.button_label != blank %}
+						<div class="content__button" {{ block.shopify_attributes }}>
+							<a
+								href="{{ block.settings.button_link }}"
+								style=""
+								class="button button--variant--{{ block.settings.button_variant }} button--size--{{ block.settings.button_size }}"
+							>
+								{{- block.settings.button_label -}}
+							</a>
+						</div>
+					{% endif -%}
+				{%- when 'countdown' -%}
+					{%- if block.settings.time != blank %}
+						<div {{ block.shopify_attributes }}>
+							{% assign target = block.settings.time | date: '%s' -%}
+							{%- assign now = 'now' | date: '%s' -%}
+							{%- assign diff = target | minus: now %}
+
+							{% if diff > 0 -%}
+								<x-countdown class="countdown countdown--align--{{ section.settings.text_align }}" time="{{ diff }}">
+									<div class="countdown__part">
+										<div class="countdown__value countdown__value--days"></div>
+										<div class="countdown__title">{{ 'general.time_parts.days' | t }}</div>
+									</div>
+									<div class="countdown__part">
+										<div class="countdown__value countdown__value--hours"></div>
+										<div class="countdown__title">{{ 'general.time_parts.hours' | t }}</div>
+									</div>
+									<div class="countdown__part">
+										<div class="countdown__value countdown__value--minutes"></div>
+										<div class="countdown__title">{{ 'general.time_parts.minutes' | t }}</div>
+									</div>
+									<div class="countdown__part">
+										<div class="countdown__value countdown__value--seconds"></div>
+										<div class="countdown__title">{{ 'general.time_parts.seconds' | t }}</div>
+									</div>
+								</x-countdown>
+							{%- endif %}
+							<script type="module" src="{{ 'component-countdown.js' | asset_url }}"></script>
+						</div>
+					{% endif -%}
+			{%- endcase -%}
+		{%- endfor %}
+	</div>
+{% endcapture %}
+
+{% capture section_wrapper %}
+	<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.color_scheme.id }}">
+		{% if bg_image != blank %}
+			<div class="section-wrapper__bg section-wrapper__bg--blur">
+				<div class="section-wrapper__bg-overlay" style=""></div>
+
+				<picture class="section-wrapper__bg-img" style="object-position: {{ bg_image.presentation.focal_point }};">
+					<source
+						srcset="
+							{% if bg_image.width >= 375 %}{{ bg_image | image_url: width: 375 }} 375w,{% endif %}
+							{% if bg_image.width >= 550 %}{{ bg_image | image_url: width: 550 }} 550w,{% endif %}
+							{% if bg_image.width >= 750 %}{{ bg_image | image_url: width: 750 }} 750w,{% endif %}
+							{% if bg_image.width >= 1100 %}{{ bg_image | image_url: width: 1100 }} 1100w,{% endif %}
+							{% if bg_image.width >= 1500 %}{{ bg_image | image_url: width: 1500 }} 1500w,{% endif %}
+							{% if bg_image.width >= 1780 %}{{ bg_image | image_url: width: 1780 }} 1780w,{% endif %}
+							{% if bg_image.width >= 2000 %}{{ bg_image | image_url: width: 2000 }} 2000w,{% endif %}
+							{% if bg_image.width >= 3000 %}{{ bg_image | image_url: width: 3000 }} 3000w,{% endif %}
+							{% if bg_image.width >= 3840 %}{{ bg_image | image_url: width: 3840 }} 3840w,{% endif %}
+							{{ bg_image | image_url }} {{ bg_image.width }}w
+						"
+						sizes="100vw"
+					>
+
+					<img
+						src="{{ bg_image | image_url }}"
+						alt="{{ bg_image.alt | escape }}"
+						width="{{ bg_image.width }}"
+						height="{{ bg_image.height }}"
+						loading="lazy"
+						data-img-loading
+						onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+					>
+				</picture>
+			</div>
+		{% endif %}
+
+		<div class="container section-wrapper__body">
+			<div
+				class="aside-content aside-content--aside-position--{{ section.settings.video_position }} aside-content--aside-size--{{ section.settings.video_width }}"
+				style=""
+			>
+				<aside class="aside-content__aside">
+					{% if section.settings.hover_parallax %}
+						<div class="mouse-tracker__stage mouse-tracker__stage--outer">
+							<div class="mouse-tracker__stage__inner">
+								{{ banner }}
+							</div>
+
+							<div class="mouse-tracker__shadow"></div>
+						</div>
+					{% else -%}
+						{{- banner -}}
+					{%- endif %}
+				</aside>
+				<div class="aside-content__content">
+					<div class="placer placer--position--{{ section.settings.content_position }}" style="">
+						<div class="placer__target">
+							{% if section.settings.hover_parallax %}
+								<div class="mouse-tracker__caption">
+									<div class="mouse-tracker__caption__content">
+										{{ text }}
+									</div>
+								</div>
+							{% else -%}
+								{{- text -}}
+							{%- endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endcapture %}
+
+{% if section.settings.hover_parallax -%}
+	<x-mouse-tracker class="mouse-tracker mouse-tracker--outer" style="--mouse-tracker-z: 50px;">
+		{{ section_wrapper }}
+	</x-mouse-tracker>
+{%- else -%}
+	{{- section_wrapper -}}
+{%- endif %}
+
+{% schema %}
+	{
+		"name": "Video with text",
+		"class": "video-with-text-section",
+		"presets": [
+			{
+				"name": "Video with text",
+				"blocks": [
+					{
+						"type": "heading"
+					},
+					{
+						"type": "description"
+					},
+					{
+						"type": "button"
+					}
+				],
+				"category": "Promotional"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "checkbox",
+				"id": "hover_parallax",
+				"label": "Apply animation on mouseover",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "use_bg",
+				"label": "Use preview image as section background"
+			},
+			{
+				"type": "header",
+				"content": "Video"
+			},
+			{
+				"type": "video",
+				"id": "video",
+				"label": "Video"
+			},
+			{
+				"type": "select",
+				"id": "video_position",
+				"label": "Position",
+				"options": [
+					{
+						"value": "left",
+						"label": "Left"
+					},
+					{
+						"value": "right",
+						"label": "Right"
+					}
+				],
+				"default": "left"
+			},
+			{
+				"type": "select",
+				"id": "video_width",
+				"label": "Width",
+				"options": [
+					{
+						"label": "Small",
+						"value": "small"
+					},
+					{
+						"label": "Medium",
+						"value": "medium"
+					},
+					{
+						"label": "Large",
+						"value": "large"
+					}
+				],
+				"default": "medium"
+			},
+			{
+				"type": "select",
+				"id": "video_size",
+				"label": "Size",
+				"options": [
+					{
+						"value": "auto",
+						"label": "Original"
+					},
+					{
+						"value": "small",
+						"label": "Small"
+					},
+					{
+						"value": "medium",
+						"label": "Medium"
+					},
+					{
+						"value": "large",
+						"label": "Large"
+					},
+					{
+						"value": "screen",
+						"label": "Full screen"
+					}
+				],
+				"default": "auto"
+			},
+			{
+				"type": "header",
+				"content": "Content"
+			},
+			{
+				"type": "text_alignment",
+				"id": "text_align",
+				"label": "Text alignment",
+				"default": "left"
+			},
+			{
+				"type": "select",
+				"id": "content_position",
+				"label": "Position",
+				"options": [
+					{
+						"value": "top-left",
+						"label": "Top left"
+					},
+					{
+						"value": "top-center",
+						"label": "Top center"
+					},
+					{
+						"value": "top-right",
+						"label": "Top right"
+					},
+					{
+						"value": "middle-left",
+						"label": "Middle left"
+					},
+					{
+						"value": "middle-center",
+						"label": "Middle center"
+					},
+					{
+						"value": "middle-right",
+						"label": "Middle right"
+					},
+					{
+						"value": "bottom-left",
+						"label": "Bottom left"
+					},
+					{
+						"value": "bottom-center",
+						"label": "Bottom center"
+					},
+					{
+						"value": "bottom-right",
+						"label": "Bottom right"
+					}
+				],
+				"default": "middle-center"
+			}
+		],
+		"blocks": [
+			{
+				"name": "Countdown",
+				"type": "countdown",
+				"settings": [
+					{
+						"type": "text",
+						"id": "time",
+						"label": "Time",
+						"default": "31-12-2025",
+						"info": "E.g. dd-mm-yyyy format. Compatible with metafields 'date' type"
+					}
+				]
+			},
+			{
+				"name": "Subheading",
+				"type": "subheading",
+				"limit": 1,
+				"settings": [
+					{
+						"type": "text",
+						"id": "subheading_text",
+						"label": "Subheading"
+					}
+				]
+			},
+			{
+				"name": "Heading",
+				"type": "heading",
+				"limit": 1,
+				"settings": [
+					{
+						"type": "text",
+						"id": "heading_text",
+						"label": "Text",
+						"default": "Browse our latest products"
+					},
+					{
+						"type": "checkbox",
+						"id": "heading_animation",
+						"label": "Use animation",
+						"default": true
+					},
+					{
+						"type": "select",
+						"id": "heading_size",
+						"label": "Size",
+						"options": [
+							{
+								"value": "h2",
+								"label": "Small"
+							},
+							{
+								"value": "h1",
+								"label": "Medium"
+							},
+							{
+								"value": "d3",
+								"label": "Large"
+							}
+						],
+						"default": "h1"
+					}
+				]
+			},
+			{
+				"name": "Text",
+				"type": "description",
+				"settings": [
+					{
+						"type": "richtext",
+						"id": "text_content",
+						"label": "Text",
+						"default": "<p>Give customers details about the banner image(s) or content on the template.<p>"
+					},
+					{
+						"type": "checkbox",
+						"id": "enlarge_text",
+						"label": "Enlarge",
+						"default": false
+					}
+				]
+			},
+			{
+				"name": "Button",
+				"type": "button",
+				"settings": [
+					{
+						"type": "text",
+						"id": "button_label",
+						"label": "Label",
+						"default": "Shop all"
+					},
+					{
+						"type": "select",
+						"id": "button_variant",
+						"label": "Style",
+						"options": [
+							{
+								"value": "fill",
+								"label": "Solid"
+							},
+							{
+								"value": "outline",
+								"label": "Outline"
+							},
+							{
+								"value": "link",
+								"label": "Link"
+							}
+						],
+						"default": "outline"
+					},
+					{
+						"type": "select",
+						"id": "button_size",
+						"label": "Size",
+						"options": [
+							{
+								"label": "Small",
+								"value": "sm"
+							},
+							{
+								"label": "Medium",
+								"value": "md"
+							},
+							{
+								"label": "Large",
+								"value": "lg"
+							}
+						],
+						"default": "md"
+					},
+					{
+						"type": "url",
+						"id": "button_link",
+						"label": "Link"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

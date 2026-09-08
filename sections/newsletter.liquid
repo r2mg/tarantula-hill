@@ -1,0 +1,257 @@
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.color_scheme.id }}">
+	{% if section.settings.bg_image != blank %}
+		<div class="section-wrapper__bg {% if section.settings.blur_image %}section-wrapper__bg--blur{% endif %}">
+			<div
+				class="section-wrapper__bg-overlay"
+				style="--section-wrapper-bg-overlay: {{ section.settings.image_overlay }};"
+			></div>
+
+			<picture
+				class="section-wrapper__bg-img"
+				style="object-position: {{ section.settings.bg_image.presentation.focal_point }};"
+			>
+				<source
+					srcset="
+						{% if section.settings.bg_image.width >= 375 %}{{ section.settings.bg_image | image_url: width: 375 }} 375w,{% endif %}
+						{% if section.settings.bg_image.width >= 550 %}{{ section.settings.bg_image | image_url: width: 550 }} 550w,{% endif %}
+						{% if section.settings.bg_image.width >= 750 %}{{ section.settings.bg_image | image_url: width: 750 }} 750w,{% endif %}
+						{% if section.settings.bg_image.width >= 1100 %}{{ section.settings.bg_image | image_url: width: 1100 }} 1100w,{% endif %}
+						{% if section.settings.bg_image.width >= 1500 %}{{ section.settings.bg_image | image_url: width: 1500 }} 1500w,{% endif %}
+						{% if section.settings.bg_image.width >= 1780 %}{{ section.settings.bg_image | image_url: width: 1780 }} 1780w,{% endif %}
+						{% if section.settings.bg_image.width >= 2000 %}{{ section.settings.bg_image | image_url: width: 2000 }} 2000w,{% endif %}
+						{% if section.settings.bg_image.width >= 3000 %}{{ section.settings.bg_image | image_url: width: 3000 }} 3000w,{% endif %}
+						{% if section.settings.bg_image.width >= 3840 %}{{ section.settings.bg_image | image_url: width: 3840 }} 3840w,{% endif %}
+						{{ section.settings.bg_image | image_url }} {{ section.settings.bg_image.width }}w
+					"
+					sizes="100vw"
+				>
+
+				<img
+					src="{{ section.settings.bg_image | image_url }}"
+					alt="{{ section.settings.bg_image.alt | escape }}"
+					width="{{ section.settings.bg_image.width }}"
+					height="{{ section.settings.bg_image.height }}"
+					loading="lazy"
+					data-img-loading
+					onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+				>
+			</picture>
+		</div>
+	{% endif %}
+
+	<div class="container section-wrapper__body">
+		<div class="content content--align--{{ section.settings.text_align }} content--spacing--lg">
+			{% for block in section.blocks -%}
+				{%- case block.type -%}
+					{%- when 'heading' %}
+						{% capture heading_capture %}
+							<h2 class="heading heading--size--{{ block.settings.heading_size }}">
+								{{ block.settings.heading_text }}
+							</h2>
+						{% endcapture %}
+						{% if block.settings.heading_animation %}
+							<div
+								class="scroll-animation scroll-animation--use--text-reveal scroll-animation--origin-align--{{ section.settings.text_align }} {% unless settings.appearance_animate_heading_on_mobile %}scroll-animation--only-desktop-animation{% endunless %}"
+								style=""
+							>
+								{{ heading_capture }}
+							</div>
+						{% else -%}
+							{{- heading_capture -}}
+						{%- endif -%}
+					{%- when 'description' %}
+						<div class="rte {% if block.settings.enlarge_text %}rte--enlarged{% endif %}">
+							{{ block.settings.text_content }}
+						</div>
+					{% when 'form' %}
+						<div class="newsletter newsletter--align--{{ section.settings.text_align }}">
+							{% form 'customer', id: 'NewsletterSectionFormId' %}
+								{% if form.posted_successfully? %}
+									<div class="newsletter__feeback">
+										<div class="badge badge--type--success">
+											{{ 'newsletter.success' | t }}
+										</div>
+									</div>
+								{% endif -%}
+								{%- if form.errors %}
+									<div class="newsletter__feeback">
+										{% if form.errors %}
+											<div class="form-errors">
+												<h2 class="form-errors__heading" tabindex="-1" autofocus>
+													<span class="screen-reader">
+														{{ 'accessibility.error' | t }}
+													</span>
+													{{ 'templates.contact.form.error_heading' | t }}
+												</h2>
+												{{ form.errors | default_errors }}
+											</div>
+										{% endif %}
+									</div>
+								{% endif -%}
+								<input type="hidden" name="contact[tags]" value="newsletter">
+								<div class="newsletter__inner">
+									<input
+										class="newsletter__input"
+										type="email"
+										name="contact[email]"
+										aria-required="true"
+										autocorrect="off"
+										autocapitalize="off"
+										autocomplete="email"
+										placeholder="{{ 'templates.contact.form.email' | t }}"
+										aria-label="{{ 'templates.contact.form.email' | t }}"
+										required
+									>
+									<button class="newsletter__submit" type="submit" aria-label="{{ 'newsletter.button_label' | t }}">
+										<svg>
+											<use  xlink:href="#svg-icon-arrow-right"></use>
+										</svg>
+									</button>
+								</div>
+							{% endform %}
+						</div>
+					{% when '@app' -%}
+						{%- render block -%}
+				{%- endcase -%}
+			{%- endfor %}
+		</div>
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Newsletter",
+		"class": "newsletter-section",
+		"presets": [
+			{
+				"name": "Newsletter",
+				"blocks": [
+					{
+						"type": "heading"
+					},
+					{
+						"type": "description"
+					},
+					{
+						"type": "form"
+					}
+				],
+				"category": "Feedback"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "paragraph",
+				"content": "Signups add [customer profiles](https://help.shopify.com/manual/customers/manage-customers)"
+			},
+			{
+				"type": "text_alignment",
+				"id": "text_align",
+				"label": "Text alignment",
+				"default": "center"
+			},
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "header",
+				"content": "Background image",
+				"info": "Optional"
+			},
+			{
+				"type": "image_picker",
+				"id": "bg_image",
+				"label": "Image"
+			},
+			{
+				"type": "range",
+				"id": "image_overlay",
+				"label": "Overlay",
+				"min": 0,
+				"max": 100,
+				"step": 1,
+				"default": 30,
+				"unit": "%"
+			},
+			{
+				"type": "checkbox",
+				"id": "blur_image",
+				"label": "Blur image",
+				"default": false
+			}
+		],
+		"blocks": [
+			{
+				"name": "Heading",
+				"type": "heading",
+				"limit": 1,
+				"settings": [
+					{
+						"type": "text",
+						"id": "heading_text",
+						"label": "Text",
+						"default": "Subscribe to our emails"
+					},
+					{
+						"type": "checkbox",
+						"id": "heading_animation",
+						"label": "Use animation",
+						"default": false
+					},
+					{
+						"type": "select",
+						"id": "heading_size",
+						"label": "Size",
+						"options": [
+							{
+								"value": "h2",
+								"label": "Small"
+							},
+							{
+								"value": "h1",
+								"label": "Medium"
+							},
+							{
+								"value": "d3",
+								"label": "Large"
+							}
+						],
+						"default": "h2"
+					}
+				]
+			},
+			{
+				"name": "Text",
+				"type": "description",
+				"settings": [
+					{
+						"type": "richtext",
+						"id": "text_content",
+						"label": "Text",
+						"default": "<p>Be the first to know about new collections and exclusive offers.</p>"
+					},
+					{
+						"type": "checkbox",
+						"id": "enlarge_text",
+						"label": "Enlarge",
+						"default": false
+					}
+				]
+			},
+			{
+				"name": "Email form",
+				"type": "form",
+				"limit": 1
+			},
+			{
+				"type": "@app"
+			}
+		]
+	}
+{% endschema %}

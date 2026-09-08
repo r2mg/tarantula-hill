@@ -1,0 +1,32 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "custom.overlay",
+  "name": "Overlay group",
+  "sections": {
+    "newsletter-popup": {
+      "type": "newsletter-popup",
+      "disabled": true,
+      "settings": {
+        "display": "popover",
+        "delay": 3,
+        "only_homepage": false,
+        "show_logged": false,
+        "single_session": true,
+        "heading_text": "Subscribe to our emails",
+        "description": "Be the first to know about new collections and exclusive offers.",
+        "color_scheme": "scheme-19c1893c-8da7-4347-a2a6-fbea7176ab91"
+      }
+    }
+  },
+  "order": [
+    "newsletter-popup"
+  ]
+}

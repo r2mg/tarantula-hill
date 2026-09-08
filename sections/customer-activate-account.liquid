@@ -1,0 +1,75 @@
+<div class="section-wrapper section-wrapper--y-offset--padding">
+	<div class="container section-wrapper__body">
+		<div class="customer__fields">
+			<div style="" class="stack customer__fields__header stack--v">
+				<h1 class="heading heading--size--h2">{{ 'customer.activate_account.title' | t }}</h1>
+			</div>
+			{% form 'activate_customer_password', novalidate: 'novalidate' %}
+				{% if form.errors %}
+					<div class="customer__form-errors">
+						<h2 class="customer__form-errors__heading" tabindex="-1" autofocus>
+							<span class="screen-reader">
+								{{ 'accessibility.error' | t }}
+							</span>
+							{{ 'templates.contact.form.error_heading' | t }}
+						</h2>
+						{{ form.errors | default_errors }}
+					</div>
+				{% endif %}
+				<div style="" class="stack stack--v">
+					<div class="form-control">
+						<input
+							class="form-control__input"
+							type="password"
+							name="customer[password]"
+							placeholder="{{ 'customer.register.password' | t }}"
+							{% if form.errors contains 'password' %}
+								aria-invalid="true" aria-describedby="RegisterForm-password-error"
+							{% endif %}
+						>
+
+						{% if form.errors contains 'password' %}
+							<div class="badge badge--type--danger badge--mini" id="RegisterForm-password-error">
+								{{ form.errors.translated_fields.password | capitalize }}
+								{{ form.errors.messages.password }}
+							</div>
+						{% endif %}
+					</div>
+					<div class="form-control">
+						<input
+							class="form-control__input"
+							type="password"
+							name="customer[password_confirmation]"
+							placeholder="{{ 'customer.reset_password.password_confirm' | t }}"
+							{% if form.errors contains 'password' %}
+								aria-invalid="true" aria-describedby="ConfirmationForm-password-error"
+							{% endif %}
+						>
+
+						{% if form.errors contains 'password_confirmation' %}
+							<div class="badge badge--type--danger badge--mini" id="ConfirmationForm-password-error">
+								{{ form.errors.translated_fields.password_confirmation | capitalize }}
+								{{ form.errors.messages.password_confirmation }}
+							</div>
+						{% endif %}
+					</div>
+
+					<button type="submit" style="" class="button button--block">
+						{{ 'customer.activate_account.submit' | t }}
+					</button>
+
+					<button type="submit" name="decline" style="" class="button button--block">
+						{{ 'customer.activate_account.cancel' | t }}
+					</button>
+				</div>
+			{% endform %}
+		</div>
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Customer activate account",
+		"class": "customer-activate-account-section"
+	}
+{% endschema %}

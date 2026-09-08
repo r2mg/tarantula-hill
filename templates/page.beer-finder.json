@@ -1,0 +1,165 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_RUxVbb": {
+      "type": "hero",
+      "blocks": {
+        "heading_xYUVGm": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Beer finder",
+            "heading_size": "h1"
+          }
+        },
+        "description_zkFtt8": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Discover where to find Tarantula Hill craft beer near you. Search by location to find the closest retailers, restaurants, and bars serving our award-winning brews.</p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_xYUVGm",
+        "description_zkFtt8"
+      ],
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/THill_EK_091824_0226.jpg",
+        "banner_overlay": 40,
+        "banner_size": "large",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    },
+    "custom_liquid_zdTthQ": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "Custom liquid",
+      "settings": {
+        "section_heading": "",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "",
+        "liquid_content": "<div id=\"storepoint-container\" data-map-id=\"1674769e2d2119\"></div><script>(function(){var a=document.createElement(\"script\");a.type=\"text/javascript\";a.async=!0;a.src=\"https://cdn.storepoint.co/api/v1/js/1674769e2d2119.js\";var b=document.getElementsByTagName(\"script\")[0];b.parentNode.insertBefore(a,b);}());</script>"
+      }
+    },
+    "custom_liquid_7rRNV4": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "Custom liquid",
+      "settings": {
+        "section_heading": "",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "",
+        "liquid_content": "<div class=\"product-tracker-wrapper\">\n  <iframe \n    src=\"https://finder.vtinfo.com/finder/web/v2/iframe?custID=APY&doFocus=1&theme=bs-flatly&themeVersion=3\"\n    width=\"100%\"\n    height=\"600\"\n    frameborder=\"0\"\n    loading=\"lazy\"\n    allowfullscreen\n    title=\"Product Tracker\"\n    style=\"border: 1px solid #e5e5e5; border-radius: 4px; max-width: 100%;\"\n  ></iframe>\n</div>\n\n<style>\n  .product-tracker-wrapper {\n    max-width: 1200px;\n    margin: 40px auto;\n    padding: 0 15px;\n  }\n  \n  .product-tracker-wrapper iframe {\n    display: block;\n    width: 100%;\n  }\n  \n  @media (max-width: 768px) {\n    .product-tracker-wrapper {\n      margin: 20px auto;\n      padding: 0 10px;\n    }\n    \n    .product-tracker-wrapper iframe {\n      height: 400px;\n    }\n  }\n</style>"
+      }
+    },
+    "custom_liquid_haJD6h": {
+      "type": "custom-liquid",
+      "name": "Custom liquid",
+      "settings": {
+        "section_heading": "",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "",
+        "liquid_content": "<div class=\"product-tracker-wrapper\">\n  <iframe \n  src=\"https://finder.vtinfo.com/finder/web/v2/iframe?custID=APY&doFocus=1&theme=bs-flatly&themeVersion=3\"\n    width=\"100%\"\n    height=\"100%\"\n    frameborder=\"0\"\n    loading=\"lazy\"\n    allowfullscreen\n    title=\"Product Tracker\"\n  ></iframe>\n</div>\n\n<style>\n  .product-tracker-wrapper {\n    width: 90vw;\n    height: 90vh;\n    margin: 5vh auto;\n    position: relative;\n    left: 50%;\n    transform: translateX(-50%);\n    margin-left: 0;\n  }\n  \n  .product-tracker-wrapper iframe {\n    display: block;\n    width: 100%;\n    height: 90%;\n    border: 1px solid #e5e5e5;\n    border-radius: 4px;\n  }\n</style>"
+      }
+    },
+    "page-header": {
+      "type": "page-header",
+      "disabled": true,
+      "settings": {
+        "page_header_color_scheme": "",
+        "page_header_center_text": true,
+        "page_header_heading_size": "h1",
+        "page_header_image_overlay": 30,
+        "page_header_image_size": "medium",
+        "page_header_scroll_clip": false,
+        "page_header_overlap": true
+      }
+    },
+    "page": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container_width": "normal"
+      }
+    },
+    "image_with_text_QLQ7EJ": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_fk7L3K": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "SHIP-A-CASE",
+            "heading_animation": true,
+            "heading_size": "h1"
+          }
+        },
+        "description_7pnjYe": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Order a case straight to your doorstep Of your favorite Tarantula Hill beer. </p>",
+            "enlarge_text": false
+          }
+        },
+        "button_LkBHiX": {
+          "type": "button",
+          "settings": {
+            "button_label": "Order",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "shopify://products/ship-a-case"
+          }
+        }
+      },
+      "block_order": [
+        "heading_fk7L3K",
+        "description_7pnjYe",
+        "button_LkBHiX"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "color_scheme": "",
+        "hover_parallax": false,
+        "use_bg": false,
+        "image": "shopify://shop_images/a201f9ee0d8146-MG440188690.webp",
+        "image_position": "left",
+        "image_width": "medium",
+        "image_size": "auto",
+        "text_align": "left",
+        "content_position": "middle-center"
+      }
+    }
+  },
+  "order": [
+    "hero_RUxVbb",
+    "custom_liquid_zdTthQ",
+    "custom_liquid_7rRNV4",
+    "custom_liquid_haJD6h",
+    "page-header",
+    "page",
+    "image_with_text_QLQ7EJ"
+  ]
+}

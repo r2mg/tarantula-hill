@@ -1,0 +1,668 @@
+{% capture capture_clip %}
+	<x-carousel
+		class="carousel"
+		items-count="{{ section.blocks.size }}"
+		style="--carousel-items-count: {{ section.blocks.size }};--carousel-current-index: 0;--carousel-transition-speed: 500;"
+		section-id="{{ section.id }}"
+		autoplay="{{ section.settings.autoplay }}"
+	>
+		<div class="carousel__container">
+			{% for block in section.blocks -%}
+				{%- assign block_video = blank -%}
+				{%- assign block_image = blank -%}
+				{%- assign block_mobile_image = blank -%}
+				{%- if block.type == 'image' -%}
+					{%- assign block_image = block.settings.banner_image -%}
+					{%- assign block_mobile_image = block.settings.banner_mobile_image -%}
+				{%- elsif block.type == 'video' -%}
+					{%- assign block_video = block.settings.banner_video -%}
+				{%- endif %}
+				<div class="carousel__item" style="--carousel-item-index: {{ forloop.index0 }};" {{ block.shopify_attributes }}>
+					<div class="color-scheme-{{ block.settings.color_scheme.id }} color-scheme--use-color color-scheme--use-gradient">
+						{% capture capture_content %}
+							<div class="content content--compact content--spacing--lg content--position-align--{{ block.settings.content_position }} {% if block.settings.content_box %}content--box{% endif %}">
+								{% if block.settings.subheading_text != blank %}
+									<div class="content__subheading">
+										<p class="subheading">
+											{{ block.settings.subheading_text }}
+										</p>
+									</div>
+								{% endif -%}
+								{%- if block.settings.heading_text != blank %}
+									<div class="content__heading">
+										<h2 class="heading heading--size--{{ block.settings.heading_size }}">
+											{{ block.settings.heading_text }}
+										</h2>
+									</div>
+								{% endif -%}
+								{%- if block.settings.text_content != blank %}
+									<div class="content__text">
+										<p class="text text--size--md">{{ block.settings.text_content }}</p>
+									</div>
+								{% endif -%}
+								{%- if block.settings.button_label != blank %}
+									<div class="content__button">
+										<a
+											href="{{ block.settings.button_link }}"
+											style=""
+											class="button button--variant--{{ block.settings.button_variant }}"
+										>
+											{{- block.settings.button_label -}}
+										</a>
+									</div>
+								{% endif %}
+							</div>
+						{% endcapture %}
+						{% capture capture_banner %}
+							<div
+								class="banner banner--size--{{ section.settings.image_size }} banner--bg"
+								style="--banner-overlay: {{ block.settings.banner_overlay | times: 0.01 }};--banner-focal: {{ block_image.presentation.focal_point }};"
+							>
+								<div class="banner__overlay"></div>
+
+								{% if block_video != blank -%}
+									<x-bg-video class="bg-video">
+										<video
+											class="banner__video"
+											loop
+											muted
+											preload="none"
+											width="{{ block_video.sources.first.width }}"
+											height="{{ block_video.sources.first.height }}"
+											data-bg-video-element="video"
+										>
+											{% for source in block_video.sources %}
+												<source src="{{ source.url }}" type="{{ source.mime_type }}">
+											{% endfor %}
+										</video>
+									</x-bg-video>
+									<script type="module" src="{{ 'component-bg-video.js' | asset_url }}"></script>
+								{% endif %}
+								{% if block_image != blank %}
+									<picture class="banner__image">
+										{% if block_mobile_image != blank %}
+											<source
+												srcset="
+													{% if block_image.width >= 1500 %}{{ block_image | image_url: width: 1500 }} 1500w,{% endif %}
+													{% if block_image.width >= 1780 %}{{ block_image | image_url: width: 1780 }} 1780w,{% endif %}
+													{% if block_image.width >= 2000 %}{{ block_image | image_url: width: 2000 }} 2000w,{% endif %}
+													{% if block_image.width >= 3000 %}{{ block_image | image_url: width: 3000 }} 3000w,{% endif %}
+													{% if block_image.width >= 3840 %}{{ block_image | image_url: width: 3840 }} 3840w,{% endif %}
+													{{ block_image | image_url }} {{ block_image.width }}w
+												"
+												sizes="100vw"
+												media="(min-width: 992px)"
+											>
+											<source
+												srcset="
+													{% if block_mobile_image.width >= 375 %}{{ block_mobile_image | image_url: width: 375 }} 375w,{% endif %}
+													{% if block_mobile_image.width >= 550 %}{{ block_mobile_image | image_url: width: 550 }} 550w,{% endif %}
+													{% if block_mobile_image.width >= 750 %}{{ block_mobile_image | image_url: width: 750 }} 750w,{% endif %}
+													{% if block_mobile_image.width >= 1100 %}{{ block_mobile_image | image_url: width: 1100 }} 1100w,{% endif %}
+													{% if block_mobile_image.width >= 1500 %}{{ block_mobile_image | image_url: width: 1500 }} 1500w,{% endif %}
+													{{ block_mobile_image | image_url }} {{ block_mobile_image.width }}w
+												"
+												sizes="100vw"
+												media="(max-width: 992px)"
+												width="{{ block_mobile_image.width }}"
+												hidden="{{ block_mobile_image.height }}"
+											>
+										{% else %}
+											<source
+												srcset="
+													{% if block_image.width >= 375 %}{{ block_image | image_url: width: 375 }} 375w,{% endif %}
+													{% if block_image.width >= 550 %}{{ block_image | image_url: width: 550 }} 550w,{% endif %}
+													{% if block_image.width >= 750 %}{{ block_image | image_url: width: 750 }} 750w,{% endif %}
+													{% if block_image.width >= 1100 %}{{ block_image | image_url: width: 1100 }} 1100w,{% endif %}
+													{% if block_image.width >= 1500 %}{{ block_image | image_url: width: 1500 }} 1500w,{% endif %}
+													{% if block_image.width >= 1780 %}{{ block_image | image_url: width: 1780 }} 1780w,{% endif %}
+													{% if block_image.width >= 2000 %}{{ block_image | image_url: width: 2000 }} 2000w,{% endif %}
+													{% if block_image.width >= 3000 %}{{ block_image | image_url: width: 3000 }} 3000w,{% endif %}
+													{% if block_image.width >= 3840 %}{{ block_image | image_url: width: 3840 }} 3840w,{% endif %}
+													{{ block_image | image_url }} {{ block_image.width }}w
+												"
+												sizes="100vw"
+											>
+										{% endif %}
+
+										<img
+											src="{{ block_image | image_url }}"
+											alt="{{ block_image.alt | escape }}"
+											width="{{ block_image.width }}"
+											height="{{ block_image.height }}"
+											loading="lazy"
+											data-img-loading
+											onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+										>
+									</picture>
+								{%- endif %}
+
+								{% if block_video == blank and block_image == blank %}
+									{{
+										forloop.index0
+										| modulo: 2
+										| plus: 1
+										| prepend: '-'
+										| prepend: 'lifestyle'
+										| placeholder_svg_tag: 'banner__placeholder'
+									-}}
+								{%- endif %}
+
+								<div class="banner__content">
+									{% unless section.settings.gyro_effect %}
+										<div
+											class="placer placer--position--{{ block.settings.content_position }} placer--container placer--offset--x-large"
+											style=""
+										>
+											<div class="container placer__container">
+												<div class="placer__target">
+													{{ capture_content }}
+												</div>
+											</div>
+										</div>
+									{% endunless %}
+								</div>
+							</div>
+						{% endcapture %}
+						{% if section.settings.gyro_effect -%}
+							<x-mouse-tracker class="mouse-tracker" style="">
+								<div class="mouse-tracker__stage">
+									<div class="mouse-tracker__stage__inner">
+										{{ capture_banner }}
+									</div>
+								</div>
+
+								<div
+									class="placer placer--position--{{ block.settings.content_position }} placer--abs placer--container placer--offset--x-large"
+									style=""
+								>
+									<div class="container placer__container">
+										<div class="placer__target">
+											<div class="mouse-tracker__caption">
+												<div class="mouse-tracker__caption__content">
+													{{ capture_content }}
+												</div>
+												{% if block.settings.content_box %}<div class="mouse-tracker__shadow"></div>{% endif %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</x-mouse-tracker>
+						{%- else -%}
+							{{- capture_banner -}}
+						{%- endif %}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		{% if section.settings.show_arrows_on_desktop %}
+			<button
+				class="carousel__nav-prev"
+				aria-label="{{ 'general.slider.previous_slide' | t }}"
+				data-carousel-element="nav-prev"
+			>
+				<span class="carousel-arrow carousel-arrow--size--small">
+					<svg class="carousel-arrow__icon">
+						<use  xlink:href="#svg-icon-arrow-left"></use>
+					</svg>
+				</span>
+			</button>
+			<button
+				class="carousel__nav-next"
+				aria-label="{{ 'general.slider.next_slide' | t }}"
+				data-carousel-element="nav-next"
+			>
+				<span class="carousel-arrow carousel-arrow--size--small">
+					<svg class="carousel-arrow__icon">
+						<use  xlink:href="#svg-icon-arrow-right"></use>
+					</svg>
+				</span>
+			</button>
+		{% endif %}
+		<div class="carousel__pagination">
+			<x-carousel-pagination class="carousel-pagination" section-id="{{ section.id }}">
+				{% for i in (0..section.blocks.size) -%}
+					{%- unless forloop.last -%}
+						<label>
+							<input
+								class="carousel-pagination__radio"
+								type="radio"
+								name="{{ section.id | append: 'carousel-pagination' }}"
+								value="{{ i }}"
+								data-carousel-pagination-element="radio"
+								{% if forloop.first %}
+									checked
+								{% endif %}
+							>
+							<div class="carousel-pagination__dot"></div>
+						</label>
+					{%- endunless -%}
+				{%- endfor %}
+			</x-carousel-pagination>
+			<script type="module" src="{{ 'component-carousel-pagination.js' | asset_url }}"></script>
+		</div>
+	</x-carousel>
+
+	<script type="module" src="{{ 'component-carousel.js' | asset_url }}"></script>
+{% endcapture %}
+{% if section.settings.scroll_clip %}
+	<div
+		class="scroll-animation scroll-animation--use--{% if section.index0 == 0 %}clip-out{% else %}clip-in{% endif %}"
+		style=""
+	>
+		{{ capture_clip }}
+	</div>
+{% else -%}
+	{{- capture_clip -}}
+{%- endif %}
+
+{% schema %}
+	{
+		"name": "Slideshow",
+		"class": "header-overlap-section slideshow-section",
+		"presets": [
+			{
+				"name": "Slideshow",
+				"blocks": [
+					{
+						"type": "image"
+					},
+					{
+						"type": "image"
+					},
+					{
+						"type": "image"
+					}
+				],
+				"category": "Banners"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "select",
+				"id": "image_size",
+				"label": "Image size",
+				"options": [
+					{
+						"value": "auto",
+						"label": "Original"
+					},
+					{
+						"value": "small",
+						"label": "Small"
+					},
+					{
+						"value": "medium",
+						"label": "Medium"
+					},
+					{
+						"value": "large",
+						"label": "Large"
+					},
+					{
+						"value": "screen",
+						"label": "Full screen"
+					}
+				],
+				"default": "medium"
+			},
+			{
+				"type": "checkbox",
+				"id": "gyro_effect",
+				"label": "Enable 3D effect on mouseover"
+			},
+			{
+				"type": "checkbox",
+				"id": "scroll_clip",
+				"label": "Enable clip effect on scroll"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_arrows_on_desktop",
+				"label": "Show arrows on desktop"
+			},
+			{
+				"type": "select",
+				"id": "autoplay",
+				"label": "Autoplay interval (in seconds)",
+				"options": [
+					{
+						"label": "None",
+						"value": "0"
+					},
+					{
+						"label": "3s",
+						"value": "3"
+					},
+					{
+						"label": "4s",
+						"value": "4"
+					},
+					{
+						"label": "5s",
+						"value": "5"
+					}
+				],
+				"default": "4",
+				"info": "Set 'None' to disable autoplay"
+			}
+		],
+		"blocks": [
+			{
+				"name": "Image",
+				"type": "image",
+				"settings": [
+					{
+						"type": "header",
+						"content": "Image"
+					},
+					{
+						"type": "image_picker",
+						"id": "banner_image",
+						"label": "Image"
+					},
+					{
+						"type": "image_picker",
+						"id": "banner_mobile_image",
+						"label": "Mobile image (optional)"
+					},
+					{
+						"type": "range",
+						"id": "banner_overlay",
+						"label": "Overlay",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"default": 0,
+						"unit": "%"
+					},
+					{
+						"type": "header",
+						"content": "Content"
+					},
+					{
+						"type": "select",
+						"id": "content_position",
+						"label": "Content position",
+						"options": [
+							{
+								"value": "top-left",
+								"label": "Top left"
+							},
+							{
+								"value": "top-center",
+								"label": "Top center"
+							},
+							{
+								"value": "top-right",
+								"label": "Top right"
+							},
+							{
+								"value": "middle-left",
+								"label": "Middle left"
+							},
+							{
+								"value": "middle-center",
+								"label": "Middle center"
+							},
+							{
+								"value": "middle-right",
+								"label": "Middle right"
+							},
+							{
+								"value": "bottom-left",
+								"label": "Bottom left"
+							},
+							{
+								"value": "bottom-center",
+								"label": "Bottom center"
+							},
+							{
+								"value": "bottom-right",
+								"label": "Bottom right"
+							}
+						],
+						"default": "middle-center"
+					},
+					{
+						"type": "checkbox",
+						"id": "content_box",
+						"label": "Display as card",
+						"default": false
+					},
+					{
+						"type": "text",
+						"id": "subheading_text",
+						"label": "Subheading"
+					},
+					{
+						"type": "text",
+						"id": "heading_text",
+						"label": "Heading",
+						"default": "Slide text"
+					},
+					{
+						"type": "select",
+						"id": "heading_size",
+						"label": "Heading size",
+						"options": [
+							{
+								"value": "h2",
+								"label": "Small"
+							},
+							{
+								"value": "h1",
+								"label": "Medium"
+							},
+							{
+								"value": "d3",
+								"label": "Large"
+							}
+						],
+						"default": "h1"
+					},
+					{
+						"type": "inline_richtext",
+						"id": "text_content",
+						"label": "Text",
+						"default": "Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store."
+					},
+					{
+						"type": "text",
+						"id": "button_label",
+						"label": "Button label",
+						"default": "Button label"
+					},
+					{
+						"type": "select",
+						"id": "button_variant",
+						"label": "Button style",
+						"options": [
+							{
+								"value": "fill",
+								"label": "Solid"
+							},
+							{
+								"value": "outline",
+								"label": "Outline"
+							},
+							{
+								"value": "link",
+								"label": "Link"
+							}
+						],
+						"default": "outline"
+					},
+					{
+						"type": "url",
+						"id": "button_link",
+						"label": "Button link"
+					},
+					{
+						"type": "color_scheme",
+						"id": "color_scheme",
+						"label": "Color scheme",
+						"default": "invert"
+					}
+				]
+			},
+			{
+				"name": "Video",
+				"type": "video",
+				"settings": [
+					{
+						"type": "header",
+						"content": "Video"
+					},
+					{
+						"type": "video",
+						"id": "banner_video",
+						"label": "Video"
+					},
+					{
+						"type": "range",
+						"id": "banner_overlay",
+						"label": "Overlay",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"default": 0,
+						"unit": "%"
+					},
+					{
+						"type": "header",
+						"content": "Content"
+					},
+					{
+						"type": "select",
+						"id": "content_position",
+						"label": "Content position",
+						"options": [
+							{
+								"value": "top-left",
+								"label": "Top left"
+							},
+							{
+								"value": "top-center",
+								"label": "Top center"
+							},
+							{
+								"value": "top-right",
+								"label": "Top right"
+							},
+							{
+								"value": "middle-left",
+								"label": "Middle left"
+							},
+							{
+								"value": "middle-center",
+								"label": "Middle center"
+							},
+							{
+								"value": "middle-right",
+								"label": "Middle right"
+							},
+							{
+								"value": "bottom-left",
+								"label": "Bottom left"
+							},
+							{
+								"value": "bottom-center",
+								"label": "Bottom center"
+							},
+							{
+								"value": "bottom-right",
+								"label": "Bottom right"
+							}
+						],
+						"default": "middle-center"
+					},
+					{
+						"type": "checkbox",
+						"id": "content_box",
+						"label": "Display as card",
+						"default": false
+					},
+					{
+						"type": "text",
+						"id": "subheading_text",
+						"label": "Subheading"
+					},
+					{
+						"type": "text",
+						"id": "heading_text",
+						"label": "Heading",
+						"default": "Video slide text"
+					},
+					{
+						"type": "select",
+						"id": "heading_size",
+						"label": "Heading size",
+						"options": [
+							{
+								"value": "h2",
+								"label": "Small"
+							},
+							{
+								"value": "h1",
+								"label": "Medium"
+							},
+							{
+								"value": "d3",
+								"label": "Large"
+							}
+						],
+						"default": "h1"
+					},
+					{
+						"type": "inline_richtext",
+						"id": "text_content",
+						"label": "Text",
+						"default": "Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store."
+					},
+					{
+						"type": "text",
+						"id": "button_label",
+						"label": "Button label",
+						"default": "Button label"
+					},
+					{
+						"type": "select",
+						"id": "button_variant",
+						"label": "Button style",
+						"options": [
+							{
+								"value": "fill",
+								"label": "Solid"
+							},
+							{
+								"value": "outline",
+								"label": "Outline"
+							},
+							{
+								"value": "link",
+								"label": "Link"
+							}
+						],
+						"default": "outline"
+					},
+					{
+						"type": "url",
+						"id": "button_link",
+						"label": "Button link"
+					},
+					{
+						"type": "color_scheme",
+						"id": "color_scheme",
+						"label": "Color scheme",
+						"default": "invert"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

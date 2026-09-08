@@ -1,0 +1,55 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement_bar_aTijDi": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_trBL6c": {
+          "type": "announcement",
+          "settings": {
+            "text": "New Years Eve Party at Tarantula Hill - More details here!",
+            "link": "https://www.eventbrite.com/e/tarantula-hill-new-years-eve-party-2025-2026-tickets-1977104116635?aff=oddtdtcreator"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_trBL6c"
+      ],
+      "disabled": true,
+      "name": "Announcement bar",
+      "settings": {
+        "color_scheme": "scheme-19c1893c-8da7-4347-a2a6-fbea7176ab91",
+        "text_size": "md",
+        "uppercase": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "layout": "drawer",
+        "menu": "main-menu",
+        "enable_sticky": true,
+        "color_scheme": "invert",
+        "menu_color_scheme": "invert",
+        "enable_overlap": true,
+        "use_inverted_logo": false,
+        "logo_scale": 1.5,
+        "enable_mobile_scale": false
+      }
+    }
+  },
+  "order": [
+    "announcement_bar_aTijDi",
+    "header"
+  ]
+}

@@ -1,0 +1,375 @@
+{% if section.settings.show_view_all and section.settings.blog -%}
+	{%- assign button_label = 'sections.featured_blog.view_all' | t -%}
+{%- endif %}
+{% if section.settings.blog != null -%}
+	{%- assign articles_count = section.settings.blog.articles.size | at_most: section.settings.max_articles -%}
+{%- else -%}
+	{%- assign articles_count = section.settings.max_articles -%}
+{%- endif %}
+{% if section.settings.section_center_heading -%}
+	{%- assign heading_align = 'center' -%}
+{%- else -%}
+	{%- assign heading_align = 'left' -%}
+{%- endif %}
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.section_color_scheme.id }} {% if section.settings.section_center_heading %}section-wrapper--center-align{% endif %}">
+	{% if section.settings.section_heading != blank or section.settings.section_description != blank %}
+		<div class="container section-wrapper__header">
+			<div class="content content--align--{{ heading_align }}">
+				{% if section.settings.section_heading != blank %}
+					<div class="content__heading">
+						{% capture heading_capture %}
+							<h2 class="heading heading--size--{{ section.settings.section_heading_size }}">
+								{{ section.settings.section_heading }}
+							</h2>
+						{% endcapture %}
+						{% if section.settings.section_heading_animation %}
+							<div
+								class="scroll-animation scroll-animation--use--text-reveal scroll-animation--origin-align--{{ heading_align }} {% unless settings.appearance_animate_heading_on_mobile %}scroll-animation--only-desktop-animation{% endunless %}"
+								style=""
+							>
+								{{ heading_capture }}
+							</div>
+						{% else -%}
+							{{- heading_capture -}}
+						{%- endif %}
+					</div>
+				{% endif -%}
+				{%- if section.settings.section_description != blank %}
+					<div class="content__text">
+						<p class="text text--size--md">{{ section.settings.section_description }}</p>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+	<div class="section-wrapper__body">
+		{% capture capture_grid_content %}
+			{% if section.settings.blog != null -%}
+				{%- for article in section.settings.blog.articles limit: articles_count -%}
+					{%- render 'article-card',
+						card_article: article,
+						display_style: section.settings.card_display_style,
+						color_scheme: section.settings.card_color_scheme,
+						center: section.settings.card_center_content,
+						gyro_effect: section.settings.card_gyro_effect,
+						image_size: section.settings.card_image_ratio
+					-%}
+				{%- endfor -%}
+			{%- else -%}
+				{%- for i in (0..articles_count) %}
+					<div class="card">
+						<div class="card__media">
+							<div class="banner banner--placerholder-ar" style="--banner-placeholder-ar: 4/3;">
+								{{
+									i
+									| modulo: 6
+									| plus: 1
+									| prepend: '-'
+									| prepend: 'collection'
+									| placeholder_svg_tag: 'banner__placeholder'
+								}}
+							</div>
+						</div>
+						<div class="card__caption">
+							<h2 class="card__heading" style="">
+								{{ 'sections.featured_blog.onboarding_title' | t }}
+							</h2>
+						</div>
+					</div>
+				{% endfor -%}
+			{%- endif %}
+		{% endcapture %}
+		{% if section.settings.stack_grid_layout == 'grid' %}
+			<div class="container">
+				<div
+					class="grid"
+					style="--grid-columns: {{ section.settings.stack_grid_desktop_columns }};--grid-mobile-columns: {{ section.settings.stack_grid_mobile_columns }};"
+				>
+					{{ capture_grid_content }}
+				</div>
+			</div>
+		{% else -%}
+			{{- 'component-inline-carousel.css' | asset_url | stylesheet_tag }}
+			<x-inline-carousel
+				class="inline-carousel"
+				items-count="{{ articles_count }}"
+				columns="{{ section.settings.stack_grid_desktop_columns }}"
+				style="--inline-carousel-columns: {{ section.settings.stack_grid_desktop_columns }};--inline-carousel-mobile-columns: {% if section.settings.stack_grid_mobile_columns == '1' %}1.25{% else %}{{ section.settings.stack_grid_mobile_columns }}{% endif %};--inline-carousel-items-count: {{ articles_count }};"
+				section-id="{{ section.id }}"
+			>
+				<div class="inline-carousel__view" data-inline-carousel-element="view">
+					<div class="container inline-carousel__container container--size--adaptive">
+						<div class="inline-carousel__track" data-inline-carousel-element="track">
+							{{ capture_grid_content }}
+							{% unless section.settings.stack_grid_mobile_columns == '1' %}
+								<div class="inline-carousel__psuedo-item"></div>
+							{% endunless %}
+						</div>
+					</div>
+					<div class="container inline-carousel__nav-container">
+						<button
+							class="inline-carousel__nav-prev"
+							aria-label="{{ 'general.slider.previous_slide' | t }}"
+							data-inline-carousel-element="nav-prev"
+						>
+							<span class="carousel-arrow">
+								<svg class="carousel-arrow__icon">
+									<use  xlink:href="#svg-icon-arrow-left"></use>
+								</svg>
+							</span>
+						</button>
+						<button
+							class="inline-carousel__nav-next"
+							aria-label="{{ 'general.slider.next_slide' | t }}"
+							data-inline-carousel-element="nav-next"
+						>
+							<span class="carousel-arrow">
+								<svg class="carousel-arrow__icon">
+									<use  xlink:href="#svg-icon-arrow-right"></use>
+								</svg>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div class="container">
+					<x-carousel-pagination
+						class="carousel-pagination inline-carousel__mobile-pagination"
+						section-id="{{ section.id }}"
+					>
+						{% for i in (0..articles_count) -%}
+							{%- unless forloop.last -%}
+								<label>
+									<input
+										class="carousel-pagination__radio"
+										type="radio"
+										name="{{ section.id | append: 'carousel-pagination' }}"
+										value="{{ i }}"
+										data-carousel-pagination-element="radio"
+										{% if forloop.first %}
+											checked
+										{% endif %}
+									>
+									<div class="carousel-pagination__dot"></div>
+								</label>
+							{%- endunless -%}
+						{%- endfor %}
+					</x-carousel-pagination>
+					<script type="module" src="{{ 'component-carousel-pagination.js' | asset_url }}"></script>
+				</div>
+			</x-inline-carousel>
+
+			<script type="module" src="{{ 'component-inline-carousel.js' | asset_url }}"></script>
+		{% endif %}
+	</div>
+	{% if button_label != blank %}
+		<div class="container section-wrapper__footer">
+			<a href="{{ section.settings.blog.url }}" style="" class="button">{{ button_label }}</a>
+		</div>
+	{% endif %}
+</div>
+
+{% schema %}
+	{
+		"name": "Featured blog",
+		"class": "featured-blog-section",
+		"presets": [
+			{
+				"name": "Featured blog",
+				"category": "Store information"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "blog",
+				"id": "blog",
+				"label": "Blog"
+			},
+			{
+				"type": "range",
+				"id": "max_articles",
+				"min": 3,
+				"max": 15,
+				"label": "Maximum articles to show",
+				"default": 10
+			},
+			{
+				"type": "text",
+				"id": "section_heading",
+				"label": "Heading",
+				"default": "Blog posts"
+			},
+			{
+				"type": "select",
+				"id": "section_heading_size",
+				"label": "Heading size",
+				"options": [
+					{
+						"value": "h2",
+						"label": "Small"
+					},
+					{
+						"value": "h1",
+						"label": "Medium"
+					},
+					{
+						"value": "d3",
+						"label": "Large"
+					}
+				],
+				"default": "h1"
+			},
+			{
+				"type": "checkbox",
+				"id": "section_heading_animation",
+				"label": "Use heading animation",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "section_center_heading",
+				"label": "Center heading",
+				"default": true
+			},
+			{
+				"type": "inline_richtext",
+				"id": "section_description",
+				"label": "Text"
+			},
+			{
+				"type": "color_scheme",
+				"id": "section_color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_view_all",
+				"label": "Show 'View all' button",
+				"default": false
+			},
+			{
+				"type": "header",
+				"content": "Format"
+			},
+			{
+				"id": "stack_grid_layout",
+				"label": "Layout",
+				"type": "select",
+				"options": [
+					{
+						"value": "stack",
+						"label": "Stack"
+					},
+					{
+						"value": "grid",
+						"label": "Grid"
+					}
+				],
+				"default": "stack"
+			},
+			{
+				"type": "select",
+				"id": "stack_grid_desktop_columns",
+				"label": "Desktop columns",
+				"options": [
+					{
+						"value": "2",
+						"label": "2"
+					},
+					{
+						"value": "3",
+						"label": "3"
+					},
+					{
+						"value": "4",
+						"label": "4"
+					},
+					{
+						"value": "5",
+						"label": "5"
+					}
+				],
+				"default": "3"
+			},
+			{
+				"type": "select",
+				"id": "stack_grid_mobile_columns",
+				"label": "Mobile columns",
+				"options": [
+					{
+						"value": "1",
+						"label": "1"
+					},
+					{
+						"value": "2",
+						"label": "2"
+					}
+				],
+				"default": "2"
+			},
+			{
+				"type": "header",
+				"content": "Article card"
+			},
+			{
+				"type": "select",
+				"id": "card_display_style",
+				"options": [
+					{
+						"value": "card",
+						"label": "Card"
+					},
+					{
+						"value": "normal",
+						"label": "Standard"
+					}
+				],
+				"default": "normal",
+				"label": "Display style"
+			},
+			{
+				"type": "select",
+				"id": "card_image_ratio",
+				"label": "Image size",
+				"options": [
+					{
+						"value": "auto",
+						"label": "Original"
+					},
+					{
+						"value": "square",
+						"label": "Square (1:1)"
+					},
+					{
+						"value": "landscape",
+						"label": "Landscape (4:3)"
+					},
+					{
+						"value": "portrait",
+						"label": "Portrait (2:3)"
+					}
+				],
+				"default": "landscape"
+			},
+			{
+				"type": "checkbox",
+				"id": "card_gyro_effect",
+				"label": "Enable 3D effect on mouseover",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "card_center_content",
+				"label": "Center content"
+			},
+			{
+				"type": "color_scheme",
+				"id": "card_color_scheme",
+				"label": "Card color scheme"
+			}
+		]
+	}
+{% endschema %}

@@ -1,0 +1,49 @@
+<template data-notifier-product-template>
+	<div class="cart-notificator__product">
+		{% if product.selected_variant.image %}
+			<picture class="cart-notificator__product__img">
+				<source srcset="{{ product.selected_variant.image | image_url: width: 60 }} 1x, {{ product.selected_variant.image | image_url: width: 120 }} 2x, {{ product.selected_variant.image | image_url: width: 180 }} 3x">
+
+				<img
+					src="{{ product.selected_variant.image | image_url }}"
+					alt="{{ product.selected_variant.image.alt | escape }}"
+					width="{{ product.selected_variant.image.width }}"
+					height="{{ product.selected_variant.image.height }}"
+					fetchpriority="high"
+				>
+			</picture>
+		{%- elsif product.featured_image %}
+			<picture class="cart-notificator__product__img">
+				<source srcset="{{ product.featured_image | image_url: width: 60 }} 1x, {{ product.featured_image | image_url: width: 120 }} 2x, {{ product.featured_image | image_url: width: 180 }} 3x">
+
+				<img
+					src="{{ product.featured_image | image_url }}"
+					alt="{{ product.featured_image.alt | escape }}"
+					width="{{ product.featured_image.width }}"
+					height="{{ product.featured_image.height }}"
+					fetchpriority="high"
+				>
+			</picture>
+		{%- endif %}
+		<div class="cart-notificator__product__caption">
+			<h5 class="cart-notificator__product__title">{{ 'general.cart.item_added' | t }}</h5>
+			<p class="text text--size--md cart-notificator__product__product-title">{{ product.title }}</p>
+			{% unless product.has_only_default_variant %}
+				<p class="text text--size--xs text--mute">{{ product.selected_variant.title }}</p>
+			{% endunless %}
+		</div>
+		<label class="cart-notificator__product__label">
+			<input type="checkbox" value="close-notification" hidden>
+			<svg class="cart-notificator__product__close-icon">
+				<use  xlink:href="#svg-icon-x"></use>
+			</svg>
+		</label>
+	</div>
+</template>
+
+{% schema %}
+	{
+		"name": "Notifier product",
+		"class": "notifier-product-section"
+	}
+{% endschema %}

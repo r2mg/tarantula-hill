@@ -1,0 +1,258 @@
+{% style %}
+	.age-verification-section__form {
+		display: flex;
+		justify-content: center;
+		gap: 2rem;
+	}
+{% endstyle %}
+{%- assign has_image = false %}
+{% if section.settings.image != blank %}{% assign has_image = true %}{% endif %}
+<x-age-verification class="age-verification {% unless has_image %}age-verification--no-image{% endunless %} color-scheme-{{ section.settings.color_scheme.id }}">
+	<x-modal class="modal modal--full-width modal--full-height" id="ageVerifiedModal" style="">
+		<dialog class="modal__dialog" data-modal-element="dialog">
+			<div class="modal__content" data-modal-element="content">
+				<div class="age-verification__modal-content">
+					{% capture capture_blocks %}
+						<div class="content content--align--center content--compact content--spacing--lg {% if section.settings.content_box %}content--box{% endif %}">
+							{% for b in section.blocks -%}
+								{%- case b.type -%}
+									{%- when 'heading' %}
+										<div {{ b.shopify_attributes }}>
+											<h2 class="heading heading--size--{{ b.settings.heading_size }}">
+												{{ b.settings.heading_text }}
+											</h2>
+										</div>
+									{% when 'text' %}
+										<div {{ b.shopify_attributes }}>
+											<p class="text text--size--md">{{ b.settings.confirm_question }}</p>
+										</div>
+									{% when 'buttons' %}
+										<form class="age-verification-section__form" {{ b.shopify_attributes }}>
+											<button style="" class="button">{{ b.settings.confirm_btn_label }}</button>
+
+											<a href="{{ b.settings.link }}" style="" class="button button--variant--outline">
+												{{- b.settings.decline_btn_label -}}
+											</a>
+										</form>
+								{% endcase -%}
+							{%- endfor %}
+						</div>
+					{% endcapture %}
+
+					{% if section.settings.image != blank %}
+						{% capture capture_banner_content %}{{ capture_blocks }}{% endcapture %}
+
+						{% capture capture_banner %}
+							<div
+								class="banner banner--size--full"
+								style="--banner-focal: {{ section.settings.image.presentation.focal_point }};"
+							>
+								{% if section.settings.image != blank %}
+									<picture class="banner__image">
+										<source
+											srcset="
+												{% if section.settings.image.width >= 375 %}{{ section.settings.image | image_url: width: 375 }} 375w,{% endif %}
+												{% if section.settings.image.width >= 550 %}{{ section.settings.image | image_url: width: 550 }} 550w,{% endif %}
+												{% if section.settings.image.width >= 750 %}{{ section.settings.image | image_url: width: 750 }} 750w,{% endif %}
+												{% if section.settings.image.width >= 1100 %}{{ section.settings.image | image_url: width: 1100 }} 1100w,{% endif %}
+												{% if section.settings.image.width >= 1500 %}{{ section.settings.image | image_url: width: 1500 }} 1500w,{% endif %}
+												{% if section.settings.image.width >= 1780 %}{{ section.settings.image | image_url: width: 1780 }} 1780w,{% endif %}
+												{% if section.settings.image.width >= 2000 %}{{ section.settings.image | image_url: width: 2000 }} 2000w,{% endif %}
+												{% if section.settings.image.width >= 3000 %}{{ section.settings.image | image_url: width: 3000 }} 3000w,{% endif %}
+												{% if section.settings.image.width >= 3840 %}{{ section.settings.image | image_url: width: 3840 }} 3840w,{% endif %}
+												{{ section.settings.image | image_url }} {{ section.settings.image.width }}w
+											"
+											sizes="100vw"
+										>
+
+										<img
+											src="{{ section.settings.image | image_url }}"
+											alt="{{ section.settings.image.alt | escape }}"
+											width="{{ section.settings.image.width }}"
+											height="{{ section.settings.image.height }}"
+											fetchpriority="high"
+										>
+									</picture>
+								{%- endif %}
+
+								{% unless section.settings.image %}
+								{% endunless %}
+
+								<div class="banner__content">
+									<div
+										class="placer placer--offset--{% if section.settings.gyro_effect %}large{% else %}medium{% endif %}"
+										style=""
+									>
+										<div class="placer__target">
+											{% if section.settings.gyro_effect %}
+												<div class="mouse-tracker__caption">
+													<div class="mouse-tracker__caption__content">
+														{{ capture_banner_content }}
+													</div>
+												</div>
+											{% else -%}
+												{{- capture_banner_content -}}
+											{%- endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endcapture %}
+
+						{% if section.settings.gyro_effect -%}
+							<x-mouse-tracker class="mouse-tracker mouse-tracker--full" style="">
+								<div class="mouse-tracker__stage">
+									<div class="mouse-tracker__stage__inner">
+										{{ capture_banner }}
+									</div>
+								</div>
+							</x-mouse-tracker>
+						{%- else -%}
+							{{- capture_banner -}}
+						{%- endif -%}
+					{%- else -%}
+						{{- capture_blocks -}}
+					{%- endif %}
+				</div>
+			</div>
+		</dialog>
+	</x-modal>
+</x-age-verification>
+
+<script type="module" src="{{ 'component-age-verification.js' | asset_url }}"></script>
+
+{% schema %}
+	{
+		"name": "Age verification",
+		"class": "age-verification-section",
+		"presets": [
+			{
+				"name": "Age verification",
+				"blocks": [
+					{
+						"type": "heading"
+					},
+					{
+						"type": "text"
+					},
+					{
+						"type": "buttons"
+					}
+				]
+			}
+		],
+		"limit": 1,
+		"enabled_on": {
+			"groups": ["custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme",
+				"default": "alt"
+			},
+			{
+				"type": "header",
+				"content": "Image"
+			},
+			{
+				"type": "image_picker",
+				"id": "image",
+				"label": "Image"
+			},
+			{
+				"type": "checkbox",
+				"id": "gyro_effect",
+				"label": "Enable 3D effect on mouseover"
+			},
+			{
+				"type": "checkbox",
+				"id": "content_box",
+				"label": "Display content as card",
+				"default": true
+			}
+		],
+		"blocks": [
+			{
+				"name": "Heading",
+				"type": "heading",
+				"limit": 1,
+				"settings": [
+					{
+						"type": "text",
+						"id": "heading_text",
+						"label": "Heading",
+						"default": "Confirm your age"
+					},
+					{
+						"type": "select",
+						"id": "heading_size",
+						"label": "Size",
+						"options": [
+							{
+								"value": "h2",
+								"label": "Small"
+							},
+							{
+								"value": "h1",
+								"label": "Medium"
+							},
+							{
+								"value": "d3",
+								"label": "Large"
+							}
+						],
+						"default": "h1"
+					}
+				]
+			},
+			{
+				"name": "Text",
+				"type": "text",
+				"limit": 1,
+				"settings": [
+					{
+						"type": "inline_richtext",
+						"id": "confirm_question",
+						"label": "Confirm question",
+						"default": "Are you 18 years old or older?"
+					}
+				]
+			},
+			{
+				"name": "Buttons",
+				"type": "buttons",
+				"limit": 1,
+				"settings": [
+					{
+						"type": "header",
+						"content": "Confirm button"
+					},
+					{
+						"type": "text",
+						"id": "confirm_btn_label",
+						"label": "Label",
+						"default": "Yes"
+					},
+					{
+						"type": "header",
+						"content": "Decline button"
+					},
+					{
+						"type": "text",
+						"id": "decline_btn_label",
+						"label": "Label",
+						"default": "No"
+					},
+					{
+						"type": "url",
+						"id": "link",
+						"label": "Link",
+						"info": "Link for redirect if a user doesn't confirm age"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

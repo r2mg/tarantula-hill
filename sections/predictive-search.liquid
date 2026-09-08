@@ -1,0 +1,114 @@
+{% assign has_results = false -%}
+<template data-predictive-search-template>
+	<div class="predictive-search" data-lenis-prevent>
+		{% if predictive_search.performed -%}
+			{%- if predictive_search.resources.collections.size > 0 or predictive_search.resources.queries.size > 0 -%}
+				{%- assign has_results = true %}
+				<div class="predictive-search__category">
+					<p class="subheading predictive-search__category-title">
+						{{ 'templates.search.suggestions' | t }}
+					</p>
+					<div style="--stack-spacing:0.5" class="stack stack--v">
+						{% for ps_query in predictive_search.resources.queries -%}
+							<a class="predictive-search__link" href="{{ ps_query.url }}"
+								><span aria-label="{{ ps_query.text }}">{{ ps_query.styled_text }}</span></a
+							>
+						{%- endfor -%}
+						{%- for ps_collection in predictive_search.resources.collections -%}
+							<a class="predictive-search__link" href="{{ ps_collection.url }}">{{ ps_collection.title }}</a>
+						{%- endfor %}
+					</div>
+				</div>
+			{% endif -%}
+			{%- if predictive_search.resources.products.size > 0 -%}
+				{%- assign has_results = true %}
+				<div class="predictive-search__category">
+					<p class="subheading predictive-search__category-title">
+						{{ 'templates.search.products' | t }}
+					</p>
+					<div style="--stack-spacing:0.5" class="stack stack--v">
+						{% for ps_product in predictive_search.resources.products %}
+							<div class="product-thumb">
+								<a class="block-link product-thumb__body" href="{{ ps_product.url }}">
+									<picture class="product-thumb__image">
+										<source srcset="{{ ps_product.featured_image | image_url: width: 70 }} 1x, {{ ps_product.featured_image | image_url: width: 140 }} 2x, {{ ps_product.featured_image | image_url: width: 210 }} 3x">
+
+										<img
+											src="{{ ps_product.featured_image | image_url }}"
+											alt="{{ ps_product.featured_image.alt | escape }}"
+											width="{{ ps_product.featured_image.width }}"
+											height="{{ ps_product.featured_image.height }}"
+											loading="lazy"
+											data-img-loading
+											onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+										>
+									</picture>
+									<div class="product-thumb__info">
+										<p
+											class="product-thumb__title {% if settings.product_card_truncate_titles != 'none' %}product-thumb__title--truncate{% endif %}"
+											style="--product-thumb-max-title-lines: {{ settings.product_card_truncate_titles }};"
+										>
+											{{ ps_product.title }}
+										</p>
+
+										<div style="--stack-spacing:0.25" class="stack product-thumb__price">
+											<span class="product-thumb__price-value">
+												{% if settings.currency_hide_trailing_zeros -%}
+													{{- ps_product.price | money_without_trailing_zeros -}}
+												{%- else -%}
+													{{- ps_product.price | money -}}
+												{%- endif -%}
+												{%- if settings.currency_show_currency_codes -%}
+													{{- shop.currency | prepend: '&nbsp;' -}}
+												{%- endif %}
+											</span>
+										</div>
+									</div>
+								</a>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			{% endif -%}
+			{%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
+				{%- assign has_results = true %}
+				<div class="predictive-search__category">
+					<p class="subheading predictive-search__category-title">
+						{{ 'templates.search.pages' | t }}
+					</p>
+					<div style="--stack-spacing:0.5" class="stack stack--v">
+						{% for ps_page in predictive_search.resources.pages -%}
+							<a class="predictive-search__link" href="{{ ps_page.url }}">{{ ps_page.title }}</a>
+						{%- endfor -%}
+						{%- for ps_article in predictive_search.resources.articles -%}
+							<a class="predictive-search__link" href="{{ ps_article.url }}">{{ ps_article.title }}</a>
+						{%- endfor %}
+					</div>
+				</div>
+			{% endif -%}
+		{%- endif %}
+		{% if has_results %}
+			<div class="predictive-search__all-results">
+				<button
+					type="submit"
+					style=""
+					form="shop-search-form"
+					class="button button--variant--outline button--size--sm button--block"
+				>
+					{{ 'templates.search.show_all' | t }}
+				</button>
+			</div>
+		{% else %}
+			<p class="predictive-search__no-results-msg">
+				{{ 'templates.search.no_results' | t: terms: predictive_search.terms }}
+			</p>
+		{% endif %}
+	</div>
+</template>
+
+{% schema %}
+	{
+		"name": "Predictive search",
+		"class": "predictive-search-section"
+	}
+{% endschema %}

@@ -1,0 +1,133 @@
+{% capture capture_social_links -%}
+	{%- if settings.social_media_facebook != blank -%}
+		<a
+			class="social-media-links__item"
+			href="{{ settings.social_media_facebook }}"
+			aria-label="facebook"
+			{% if settings.social_media_new_window %}
+				target="_blank"
+			{% endif %}
+		>
+			<svg class="social-media-links__item-icon">
+				<use  xlink:href="#svg-icon-social-facebook"></use>
+			</svg>
+		</a>
+	{%- endif -%}
+	{%- if settings.social_media_instagram != blank -%}
+		<a
+			class="social-media-links__item"
+			href="{{ settings.social_media_instagram }}"
+			aria-label="instagram"
+			{% if settings.social_media_new_window %}
+				target="_blank"
+			{% endif %}
+		>
+			<svg class="social-media-links__item-icon">
+				<use  xlink:href="#svg-icon-social-instagram"></use>
+			</svg>
+		</a>
+	{%- endif -%}
+	{%- if settings.social_media_youtube != blank -%}
+		<a
+			class="social-media-links__item"
+			href="{{ settings.social_media_youtube }}"
+			aria-label="youtube"
+			{% if settings.social_media_new_window %}
+				target="_blank"
+			{% endif %}
+		>
+			<svg class="social-media-links__item-icon">
+				<use  xlink:href="#svg-icon-social-youtube"></use>
+			</svg>
+		</a>
+	{%- endif -%}
+	{%- if settings.social_media_tiktok != blank -%}
+		<a
+			class="social-media-links__item"
+			href="{{ settings.social_media_tiktok }}"
+			aria-label="tiktok"
+			{% if settings.social_media_new_window %}
+				target="_blank"
+			{% endif %}
+		>
+			<svg class="social-media-links__item-icon">
+				<use  xlink:href="#svg-icon-social-tiktok"></use>
+			</svg>
+		</a>
+	{%- endif -%}
+	{%- if settings.social_media_x != blank -%}
+		<a
+			class="social-media-links__item"
+			href="{{ settings.social_media_x }}"
+			aria-label="x"
+			{% if settings.social_media_new_window %}
+				target="_blank"
+			{% endif %}
+		>
+			<svg class="social-media-links__item-icon">
+				<use  xlink:href="#svg-icon-social-x"></use>
+			</svg>
+		</a>
+	{%- endif -%}
+	{%- if settings.social_media_snapchat != blank -%}
+		<a
+			class="social-media-links__item"
+			href="{{ settings.social_media_snapchat }}"
+			aria-label="snapchat"
+			{% if settings.social_media_new_window %}
+				target="_blank"
+			{% endif %}
+		>
+			<svg class="social-media-links__item-icon">
+				<use  xlink:href="#svg-icon-social-snapchat"></use>
+			</svg>
+		</a>
+	{%- endif -%}
+	{%- if settings.social_media_pinterest != blank -%}
+		<a
+			class="social-media-links__item"
+			href="{{ settings.social_media_pinterest }}"
+			aria-label="pinterest"
+			{% if settings.social_media_new_window %}
+				target="_blank"
+			{% endif %}
+		>
+			<svg class="social-media-links__item-icon">
+				<use  xlink:href="#svg-icon-social-pinterest"></use>
+			</svg>
+		</a>
+	{%- endif -%}
+	{%- if settings.social_media_tumblr != blank -%}
+		<a
+			class="social-media-links__item"
+			href="{{ settings.social_media_tumblr }}"
+			aria-label="tumblr"
+			{% if settings.social_media_new_window %}
+				target="_blank"
+			{% endif %}
+		>
+			<svg class="social-media-links__item-icon">
+				<use  xlink:href="#svg-icon-social-tumblr"></use>
+			</svg>
+		</a>
+	{%- endif -%}
+	{%- if settings.social_media_vimeo != blank -%}
+		<a
+			class="social-media-links__item"
+			href="{{ settings.social_media_vimeo }}"
+			aria-label="vimeo"
+			{% if settings.social_media_new_window %}
+				target="_blank"
+			{% endif %}
+		>
+			<svg class="social-media-links__item-icon">
+				<use  xlink:href="#svg-icon-social-vimeo"></use>
+			</svg>
+		</a>
+	{%- endif -%}
+{%- endcapture %}
+{% if capture_social_links != blank %}
+	<div style="--stack-spacing:1" class="stack {{ class }} stack--wrap">
+		{{ capture_social_links }}
+	</div>
+{% endif %}

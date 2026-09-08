@@ -1,0 +1,243 @@
+{% assign use_swatches = false %}
+{% assign picker_layout = 'pills' %}
+{% assign picker_img = '' %}
+
+{% if product.selected_or_first_available_variant.image -%}
+	{%- assign current_img = product.selected_or_first_available_variant.image -%}
+{%- else -%}
+	{%- assign current_img = product.featured_image -%}
+{%- endif %}
+
+<x-product-quick-view
+	class="product-quick-view"
+	product-url="{{ product.url }}"
+	product-id="{{ product.id }}"
+	initial-options="{{ product.selected_or_first_available_variant.options | map: 'id' | join: ',' }}"
+	data-lenis-prevent
+	section-id="{{ section.id }}"
+>
+	<div class="product-quick-view__header">
+		<a class="block-link product-quick-view__info" href="{{ product.selected_or_first_available_variant.url }}">
+			{% if current_img != null %}
+				<picture class="product-quick-view__img">
+					<source srcset="{{ current_img | image_url: width: 60 }} 1x, {{ current_img | image_url: width: 120 }} 2x, {{ current_img | image_url: width: 180 }} 3x">
+
+					<img
+						src="{{ current_img | image_url }}"
+						alt="{{ current_img.alt | escape }}"
+						width="{{ current_img.width }}"
+						height="{{ current_img.height }}"
+						fetchpriority="high"
+					>
+				</picture>
+			{%- endif %}
+			<div style="--stack-spacing:0.25" class="stack stack--v">
+				<h5 class="heading heading--size--h6">{{ product.title }}</h5>
+				{% unless product.has_only_default_variant %}
+					<p class="text text--size--xs text--mute">{{ product.selected_or_first_available_variant.title }}</p>
+				{% endunless -%}
+				{%- render 'price', src: product.selected_or_first_available_variant %}
+			</div>
+		</a>
+		<x-modal-close
+			class="modal__close product-quick-view__close modal__close--icon"
+			target-id="{{ product.handle | prepend: 'quick-view-modal' }}"
+			tabindex="0"
+			role="button"
+			aria-label="{{ 'accessibility.close' | t }}"
+		>
+			<svg class="modal__close__icon">
+				<use  xlink:href="#svg-icon-x"></use>
+			</svg>
+		</x-modal-close>
+	</div>
+	<div class="product-quick-view__body">
+		{% unless product.has_only_default_variant -%}
+			{%- assign image_options = picker_img | split: ',' %}
+			<x-product-variant-picker
+				class="product-variant-picker product-variant-picker--mini"
+				product-id="{{ product.id }}"
+				section-id="{{ section.id }}"
+			>
+				<div style="--stack-spacing:0.65" class="stack stack--v">
+					{% for option in product.options_with_values -%}
+						{%- if image_options contains option.name -%}
+							{%- assign use_variant_image = true -%}
+						{%- else -%}
+							{%- assign use_variant_image = false -%}
+						{%- endif -%}
+						{%- assign use_dropdown = false -%}
+						{%- if picker_layout == 'dropdown' and use_variant_image == false -%}
+							{%- assign use_dropdown = true -%}
+						{%- endif %}
+						<div class="product-variant-picker__option">
+							<div class="product-variant-picker__option-heading">
+								<span class="product-variant-picker__option-heading-name"> {{ option.name }}: </span>
+							</div>
+							{% if use_dropdown -%}
+								<x-drop-down class="drop-down product-variant-picker__drop drop-down--full">
+									<details class="drop-down__details" data-drop-down-element="details">
+										<summary class="drop-down__header product-variant-picker__drop-header">
+											<span class="product-variant-picker__drop-swatch-header">
+												{% if option.selected_value.swatch and use_swatches -%}
+													<span class="product-variant-picker__swatch product-variant-picker__option-drop-swatch">
+														<span
+															class="product-variant-picker__swatch__bg"
+															style="background: {% if option.selected_value.swatch.image %}url({{ option.selected_value.swatch.image | image_url: width: 100 }}){% else %}{{ option.selected_value.swatch.color }}{% endif %};"
+														></span>
+													</span>
+												{%- endif %}
+												{{ option.selected_value.name }}
+											</span>
+											<svg class="drop-down__header-icon">
+												<use  xlink:href="#svg-icon-arrow-down"></use>
+											</svg>
+										</summary>
+										<div class="drop-down__drop" data-lenis-prevent>
+											{% for option_value in option.values -%}
+												<label class="product-variant-picker__option-drop-value {% unless option_value.variant.available %}product-variant-picker__option-drop-value--none{% endunless %}">
+													<input
+														type="radio"
+														class="visually-hidden"
+														value="{{ option_value.id }}"
+														form
+														name="{{ section.id | append: 'select-radio' | append: option.name }}"
+														data-media-position="{{ option_value.variant.featured_media.position }}"
+														data-position="{{ option.position }}"
+														{% if option_value.selected %}
+															checked
+														{% endif %}
+													>
+													{% if option_value.swatch and use_swatches -%}
+														<span class="product-variant-picker__swatch product-variant-picker__option-drop-swatch">
+															<span
+																class="product-variant-picker__swatch__bg"
+																style="background: {% if option_value.swatch.image %}url({{ option_value.swatch.image | image_url: width: 100 }}){% else %}{{ option_value.swatch.color }}{% endif %};"
+															></span>
+														</span>
+													{%- endif %}
+													{{ option_value.name }}
+													{% if option_value.product_url != blank -%}
+														<a
+															class="stretched-link"
+															href="{{ option_value.product_url | append: '?variant=' | append: option_value.variant.id }}"
+														>
+														</a>
+													{%- endif %}
+												</label>
+											{%- endfor %}
+										</div>
+									</details>
+								</x-drop-down>
+								<script type="module" src="{{ 'component-drop-down.js' | asset_url }}"></script>
+							{% else %}
+								<div style="--stack-spacing:0.65" class="stack stack--wrap">
+									{% for option_value in option.values -%}
+										<label class="product-variant-picker__option-value {% unless option_value.variant.available %}product-variant-picker__option-value--unavailable{% endunless %}">
+											<input
+												type="radio"
+												class="visually-hidden"
+												value="{{ option_value.id }}"
+												form
+												name="{{ section.id | append: 'select-radio' | append: option.name }}"
+												data-media-position="{{ option_value.variant.featured_media.position }}"
+												data-position="{{ option.position }}"
+												{% if option_value.selected %}
+													checked
+												{% endif %}
+											>
+											{% if use_variant_image %}
+												{% if option_value.variant -%}
+													{%- assign variant_image = option_value.variant.image -%}
+												{%- else -%}
+													{%- for variant in product.variants limit: 50 -%}
+														{%- if variant.options contains option_value.name -%}
+															{%- assign variant_image = variant.image -%}
+															{%- break -%}
+														{%- endif -%}
+													{%- endfor -%}
+												{%- endif %}
+
+												<span class="product-variant-picker__image product-variant-picker__option-value-pill">
+													{% if variant_image %}
+														<picture class="product-variant-picker__image__image">
+															<source srcset="{{ variant_image | image_url: width: 80 }} 1x, {{ variant_image | image_url: width: 160 }} 2x, {{ variant_image | image_url: width: 240 }} 3x">
+
+															<img
+																src="{{ variant_image | image_url }}"
+																alt="{{ variant_image.alt | escape }}"
+																width="{{ variant_image.width }}"
+																height="{{ variant_image.height }}"
+																loading="lazy"
+																data-img-loading
+																onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+															>
+														</picture>
+													{%- endif %}
+												</span>
+											{%- elsif option_value.swatch and use_swatches -%}
+												<span class="product-variant-picker__swatch product-variant-picker__swatch--pill product-variant-picker__option-value-pill">
+													<span
+														class="product-variant-picker__swatch__bg"
+														style="background: {% if option_value.swatch.image %}url({{ option_value.swatch.image | image_url: width: 100 }}){% else %}{{ option_value.swatch.color }}{% endif %};"
+													></span>
+												</span>
+											{%- else -%}
+												<span class="product-variant-picker__option-value-title product-variant-picker__option-value-pill">
+													{{ option_value.name }}
+												</span>
+											{%- endif %}
+											{% if option_value.product_url != blank -%}
+												<a
+													class="stretched-link"
+													href="{{ option_value.product_url | append: '?variant=' | append: option_value.variant.id }}"
+												>
+												</a>
+											{%- endif %}
+										</label>
+									{%- endfor %}
+								</div>
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
+			</x-product-variant-picker>
+
+			<script type="module" src="{{ 'component-product-variant-picker.js' | asset_url }}"></script>
+		{% endunless %}
+		<div style="--stack-spacing:0.75" class="stack product-quick-view__form stack--v">
+			{% if product.selected_or_first_available_variant.available -%}
+				<x-add-to-cart
+					class="add-to-cart"
+					variant-id="{{ product.selected_or_first_available_variant.id }}"
+					no-notifier
+				>
+					<button style class="button button--block" data-add-button>
+						{{ 'products.product.add_to_cart' | t }}
+						<div class="spinner button__spinner" style="--spinner-color: currentColor;">
+							<div class="spinner__part"></div>
+							<div class="spinner__part"></div>
+							<div class="spinner__part"></div>
+						</div>
+					</button>
+				</x-add-to-cart>
+				<script type="module" src="{{ 'component-add-to-cart.js' | asset_url }}"></script>
+			{% else %}
+				<button style="" class="button button--variant--outline button--disabled">
+					{{ 'products.product.unavailable' | t }}
+				</button>
+			{%- endif -%}
+			<a class="product-quick-view__view-more" href="{{ product.selected_or_first_available_variant.url }}">
+				{{- 'products.product.view_full_details' | t -}}
+			</a>
+		</div>
+	</div>
+</x-product-quick-view>
+<script type="module" src="{{ 'component-product-quick-view.js' | asset_url }}"></script>
+
+{% schema %}
+	{
+		"name": "Product quick view",
+		"class": "product-quick-view-section"
+	}
+{% endschema %}

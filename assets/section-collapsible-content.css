@@ -1,0 +1,4 @@
+.collapsible-content-section__container {
+  width: min(100%, 38rem);
+  margin-inline: auto;
+}

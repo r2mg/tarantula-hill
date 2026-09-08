@@ -1,0 +1,504 @@
+{% capture capture_clip %}
+	<div class="color-scheme-{{ section.settings.color_scheme.id }} color-scheme--use-color color-scheme--use-gradient">
+		{% capture capture_content %}
+			<div class="content content--align--{{ section.settings.text_align }} content--compact content--spacing--lg {% if section.settings.content_box %}content--box{% endif %}">
+				{% for block in section.blocks -%}
+					{%- case block.type -%}
+						{%- when 'heading' -%}
+							{%- if block.settings.heading_text != blank %}
+								<div class="content__heading" {{ block.shopify_attributes }}>
+									<h2 class="heading heading--size--{{ block.settings.heading_size }}">
+										{{ block.settings.heading_text }}
+									</h2>
+								</div>
+							{% endif -%}
+						{%- when 'subheading' -%}
+							{%- if block.settings.subheading_text != blank %}
+								<div class="content__subheading" {{ block.shopify_attributes }}>
+									<p class="subheading">
+										{{ block.settings.subheading_text }}
+									</p>
+								</div>
+							{% endif -%}
+						{%- when 'description' -%}
+							{%- if block.settings.text_content != blank %}
+								<div class="content__text" {{ block.shopify_attributes }}>
+									<div class="rte {% if block.settings.enlarge_text %}rte--enlarged{% endif %}">
+										{{ block.settings.text_content }}
+									</div>
+								</div>
+							{% endif -%}
+						{%- when 'button' -%}
+							{%- if block.settings.button_label != blank %}
+								<div class="content__button" {{ block.shopify_attributes }}>
+									<a
+										href="{{ block.settings.button_link }}"
+										style=""
+										class="button button--variant--{{ block.settings.button_variant }} button--size--{{ block.settings.button_size }}"
+									>
+										{{- block.settings.button_label -}}
+									</a>
+								</div>
+							{% endif -%}
+						{%- when 'countdown' -%}
+							{%- if block.settings.time != blank %}
+								<div {{ block.shopify_attributes }}>
+									{% assign target = block.settings.time | date: '%s' -%}
+									{%- assign now = 'now' | date: '%s' -%}
+									{%- assign diff = target | minus: now %}
+
+									{% if diff > 0 -%}
+										<x-countdown
+											class="countdown countdown--align--{{ section.settings.text_align }}"
+											time="{{ diff }}"
+										>
+											<div class="countdown__part">
+												<div class="countdown__value countdown__value--days"></div>
+												<div class="countdown__title">{{ 'general.time_parts.days' | t }}</div>
+											</div>
+											<div class="countdown__part">
+												<div class="countdown__value countdown__value--hours"></div>
+												<div class="countdown__title">{{ 'general.time_parts.hours' | t }}</div>
+											</div>
+											<div class="countdown__part">
+												<div class="countdown__value countdown__value--minutes"></div>
+												<div class="countdown__title">{{ 'general.time_parts.minutes' | t }}</div>
+											</div>
+											<div class="countdown__part">
+												<div class="countdown__value countdown__value--seconds"></div>
+												<div class="countdown__title">{{ 'general.time_parts.seconds' | t }}</div>
+											</div>
+										</x-countdown>
+									{%- endif %}
+									<script type="module" src="{{ 'component-countdown.js' | asset_url }}"></script>
+								</div>
+							{% endif -%}
+					{%- endcase -%}
+				{%- endfor %}
+			</div>
+		{% endcapture %}
+		{% capture capture_banner %}
+			<div
+				class="banner banner--size--{{ section.settings.banner_size }} banner--bg"
+				style="--banner-overlay: {{ section.settings.banner_overlay | times: 0.01 }};--banner-focal: {{ section.settings.banner_image.presentation.focal_point }};"
+			>
+				<div class="banner__overlay"></div>
+
+				{% if section.settings.banner_image != blank %}
+					<picture class="banner__image">
+						{% if section.settings.banner_mobile_image != blank %}
+							<source
+								srcset="
+									{% if section.settings.banner_image.width >= 1500 %}{{ section.settings.banner_image | image_url: width: 1500 }} 1500w,{% endif %}
+									{% if section.settings.banner_image.width >= 1780 %}{{ section.settings.banner_image | image_url: width: 1780 }} 1780w,{% endif %}
+									{% if section.settings.banner_image.width >= 2000 %}{{ section.settings.banner_image | image_url: width: 2000 }} 2000w,{% endif %}
+									{% if section.settings.banner_image.width >= 3000 %}{{ section.settings.banner_image | image_url: width: 3000 }} 3000w,{% endif %}
+									{% if section.settings.banner_image.width >= 3840 %}{{ section.settings.banner_image | image_url: width: 3840 }} 3840w,{% endif %}
+									{{ section.settings.banner_image | image_url }} {{ section.settings.banner_image.width }}w
+								"
+								sizes="100vw"
+								media="(min-width: 992px)"
+							>
+							<source
+								srcset="
+									{% if section.settings.banner_mobile_image.width >= 375 %}{{ section.settings.banner_mobile_image | image_url: width: 375 }} 375w,{% endif %}
+									{% if section.settings.banner_mobile_image.width >= 550 %}{{ section.settings.banner_mobile_image | image_url: width: 550 }} 550w,{% endif %}
+									{% if section.settings.banner_mobile_image.width >= 750 %}{{ section.settings.banner_mobile_image | image_url: width: 750 }} 750w,{% endif %}
+									{% if section.settings.banner_mobile_image.width >= 1100 %}{{ section.settings.banner_mobile_image | image_url: width: 1100 }} 1100w,{% endif %}
+									{% if section.settings.banner_mobile_image.width >= 1500 %}{{ section.settings.banner_mobile_image | image_url: width: 1500 }} 1500w,{% endif %}
+									{{ section.settings.banner_mobile_image | image_url }} {{ section.settings.banner_mobile_image.width }}w
+								"
+								sizes="100vw"
+								media="(max-width: 992px)"
+								width="{{ section.settings.banner_mobile_image.width }}"
+								hidden="{{ section.settings.banner_mobile_image.height }}"
+							>
+						{% else %}
+							<source
+								srcset="
+									{% if section.settings.banner_image.width >= 375 %}{{ section.settings.banner_image | image_url: width: 375 }} 375w,{% endif %}
+									{% if section.settings.banner_image.width >= 550 %}{{ section.settings.banner_image | image_url: width: 550 }} 550w,{% endif %}
+									{% if section.settings.banner_image.width >= 750 %}{{ section.settings.banner_image | image_url: width: 750 }} 750w,{% endif %}
+									{% if section.settings.banner_image.width >= 1100 %}{{ section.settings.banner_image | image_url: width: 1100 }} 1100w,{% endif %}
+									{% if section.settings.banner_image.width >= 1500 %}{{ section.settings.banner_image | image_url: width: 1500 }} 1500w,{% endif %}
+									{% if section.settings.banner_image.width >= 1780 %}{{ section.settings.banner_image | image_url: width: 1780 }} 1780w,{% endif %}
+									{% if section.settings.banner_image.width >= 2000 %}{{ section.settings.banner_image | image_url: width: 2000 }} 2000w,{% endif %}
+									{% if section.settings.banner_image.width >= 3000 %}{{ section.settings.banner_image | image_url: width: 3000 }} 3000w,{% endif %}
+									{% if section.settings.banner_image.width >= 3840 %}{{ section.settings.banner_image | image_url: width: 3840 }} 3840w,{% endif %}
+									{{ section.settings.banner_image | image_url }} {{ section.settings.banner_image.width }}w
+								"
+								sizes="100vw"
+							>
+						{% endif %}
+
+						<img
+							src="{{ section.settings.banner_image | image_url }}"
+							alt="{{ section.settings.banner_image.alt | escape }}"
+							width="{{ section.settings.banner_image.width }}"
+							height="{{ section.settings.banner_image.height }}"
+							loading="lazy"
+							data-img-loading
+							onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+						>
+					</picture>
+				{%- endif %}
+
+				{% unless section.settings.banner_image %}
+					{{
+						0
+						| modulo: 2
+						| plus: 1
+						| prepend: '-'
+						| prepend: 'lifestyle'
+						| placeholder_svg_tag: 'banner__placeholder'
+					-}}
+				{%- endunless %}
+
+				<div class="banner__content">
+					{% unless section.settings.gyro_effect %}
+						<div
+							class="placer placer--position--{{ section.settings.content_position }} placer--container placer--offset--x-large"
+							style=""
+						>
+							<div class="container placer__container">
+								<div class="placer__target">
+									{{ capture_content }}
+								</div>
+							</div>
+						</div>
+					{% endunless %}
+				</div>
+			</div>
+		{% endcapture %}
+		{% if section.settings.gyro_effect -%}
+			<x-mouse-tracker class="mouse-tracker" style="">
+				<div class="mouse-tracker__stage">
+					<div class="mouse-tracker__stage__inner">
+						{{ capture_banner }}
+					</div>
+				</div>
+
+				<div
+					class="placer placer--position--{{ section.settings.content_position }} placer--abs placer--container placer--offset--x-large"
+					style=""
+				>
+					<div class="container placer__container">
+						<div class="placer__target">
+							<div class="mouse-tracker__caption">
+								<div class="mouse-tracker__caption__content">
+									{{ capture_content }}
+								</div>
+								{% if section.settings.content_box %}<div class="mouse-tracker__shadow"></div>{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</x-mouse-tracker>
+		{%- else -%}
+			{{- capture_banner -}}
+		{%- endif %}
+	</div>
+{% endcapture %}
+{% if section.settings.scroll_clip %}
+	<div
+		class="scroll-animation scroll-animation--use--{% if section.index0 == 0 %}clip-out{% else %}clip-in{% endif %}"
+		style=""
+	>
+		{{ capture_clip }}
+	</div>
+{% else -%}
+	{{- capture_clip -}}
+{%- endif %}
+
+{% schema %}
+	{
+		"name": "Hero",
+		"class": "header-overlap-section hero-section",
+		"presets": [
+			{
+				"name": "Hero",
+				"blocks": [
+					{
+						"type": "heading"
+					},
+					{
+						"type": "description"
+					},
+					{
+						"type": "button"
+					}
+				],
+				"category": "Banners"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "header",
+				"content": "Image"
+			},
+			{
+				"type": "image_picker",
+				"id": "banner_image",
+				"label": "Image"
+			},
+			{
+				"type": "image_picker",
+				"id": "banner_mobile_image",
+				"label": "Mobile image (optional)"
+			},
+			{
+				"type": "range",
+				"id": "banner_overlay",
+				"label": "Overlay",
+				"min": 0,
+				"max": 100,
+				"step": 1,
+				"default": 0,
+				"unit": "%"
+			},
+			{
+				"type": "select",
+				"id": "banner_size",
+				"label": "Image size",
+				"options": [
+					{
+						"value": "auto",
+						"label": "Original"
+					},
+					{
+						"value": "small",
+						"label": "Small"
+					},
+					{
+						"value": "medium",
+						"label": "Medium"
+					},
+					{
+						"value": "large",
+						"label": "Large"
+					},
+					{
+						"value": "screen",
+						"label": "Full screen"
+					}
+				],
+				"default": "auto"
+			},
+			{
+				"type": "checkbox",
+				"id": "gyro_effect",
+				"label": "Enable 3D effect on mouseover"
+			},
+			{
+				"type": "checkbox",
+				"id": "scroll_clip",
+				"label": "Enable clip effect on scroll"
+			},
+			{
+				"type": "header",
+				"content": "Content"
+			},
+			{
+				"type": "text_alignment",
+				"id": "text_align",
+				"label": "Text alignment",
+				"default": "center"
+			},
+			{
+				"type": "select",
+				"id": "content_position",
+				"label": "Content position",
+				"options": [
+					{
+						"value": "top-left",
+						"label": "Top left"
+					},
+					{
+						"value": "top-center",
+						"label": "Top center"
+					},
+					{
+						"value": "top-right",
+						"label": "Top right"
+					},
+					{
+						"value": "middle-left",
+						"label": "Middle left"
+					},
+					{
+						"value": "middle-center",
+						"label": "Middle center"
+					},
+					{
+						"value": "middle-right",
+						"label": "Middle right"
+					},
+					{
+						"value": "bottom-left",
+						"label": "Bottom left"
+					},
+					{
+						"value": "bottom-center",
+						"label": "Bottom center"
+					},
+					{
+						"value": "bottom-right",
+						"label": "Bottom right"
+					}
+				],
+				"default": "middle-center"
+			},
+			{
+				"type": "checkbox",
+				"id": "content_box",
+				"label": "Display as card",
+				"default": false
+			},
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme",
+				"default": "invert"
+			}
+		],
+		"blocks": [
+			{
+				"name": "Countdown",
+				"type": "countdown",
+				"settings": [
+					{
+						"type": "text",
+						"id": "time",
+						"label": "Time",
+						"default": "31-12-2025",
+						"info": "E.g. dd-mm-yyyy format. Compatible with metafields 'date' type"
+					}
+				]
+			},
+			{
+				"name": "Subheading",
+				"type": "subheading",
+				"limit": 1,
+				"settings": [
+					{
+						"type": "text",
+						"id": "subheading_text",
+						"label": "Subheading"
+					}
+				]
+			},
+			{
+				"name": "Heading",
+				"type": "heading",
+				"limit": 1,
+				"settings": [
+					{
+						"type": "text",
+						"id": "heading_text",
+						"label": "Text",
+						"default": "Browse our latest products"
+					},
+					{
+						"type": "select",
+						"id": "heading_size",
+						"label": "Size",
+						"options": [
+							{
+								"value": "h2",
+								"label": "Small"
+							},
+							{
+								"value": "h1",
+								"label": "Medium"
+							},
+							{
+								"value": "d3",
+								"label": "Large"
+							}
+						],
+						"default": "h1"
+					}
+				]
+			},
+			{
+				"name": "Text",
+				"type": "description",
+				"settings": [
+					{
+						"type": "richtext",
+						"id": "text_content",
+						"label": "Text",
+						"default": "<p>Give customers details about the banner image(s) or content on the template.</p>"
+					},
+					{
+						"type": "checkbox",
+						"id": "enlarge_text",
+						"label": "Enlarge",
+						"default": false
+					}
+				]
+			},
+			{
+				"name": "Button",
+				"type": "button",
+				"settings": [
+					{
+						"type": "text",
+						"id": "button_label",
+						"label": "Label",
+						"default": "Shop all"
+					},
+					{
+						"type": "select",
+						"id": "button_variant",
+						"label": "Style",
+						"options": [
+							{
+								"value": "fill",
+								"label": "Solid"
+							},
+							{
+								"value": "outline",
+								"label": "Outline"
+							},
+							{
+								"value": "link",
+								"label": "Link"
+							}
+						],
+						"default": "outline"
+					},
+					{
+						"type": "select",
+						"id": "button_size",
+						"label": "Size",
+						"options": [
+							{
+								"label": "Small",
+								"value": "sm"
+							},
+							{
+								"label": "Medium",
+								"value": "md"
+							},
+							{
+								"label": "Large",
+								"value": "lg"
+							}
+						],
+						"default": "md"
+					},
+					{
+						"type": "url",
+						"id": "button_link",
+						"label": "Link"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

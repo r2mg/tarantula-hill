@@ -1,0 +1,647 @@
+{% if section.settings.section_center_heading -%}
+	{%- assign heading_align = 'center' -%}
+{%- else -%}
+	{%- assign heading_align = 'left' -%}
+{%- endif %}
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.section_color_scheme.id }} {% if section.settings.section_center_heading %}section-wrapper--center-align{% endif %}">
+	{% if section.settings.section_heading != blank or section.settings.section_description != blank %}
+		<div class="container section-wrapper__header">
+			<div class="content content--align--{{ heading_align }}">
+				{% if section.settings.section_heading != blank %}
+					<div class="content__heading">
+						{% capture heading_capture %}
+							<h2 class="heading heading--size--{{ section.settings.section_heading_size }}">
+								{{ section.settings.section_heading }}
+							</h2>
+						{% endcapture %}
+						{% if section.settings.section_heading_animation %}
+							<div
+								class="scroll-animation scroll-animation--use--text-reveal scroll-animation--origin-align--{{ heading_align }} {% unless settings.appearance_animate_heading_on_mobile %}scroll-animation--only-desktop-animation{% endunless %}"
+								style=""
+							>
+								{{ heading_capture }}
+							</div>
+						{% else -%}
+							{{- heading_capture -}}
+						{%- endif %}
+					</div>
+				{% endif -%}
+				{%- if section.settings.section_description != blank %}
+					<div class="content__text">
+						<p class="text text--size--md">{{ section.settings.section_description }}</p>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+	<div class="section-wrapper__body">
+		{% capture capture_grid_content %}
+			{% for block in section.blocks -%}
+				{%- assign block_video = blank -%}
+				{%- assign block_image = blank -%}
+				{%- if block.type == 'image' -%}
+					{%- assign block_image = block.settings.image -%}
+				{%- elsif block.type == 'video' -%}
+					{%- assign block_video = block.settings.video -%}
+				{%- endif %}
+				<div class="color-scheme-{{ block.settings.color_scheme.id }}">
+					{% capture capture_banner_content %}
+						<div class="content content--spacing--sm content--position-align--{{ block.settings.content_position }}">
+							{% if block.settings.subheading_text != blank %}
+								<div class="content__subheading">
+									<p class="subheading">
+										{{ block.settings.subheading_text }}
+									</p>
+								</div>
+							{% endif -%}
+							{%- if block.settings.heading_text != blank %}
+								<div class="content__heading">
+									<h2 class="heading heading--size--{{ block.settings.heading_size }}">
+										{{ block.settings.heading_text }}
+									</h2>
+								</div>
+							{% endif -%}
+							{%- if block.settings.text_content != blank %}
+								<div class="content__text">
+									<p class="text text--size--md">{{ block.settings.text_content }}</p>
+								</div>
+							{% endif %}
+						</div>
+					{% endcapture %}
+
+					{% capture capture_banner %}
+						<div
+							class="banner banner--size--{{ section.settings.image_ratio }} banner--bg"
+							style="--banner-overlay: {{ block.settings.image_overlay | times: 0.01 }};--banner-placeholder-ar: 1x1;--banner-focal: {{ block_image.presentation.focal_point }};"
+						>
+							<div class="banner__overlay"></div>
+							{% if block.settings.link != blank -%}
+								{%- if block.settings.link != blank -%}
+									<a
+										class="stretched-link"
+										href="{{ block.settings.link }}"
+										aria-label="{{ block.settings.heading_text }}"
+									>
+									</a>
+								{%- endif -%}
+							{%- endif %}
+
+							{% if block_video != blank -%}
+								<x-bg-video class="bg-video">
+									<video
+										class="banner__video"
+										loop
+										muted
+										preload="none"
+										width="{{ block_video.sources.first.width }}"
+										height="{{ block_video.sources.first.height }}"
+										data-bg-video-element="video"
+									>
+										{% for source in block_video.sources %}
+											<source src="{{ source.url }}" type="{{ source.mime_type }}">
+										{% endfor %}
+									</video>
+								</x-bg-video>
+								<script type="module" src="{{ 'component-bg-video.js' | asset_url }}"></script>
+							{% endif %}
+							{% if block_image != blank %}
+								<picture class="banner__image">
+									<source
+										srcset="
+											{% if block_image.width >= 165 %}{{ block_image | image_url: width: 165 }} 165w,{% endif %}
+											{% if block_image.width >= 360 %}{{ block_image | image_url: width: 360 }} 360w,{% endif %}
+											{% if block_image.width >= 533 %}{{ block_image | image_url: width: 533 }} 533w,{% endif %}
+											{% if block_image.width >= 720 %}{{ block_image | image_url: width: 720 }} 720w,{% endif %}
+											{% if block_image.width >= 1000 %}{{ block_image | image_url: width: 1000 }} 1000w,{% endif %}
+											{% if block_image.width >= 1500 %}{{ block_image | image_url: width: 1500 }} 1500w,{% endif %}
+											{{ block_image | image_url }} {{ block_image.width }}w
+										"
+										sizes="(min-width: 992px) 533px, (max-width: 992px) 72vw"
+									>
+
+									<img
+										src="{{ block_image | image_url }}"
+										alt="{{ block_image.alt | escape }}"
+										width="{{ block_image.width }}"
+										height="{{ block_image.height }}"
+										loading="lazy"
+										data-img-loading
+										onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+									>
+								</picture>
+							{%- endif %}
+
+							{% if block_video == blank and block_image == blank %}
+								{{
+									forloop.index0
+									| modulo: 6
+									| plus: 1
+									| prepend: '-'
+									| prepend: 'collection'
+									| placeholder_svg_tag: 'banner__placeholder'
+								-}}
+							{%- endif %}
+
+							<div class="banner__content">
+								<div
+									class="placer placer--position--{{ block.settings.content_position }} placer--offset--{% if section.settings.gyro_effect %}large{% else %}medium{% endif %}"
+									style=""
+								>
+									<div class="placer__target">
+										{% if section.settings.gyro_effect %}
+											<div class="mouse-tracker__caption">
+												<div class="mouse-tracker__caption__content">
+													{{ capture_banner_content }}
+												</div>
+											</div>
+										{% else -%}
+											{{- capture_banner_content -}}
+										{%- endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endcapture %}
+
+					{% if section.settings.gyro_effect -%}
+						<x-mouse-tracker class="mouse-tracker mouse-tracker--outer" style="--mouse-tracker-z: 20px;">
+							<div class="mouse-tracker__stage mouse-tracker__stage--outer">
+								<div class="mouse-tracker__stage__inner">
+									{{ capture_banner }}
+								</div>
+
+								<div class="mouse-tracker__shadow"></div>
+							</div>
+							<div class="mouse-tracker__border"></div>
+						</x-mouse-tracker>
+					{%- else -%}
+						{{- capture_banner -}}
+					{%- endif %}
+				</div>
+			{% endfor %}
+		{% endcapture %}
+		{% if section.settings.stack_grid_layout == 'grid' %}
+			<div class="container">
+				<div
+					class="grid"
+					style="--grid-columns: {{ section.settings.stack_grid_desktop_columns }};--grid-mobile-columns: 1;"
+				>
+					{{ capture_grid_content }}
+				</div>
+			</div>
+		{% else -%}
+			{{- 'component-inline-carousel.css' | asset_url | stylesheet_tag }}
+			<x-inline-carousel
+				class="inline-carousel"
+				items-count="{{ section.blocks.size }}"
+				columns="{{ section.settings.stack_grid_desktop_columns }}"
+				style="--inline-carousel-columns: {{ section.settings.stack_grid_desktop_columns }};--inline-carousel-mobile-columns: 1.25;--inline-carousel-items-count: {{ section.blocks.size }};"
+				section-id="{{ section.id }}"
+			>
+				<div class="inline-carousel__view" data-inline-carousel-element="view">
+					<div class="container inline-carousel__container container--size--adaptive">
+						<div class="inline-carousel__track" data-inline-carousel-element="track">
+							{{ capture_grid_content }}
+						</div>
+					</div>
+					<div class="container inline-carousel__nav-container">
+						<button
+							class="inline-carousel__nav-prev"
+							aria-label="{{ 'general.slider.previous_slide' | t }}"
+							data-inline-carousel-element="nav-prev"
+						>
+							<span class="carousel-arrow">
+								<svg class="carousel-arrow__icon">
+									<use  xlink:href="#svg-icon-arrow-left"></use>
+								</svg>
+							</span>
+						</button>
+						<button
+							class="inline-carousel__nav-next"
+							aria-label="{{ 'general.slider.next_slide' | t }}"
+							data-inline-carousel-element="nav-next"
+						>
+							<span class="carousel-arrow">
+								<svg class="carousel-arrow__icon">
+									<use  xlink:href="#svg-icon-arrow-right"></use>
+								</svg>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div class="container">
+					<x-carousel-pagination
+						class="carousel-pagination inline-carousel__mobile-pagination"
+						section-id="{{ section.id }}"
+					>
+						{% for i in (0..section.blocks.size) -%}
+							{%- unless forloop.last -%}
+								<label>
+									<input
+										class="carousel-pagination__radio"
+										type="radio"
+										name="{{ section.id | append: 'carousel-pagination' }}"
+										value="{{ i }}"
+										data-carousel-pagination-element="radio"
+										{% if forloop.first %}
+											checked
+										{% endif %}
+									>
+									<div class="carousel-pagination__dot"></div>
+								</label>
+							{%- endunless -%}
+						{%- endfor %}
+					</x-carousel-pagination>
+					<script type="module" src="{{ 'component-carousel-pagination.js' | asset_url }}"></script>
+				</div>
+			</x-inline-carousel>
+
+			<script type="module" src="{{ 'component-inline-carousel.js' | asset_url }}"></script>
+		{% endif %}
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Multicolumn media",
+		"class": "multicolumn-media-section",
+		"presets": [
+			{
+				"name": "Multicolumn media",
+				"blocks": [
+					{
+						"type": "image"
+					},
+					{
+						"type": "image"
+					},
+					{
+						"type": "image"
+					},
+					{
+						"type": "image"
+					}
+				],
+				"category": "Media"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "text",
+				"id": "section_heading",
+				"label": "Heading",
+				"default": "Media Columns"
+			},
+			{
+				"type": "select",
+				"id": "section_heading_size",
+				"label": "Heading size",
+				"options": [
+					{
+						"value": "h2",
+						"label": "Small"
+					},
+					{
+						"value": "h1",
+						"label": "Medium"
+					},
+					{
+						"value": "d3",
+						"label": "Large"
+					}
+				],
+				"default": "h1"
+			},
+			{
+				"type": "checkbox",
+				"id": "section_heading_animation",
+				"label": "Use heading animation",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "section_center_heading",
+				"label": "Center heading",
+				"default": true
+			},
+			{
+				"type": "inline_richtext",
+				"id": "section_description",
+				"label": "Text"
+			},
+			{
+				"type": "color_scheme",
+				"id": "section_color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "header",
+				"content": "Format"
+			},
+			{
+				"id": "stack_grid_layout",
+				"label": "Layout",
+				"type": "select",
+				"options": [
+					{
+						"value": "stack",
+						"label": "Stack"
+					},
+					{
+						"value": "grid",
+						"label": "Grid"
+					}
+				],
+				"default": "stack"
+			},
+			{
+				"type": "select",
+				"id": "stack_grid_desktop_columns",
+				"label": "Desktop columns",
+				"options": [
+					{
+						"value": "2",
+						"label": "2"
+					},
+					{
+						"value": "3",
+						"label": "3"
+					},
+					{
+						"value": "4",
+						"label": "4"
+					},
+					{
+						"value": "5",
+						"label": "5"
+					}
+				],
+				"default": "3"
+			},
+			{
+				"type": "header",
+				"content": "Media"
+			},
+			{
+				"type": "select",
+				"id": "image_ratio",
+				"label": "Image size",
+				"options": [
+					{
+						"value": "auto",
+						"label": "Original"
+					},
+					{
+						"value": "square",
+						"label": "Square (1:1)"
+					},
+					{
+						"value": "landscape",
+						"label": "Landscape (4:3)"
+					},
+					{
+						"value": "portrait",
+						"label": "Portrait (2:3)"
+					}
+				],
+				"default": "portrait"
+			},
+			{
+				"type": "checkbox",
+				"id": "gyro_effect",
+				"label": "Enable 3D effect on mouseover",
+				"default": true
+			}
+		],
+		"blocks": [
+			{
+				"name": "Image",
+				"type": "image",
+				"settings": [
+					{
+						"type": "image_picker",
+						"id": "image",
+						"label": "Image"
+					},
+					{
+						"type": "range",
+						"id": "image_overlay",
+						"label": "Overlay",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"default": 0,
+						"unit": "%"
+					},
+					{
+						"type": "url",
+						"id": "link",
+						"label": "Link"
+					},
+					{
+						"type": "select",
+						"id": "content_position",
+						"label": "Content position",
+						"options": [
+							{
+								"value": "top-left",
+								"label": "Top left"
+							},
+							{
+								"value": "top-center",
+								"label": "Top center"
+							},
+							{
+								"value": "top-right",
+								"label": "Top right"
+							},
+							{
+								"value": "middle-left",
+								"label": "Middle left"
+							},
+							{
+								"value": "middle-center",
+								"label": "Middle center"
+							},
+							{
+								"value": "middle-right",
+								"label": "Middle right"
+							},
+							{
+								"value": "bottom-left",
+								"label": "Bottom left"
+							},
+							{
+								"value": "bottom-center",
+								"label": "Bottom center"
+							},
+							{
+								"value": "bottom-right",
+								"label": "Bottom right"
+							}
+						],
+						"default": "bottom-center"
+					},
+					{
+						"type": "text",
+						"id": "subheading_text",
+						"label": "Subheading"
+					},
+					{
+						"type": "text",
+						"id": "heading_text",
+						"label": "Heading",
+						"default": "Media heading"
+					},
+					{
+						"type": "select",
+						"id": "heading_size",
+						"label": "Heading size",
+						"options": [
+							{
+								"value": "h5",
+								"label": "Small"
+							},
+							{
+								"value": "h4",
+								"label": "Medium"
+							},
+							{
+								"value": "h3",
+								"label": "Large"
+							}
+						],
+						"default": "h5"
+					},
+					{
+						"type": "inline_richtext",
+						"id": "text_content",
+						"label": "Text"
+					},
+					{
+						"type": "color_scheme",
+						"id": "color_scheme",
+						"label": "Color scheme",
+						"default": "invert"
+					}
+				]
+			},
+			{
+				"name": "Video",
+				"type": "video",
+				"settings": [
+					{
+						"type": "video",
+						"id": "video",
+						"label": "Video"
+					},
+					{
+						"type": "range",
+						"id": "image_overlay",
+						"label": "Overlay",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"default": 0,
+						"unit": "%"
+					},
+					{
+						"type": "url",
+						"id": "link",
+						"label": "Link"
+					},
+					{
+						"type": "select",
+						"id": "content_position",
+						"label": "Content position",
+						"options": [
+							{
+								"value": "top-left",
+								"label": "Top left"
+							},
+							{
+								"value": "top-center",
+								"label": "Top center"
+							},
+							{
+								"value": "top-right",
+								"label": "Top right"
+							},
+							{
+								"value": "middle-left",
+								"label": "Middle left"
+							},
+							{
+								"value": "middle-center",
+								"label": "Middle center"
+							},
+							{
+								"value": "middle-right",
+								"label": "Middle right"
+							},
+							{
+								"value": "bottom-left",
+								"label": "Bottom left"
+							},
+							{
+								"value": "bottom-center",
+								"label": "Bottom center"
+							},
+							{
+								"value": "bottom-right",
+								"label": "Bottom right"
+							}
+						],
+						"default": "bottom-center"
+					},
+					{
+						"type": "text",
+						"id": "subheading_text",
+						"label": "Subheading"
+					},
+					{
+						"type": "text",
+						"id": "heading_text",
+						"label": "Heading",
+						"default": "Media heading"
+					},
+					{
+						"type": "select",
+						"id": "heading_size",
+						"label": "Heading size",
+						"options": [
+							{
+								"value": "h5",
+								"label": "Small"
+							},
+							{
+								"value": "h4",
+								"label": "Medium"
+							},
+							{
+								"value": "h3",
+								"label": "Large"
+							}
+						],
+						"default": "h5"
+					},
+					{
+						"type": "inline_richtext",
+						"id": "text_content",
+						"label": "Text"
+					},
+					{
+						"type": "color_scheme",
+						"id": "color_scheme",
+						"label": "Color scheme",
+						"default": "invert"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

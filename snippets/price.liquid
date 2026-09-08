@@ -1,0 +1,55 @@
+{% if settings.currency_hide_trailing_zeros -%}
+	{%- assign price = src.price | money_without_trailing_zeros -%}
+{%- else -%}
+	{%- assign price = src.price | money -%}
+{%- endif -%}
+{%- if settings.currency_show_currency_codes -%}
+	{%- assign price = price | append: '&nbsp;' | append: cart.currency.iso_code -%}
+{%- endif -%}
+{%- if src.price_varies %}{% assign price = 'products.product.price.from_price_html' | t: price: price %}{% endif -%}
+{%- if src.compare_at_price and src.compare_at_price > src.price -%}
+	{%- if settings.currency_hide_trailing_zeros -%}
+		{%- assign compare_price = src.compare_at_price | money_without_trailing_zeros -%}
+	{%- else -%}
+		{%- assign compare_price = src.compare_at_price | money -%}
+	{%- endif -%}
+	{%- if settings.currency_show_currency_codes -%}
+		{%- assign compare_price = compare_price | append: '&nbsp;' | append: cart.currency.iso_code -%}
+	{%- endif -%}
+{%- endif -%}
+{%- if src.product -%}
+	{%- assign variant = src -%}
+{%- else -%}
+	{%- assign variant = src.selected_or_first_available_variant -%}
+{%- endif -%}
+{%- if src == null %}{% assign price = 2000 | money %}{% endif %}
+
+<div class="price {{ class }} price--size--{{ size }} {% if center %}price--center{% endif %}">
+	<div class="price__values">
+		{% if compare_price != blank %}
+			<div class="price__value price__value--compare">
+				{{ compare_price }}
+			</div>
+		{% endif %}
+		<div class="price__value">
+			{{ price }}
+		</div>
+	</div>
+	{% if variant.unit_price_measurement %}
+		<div class="unit-price">
+			<span class="screen-reader">
+				{{ 'products.product.price.unit_price' | t }}
+			</span>
+			<span>
+				{{ variant.unit_price | money }}
+			</span>
+			<span aria-hidden="true">/</span>
+			<span>
+				{% if variant.unit_price_measurement.reference_value != 1 -%}
+					{{- variant.unit_price_measurement.reference_value -}}
+				{%- endif %}
+				{{ variant.unit_price_measurement.reference_unit }}
+			</span>
+		</div>
+	{% endif %}
+</div>

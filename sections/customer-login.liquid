@@ -1,0 +1,165 @@
+{% unless section.settings.enable_shop_login_button %}{% assign hide_shop_login_button = true %}{% endunless %}
+
+<div class="section-wrapper section-wrapper--y-offset--padding">
+	<div class="container section-wrapper__body">
+		<input
+			class="customer__fields__display-trigger"
+			hidden
+			type="radio"
+			id="customer-recover-email"
+			name="customer-fields-display"
+		>
+		<div class="customer__fields">
+			<div style="" class="stack customer__fields__header stack--v">
+				<h1 class="heading heading--size--h2">{{ 'customer.recover_password.title' | t }}</h1>
+				<p class="text text--size--md">{{ 'customer.recover_password.subtext' | t }}</p>
+			</div>
+			{% form 'recover_customer_password' %}
+				<div style="" class="stack stack--v">
+					{% if form.errors %}
+						<div class="customer__form-errors">
+							<h2 class="customer__form-errors__heading" tabindex="-1" autofocus>
+								<span class="screen-reader">
+									{{ 'accessibility.error' | t }}
+								</span>
+								{{ 'templates.contact.form.error_heading' | t }}
+							</h2>
+							{{ form.errors | default_errors }}
+						</div>
+					{% endif %}
+					{% assign recover_success = form.posted_successfully? %}
+					<div class="form-control">
+						<input
+							class="form-control__input"
+							type="email"
+							name="email"
+							placeholder="{{ 'customer.login_page.email' | t }}"
+							id="RecoverEmail"
+							{% if form.errors contains 'form' %}
+								aria-invalid="true" aria-describedby="RecoverEmail-email-error" autofocus
+							{% endif %}
+						>
+
+						{% if form.errors contains 'form' %}
+							<div class="badge badge--type--danger badge--mini" id="RecoverEmail-email-error">
+								{{ form.errors.translated_fields.form | capitalize }}
+								{{ form.errors.messages.form }}
+							</div>
+						{% endif %}
+					</div>
+					{% if form.errors -%}
+						{%- assign recover_field_id = 'customer-recover-email' %}
+						<script defer>
+							document.addEventListener(
+								'DOMContentLoaded',
+								function () {
+									document.querySelector('#{{ recover_field_id }}').checked = true;
+								},
+								{ once: true },
+							);
+						</script>
+					{% endif %}
+					<button style="" class="button">{{ 'customer.login_page.submit' | t }}</button>
+
+					<label for="customer-login-email" style="" class="button button--variant--link button--size--sm">
+						{{- 'customer.login_page.cancel' | t -}}
+					</label>
+				</div>
+			{% endform %}
+		</div>
+
+		<input
+			class="customer__fields__display-trigger"
+			hidden
+			type="radio"
+			id="customer-login-email"
+			name="customer-fields-display"
+			checked="true"
+		>
+		<div class="customer__fields">
+			<div style="" class="stack customer__fields__header stack--v">
+				<h1 class="heading heading--size--h2">{{ 'customer.login_page.title' | t }}</h1>
+				<p class="text text--size--md">{{ 'customer.login_page.subtext' | t }}</p>
+			</div>
+			{% form 'customer_login' %}
+				<div style="" class="stack stack--v">
+					{% if form.errors %}
+						<div class="customer__form-errors">
+							<h2 class="customer__form-errors__heading" tabindex="-1" autofocus>
+								<span class="screen-reader">
+									{{ 'accessibility.error' | t }}
+								</span>
+								{{ 'templates.contact.form.error_heading' | t }}
+							</h2>
+							{{ form.errors | default_errors }}
+						</div>
+					{% endif %}
+					{% if recover_success == true %}
+						<p class="text text--size--md text--bold">{{ 'customer.recover_password.success' | t }}</p>
+					{% endif %}
+					<div class="form-control">
+						<input
+							class="form-control__input"
+							type="email"
+							name="customer[email]"
+							placeholder="{{ 'customer.login_page.email' | t }}"
+							id="CustomerEmail"
+							{% if form.errors contains 'form' %}
+								aria-invalid="true"
+							{% endif %}
+						>
+					</div>
+					{% if form.password_needed %}
+						<div class="form-control">
+							<input
+								class="form-control__input"
+								type="password"
+								name="customer[password]"
+								placeholder="{{ 'customer.login_page.password' | t }}"
+								id="CustomerPassword"
+								{% if form.errors contains 'form' %}
+									aria-invalid="true"
+								{% endif %}
+							>
+						</div>
+						<label for="customer-recover-email" class="text text--size--sm link-like">
+							{{- 'customer.login_page.forgot_password' | t -}}
+						</label>
+					{%- endif %}
+					<button type="submit" style="" class="button">{{ 'customer.login_page.sign_in' | t }}</button>
+
+					<a href="{{ routes.account_register_url }}" style="" class="button button--variant--link button--size--sm">
+						{{- 'customer.login_page.create_account' | t -}}
+					</a>
+					{% if shop.features.login_with_shop_classic_customer_accounts? -%}
+						{{- shop | login_button: hide_button: hide_shop_login_button -}}
+					{%- endif %}
+				</div>
+			{% endform %}
+		</div>
+		{% if shop.checkout.guest_login %}
+			<div class="customer__fields">
+				{% form 'guest_login' %}
+					<div style="--stack-x-align:center" class="stack">
+						<button type="submit" style="" class="button">{{ 'customer.login_page.guest_title' | t }}</button>
+					</div>
+				{% endform %}
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Customer login",
+		"class": "customer-login-section",
+		"settings": [
+			{
+				"type": "checkbox",
+				"id": "enable_shop_login_button",
+				"label": "Enable Sign in with Shop",
+				"default": false
+			}
+		]
+	}
+{% endschema %}

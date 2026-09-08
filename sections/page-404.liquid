@@ -1,0 +1,101 @@
+{% style %}
+	.page-404-section__content {
+		padding-block: min(20vh, 15rem);
+	}
+{% endstyle %}
+<div class="color-scheme-{{ section.settings.color_scheme.id }} color-scheme--use-color color-scheme--use-gradient">
+	{% capture capture_content %}
+		<div class="content page-404-section__content content--align--center content--spacing--lg">
+			<div class="content__heading">
+				<h2 class="heading heading--size--d1">
+					{{ 'templates.404.subtext' | t }}
+				</h2>
+			</div>
+			<div class="content__text">
+				<p class="text text--size--xl">{{ 'templates.404.title' | t }}</p>
+			</div>
+			<div class="content__button">
+				<a href="{{ routes.all_products_collection_url }}" style="" class="button button--size--lg">
+					{{- 'general.continue_shopping' | t -}}
+				</a>
+			</div>
+		</div>
+	{% endcapture %}
+
+	{% if section.settings.image != blank %}
+		<div
+			class="banner banner--size--full"
+			style="--banner-overlay: {{ section.settings.image_overlay | times: 0.01 }};--banner-focal: {{ section.settings.image.presentation.focal_point }};"
+		>
+			<div class="banner__overlay"></div>
+
+			{% if section.settings.image != blank %}
+				<picture class="banner__image">
+					<source
+						srcset="
+							{% if section.settings.image.width >= 375 %}{{ section.settings.image | image_url: width: 375 }} 375w,{% endif %}
+							{% if section.settings.image.width >= 550 %}{{ section.settings.image | image_url: width: 550 }} 550w,{% endif %}
+							{% if section.settings.image.width >= 750 %}{{ section.settings.image | image_url: width: 750 }} 750w,{% endif %}
+							{% if section.settings.image.width >= 1100 %}{{ section.settings.image | image_url: width: 1100 }} 1100w,{% endif %}
+							{% if section.settings.image.width >= 1500 %}{{ section.settings.image | image_url: width: 1500 }} 1500w,{% endif %}
+							{% if section.settings.image.width >= 1780 %}{{ section.settings.image | image_url: width: 1780 }} 1780w,{% endif %}
+							{% if section.settings.image.width >= 2000 %}{{ section.settings.image | image_url: width: 2000 }} 2000w,{% endif %}
+							{% if section.settings.image.width >= 3000 %}{{ section.settings.image | image_url: width: 3000 }} 3000w,{% endif %}
+							{% if section.settings.image.width >= 3840 %}{{ section.settings.image | image_url: width: 3840 }} 3840w,{% endif %}
+							{{ section.settings.image | image_url }} {{ section.settings.image.width }}w
+						"
+						sizes="100vw"
+					>
+
+					<img
+						src="{{ section.settings.image | image_url }}"
+						alt="{{ section.settings.image.alt | escape }}"
+						width="{{ section.settings.image.width }}"
+						height="{{ section.settings.image.height }}"
+						loading="lazy"
+						data-img-loading
+						onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+					>
+				</picture>
+			{%- endif %}
+
+			{% unless section.settings.image %}
+			{% endunless %}
+
+			<div class="banner__content">
+				{{ capture_content }}
+			</div>
+		</div>
+	{% else -%}
+		{{- capture_content -}}
+	{%- endif %}
+</div>
+
+{% schema %}
+	{
+		"name": "Page 404",
+		"class": "page-404-section",
+		"settings": [
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "image_picker",
+				"id": "image",
+				"label": "Background image"
+			},
+			{
+				"type": "range",
+				"id": "image_overlay",
+				"label": "Overlay",
+				"min": 0,
+				"max": 100,
+				"step": 1,
+				"default": 0,
+				"unit": "%"
+			}
+		]
+	}
+{% endschema %}

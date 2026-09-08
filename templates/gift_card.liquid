@@ -1,0 +1,246 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+	<head>
+		<script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta name="theme-color" content="">
+		<link rel="canonical" href="{{ canonical_url }}">
+		{% if settings.brand_favicon != blank -%}
+			<link rel="icon" type="image/png" href="{{ settings.brand_favicon | image_url: width: 32, height: 32 }}">
+		{%- endif %}
+		{% unless settings.typography_heading_font.system? -%}
+			<link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+		{%- endunless %}
+		{% assign formated_balance = gift_card.balance | money_without_trailing_zeros | strip_html %}
+		<title>{{ 'gift_cards.issued.title' | t: value: formated_balance, shop: shop.name }}</title>
+		<meta name="description" content="Your gift card">
+
+		<script type="importmap">
+			{
+				"imports": {
+					"component": "{{ 'lib-component.js' | asset_url }}",
+					"utils": "{{ 'lib-utils.js' | asset_url }}",
+					"pubsub": "{{ 'lib-pubsub.js' | asset_url }}"
+				}
+			}
+		</script>
+
+		{{ content_for_header }}
+		{{ 'lib-core.css' | asset_url | stylesheet_tag }}
+		{% style %}
+			{% for scheme in settings.color_schemes %}
+			.color-scheme-{{ scheme.id }} {
+
+
+			        --color-scheme-text: {{ scheme.settings.text }};
+			--color-scheme-text-a-06: {{ scheme.settings.text | hex_to_rgba: 0.6 }};
+			--color-scheme-background: {{ scheme.settings.background }};
+			--color-scheme-background-gradient: {% if scheme.settings.background_gradient != blank %}{{ scheme.settings.background_gradient }}{% else %}{{ scheme.settings.background }}{% endif %};
+			--color-scheme-background-l-10: {{ scheme.settings.background | color_lighten: 10 }};
+			--color-scheme-background-a-02: {{ scheme.settings.background | hex_to_rgba: 0.2 }};
+			--color-scheme-background-a-06: {{ scheme.settings.background | hex_to_rgba: 0.6 }};
+			--color-scheme-background-a-08: {{ scheme.settings.background | hex_to_rgba: 0.8 }};
+			--color-scheme-border: {{ scheme.settings.text | hex_to_rgba: 0.2 }};
+			--color-scheme-link: {{ scheme.settings.text }};
+			--color-scheme-link-a-06: {{ scheme.settings.text | hex_to_rgba: 0.6 }};
+			--color-scheme-button-text: {{ scheme.settings.button_text }};
+			--color-scheme-button-background: {{ scheme.settings.button_background }};
+			--color-scheme-button-background-a-02: {{ scheme.settings.button_background | hex_to_rgba: 0.2 }};
+			--color-scheme-button-background-a-06: {{ scheme.settings.button_background | hex_to_rgba: 0.6 }};
+			--color-scheme-button-background-a-09: {{ scheme.settings.button_background | hex_to_rgba: 0.9 }};
+			--color-scheme-button-border: {{ scheme.settings.button_text }};
+			--color-scheme-placeholder-fill: {{ scheme.settings.text | hex_to_rgba: 0.7 }};
+			--color-scheme-placeholder-bg: {% if scheme.settings.background.lightness >= 80 %}{{ scheme.settings.background | color_darken: 10 }}{% else %}{{ scheme.settings.background | color_lighten: 10 }}{% endif %};
+			--color-scheme-placeholder-bg-fill: {% if scheme.settings.background.lightness >= 80 %}{{ scheme.settings.background | color_darken: 20 }}{% else %}{{ scheme.settings.background | color_lighten: 20 }}{% endif %};
+			    }
+			{% endfor %}
+
+			                :root {
+			                    --glob-text-scale-xs: 0.79;
+			--glob-text-scale-sm: 0.889;
+			--glob-text-scale-md: 1;
+			--glob-text-scale-h-6: 1;
+			--glob-text-scale-lg: 1.266;
+			--glob-text-scale-h-5: 1.424;
+			--glob-text-scale-xl: 1.602;
+			--glob-text-scale-h-4: 1.802;
+			--glob-text-scale-h-3: 2.281;
+			--glob-text-scale-h-2: 2.887;
+			--glob-text-scale-h-1: 3.653;
+			--glob-text-scale-d-3: 5.202;
+			--glob-text-scale-d-2: 6.583;
+			--glob-text-scale-d-1: 7.406;
+			--glob-heading-font: {{ settings.typography_heading_font.family }}, {{ settings.typography_heading_font.fallback_families }};
+			--glob-heading-font-weight: {{ settings.typography_heading_font.weight }};
+			--glob-heading-transform: {% if settings.typography_heading_capitalize %}uppercase{% else %}normal{% endif %};
+			--glob-heading-scale: {% if settings.typography_heading_size == 'small' %}0.8{% elsif settings.typography_heading_size == 'large' %}1.2{% else %}1{% endif %};
+			--glob-heading-letter-spacing: {% if settings.typography_heading_letter_spacing == 'narrow' %}-0.8{% elsif settings.typography_heading_letter_spacing == 'wide' %}0.8{% elsif settings.typography_heading_letter_spacing == 'x-wide' %}1.5{% else %}0{% endif %};
+			--glob-subheading-letter-spacing: {% if settings.typography_heading_letter_spacing == 'narrow' %}-0.8{% elsif settings.typography_heading_letter_spacing == 'wide' %}0.8{% elsif settings.typography_heading_letter_spacing == 'x-wide' %}1.5{% else %}0{% endif %};
+			--glob-subheading-font: {{ settings.typography_body_font.family }};
+			--glob-subheading-weight: 700;
+			--glob-subheading-text-transform: {% if settings.typography_heading_capitalize %}uppercase{% else %}normal{% endif %};
+			--glob-body-font: {{ settings.typography_body_font.family }}, {{ settings.typography_body_font.fallback_families }};
+			--glob-body-font-weight: {{ settings.typography_body_font.weight }};
+			--glob-body-font-scale: {{ settings.typography_body_font_scale }};
+			--glob-button-text-transform: {% if settings.typography_buttons_capitalize %}uppercase{% else %}normal{% endif %};
+			--glob-nav-font: {% if settings.typography_navigation_font == 'heading' %}{{ settings.typography_heading_font.family }}{% else %}{{ settings.typography_body_font.family }}{% endif %};
+			--glob-nav-font-weight: {% if settings.typography_navigation_font == 'heading' %}{{ settings.typography_heading_font.weight }}{% else %}{{ settings.typography_body_font.weight }}{% endif %};
+			--glob-nav-transform: {% if settings.typography_navigation_capitalize %}uppercase{% else %}normal{% endif %};
+			--glob-nav-letter-spacing: {% if settings.typography_navigation_letter_spacing == 'narrow' %}-0.8{% elsif settings.typography_navigation_letter_spacing == 'wide' %}0.8{% elsif settings.typography_navigation_letter_spacing == 'x-wide' %}1.5{% else %}0{% endif %};
+			--glob-product-card-title-scale: {% if settings.typography_heading_capitalize %}var(--glob-text-scale-sm){% else %}var(--glob-text-scale-md){% endif %};
+			--glob-button-letter-spacing: {% if settings.typography_buttons_letter_spacing == 'narrow' %}-0.8{% elsif settings.typography_buttons_letter_spacing == 'wide' %}0.8{% elsif settings.typography_buttons_letter_spacing == 'x-wide' %}1.5{% else %}0{% endif %};
+			--glob-button-font: {% if settings.typography_buttons_font == 'heading' %}{{ settings.typography_heading_font.family }}{% else %}{{ settings.typography_body_font.family }}{% endif %};
+			--glob-button-weight: {% if settings.typography_buttons_font == 'heading' %}{{ settings.typography_heading_font.weight }}{% else %}{{ settings.typography_body_font.weight }}{% endif %};
+			--glob-button-pill: {% if settings.appearance_pill_buttons %}1{% else %}0{% endif %};
+			--glob-button-radius: {% if settings.appearance_pill_buttons %}99rem{% else %}0{% endif %};
+			--glob-svg-arrow-down: url("data:image/svg+xml, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='currentColor' stroke-width='2' d='m2 5 6 6 6-6'></path></svg>");
+			--glob-heading-animation: {{ settings.appearance_heading_animation | prepend: 'heading-' }};
+			--glob-page-scrollbar-visibility: {% if settings.appearance_hide_scrollbar %}none{% else %}auto{% endif %};
+			--glob-header-height: 0px;
+			--glob-scrollbar-offset: 0px;
+			                }
+
+
+			            {{ settings.typography_heading_font | font_face: font_display: 'swap' }}{{ settings.typography_body_font | font_face: font_display: 'swap' }}{{ settings.typography_body_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}{% if settings.brand_logo == blank %}{{ settings.brand_text_logo_font | font_face }}{% endif %}
+		{% endstyle %}
+
+		{% unless settings.typography_body_font.system? -%}
+			<link rel="preload" as="font" href="{{ settings.typography_body_font | font_url }}" type="font/woff2" crossorigin>
+		{%- endunless %}
+		{% unless settings.typography_heading_font.system? -%}
+			<link
+				rel="preload"
+				as="font"
+				href="{{ settings.typography_heading_font | font_url }}"
+				type="font/woff2"
+				crossorigin
+			>
+		{%- endunless %}
+	</head>
+
+	<body class="color-scheme-main">
+		<x-gift-card-template class="gift-card-template">
+			<header class="gift-card-template__header">
+				<div class="gift-card-template__price">
+					<h1 class="heading heading--size--h1">
+						{% if settings.currency_show_currency_codes -%}
+							{{- gift_card.balance | money_with_currency -}}
+						{%- else -%}
+							{{- gift_card.balance | money -}}
+						{%- endif %}
+					</h1>
+					{% if gift_card.enabled == false or gift_card.expired %}
+						<div class="badge badge--type--warning">
+							{{ 'gift_cards.issued.expired' | t }}
+						</div>
+					{% endif %}
+				</div>
+				{% if gift_card.expires_on -%}
+					{%- assign gift_card_expiration_date = gift_card.expires_on | date: '%B %e, %Y' %}
+					<p class="text text--size--md">
+						{{ 'gift_cards.issued.expiration_date' | t: expires_on: gift_card_expiration_date }}
+					</p>
+				{% endif %}
+
+				{% if gift_card.message != null %}
+					<p class="text text--size--md">{{ gift_card.message }}</p>
+				{% endif %}
+			</header>
+
+			<main class="gift-card-template__main">
+				<div>
+					{% assign logo_img_width = 570 %}
+					{% if settings.brand_logo != blank -%}
+						{%- assign logo_img_alt = settings.brand_logo.alt | default: shop.name -%}
+						<img
+							src="{{ settings.brand_logo | image_url: width: logo_img_width }}"
+							width="{{ logo_img_width }}"
+							alt="{{ logo_img_alt }}"
+							loading="eager"
+						>
+					{% else -%}
+						<img
+							src="{{ 'gift-card/card.svg' | shopify_asset_url }}"
+							alt=""
+							height="{{ logo_img_width | divided_by: 1.5 }}"
+							width="{{ logo_img_width }}"
+							loading="eager"
+						>
+					{%- endif %}
+				</div>
+				<h2 class="heading heading--size--h2">{{ shop.name }}</h2>
+				<p class="text text--size--md">{{ 'gift_cards.issued.how_to_use_gift_card' | t }}</p>
+				<p
+					id="gift-card-code"
+					fallback-msg="{{ 'gift_cards.issued.copy_code_success' | t }}"
+					class="text text--size--md"
+				>
+					{{ gift_card.code | format_code }}
+				</p>
+				<div
+					data-qr-code
+					data-identifier="{{ gift_card.qr_identifier }}"
+					data-img-alt-text="{{ 'gift_cards.issued.qr_image_alt' | t }}"
+				></div>
+
+				{% if gift_card.pass_url -%}
+					<a href="{{ gift_card.pass_url }}" class="gift-card-template__apple-wallet no-print">
+						<img
+							src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}"
+							width="120"
+							height="40"
+							alt="{{ 'gift_cards.issued.add_to_apple_wallet' | t }}"
+							loading="lazy"
+						>
+					</a>
+				{%- endif %}
+
+				<div class="gift-card-template__buttons no-print">
+					<button id="copy-button" style="" class="button button--variant--fill">
+						{{ 'gift_cards.issued.copy_code' | t }}
+					</button>
+
+					<a
+						target="_blank"
+						rel="noopener"
+						aria-description="{{ 'accessibility.link_messages.new_window' | t }}"
+						href="{{ shop.url }}"
+						style=""
+						class="button button--variant--link"
+					>
+						{{- 'gift_cards.issued.shop_link' | t -}}
+					</a>
+				</div>
+			</main>
+		</x-gift-card-template>
+
+		<script>
+			const QR_SIZE = 120;
+			const $qrCodeContainer = document.querySelector('[data-qr-code]');
+
+			document.addEventListener('DOMContentLoaded', () => {
+				new QRCode($qrCodeContainer, {
+					text: $qrCodeContainer.dataset.identifier,
+					width: QR_SIZE,
+					height: QR_SIZE,
+					imageAltText: $qrCodeContainer.dataset.imgAltText,
+				});
+			});
+		</script>
+		<script type="module" src="{{ 'component-gift-card-template.js' | asset_url }}"></script>
+		<x-toast class="toast" popover="manual">
+			<div class="toast__inner">
+				<span class="toast__content" data-toast-element="content"></span>
+				<label class="toast__close">
+					<input type="checkbox" hidden form="">
+					<svg>
+						<use  xlink:href="#svg-icon-x"></use>
+					</svg>
+				</label>
+			</div>
+		</x-toast>
+	</body>
+</html>

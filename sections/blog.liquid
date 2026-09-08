@@ -1,0 +1,180 @@
+{% assign paginate_by = section.settings.desktop_columns | times: 3 %}
+
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.color_scheme.id }}">
+	<div class="container section-wrapper__body">
+		{% paginate blog.articles by paginate_by %}
+			<div
+				class="grid"
+				style="--grid-columns: {{ section.settings.desktop_columns }};--grid-mobile-columns: {{ section.settings.mobile_columns }};"
+			>
+				{% for article in blog.articles -%}
+					{%- render 'article-card',
+						card_article: article,
+						display_style: section.settings.card_display_style,
+						color_scheme: section.settings.card_color_scheme,
+						center: section.settings.card_center_content,
+						gyro_effect: section.settings.card_gyro_effect,
+						image_size: section.settings.card_image_ratio
+					-%}
+				{%- endfor %}
+			</div>
+
+			{% if paginate.parts.size > 0 %}
+				<nav class="paginate" role="navigation">
+					<a
+						class="paginate__item {% unless paginate.previous %}paginate__item--inert{% endunless %}"
+						href="{{ paginate.previous.url }}"
+						aria-label="{{ 'general.pagination.previous' | t }}"
+					>
+						<span>
+							<svg class="paginate__item__arrow">
+								<use  xlink:href="#svg-icon-arrow-left"></use>
+							</svg>
+						</span>
+					</a>
+					<span class="desktop-hidden"> {{ paginate.current_page }} / {{ paginate.pages }} </span>
+					{% for part in paginate.parts -%}
+						{%- if part.is_link -%}
+							<a
+								class="paginate__item mobile-hidden"
+								href="{{ part.url }}"
+								aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
+							>
+								<span>{{ part.title }}</span>
+							</a>
+						{%- else -%}
+							<span class="paginate__item {% if part.title == paginate.current_page %}paginate__item--active{% endif %} mobile-hidden">
+								{{ part.title }}
+							</span>
+						{%- endif -%}
+					{%- endfor %}
+					<a
+						class="paginate__item {% unless paginate.next %}paginate__item--inert{% endunless %}"
+						href="{{ paginate.next.url }}"
+						aria-label="{{ 'general.pagination.next' | t }}"
+					>
+						<span>
+							<svg class="paginate__item__arrow">
+								<use  xlink:href="#svg-icon-arrow-right"></use>
+							</svg>
+						</span>
+					</a>
+				</nav>
+			{% endif %}
+		{% endpaginate %}
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Blog",
+		"class": "blog-section",
+		"settings": [
+			{
+				"type": "select",
+				"id": "desktop_columns",
+				"label": "Desktop columns",
+				"options": [
+					{
+						"value": "2",
+						"label": "2"
+					},
+					{
+						"value": "3",
+						"label": "3"
+					},
+					{
+						"value": "4",
+						"label": "4"
+					},
+					{
+						"value": "5",
+						"label": "5"
+					}
+				],
+				"default": "3"
+			},
+			{
+				"type": "select",
+				"id": "mobile_columns",
+				"label": "Mobile columns",
+				"options": [
+					{
+						"value": "1",
+						"label": "1"
+					},
+					{
+						"value": "2",
+						"label": "2"
+					}
+				],
+				"default": "2"
+			},
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "header",
+				"content": "Article card"
+			},
+			{
+				"type": "select",
+				"id": "card_display_style",
+				"options": [
+					{
+						"value": "card",
+						"label": "Card"
+					},
+					{
+						"value": "normal",
+						"label": "Standard"
+					}
+				],
+				"default": "normal",
+				"label": "Display style"
+			},
+			{
+				"type": "select",
+				"id": "card_image_ratio",
+				"label": "Image size",
+				"options": [
+					{
+						"value": "auto",
+						"label": "Original"
+					},
+					{
+						"value": "square",
+						"label": "Square (1:1)"
+					},
+					{
+						"value": "landscape",
+						"label": "Landscape (4:3)"
+					},
+					{
+						"value": "portrait",
+						"label": "Portrait (2:3)"
+					}
+				],
+				"default": "landscape"
+			},
+			{
+				"type": "checkbox",
+				"id": "card_gyro_effect",
+				"label": "Enable 3D effect on mouseover",
+				"default": false
+			},
+			{
+				"type": "checkbox",
+				"id": "card_center_content",
+				"label": "Center content"
+			},
+			{
+				"type": "color_scheme",
+				"id": "card_color_scheme",
+				"label": "Card color scheme"
+			}
+		]
+	}
+{% endschema %}

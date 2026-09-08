@@ -1,0 +1,88 @@
+{% capture capture_card_media -%}
+	{%- if card_article.image %}
+		<div
+			class="banner banner--size--{{ image_size }}"
+			style="--banner-focal: {{ card_article.image.presentation.focal_point }};"
+		>
+			{% if card_article.image != blank %}
+				<picture class="banner__image">
+					<source
+						srcset="
+							{% if card_article.image.width >= 165 %}{{ card_article.image | image_url: width: 165 }} 165w,{% endif %}
+							{% if card_article.image.width >= 360 %}{{ card_article.image | image_url: width: 360 }} 360w,{% endif %}
+							{% if card_article.image.width >= 533 %}{{ card_article.image | image_url: width: 533 }} 533w,{% endif %}
+							{% if card_article.image.width >= 720 %}{{ card_article.image | image_url: width: 720 }} 720w,{% endif %}
+							{% if card_article.image.width >= 1000 %}{{ card_article.image | image_url: width: 1000 }} 1000w,{% endif %}
+							{% if card_article.image.width >= 1500 %}{{ card_article.image | image_url: width: 1500 }} 1500w,{% endif %}
+							{{ card_article.image | image_url }} {{ card_article.image.width }}w
+						"
+						sizes="(min-width: 992px) 533px, (max-width: 992px) 72vw"
+					>
+
+					<img
+						src="{{ card_article.image | image_url }}"
+						alt="{{ card_article.image.alt | escape }}"
+						width="{{ card_article.image.width }}"
+						height="{{ card_article.image.height }}"
+						loading="lazy"
+						data-img-loading
+						onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+					>
+				</picture>
+			{%- endif %}
+
+			{% unless card_article.image %}
+			{% endunless %}
+		</div>
+	{% endif -%}
+{%- endcapture %}
+{% capture capture_card %}
+	<div class="card {% if display_style == 'card' %}card--full{% endif %} color-scheme-{{ color_scheme.id }} {% if center %}card--center{% endif %}">
+		{% if card_article.url != blank -%}
+			<a class="stretched-link" href="{{ card_article.url }}" aria-label="{{ card_article.title }}"> </a>
+		{%- endif %}
+		<div class="card__media">
+			{% if gyro_effect and display_style != 'card' %}
+				<div class="mouse-tracker__stage mouse-tracker__stage--outer">
+					<div class="mouse-tracker__stage__inner">
+						{{ capture_card_media }}
+					</div>
+
+					<div class="mouse-tracker__shadow"></div>
+				</div>
+			{% else -%}
+				{{- capture_card_media -}}
+			{%- endif %}
+		</div>
+		<div class="card__caption">
+			<div style="--stack-spacing:0.25" class="stack stack--v">
+				<p class="text text--size--xs text--mute">{{ card_article.published_at | time_tag: format: 'date' }}</p>
+				<h2 class="card__heading" style="">
+					{{ card_article.title | escape }}
+				</h2>
+				{% if card_article.excerpt %}
+					<p class="text text--size--xs">
+						{{ card_article.excerpt_or_content | strip_html | escape | truncatewords: 30 }}
+					</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endcapture %}
+{% if gyro_effect -%}
+	<x-mouse-tracker class="mouse-tracker mouse-tracker--outer mouse-tracker--full" style="--mouse-tracker-z: 20px;">
+		{% if display_style != 'card' -%}
+			{{- capture_card -}}
+		{%- else %}
+			<div class="mouse-tracker__stage mouse-tracker__stage--outer">
+				<div class="mouse-tracker__stage__inner">
+					{{ capture_card }}
+				</div>
+
+				<div class="mouse-tracker__shadow"></div>
+			</div>
+		{% endif %}
+	</x-mouse-tracker>
+{%- else -%}
+	{{- capture_card -}}
+{%- endif %}

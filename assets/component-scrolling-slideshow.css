@@ -1,0 +1,85 @@
+.scrolling-slideshow {
+  --scrolling-slideshow-active-item: 0;
+  --scrolling-slideshow-timeline-id: --scroll-slideshow-timeline;
+  view-timeline-name: var(--scrolling-slideshow-timeline-id);
+  view-timeline-axis: block;
+  position: relative;
+  overflow-x: clip;
+}
+
+.scrolling-slideshow__stage {
+  height: 100vh;
+  position: sticky;
+  z-index: 1;
+  top: 0;
+}
+
+.scrolling-slideshow__stage-inner {
+  height: 100%;
+  position: relative;
+}
+
+.scrolling-slideshow__body {
+  margin-top: -100vh;
+  position: relative;
+  z-index: 2;
+}
+
+.scrolling-slideshow__content {
+  height: 100vh;
+  position: relative;
+}
+
+.scrolling-slideshow__bg {
+  --scrolling-slideshow-bg-index: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: calc(var(--scrolling-slideshow-bg-index) * -1);
+  --scrolling-slideshow-bg-active: clamp(0, calc(var(--scrolling-slideshow-bg-index) + 1 - var(--scrolling-slideshow-active-item)), 1);
+  backface-visibility: hidden;
+  background: var(--color-scheme-background);
+}
+@supports not (animation-timeline: view()) {
+  .scrolling-slideshow__bg {
+    transform: translateZ(0) scale(calc(1.2 - var(--scrolling-slideshow-bg-active) * 0.2));
+    filter: blur(calc(20px - var(--scrolling-slideshow-bg-active) * 20px));
+    opacity: var(--scrolling-slideshow-bg-active);
+    transition-timing-function: ease-in-out;
+    transition-property: opacity, transform, filter;
+    transition-duration: 0.4s;
+  }
+}
+@supports (animation-timeline: view()) {
+  .scrolling-slideshow__bg {
+    animation: bg-change forwards;
+    animation-timeline: var(--scrolling-slideshow-timeline-id);
+    animation-range: contain calc(var(--scrolling-slideshow-bg-index) * 100vh) contain calc((var(--scrolling-slideshow-bg-index) + 1) * 100vh);
+  }
+  .scrolling-slideshow__bg:last-child {
+    animation: none;
+  }
+}
+
+.scrolling-slideshow__bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+@keyframes bg-change {
+  from {
+    opacity: 1;
+    scale: 1;
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    scale: 1.2;
+    filter: blur(20px);
+  }
+}

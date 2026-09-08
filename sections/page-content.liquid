@@ -1,0 +1,130 @@
+{% if section.settings.page != null -%}
+	{%- if section.settings.section_center_heading -%}
+		{%- assign heading_align = 'center' -%}
+	{%- else -%}
+		{%- assign heading_align = 'left' -%}
+	{%- endif %}
+	<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.section_color_scheme.id }} {% if section.settings.section_center_heading %}section-wrapper--center-align{% endif %}">
+		{% if section.settings.page.title != blank or section.settings.section_description != blank %}
+			<div class="container section-wrapper__header container--size--{{ section.settings.container_width }}">
+				<div class="content content--align--{{ heading_align }}">
+					{% if section.settings.page.title != blank %}
+						<div class="content__heading">
+							{% capture heading_capture %}
+								<h2 class="heading heading--size--{{ section.settings.section_heading_size }}">
+									{{ section.settings.page.title }}
+								</h2>
+							{% endcapture %}
+							{% if section.settings.section_heading_animation %}
+								<div
+									class="scroll-animation scroll-animation--use--text-reveal scroll-animation--origin-align--{{ heading_align }} {% unless settings.appearance_animate_heading_on_mobile %}scroll-animation--only-desktop-animation{% endunless %}"
+									style=""
+								>
+									{{ heading_capture }}
+								</div>
+							{% else -%}
+								{{- heading_capture -}}
+							{%- endif %}
+						</div>
+					{% endif -%}
+					{%- if section.settings.section_description != blank %}
+						<div class="content__text">
+							<p class="text text--size--md">{{ section.settings.section_description }}</p>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		{% endif %}
+		<div class="container section-wrapper__body container--size--{{ section.settings.container_width }}">
+			<div class="rte rte--spaced">
+				{{ section.settings.page.content }}
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+{% schema %}
+	{
+		"name": "Page content",
+		"class": "page-content-section",
+		"presets": [
+			{
+				"name": "Page content",
+				"category": "Store information"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "page",
+				"id": "page",
+				"label": "Page"
+			},
+			{
+				"type": "select",
+				"id": "section_heading_size",
+				"label": "Heading size",
+				"options": [
+					{
+						"value": "h2",
+						"label": "Small"
+					},
+					{
+						"value": "h1",
+						"label": "Medium"
+					},
+					{
+						"value": "d3",
+						"label": "Large"
+					}
+				],
+				"default": "h1"
+			},
+			{
+				"type": "checkbox",
+				"id": "section_heading_animation",
+				"label": "Use heading animation",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "section_center_heading",
+				"label": "Center heading",
+				"default": true
+			},
+			{
+				"type": "inline_richtext",
+				"id": "section_description",
+				"label": "Text"
+			},
+			{
+				"type": "color_scheme",
+				"id": "section_color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "select",
+				"id": "container_width",
+				"label": "Content width",
+				"options": [
+					{
+						"value": "x-small",
+						"label": "Narrow"
+					},
+					{
+						"value": "small",
+						"label": "Normal"
+					},
+					{
+						"value": "normal",
+						"label": "Wide"
+					}
+				],
+				"default": "normal"
+			}
+		]
+	}
+{% endschema %}

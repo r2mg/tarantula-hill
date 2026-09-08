@@ -1,0 +1,592 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_BdCk4G": {
+      "type": "hero",
+      "blocks": {
+        "heading_D4NM3n": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "CRAFT BEER THROUGH AND THROUGH",
+            "heading_size": "h1"
+          }
+        },
+        "description_8RzQQD": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>More than 25 taps, rotating weekly experiments, and zero boring beers—welcome to T-Hill.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_WDimLN": {
+          "type": "button",
+          "settings": {
+            "button_label": "What's on tap",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "https://untappd.com/v/tarantula-hill-brewing-company/9111980"
+          }
+        }
+      },
+      "block_order": [
+        "heading_D4NM3n",
+        "description_8RzQQD",
+        "button_WDimLN"
+      ],
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/THill_EK_041125_1893_1.jpg",
+        "banner_overlay": 40,
+        "banner_size": "screen",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    },
+    "page-header": {
+      "type": "page-header",
+      "disabled": true,
+      "settings": {
+        "page_header_color_scheme": "",
+        "page_header_center_text": true,
+        "page_header_heading_size": "h1",
+        "page_header_image_overlay": 30,
+        "page_header_image_size": "medium",
+        "page_header_scroll_clip": false,
+        "page_header_overlap": true
+      }
+    },
+    "page": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container_width": "normal"
+      }
+    },
+    "scrolling_image_reveal_JgGULh": {
+      "type": "scrolling-image-reveal",
+      "blocks": {
+        "image_6cdDLU": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_041125_1889.jpg",
+            "image_ratio": "auto",
+            "link": "",
+            "subheading_text": "2019",
+            "heading_text": "The Launch",
+            "heading_size": "h4",
+            "text_content": "After years of planning by five Thousand Oaks High School Class of '91 friends, Tarantula Hill Brewing Co. officially opened in July 2019 as Thousand Oaks' first brewery. The 22,000-square-foot facility began serving craft beer, wood-fired pizza, and handmade ice cream to an enthusiastic community.",
+            "color_scheme": ""
+          }
+        },
+        "image_etpaFh": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_041125_1870.jpg",
+            "image_ratio": "auto",
+            "link": "",
+            "subheading_text": "2020",
+            "heading_text": "Resilience Through Challenge",
+            "heading_size": "h4",
+            "text_content": "Like breweries nationwide, Tarantula Hill adapted to pandemic restrictions while continuing to serve the local community. The brewery maintained operations with enhanced safety protocols and continued building its reputation for quality craft beer.",
+            "color_scheme": ""
+          }
+        },
+        "image_8w47BV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_091824_0226.jpg",
+            "image_ratio": "auto",
+            "link": "",
+            "subheading_text": "2021",
+            "heading_text": "Growing Recognition",
+            "heading_size": "h4",
+            "text_content": "Stone Distributing added Tarantula Hill to its prestigious portfolio of over 40 breweries, significantly expanding distribution reach. This partnership marked an important milestone in the brewery's growth and recognition within the craft beer industry.",
+            "color_scheme": ""
+          }
+        },
+        "image_g9TkYj": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_102224_1047.jpg",
+            "image_ratio": "auto",
+            "link": "",
+            "subheading_text": "2022",
+            "heading_text": "Award-Winning Excellence",
+            "heading_size": "h4",
+            "text_content": "Tarantula Hill earned its first Great American Beer Festival gold medal with \"Who's That Brown\" in the American-Style Brown Ale category. This prestigious award validated the brewery's commitment to exceptional brewing quality on a national stage.",
+            "color_scheme": ""
+          }
+        },
+        "image_njebJD": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_041125_1930.jpg",
+            "image_ratio": "auto",
+            "link": "",
+            "subheading_text": "2023",
+            "heading_text": "Continued Innovation",
+            "heading_size": "h4",
+            "text_content": "The brewery continued developing its reputation for innovative brewing and community engagement. Brewmaster Mike Richmond and the team focused on expanding their beer portfolio while maintaining the family-friendly atmosphere that made them a local favorite.",
+            "color_scheme": ""
+          }
+        },
+        "image_EnPJJA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_073024_8697.jpg",
+            "image_ratio": "portrait",
+            "link": "",
+            "subheading_text": "2024",
+            "heading_text": "Major Expansion",
+            "heading_size": "h4",
+            "text_content": "Tarantula Hill made a significant expansion by taking over brewing operations at Draft Republic's San Marcos facility in March, allowing for increased production capacity of 5,500 barrels. This strategic move positioned the brewery for broader distribution throughout Southern California.",
+            "color_scheme": ""
+          }
+        },
+        "image_EjawrB": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_073024_8555.jpg",
+            "image_ratio": "auto",
+            "link": "",
+            "subheading_text": "2025",
+            "heading_text": "Looking Forward",
+            "heading_size": "h4",
+            "text_content": "With both Thousand Oaks and San Marcos locations operational, Tarantula Hill continues to grow as a premier craft brewery, serving an ever-expanding community of beer enthusiasts throughout the region.",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_6cdDLU",
+        "image_etpaFh",
+        "image_8w47BV",
+        "image_g9TkYj",
+        "image_njebJD",
+        "image_EnPJJA",
+        "image_EjawrB"
+      ],
+      "disabled": true,
+      "name": "Scrolling image reveal",
+      "settings": {
+        "heading_text": "Our History",
+        "heading_animation": true,
+        "heading_size": "d3",
+        "color_scheme": "invert",
+        "description": "Uncover the Rich History Behind Our Craft Brewery.",
+        "gyro_effect": true,
+        "scroll_clip": false
+      }
+    },
+    "image_with_text_V8RaKj": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_MiTHeq": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "OUR PURPOSE",
+            "heading_animation": true,
+            "heading_size": "h1"
+          }
+        },
+        "description_nN4en7": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Tarantula Hill Brewing Co. exists to create exceptional craft beer and artisan food experiences that bring communities together. From our flagship location in Thousand Oaks to our expanded brewing operations in San Marcos, we're committed to brewing award-winning beer using traditional methods and the finest ingredients. Our goal is simple: craft quality products that celebrate the art of brewing while fostering connections through great beer and food.</p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_MiTHeq",
+        "description_nN4en7"
+      ],
+      "disabled": true,
+      "name": "Image with text",
+      "settings": {
+        "color_scheme": "",
+        "hover_parallax": false,
+        "use_bg": false,
+        "image": "shopify://shop_images/THill_EK_102024_0948.jpg",
+        "image_position": "left",
+        "image_width": "medium",
+        "image_size": "auto",
+        "text_align": "left",
+        "content_position": "middle-center"
+      }
+    },
+    "image_with_text_KQyFNg": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_KXzdqK": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "STRONGER TOGETHER",
+            "heading_animation": true,
+            "heading_size": "h1"
+          }
+        },
+        "description_manW8p": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Great beer is a team effort. Whether it's our brewers collaborating across locations or partnering with fellow craft breweries, we believe in the power of working together to create something exceptional.</p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_KXzdqK",
+        "description_manW8p"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "color_scheme": "",
+        "hover_parallax": false,
+        "use_bg": false,
+        "image": "shopify://shop_images/THill_EK_050725_2154.jpg",
+        "image_position": "right",
+        "image_width": "medium",
+        "image_size": "auto",
+        "text_align": "left",
+        "content_position": "middle-center"
+      }
+    },
+    "featured_product_6yBha3": {
+      "type": "featured-product",
+      "blocks": {
+        "title_F777rz": {
+          "type": "title",
+          "settings": {
+            "title_size": "h2",
+            "show_vendor": false,
+            "show_rating": true
+          }
+        },
+        "price_nX9a8b": {
+          "type": "price",
+          "settings": {
+            "show_taxes_note": true
+          }
+        },
+        "variant_picker_nfXLzA": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "pills",
+            "enable_color_swatches": true,
+            "variant_image_options": ""
+          }
+        },
+        "buy_buttons_B9j7qF": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_recipient_form": true,
+            "show_payment_icons": true,
+            "show_qty_selector": true
+          }
+        }
+      },
+      "block_order": [
+        "title_F777rz",
+        "price_nX9a8b",
+        "variant_picker_nfXLzA",
+        "buy_buttons_B9j7qF"
+      ],
+      "disabled": true,
+      "name": "Featured product",
+      "settings": {
+        "product": "",
+        "color_scheme": "",
+        "enable_share": true,
+        "sticky_media": true,
+        "media_position": "right",
+        "media_size": "small",
+        "thumbs_position": "bottom",
+        "gallery_ratio": "square",
+        "media_fit": "original",
+        "enable_autoplay": false
+      }
+    },
+    "rich_text_fzafrj": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Qii8rW": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "FIND OUR BEER NEAR YOU",
+            "heading_animation": true,
+            "heading_size": "h1"
+          }
+        },
+        "description_fqAniU": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Discover where you can enjoy Tarantula Hill craft beer at stores and restaurants throughout Southern California.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_kbyEDR": {
+          "type": "button",
+          "settings": {
+            "button_label": "FIND OUR BEER",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "shopify://pages/beer-finder-1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Qii8rW",
+        "description_fqAniU",
+        "button_kbyEDR"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "color_scheme": "",
+        "text_align": "center",
+        "image_overlay": 30,
+        "blur_image": false
+      }
+    },
+    "multicolumn_media_jtLFPm": {
+      "type": "multicolumn-media",
+      "blocks": {
+        "image_HtDG7R": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_091124_0083.jpg",
+            "image_overlay": 0,
+            "link": "",
+            "content_position": "bottom-center",
+            "subheading_text": "Brewmaster",
+            "heading_text": "Mike Richmond",
+            "heading_size": "h5",
+            "text_content": "",
+            "color_scheme": ""
+          }
+        },
+        "image_UCnKm4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_091124_0076.jpg",
+            "image_overlay": 0,
+            "link": "",
+            "content_position": "bottom-center",
+            "subheading_text": "Head Brewer",
+            "heading_text": "Dante Tomei",
+            "heading_size": "h5",
+            "text_content": "",
+            "color_scheme": ""
+          }
+        },
+        "image_9mcVGC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_091124_0095.jpg",
+            "image_overlay": 0,
+            "link": "",
+            "content_position": "bottom-center",
+            "subheading_text": "Brewer",
+            "heading_text": "Scott ortiz",
+            "heading_size": "h5",
+            "text_content": "",
+            "color_scheme": ""
+          }
+        },
+        "image_cPbH7q": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_091124_0058.jpg",
+            "image_overlay": 0,
+            "link": "",
+            "content_position": "bottom-center",
+            "subheading_text": "Asst. brewer",
+            "heading_text": "Tori",
+            "heading_size": "h5",
+            "text_content": "",
+            "color_scheme": ""
+          }
+        },
+        "image_XwmLbk": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_091124_0048.jpg",
+            "image_overlay": 0,
+            "link": "",
+            "content_position": "bottom-center",
+            "subheading_text": "Asst. Brewer",
+            "heading_text": "Shaggy",
+            "heading_size": "h5",
+            "text_content": "",
+            "color_scheme": "invert"
+          }
+        },
+        "image_gcFzcK": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_091124_0052.jpg",
+            "image_overlay": 0,
+            "link": "",
+            "content_position": "bottom-center",
+            "subheading_text": "Packaging lead",
+            "heading_text": "Kevin Pugh",
+            "heading_size": "h5",
+            "text_content": "",
+            "color_scheme": "invert"
+          }
+        },
+        "image_XAyUiq": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_073024_8625_Tyler.jpg",
+            "image_overlay": 0,
+            "link": "",
+            "content_position": "bottom-center",
+            "subheading_text": "San Marcos Head Brewer",
+            "heading_text": "Tyler Potter",
+            "heading_size": "h5",
+            "text_content": "",
+            "color_scheme": "invert"
+          }
+        },
+        "image_mJt7Vq": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/THill_EK_073024_8625_Jose.jpg",
+            "image_overlay": 0,
+            "link": "",
+            "content_position": "bottom-center",
+            "subheading_text": "San Marcos Asst. Brewer",
+            "heading_text": "Jose Rios",
+            "heading_size": "h5",
+            "text_content": "",
+            "color_scheme": "invert"
+          }
+        }
+      },
+      "block_order": [
+        "image_HtDG7R",
+        "image_UCnKm4",
+        "image_9mcVGC",
+        "image_cPbH7q",
+        "image_XwmLbk",
+        "image_gcFzcK",
+        "image_XAyUiq",
+        "image_mJt7Vq"
+      ],
+      "name": "Multicolumn media",
+      "settings": {
+        "section_heading": "The brew team",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "",
+        "stack_grid_layout": "stack",
+        "stack_grid_desktop_columns": "3",
+        "image_ratio": "portrait",
+        "gyro_effect": true
+      }
+    },
+    "shoppable_image_3aibEm": {
+      "type": "shoppable-image",
+      "blocks": {
+        "product_DY6CDa": {
+          "type": "product",
+          "settings": {
+            "product": "ship-a-case",
+            "x_position": 59,
+            "y_position": 46
+          }
+        }
+      },
+      "block_order": [
+        "product_DY6CDa"
+      ],
+      "disabled": true,
+      "name": "Shoppable image",
+      "settings": {
+        "image": "shopify://shop_images/IMG_3070.jpg",
+        "section_heading": "Ship-a-case",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "invert",
+        "spots_color": "#ffffff",
+        "icon_type": "cart",
+        "cards_color_scheme": "main",
+        "show_rating": false,
+        "enable_quick_view": false
+      }
+    },
+    "rich_text_VHCGU6": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_HKJapN": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Order a Keg",
+            "heading_animation": true,
+            "heading_size": "h1"
+          }
+        },
+        "description_nPz7dq": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_g9hNx4": {
+          "type": "button",
+          "settings": {
+            "button_label": "place an order",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": "shopify://pages/keg-order"
+          }
+        }
+      },
+      "block_order": [
+        "heading_HKJapN",
+        "description_nPz7dq",
+        "button_g9hNx4"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "color_scheme": "invert",
+        "text_align": "center",
+        "image_overlay": 30,
+        "blur_image": false
+      }
+    }
+  },
+  "order": [
+    "hero_BdCk4G",
+    "page-header",
+    "page",
+    "scrolling_image_reveal_JgGULh",
+    "image_with_text_V8RaKj",
+    "image_with_text_KQyFNg",
+    "featured_product_6yBha3",
+    "rich_text_fzafrj",
+    "multicolumn_media_jtLFPm",
+    "shoppable_image_3aibEm",
+    "rich_text_VHCGU6"
+  ]
+}

@@ -1,0 +1,501 @@
+<div class="color-scheme-{{ section.settings.color_scheme.id }} color-scheme--use-color color-scheme--use-gradient">
+	{{ 'component-floating-gallery.css' | asset_url | stylesheet_tag }}
+	<div class="floating-gallery">
+		<div class="floating-gallery__container">
+			<div class="floating-gallery__text">
+				<div class="placer placer--abs placer--container" style="">
+					<div class="container placer__container container--size--x-small">
+						<div class="placer__target">
+							<div class="content content--align--{{ section.settings.text_align }} content--spacing--lg content--compact-text">
+								{% if section.settings.heading_text != blank %}
+									<div class="content__heading">
+										{% capture heading_capture %}
+											<h2 class="heading heading--size--{{ section.settings.heading_size }}">
+												{{ section.settings.heading_text }}
+											</h2>
+										{% endcapture %}
+										{% if section.settings.heading_animation %}
+											<div
+												class="scroll-animation scroll-animation--use--text-reveal scroll-animation--origin-align--{{ section.settings.text_align }} {% unless settings.appearance_animate_heading_on_mobile %}scroll-animation--only-desktop-animation{% endunless %}"
+												style=""
+											>
+												{{ heading_capture }}
+											</div>
+										{% else -%}
+											{{- heading_capture -}}
+										{%- endif %}
+									</div>
+								{% endif -%}
+								{%- if section.settings.text_content != blank %}
+									<div class="content__text">
+										<p class="text text--size--md">{{ section.settings.text_content }}</p>
+									</div>
+								{% endif -%}
+								{%- if section.settings.button_label != blank %}
+									<div class="content__button">
+										<a
+											href="{{ section.settings.button_link }}"
+											style=""
+											class="button button--variant--{{ section.settings.button_variant }}"
+										>
+											{{- section.settings.button_label -}}
+										</a>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="floating-gallery__stage">
+				{% for block in section.blocks -%}
+					{%- assign block_video = blank -%}
+					{%- assign block_image = blank -%}
+					{%- if block.type == 'image' -%}
+						{%- assign block_image = block.settings.image -%}
+					{%- elsif block.type == 'video' -%}
+						{%- assign block_video = block.settings.video -%}
+					{%- endif %}
+					<div
+						class="floating-gallery__item floating-gallery__item--speed--{{ block.settings.speed }} floating-gallery__item--media-ratio--{{ block.settings.image_ratio }}"
+						style="--floating-gallery-item-x: {{ block.settings.x_position }};--floating-gallery-item-y: {{ block.settings.y_position }};--floating-gallery-item-width: {{ block.settings.width }};--floating-gallery-item-z: {{ forloop.rindex }};"
+						{{ block.shopify_attributes }}
+					>
+						<div class="floating-gallery__item__media-container">
+							{% if block_video != blank -%}
+								<x-bg-video class="bg-video">
+									<video
+										class="floating-gallery__item__media"
+										loop
+										muted
+										preload="none"
+										width="{{ block_video.sources.first.width }}"
+										height="{{ block_video.sources.first.height }}"
+										data-bg-video-element="video"
+									>
+										{% for source in block_video.sources %}
+											<source src="{{ source.url }}" type="{{ source.mime_type }}">
+										{% endfor %}
+									</video>
+								</x-bg-video>
+								<script type="module" src="{{ 'component-bg-video.js' | asset_url }}"></script>
+							{% elsif block_image != blank %}
+								<div class="floating-gallery__item__media">
+									<picture>
+										<source
+											srcset="
+												{% if block_image.width >= 375 %}{{ block_image | image_url: width: 375 }} 375w,{% endif %}
+												{% if block_image.width >= 550 %}{{ block_image | image_url: width: 550 }} 550w,{% endif %}
+												{% if block_image.width >= 750 %}{{ block_image | image_url: width: 750 }} 750w,{% endif %}
+												{% if block_image.width >= 1100 %}{{ block_image | image_url: width: 1100 }} 1100w,{% endif %}
+												{% if block_image.width >= 1500 %}{{ block_image | image_url: width: 1500 }} 1500w,{% endif %}
+												{% if block_image.width >= 1780 %}{{ block_image | image_url: width: 1780 }} 1780w,{% endif %}
+												{% if block_image.width >= 2000 %}{{ block_image | image_url: width: 2000 }} 2000w,{% endif %}
+												{{ block_image | image_url }} {{ block_image.width }}w
+											"
+											sizes="(min-width: 992px) {{ block.settings.width }}vw, (max-width: 992px) {{ block.settings.width | times: 1.5 }}vw"
+										>
+
+										<img
+											src="{{ block_image | image_url }}"
+											alt="{{ block_image.alt | escape }}"
+											width="{{ block_image.width }}"
+											height="{{ block_image.height }}"
+											loading="lazy"
+											data-img-loading
+											onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+										>
+									</picture>
+								</div>
+							{% else %}
+								{{
+									forloop.index0
+									| modulo: 6
+									| plus: 1
+									| prepend: '-'
+									| prepend: 'collection'
+									| placeholder_svg_tag: 'floating-gallery__item__media'
+								-}}
+							{%- endif %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Vertical image scroller",
+		"class": "header-overlap-section vertical-image-scroller-section",
+		"presets": [
+			{
+				"name": "Vertical image scroller",
+				"blocks": [
+					{
+						"type": "image",
+						"settings": {
+							"x_position": 5,
+							"y_position": 15,
+							"width": 15
+						}
+					},
+					{
+						"type": "image",
+						"settings": {
+							"x_position": 60,
+							"y_position": 0,
+							"speed": "slow",
+							"width": 15
+						}
+					},
+					{
+						"type": "image",
+						"settings": {
+							"x_position": 80,
+							"y_position": 20,
+							"speed": "slow",
+							"width": 8
+						}
+					},
+					{
+						"type": "image",
+						"settings": {
+							"x_position": 10,
+							"y_position": 50,
+							"speed": "normal",
+							"width": 12
+						}
+					},
+					{
+						"type": "image",
+						"settings": {
+							"x_position": 95,
+							"y_position": 50,
+							"speed": "normal",
+							"width": 10
+						}
+					},
+					{
+						"type": "image",
+						"settings": {
+							"x_position": 20,
+							"y_position": 75,
+							"speed": "fast",
+							"width": 12
+						}
+					},
+					{
+						"type": "image",
+						"settings": {
+							"x_position": 0,
+							"y_position": 90,
+							"speed": "fast",
+							"width": 10
+						}
+					},
+					{
+						"type": "image",
+						"settings": {
+							"x_position": 25,
+							"y_position": 60,
+							"speed": "slow",
+							"width": 8
+						}
+					},
+					{
+						"type": "image",
+						"settings": {
+							"x_position": 80,
+							"y_position": 100,
+							"speed": "fast",
+							"width": 12
+						}
+					},
+					{
+						"type": "image",
+						"settings": {
+							"x_position": 95,
+							"y_position": 95,
+							"speed": "normal",
+							"width": 15
+						}
+					},
+					{
+						"type": "image",
+						"settings": {
+							"x_position": 80,
+							"y_position": 80,
+							"speed": "slow",
+							"width": 15
+						}
+					}
+				],
+				"category": "Media"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "text_alignment",
+				"id": "text_align",
+				"label": "Text alignment",
+				"default": "center"
+			},
+			{
+				"type": "text",
+				"id": "heading_text",
+				"label": "Heading",
+				"default": "Heading"
+			},
+			{
+				"type": "checkbox",
+				"id": "heading_animation",
+				"label": "Use heading animation",
+				"default": true
+			},
+			{
+				"type": "select",
+				"id": "heading_size",
+				"label": "Heading size",
+				"options": [
+					{
+						"value": "h2",
+						"label": "Small"
+					},
+					{
+						"value": "h1",
+						"label": "Medium"
+					},
+					{
+						"value": "d3",
+						"label": "Large"
+					}
+				],
+				"default": "d3"
+			},
+			{
+				"type": "inline_richtext",
+				"id": "text_content",
+				"label": "Text",
+				"default": "Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store."
+			},
+			{
+				"type": "text",
+				"id": "button_label",
+				"label": "Button label",
+				"default": "Button label"
+			},
+			{
+				"type": "select",
+				"id": "button_variant",
+				"label": "Button style",
+				"options": [
+					{
+						"value": "fill",
+						"label": "Solid"
+					},
+					{
+						"value": "outline",
+						"label": "Outline"
+					},
+					{
+						"value": "link",
+						"label": "Link"
+					}
+				],
+				"default": "outline"
+			},
+			{
+				"type": "url",
+				"id": "button_link",
+				"label": "Button link"
+			},
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme"
+			}
+		],
+		"blocks": [
+			{
+				"name": "Video",
+				"type": "video",
+				"settings": [
+					{
+						"type": "video",
+						"id": "video",
+						"label": "Video"
+					},
+					{
+						"type": "select",
+						"id": "image_ratio",
+						"label": "Video aspect ratio",
+						"options": [
+							{
+								"value": "auto",
+								"label": "Original"
+							},
+							{
+								"value": "square",
+								"label": "Square (1:1)"
+							},
+							{
+								"value": "landscape",
+								"label": "Landscape (4:3)"
+							},
+							{
+								"value": "portrait",
+								"label": "Portrait (2:3)"
+							}
+						],
+						"default": "auto"
+					},
+					{
+						"type": "range",
+						"id": "x_position",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Horizontal position",
+						"default": 50,
+						"info": "0% - left, 100% - right"
+					},
+					{
+						"type": "range",
+						"id": "y_position",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Vertical position",
+						"default": 50,
+						"info": "0% - top, 100% - bottom"
+					},
+					{
+						"type": "range",
+						"id": "width",
+						"min": 5,
+						"max": 50,
+						"step": 1,
+						"unit": "%",
+						"label": "Width",
+						"default": 10
+					},
+					{
+						"type": "select",
+						"id": "speed",
+						"options": [
+							{
+								"label": "Slow",
+								"value": "slow"
+							},
+							{
+								"label": "Normal",
+								"value": "normal"
+							},
+							{
+								"label": "Fast",
+								"value": "fast"
+							}
+						],
+						"default": "normal",
+						"label": "Movement speed"
+					}
+				]
+			},
+			{
+				"name": "Image",
+				"type": "image",
+				"settings": [
+					{
+						"type": "image_picker",
+						"id": "image",
+						"label": "Image"
+					},
+					{
+						"type": "select",
+						"id": "image_ratio",
+						"label": "Aspect ratio",
+						"options": [
+							{
+								"value": "auto",
+								"label": "Original"
+							},
+							{
+								"value": "square",
+								"label": "Square (1:1)"
+							},
+							{
+								"value": "landscape",
+								"label": "Landscape (4:3)"
+							},
+							{
+								"value": "portrait",
+								"label": "Portrait (2:3)"
+							}
+						],
+						"default": "auto"
+					},
+					{
+						"type": "range",
+						"id": "x_position",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Horizontal position",
+						"default": 50,
+						"info": "0% - left, 100% - right"
+					},
+					{
+						"type": "range",
+						"id": "y_position",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Vertical position",
+						"default": 50,
+						"info": "0% - top, 100% - bottom"
+					},
+					{
+						"type": "range",
+						"id": "width",
+						"min": 5,
+						"max": 50,
+						"step": 1,
+						"unit": "%",
+						"label": "Width",
+						"default": 10
+					},
+					{
+						"type": "select",
+						"id": "speed",
+						"options": [
+							{
+								"label": "Slow",
+								"value": "slow"
+							},
+							{
+								"label": "Normal",
+								"value": "normal"
+							},
+							{
+								"label": "Fast",
+								"value": "fast"
+							}
+						],
+						"default": "normal",
+						"label": "Movement speed"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

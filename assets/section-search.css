@@ -1,0 +1,33 @@
+.search-section__input {
+  width: min(100%, 600px);
+  margin-inline: auto;
+  position: relative;
+  font-weight: bold;
+}
+
+.search-section__input > input {
+  padding-right: 3rem;
+  border-width: 2px;
+}
+
+.search-section__input-wrapper {
+  margin-bottom: 2.5rem;
+}
+
+.search-section__input-button {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-scheme-text);
+}
+
+.search-section__input-button > svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}

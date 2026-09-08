@@ -1,0 +1,44 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection-header": {
+      "type": "collection-header",
+      "settings": {
+        "page_header_color_scheme": "",
+        "page_header_center_text": true,
+        "page_header_heading_size": "h1",
+        "page_header_image": "shopify://shop_images/THill_EK_062825_2700.jpg",
+        "page_header_image_overlay": 40,
+        "page_header_image_size": "medium",
+        "page_header_scroll_clip": false,
+        "page_header_overlap": true
+      }
+    },
+    "collection": {
+      "type": "collection",
+      "settings": {
+        "desktop_columns": "4",
+        "mobile_columns": "2",
+        "color_scheme": "main",
+        "gyro_effect": true,
+        "display_products": 24,
+        "enable_filters": true,
+        "desktop_filters_layout": "drawer",
+        "enable_sorting": true,
+        "filter_drawer_color_scheme": ""
+      }
+    }
+  },
+  "order": [
+    "collection-header",
+    "collection"
+  ]
+}

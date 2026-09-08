@@ -1,0 +1,120 @@
+{% if custom_title != blank -%}
+	{%- assign title = custom_title -%}
+{%- else -%}
+	{%- assign title = collection.title -%}
+{%- endif %}
+
+{% if custom_image != null -%}
+	{%- assign collection_image = custom_image -%}
+{%- else -%}
+	{%- assign collection_image = collection.featured_image -%}
+{%- endif %}
+
+{% capture capture_card_media %}
+	<div
+		class="banner banner--size--{{ image_size }} banner--n-placeholder"
+		style="--banner-placeholder-ar: 1;--banner-focal: {{ collection_image.presentation.focal_point }};"
+	>
+		{% if video != blank -%}
+			<x-bg-video class="bg-video">
+				<video
+					class="banner__video"
+					loop
+					muted
+					preload="none"
+					width="{{ video.sources.first.width }}"
+					height="{{ video.sources.first.height }}"
+					data-bg-video-element="video"
+				>
+					{% for source in video.sources %}
+						<source src="{{ source.url }}" type="{{ source.mime_type }}">
+					{% endfor %}
+				</video>
+			</x-bg-video>
+			<script type="module" src="{{ 'component-bg-video.js' | asset_url }}"></script>
+		{% endif %}
+		{% if collection_image != blank %}
+			<picture class="banner__image">
+				<source
+					srcset="
+						{% if collection_image.width >= 165 %}{{ collection_image | image_url: width: 165 }} 165w,{% endif %}
+						{% if collection_image.width >= 360 %}{{ collection_image | image_url: width: 360 }} 360w,{% endif %}
+						{% if collection_image.width >= 533 %}{{ collection_image | image_url: width: 533 }} 533w,{% endif %}
+						{% if collection_image.width >= 720 %}{{ collection_image | image_url: width: 720 }} 720w,{% endif %}
+						{% if collection_image.width >= 1000 %}{{ collection_image | image_url: width: 1000 }} 1000w,{% endif %}
+						{% if collection_image.width >= 1500 %}{{ collection_image | image_url: width: 1500 }} 1500w,{% endif %}
+						{{ collection_image | image_url }} {{ collection_image.width }}w
+					"
+					sizes="(min-width: 992px) 533px, (max-width: 992px) 72vw"
+				>
+
+				<img
+					src="{{ collection_image | image_url }}"
+					alt="{{ collection_image.alt | escape }}"
+					width="{{ collection_image.width }}"
+					height="{{ collection_image.height }}"
+					loading="lazy"
+					data-img-loading
+					onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+				>
+			</picture>
+		{%- endif %}
+
+		{% if video == blank and collection_image == blank %}
+			{{
+				index_0
+				| modulo: 6
+				| plus: 1
+				| prepend: '-'
+				| prepend: 'collection'
+				| placeholder_svg_tag: 'banner__placeholder'
+			-}}
+		{%- endif %}
+	</div>
+{% endcapture %}
+{% capture capture_card %}
+	<div class="card {% if display_style == 'card' %}card--full{% endif %} color-scheme-{{ color_scheme.id }} {% if center_content %}card--center{% endif %}">
+		{% if collection.url != blank -%}
+			<a class="stretched-link" href="{{ collection.url }}" aria-label="{{ collection.title }}"> </a>
+		{%- endif %}
+		<div class="card__media">
+			{% if gyro_effect and display_style != 'card' %}
+				<div class="mouse-tracker__stage mouse-tracker__stage--outer">
+					<div class="mouse-tracker__stage__inner">
+						{{ capture_card_media }}
+					</div>
+
+					<div class="mouse-tracker__shadow"></div>
+				</div>
+			{% else -%}
+				{{- capture_card_media -}}
+			{%- endif %}
+		</div>
+		<div class="card__caption">
+			<h2 class="card__heading" style="">
+				{% if collection != blank -%}
+					{{- title | escape -}}
+				{%- else -%}
+					{{- 'sections.collection_template.title' | t -}}
+				{%- endif %}
+			</h2>
+		</div>
+	</div>
+{% endcapture %}
+{% if gyro_effect -%}
+	<x-mouse-tracker class="mouse-tracker mouse-tracker--outer mouse-tracker--full" style="--mouse-tracker-z: 20px;">
+		{% if display_style != 'card' -%}
+			{{- capture_card -}}
+		{%- else %}
+			<div class="mouse-tracker__stage mouse-tracker__stage--outer">
+				<div class="mouse-tracker__stage__inner">
+					{{ capture_card }}
+				</div>
+
+				<div class="mouse-tracker__shadow"></div>
+			</div>
+		{% endif %}
+	</x-mouse-tracker>
+{%- else -%}
+	{{- capture_card -}}
+{%- endif %}

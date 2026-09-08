@@ -1,0 +1,178 @@
+{{ 'section-collapsible-content.css' | asset_url | stylesheet_tag }}
+{% if section.settings.section_color_scheme.id == section.settings.collapse_color_scheme.id -%}
+	{%- assign collapse_x_space = false -%}
+{%- else -%}
+	{%- assign collapse_x_space = true -%}
+{%- endif %}
+
+{% capture capture_content -%}
+	{%- for block in section.blocks %}
+		<details class="collapse {% if collapse_x_space %}collapse--x-spaced{% endif %}" style="--collapse-spacer: 1.5;">
+			<summary class="collapse__header">
+				<div class="collapse__header-inner">
+					<h2 class="heading heading--size--h6">{{ block.settings.heading }}</h2>
+				</div>
+				<svg class="collapse__header-arrow">
+					<use  xlink:href="#svg-icon-arrow-down"></use>
+				</svg>
+			</summary>
+			<div class="collapse__content">
+				<div class="rte rte--spaced">
+					{% if block.settings.text != blank %}{{ block.settings.text }}{% endif -%}
+					{%- if block.settings.page != null %}{{ block.settings.page.content }}{% endif %}
+				</div>
+			</div>
+		</details>
+	{% endfor -%}
+{%- endcapture %}
+
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.section_color_scheme.id }} section-wrapper--center-align">
+	{% if section.settings.section_heading != blank or section.settings.section_description != blank %}
+		<div class="container section-wrapper__header">
+			<div class="content content--align--center">
+				{% if section.settings.section_heading != blank %}
+					<div class="content__heading">
+						{% capture heading_capture %}
+							<h2 class="heading heading--size--{{ section.settings.section_heading_size }}">
+								{{ section.settings.section_heading }}
+							</h2>
+						{% endcapture %}
+						{% if section.settings.section_heading_animation %}
+							<div
+								class="scroll-animation scroll-animation--use--text-reveal scroll-animation--origin-align--center {% unless settings.appearance_animate_heading_on_mobile %}scroll-animation--only-desktop-animation{% endunless %}"
+								style=""
+							>
+								{{ heading_capture }}
+							</div>
+						{% else -%}
+							{{- heading_capture -}}
+						{%- endif %}
+					</div>
+				{% endif -%}
+				{%- if section.settings.section_description != blank %}
+					<div class="content__text">
+						<p class="text text--size--md">{{ section.settings.section_description }}</p>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+	<div class="container section-wrapper__body">
+		{% if collapse_x_space %}
+			<div class="color-scheme-{{ section.settings.collapse_color_scheme.id }} color-scheme--use-color color-scheme--use-gradient collapsible-content-section__container">
+				{{ capture_content }}
+			</div>
+		{% else %}
+			<div class="collapsible-content-section__container">
+				{{ capture_content }}
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Collapsible content",
+		"class": "collapsible-content-section",
+		"presets": [
+			{
+				"name": "Collapsible content",
+				"blocks": [
+					{
+						"type": "collapse"
+					},
+					{
+						"type": "collapse"
+					},
+					{
+						"type": "collapse"
+					},
+					{
+						"type": "collapse"
+					}
+				],
+				"category": "Store information"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "text",
+				"id": "section_heading",
+				"label": "Heading",
+				"default": "Collapsible content"
+			},
+			{
+				"type": "select",
+				"id": "section_heading_size",
+				"label": "Heading size",
+				"options": [
+					{
+						"value": "h2",
+						"label": "Small"
+					},
+					{
+						"value": "h1",
+						"label": "Medium"
+					},
+					{
+						"value": "d3",
+						"label": "Large"
+					}
+				],
+				"default": "h2"
+			},
+			{
+				"type": "checkbox",
+				"id": "section_heading_animation",
+				"label": "Use heading animation",
+				"default": true
+			},
+			{
+				"type": "inline_richtext",
+				"id": "section_description",
+				"label": "Text"
+			},
+			{
+				"type": "color_scheme",
+				"id": "section_color_scheme",
+				"label": "Color scheme",
+				"default": "alt"
+			},
+			{
+				"type": "color_scheme",
+				"id": "collapse_color_scheme",
+				"label": "Collapse color scheme",
+				"default": "main"
+			}
+		],
+		"blocks": [
+			{
+				"name": "Collapsible row",
+				"type": "collapse",
+				"settings": [
+					{
+						"type": "text",
+						"id": "heading",
+						"label": "Heading",
+						"default": "Collapsible row"
+					},
+					{
+						"type": "richtext",
+						"id": "text",
+						"label": "Content",
+						"default": "<p>Collapse content</p>"
+					},
+					{
+						"type": "page",
+						"id": "page",
+						"label": "Content from page"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

@@ -1,0 +1,434 @@
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.color_scheme.id }}">
+	<div class="container section-wrapper__body container--size--x-small">
+		{% assign form_id = 'contact-form-' | append: section.id %}
+
+		{% if section.blocks.size > 0 %}
+			{% form 'contact', id: form_id %}
+				{% if form.errors %}
+					<div class="form-errors">
+						<h2 class="form-errors__heading" tabindex="-1" autofocus>
+							<span class="screen-reader">
+								{{ 'accessibility.error' | t }}
+							</span>
+							{{ 'templates.contact.form.error_heading' | t }}
+						</h2>
+						{{ form.errors | default_errors }}
+					</div>
+				{% endif %}
+				{% if form.posted_successfully? %}
+					<div class="badge badge--type--success badge--mini contact-form__success-msg">
+						{{ 'templates.contact.form.post_success' | t }}
+					</div>
+				{% endif -%}
+				{{- 'component-span-grid.css' | asset_url | stylesheet_tag }}
+				<div class="span-grid span-grid--auto-height span-grid--gutter--small" style="">
+					{% for block in section.blocks -%}
+						{%- assign input_id = block.settings.field_label | handleize | append: section.id | append: block.id %}
+						<div
+							class="span-grid__item"
+							style="--span-grid-item-row: 1;--span-grid-item-col: {{ block.settings.width | default: 12 }};"
+						>
+							{% case block.type -%}
+								{%- when 'text' %}
+									<div class="form-control">
+										<label class="form-control__label" for="{{ input_id }}">{{ block.settings.field_label }}</label>
+
+										<input
+											class="form-control__input"
+											type="text"
+											name="contact[{{ block.settings.field_label }}]"
+											id="{{ input_id }}"
+											{% if block.settings.is_required %}
+												required
+											{% endif %}
+										>
+									</div>
+								{% when 'email' %}
+									<div class="form-control">
+										<label class="form-control__label" for="{{ input_id }}">{{ block.settings.field_label }}</label>
+
+										<input class="form-control__input" type="email" name="contact[email]" id="{{ input_id }}" required>
+									</div>
+								{% when 'phone_number' %}
+									<div class="form-control">
+										<label class="form-control__label" for="{{ input_id }}">{{ block.settings.field_label }}</label>
+
+										<input
+											class="form-control__input"
+											type="tel"
+											name="contact[{{ block.settings.field_label }}]"
+											id="{{ input_id }}"
+											autocomplete="tel"
+											pattern="[0-9-]*"
+											{% if block.settings.is_required %}
+												required
+											{% endif %}
+										>
+									</div>
+								{% when 'textarea' %}
+									<div class="form-control">
+										<label class="form-control__label" for="{{ input_id }}">{{ block.settings.field_label }}</label>
+
+										<textarea
+											class="form-control__textarea"
+											name="contact[{{ block.settings.field_label }}]"
+											rows="5"
+											id="{{ input_id }}"
+											{% if block.settings.is_required %}
+												required
+											{% endif -%}
+										></textarea>
+									</div>
+								{% when 'date' %}
+									<div class="form-control">
+										<label class="form-control__label" for="{{ input_id }}">{{ block.settings.field_label }}</label>
+
+										<input
+											class="form-control__input"
+											type="date"
+											name="contact[{{ block.settings.field_label }}]"
+											id="{{ input_id }}"
+											spellcheck="false"
+											autocapitalize="off"
+											{% if block.settings.is_required %}
+												required
+											{% endif %}
+										>
+									</div>
+								{% when 'checkbox' %}
+									<div class="form-control">
+										<label class="form-control__label" for="{{ input_id }}">
+											<input
+												class="form-control__checkbox"
+												type="checkbox"
+												name="contact[{{ block.settings.field_label }}]"
+												id="{{ input_id }}"
+											>
+											{{ block.settings.field_label }}
+										</label>
+									</div>
+								{% when 'select' %}
+									<div class="form-control">
+										<label class="form-control__label" for="{{ input_id }}">{{ block.settings.field_label }}</label>
+
+										<div class="form-control__select-wrapper">
+											<select
+												class="form-control__select"
+												name="contact[{{ block.settings.field_label }}]"
+												id="{{ input_id }}"
+											>
+												{% assign select_options = block.settings.options | split: ',' -%}
+												{%- for option in select_options %}
+													<option value="{{ option }}">{{ option }}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+							{% endcase %}
+						</div>
+					{% endfor %}
+					<div class="span-grid__item" style="--span-grid-item-row: 1;--span-grid-item-col: 12;">
+						<button type="submit" style="" class="button">{{ 'templates.contact.form.send' | t }}</button>
+					</div>
+				</div>
+			{% endform %}
+		{% endif %}
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Contact page form",
+		"class": "contact-page-form-section",
+		"settings": [
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme"
+			}
+		],
+		"blocks": [
+			{
+				"name": "Text",
+				"type": "text",
+				"settings": [
+					{
+						"type": "text",
+						"id": "field_label",
+						"label": "Label",
+						"default": "Name"
+					},
+					{
+						"type": "select",
+						"id": "width",
+						"label": "Desktop width",
+						"options": [
+							{
+								"value": "3",
+								"label": "25%"
+							},
+							{
+								"value": "4",
+								"label": "33%"
+							},
+							{
+								"value": "6",
+								"label": "50%"
+							},
+							{
+								"value": "8",
+								"label": "77%"
+							},
+							{
+								"value": "12",
+								"label": "100%"
+							}
+						],
+						"default": "6"
+					},
+					{
+						"type": "checkbox",
+						"id": "is_required",
+						"label": "Required field"
+					}
+				]
+			},
+			{
+				"name": "Message",
+				"type": "textarea",
+				"limit": 1,
+				"settings": [
+					{
+						"type": "text",
+						"id": "field_label",
+						"label": "Label",
+						"default": "Message"
+					},
+					{
+						"type": "select",
+						"id": "width",
+						"label": "Desktop width",
+						"options": [
+							{
+								"value": "3",
+								"label": "25%"
+							},
+							{
+								"value": "4",
+								"label": "33%"
+							},
+							{
+								"value": "6",
+								"label": "50%"
+							},
+							{
+								"value": "8",
+								"label": "77%"
+							},
+							{
+								"value": "12",
+								"label": "100%"
+							}
+						],
+						"default": "6"
+					},
+					{
+						"type": "checkbox",
+						"id": "is_required",
+						"label": "Required field"
+					}
+				]
+			},
+			{
+				"name": "Phone number",
+				"type": "phone_number",
+				"settings": [
+					{
+						"type": "text",
+						"id": "field_label",
+						"label": "Label",
+						"default": "Phone number"
+					},
+					{
+						"type": "select",
+						"id": "width",
+						"label": "Desktop width",
+						"options": [
+							{
+								"value": "3",
+								"label": "25%"
+							},
+							{
+								"value": "4",
+								"label": "33%"
+							},
+							{
+								"value": "6",
+								"label": "50%"
+							},
+							{
+								"value": "8",
+								"label": "77%"
+							},
+							{
+								"value": "12",
+								"label": "100%"
+							}
+						],
+						"default": "6"
+					},
+					{
+						"type": "checkbox",
+						"id": "is_required",
+						"label": "Required field"
+					}
+				]
+			},
+			{
+				"name": "Checkbox",
+				"type": "checkbox",
+				"settings": [
+					{
+						"type": "text",
+						"id": "field_label",
+						"label": "Label",
+						"default": "Contact me"
+					}
+				]
+			},
+			{
+				"name": "Select",
+				"type": "select",
+				"settings": [
+					{
+						"type": "text",
+						"id": "field_label",
+						"label": "Label",
+						"default": "Select"
+					},
+					{
+						"type": "select",
+						"id": "width",
+						"label": "Desktop width",
+						"options": [
+							{
+								"value": "3",
+								"label": "25%"
+							},
+							{
+								"value": "4",
+								"label": "33%"
+							},
+							{
+								"value": "6",
+								"label": "50%"
+							},
+							{
+								"value": "8",
+								"label": "77%"
+							},
+							{
+								"value": "12",
+								"label": "100%"
+							}
+						],
+						"default": "6"
+					},
+					{
+						"type": "textarea",
+						"id": "options",
+						"label": "Options",
+						"default": "Option 1, Option 2, Option 3",
+						"info": "Provide a comma separated list of options"
+					}
+				]
+			},
+			{
+				"name": "Email",
+				"type": "email",
+				"limit": 1,
+				"settings": [
+					{
+						"type": "text",
+						"id": "field_label",
+						"label": "Label",
+						"default": "Email"
+					},
+					{
+						"type": "select",
+						"id": "width",
+						"label": "Desktop width",
+						"options": [
+							{
+								"value": "3",
+								"label": "25%"
+							},
+							{
+								"value": "4",
+								"label": "33%"
+							},
+							{
+								"value": "6",
+								"label": "50%"
+							},
+							{
+								"value": "8",
+								"label": "77%"
+							},
+							{
+								"value": "12",
+								"label": "100%"
+							}
+						],
+						"default": "6"
+					}
+				]
+			},
+			{
+				"name": "Date",
+				"type": "date",
+				"settings": [
+					{
+						"type": "text",
+						"id": "field_label",
+						"label": "Label",
+						"default": "Date"
+					},
+					{
+						"type": "select",
+						"id": "width",
+						"label": "Desktop width",
+						"options": [
+							{
+								"value": "3",
+								"label": "25%"
+							},
+							{
+								"value": "4",
+								"label": "33%"
+							},
+							{
+								"value": "6",
+								"label": "50%"
+							},
+							{
+								"value": "8",
+								"label": "77%"
+							},
+							{
+								"value": "12",
+								"label": "100%"
+							}
+						],
+						"default": "6"
+					},
+					{
+						"type": "checkbox",
+						"id": "is_required",
+						"label": "Required field"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

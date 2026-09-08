@@ -1,0 +1,769 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_RUxVbb": {
+      "type": "hero",
+      "blocks": {
+        "heading_xYUVGm": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "The Bar",
+            "heading_size": "h1"
+          }
+        },
+        "description_zkFtt8": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>The same passion for craft that drives our brewing extends to every cocktail we make. Using premium spirits, fresh ingredients, and expert techniques, our bartenders create exceptional drinks that rival the best cocktail bars. From classic favorites to innovative creations, every sip delivers the quality you expect from Tarantula Hill.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_8MnFME": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_xYUVGm",
+        "description_zkFtt8",
+        "button_8MnFME"
+      ],
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/THill_EK_090425_4037_1.jpg",
+        "banner_overlay": 40,
+        "banner_size": "screen",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    },
+    "page-header": {
+      "type": "page-header",
+      "disabled": true,
+      "settings": {
+        "page_header_color_scheme": "",
+        "page_header_center_text": true,
+        "page_header_heading_size": "h1",
+        "page_header_image_overlay": 30,
+        "page_header_image_size": "medium",
+        "page_header_scroll_clip": false,
+        "page_header_overlap": true
+      }
+    },
+    "page": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container_width": "normal"
+      }
+    },
+    "image_with_text_3VP47B": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_jBXf7G": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "WHAT MAKES OUR BAR DIFFERENT",
+            "heading_animation": true,
+            "heading_size": "h1"
+          }
+        },
+        "description_PBNykt": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>The same meticulous attention to craft that earned us Great American Beer Festival gold goes into every cocktail we make. Our bartenders use premium spirits, house-made mixers, and fresh ingredients to create drinks that stand up to our award-winning beer. It's not just a bar inside a brewery - it's a craft cocktail program with the same standards of excellence.</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_fUTyqB": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_variant": "outline",
+            "button_size": "md",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_jBXf7G",
+        "description_PBNykt",
+        "button_fUTyqB"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "color_scheme": "",
+        "hover_parallax": true,
+        "use_bg": false,
+        "image": "shopify://shop_images/THill_EK_082125_3727.jpg",
+        "image_position": "left",
+        "image_width": "medium",
+        "image_size": "auto",
+        "text_align": "left",
+        "content_position": "middle-center"
+      }
+    },
+    "ss_flexible_tabs_gAp6yW": {
+      "type": "ss-flexible-tabs",
+      "blocks": {
+        "tab_4hKrR8": {
+          "type": "tab",
+          "settings": {
+            "title": "Signature Cocktails",
+            "icon": "none"
+          }
+        },
+        "column_jMkcAj": {
+          "type": "column",
+          "settings": {}
+        },
+        "content_jRjrDD": {
+          "type": "content",
+          "disabled": true,
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Basil Lemonade\t$14</strong><br/>A refreshing, herbaceous twist on a classic vodka lemonade. Light,<br/>bubbly, and infused with fresh basil and citrus for a bold yet crisp finish.<br/>Substitute Tito’s | $2 or Grey Goose | $3</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_8kwxtE": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Classic Margarita\t$14</strong><br/>Juicy, tart, and endlessly customizable. Enjoy classic lime or<br/>mix it up with fresh fruit flavors—add a little spice if you're feeling bold!<br/>Make it a Cadillac | $2 • Strawberry or Raspberry option \u0003| $2 • Make it Spicy | ¢25 • Make it Frozen | No Charge</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_4kptAd": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>El Mezcalero\t$14</strong><br/>A smoky and floral mezcal cocktail with vibrant yuzu and<br/>sweet pineapple juice, finished with a Tajín rim for a tangy kick.<br/>Substitute Los Vecinos | $1 or Yuu Baal | $2</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_RcgefB": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>T-Hill Old Fashioned\t$15</strong><br/>House old Fashioned made with Buffalo Trace Bourbon,<br/>brown sugar syrup, and aromatic and orange bitters.<br/>Garnished with an Amarena Cherry and orange peel.<br/>Whistle Pig Maple Syrup | $4<br/>Substitute Los Vecinos Mezcal or Arette Blanco</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "column_yNQ9AJ": {
+          "type": "column",
+          "settings": {}
+        },
+        "content_9N8dwy": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Barrel Aged Maple Old Fashioned\t$15</strong><br/>Garrison Brothers Small Batch Bourbon, Maple Syrup, and Orange<br/>Bitters. Poured straight from the Barrel..</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_qnbzGH": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Espresso Martini\t$14</strong><br/>A T-Hill twist on a Classic! Made with Local Ragamuffin Cold Brew,<br/>Mario’s Hard Espresso, and Brown Sugar Syrup with a coffee bean<br/>and grounds garnish.</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_EMncee": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Razzle Dazzle Vodka Lemonade\t$14</strong><br/>A fruit forward and bubbly cocktail made with raspberry,<br/>fresh lemon juice, simple syrup and topped with Prosecco.</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_qBkbTU": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Tarantula Tea\t$19</strong><br/>As close as we get to a Long Island or AMF. Our take on a classic.<br/>Gin, Vodka, Tequila, Citrus, Soda Water and Creme de Violette.</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "tab_FJU76i": {
+          "type": "tab",
+          "settings": {
+            "title": "Classic Cocktails",
+            "icon": "none"
+          }
+        },
+        "column_DPP3er": {
+          "type": "column",
+          "settings": {}
+        },
+        "content_P99d4n": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Vodka Red Bull\t$14</strong><br/>Gruven Vodka with Redbull<br/>Tito's | $1 • Grey Goose | $2 • Sub Tequila | Gran Clasico</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_LF4w98": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Paloma\t$13</strong><br/>Gran Clasico Tequilla, Squirt<br/>Tesoro Blanco | $1 • Arette Blanco | $1 • Tequila Ocho Blanco | $2<br/>Lalo Blanco | $2 • Siete Leguas | $4</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_ACCbrL": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Mule\t$15</strong><br/>Gruven Vodka with lime juice, simple syrup, ginger beer<br/>Tito's | $2 • Grey Goose | $3 Tequila - Gran Clasico • Tesoro<br/>Blanco | $1 • Arette Blanco | $1 • Tequila Ocho Blanco | $2<br/>Lalo Blanco | $2 • Siete Leguas | $4</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_yzVhKX": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Martini\t$16</strong><br/>Gruven Vodka Dry, add Dry Vermouth, Dirty (+$1), Extra Dirty ($1.50)<br/>Vodka- Tito's | $3 • Grey Goose | $5<br/>Gin - City of London • Hendrick's | $4 • The Botanist | $4</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_hTwcQq": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Sour\t$15</strong><br/>Buffalo Trace Bourbon, lemon juice and simple syrup<br/>Add egg whites | $2 • Michter's Bourbon | $1 • Redwood Empire <br/>Lost Monarch Blended Whiskey | $1 • Tequila - Gran Classico • Tequila<br/>Ocho Blanco | $2 • Vodka - Gruven • Tito's | $2 • Grey Goose | $3</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "column_eWFrc9": {
+          "type": "column",
+          "settings": {}
+        },
+        "content_W4wBe4": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Cosmopolitan\t$15</strong><br/>Gruven Vodka, Cranberry, Lime Juice, Simple Syrup, Orange Liqueur<br/>Substitute Tito's | $1 • Grey Goose | $2</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_UizX7w": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Manhattan\t$16</strong><br/>Sagamore Rye Whiskey, Sweet vermouth and Aromatic Bitters<br/>T-Hill Style - Sub with Atost: A California Aperitif<br/>Whiskey - Michter's Rye | $1<br/>Whiskey - Buffalo Trace | $1</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_caKLmL": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Negroni\t$15</strong><br/>City of London Gin, Sweet Vermouth, Negroni Bitter Apertivo<br/>Gin- Hendrick's | $4 • Make it a Boulevardier - Buffalo Trace | $2<br/>Tequilla - Los Vecinos Mezcal | $1</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_VY4HY9": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>French 75\t$15</strong><br/>CIty of London Gin, lemon juice, simple syrup topped with proseco<br/>Hendrick's | $4 • The Botanist | $4<br/>Vodka (French 76) - Gruven • Tito's | $2 • Grey Goose | $3</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "tab_ytbYmm": {
+          "type": "tab",
+          "settings": {
+            "title": "spritzes",
+            "icon": "none"
+          }
+        },
+        "column_BKmL6t": {
+          "type": "column",
+          "settings": {}
+        },
+        "content_bNHK7b": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>California Spritz\t$14</strong><br/>A unique California spritz; made with Atost California Aperitif, Prosecco, \u0003and Soda Water. Atost is a modern & bittersweet California Aperitif made \u0003with freshly picked oranges & juicy strawberries grown in the sun-soaked \u0003orchards of Ventura. </p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "column_pyYbrq": {
+          "type": "column",
+          "settings": {}
+        },
+        "content_iFUqwh": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Aperol Spritz\t$14</strong><br/>An Italian classic that is both bubbly and refreshing. Made with<br/>Aperol from Negroni Apertivo Sixteen, Prosecco, and Soda Water,</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "tab_jY8k6w": {
+          "type": "tab",
+          "settings": {
+            "title": "signature shots",
+            "icon": "none"
+          }
+        },
+        "column_tbrwYQ": {
+          "type": "column",
+          "settings": {}
+        },
+        "content_HH7nbd": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Mexican Candy Shot \t$8</strong><br/>A sweet and tangy tequilla shot. Bursting with juicy mango,<br/>balanced by a hint of lime and a tajin rim for the perfect finish.</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_hHKzrF": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Lemon Drop Shot\t$10</strong><br/>A fun, lemony vodka shot with a sugar rim!</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "column_tmVMXg": {
+          "type": "column",
+          "settings": {}
+        },
+        "content_MiKHQn": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Green Tea Shot\t$11</strong><br/>Jameson, Peach Schnapps, Lemon Juice with a splash of Sprite</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_tW94pC": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>White Tea Shot\t$10</strong><br/>Vodka, Peach Schnapps, Lemon Juice with a splash of Sprite</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "tab_9aJyPG": {
+          "type": "tab",
+          "settings": {
+            "title": "mocktails",
+            "icon": "none"
+          }
+        },
+        "column_XwhNtj": {
+          "type": "column",
+          "settings": {}
+        },
+        "content_g8yTzF": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>No Es Real N/A Margarita\t$10</strong><br/>A booze- free take on a classic! With Lime, Orange Juice,<br/>Agave Nectar, and Soda Water.</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_4mpBJC": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>Tropical Sipper\t$10</strong><br/>Pineapple, strawberry, lime, coconut and simple syrups</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "column_peyEFW": {
+          "type": "column",
+          "settings": {}
+        },
+        "content_VWFqBL": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>No-jito\t$10</strong><br/>No buzz, no problem. This cocktail features lime, simple syrup and fresh mint!</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        },
+        "content_Y87KRW": {
+          "type": "content",
+          "settings": {
+            "full_width": false,
+            "content": "<p><strong>N/A Blood Orange Margarita\t$10</strong><br/>No buzz, no problem. This cocktail features lime, simple syrup and fresh mint!</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 16,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "text_color": "#131313"
+          }
+        }
+      },
+      "block_order": [
+        "tab_4hKrR8",
+        "column_jMkcAj",
+        "content_jRjrDD",
+        "content_8kwxtE",
+        "content_4kptAd",
+        "content_RcgefB",
+        "column_yNQ9AJ",
+        "content_9N8dwy",
+        "content_qnbzGH",
+        "content_EMncee",
+        "content_qBkbTU",
+        "tab_FJU76i",
+        "column_DPP3er",
+        "content_P99d4n",
+        "content_LF4w98",
+        "content_ACCbrL",
+        "content_yzVhKX",
+        "content_hTwcQq",
+        "column_eWFrc9",
+        "content_W4wBe4",
+        "content_UizX7w",
+        "content_caKLmL",
+        "content_VY4HY9",
+        "tab_ytbYmm",
+        "column_BKmL6t",
+        "content_bNHK7b",
+        "column_pyYbrq",
+        "content_iFUqwh",
+        "tab_jY8k6w",
+        "column_tbrwYQ",
+        "content_HH7nbd",
+        "content_hHKzrF",
+        "column_tmVMXg",
+        "content_MiKHQn",
+        "content_tW94pC",
+        "tab_9aJyPG",
+        "column_XwhNtj",
+        "content_g8yTzF",
+        "content_4mpBJC",
+        "column_peyEFW",
+        "content_VWFqBL",
+        "content_Y87KRW"
+      ],
+      "name": "SS - Flexible Tabs",
+      "settings": {
+        "heading": "",
+        "heading_custom": false,
+        "heading_font": "josefin_sans_n4",
+        "heading_size": 52,
+        "heading_size_mobile": 32,
+        "heading_height": 150,
+        "heading_align": "center",
+        "heading_align_mobile": "center",
+        "toggles_gap": 16,
+        "toggles_gap_mobile": 10,
+        "toggles_mt": 20,
+        "toggles_mt_mobile": 20,
+        "toggles_pt": 12,
+        "toggles_pt_mobile": 12,
+        "toggles_pb": 12,
+        "toggles_pb_mobile": 12,
+        "toggles_padding_sides": 14,
+        "toggles_padding_sides_mobile": 14,
+        "toggles_radius": 100,
+        "toggles_border_thickness": 0,
+        "toggles_border_full": false,
+        "toggles_align": "center",
+        "toggles_align_mobile": "center",
+        "button_custom": false,
+        "button_font": "josefin_sans_n4",
+        "button_size": 18,
+        "button_size_mobile": 14,
+        "button_height": 110,
+        "button_padding_vertical": 12,
+        "button_padding_horizontal": 20,
+        "button_radius": 100,
+        "button_border_thickness": 0,
+        "button_top_radius": false,
+        "body_padding_vertical": 20,
+        "body_padding_vertical_mobile": 10,
+        "body_padding_horizontal": 20,
+        "body_padding_horizontal_mobile": 10,
+        "body_gap": 20,
+        "body_gap_mobile": 16,
+        "body_mt": 16,
+        "body_radius": 0,
+        "body_radius_mobile": 0,
+        "body_radius_top": false,
+        "icon_size": 20,
+        "icon_size_mobile": 16,
+        "toggles_bg_color": "#f5f5f5",
+        "toggles_border_color": "#131313",
+        "button_color": "#131313",
+        "button_hover_color": "#ffffff",
+        "button_active_color": "#ffffff",
+        "button_bg_color": "#ffffff",
+        "button_bg_hover_color": "#131313",
+        "button_bg_active_color": "#131313",
+        "button_border_color": "#131313",
+        "button_border_hover_color": "#131313",
+        "button_border_active_color": "#131313",
+        "heading_color": "#131313",
+        "body_bg_color": "#ffffff",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": false,
+        "content_width": 120,
+        "border_thickness": 0,
+        "lazy": true
+      }
+    },
+    "shoppable_image_ajY4RF": {
+      "type": "shoppable-image",
+      "blocks": {
+        "product_ceQhnR": {
+          "type": "product",
+          "settings": {
+            "product": "womens-baby-tee",
+            "x_position": 51,
+            "y_position": 41
+          }
+        }
+      },
+      "block_order": [
+        "product_ceQhnR"
+      ],
+      "name": "Shoppable image",
+      "settings": {
+        "image": "shopify://shop_images/THill_EK_070524_8006.jpg",
+        "section_heading": "night out attire",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "invert",
+        "spots_color": "#ffffff",
+        "icon_type": "cart",
+        "cards_color_scheme": "",
+        "show_rating": false,
+        "enable_quick_view": false
+      }
+    }
+  },
+  "order": [
+    "hero_RUxVbb",
+    "page-header",
+    "page",
+    "image_with_text_3VP47B",
+    "ss_flexible_tabs_gAp6yW",
+    "shoppable_image_ajY4RF"
+  ]
+}

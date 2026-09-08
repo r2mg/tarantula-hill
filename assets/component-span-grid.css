@@ -1,0 +1,61 @@
+.span-grid {
+  --span-grid-child-height: 100%;
+  --span-grid-gutter: 2rem;
+  --span-grid-row-height: min(250px, 25vh);
+  display: grid;
+  grid-auto-rows: var(--span-grid-row-height);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-flow: dense;
+  gap: var(--span-grid-gutter);
+}
+
+.span-grid--row-size--small {
+  --span-grid-row-height: min(200px, 20vh);
+}
+
+.span-grid--row-size--large {
+  --span-grid-row-height: min(300px, 30vh) ;
+}
+
+.span-grid--gutter--large {
+  --span-grid-gutter: 3rem;
+}
+
+.span-grid--gutter--small {
+  --span-grid-gutter: 1.5rem;
+}
+
+.span-grid--gutter--x-small {
+  --span-grid-gutter: 1rem;
+}
+
+.span-grid--auto-height {
+  --span-grid-row-height: auto;
+  --span-grid-child-height: auto;
+}
+
+@media (max-width: 991px) {
+  .span-grid {
+    column-gap: 0rem;
+  }
+}
+
+.span-grid__item {
+  --span-grid-item-col: 3;
+  --span-grid-item-row: 1;
+  grid-area: span var(--span-grid-item-row)/span var(--span-grid-item-use-col);
+}
+@media (min-width: 992px) {
+  .span-grid__item {
+    --span-grid-item-use-col: var(--span-grid-item-col);
+  }
+}
+@media (max-width: 991px) {
+  .span-grid__item {
+    --span-grid-item-use-col: 12;
+  }
+}
+
+.span-grid__item > * {
+  height: var(--span-grid-child-height);
+}

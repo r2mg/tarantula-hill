@@ -1,0 +1,511 @@
+{% assign spot_mobile_input_name = section.id | append: '-mobile-radio-group' %}
+
+{% if section.settings.section_center_heading -%}
+	{%- assign heading_align = 'center' -%}
+{%- else -%}
+	{%- assign heading_align = 'left' -%}
+{%- endif %}
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.section_color_scheme.id }} {% if section.settings.section_center_heading %}section-wrapper--center-align{% endif %}">
+	{% if section.settings.section_heading != blank or section.settings.section_description != blank %}
+		<div class="container section-wrapper__header">
+			<div class="content content--align--{{ heading_align }}">
+				{% if section.settings.section_heading != blank %}
+					<div class="content__heading">
+						{% capture heading_capture %}
+							<h2 class="heading heading--size--{{ section.settings.section_heading_size }}">
+								{{ section.settings.section_heading }}
+							</h2>
+						{% endcapture %}
+						{% if section.settings.section_heading_animation %}
+							<div
+								class="scroll-animation scroll-animation--use--text-reveal scroll-animation--origin-align--{{ heading_align }} {% unless settings.appearance_animate_heading_on_mobile %}scroll-animation--only-desktop-animation{% endunless %}"
+								style=""
+							>
+								{{ heading_capture }}
+							</div>
+						{% else -%}
+							{{- heading_capture -}}
+						{%- endif %}
+					</div>
+				{% endif -%}
+				{%- if section.settings.section_description != blank %}
+					<div class="content__text">
+						<p class="text text--size--md">{{ section.settings.section_description }}</p>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+	<div class="container section-wrapper__body">
+		{% assign base_spot_color_diff = section.settings.spots_color | brightness_difference: '#ffffff' %}
+
+		<x-hot-spots
+			class="hot-spots"
+			style="--hot-spots-spot-color: {{ section.settings.spots_color }};--hot-spots-spot-icon-color: {% if base_spot_color_diff > 125 %}#ffffff{% else %}#2d2d2d{% endif %};"
+		>
+			<div class="hot-spots__stage">
+				<div data-hot-spots-element="image">
+					<div
+						class="banner banner--placerholder-ar"
+						style="--banner-focal: {{ section.settings.image.presentation.focal_point }};"
+					>
+						{% if section.settings.image != blank %}
+							<picture class="banner__image">
+								<img
+									src="{{ section.settings.image | image_url }}"
+									alt="{{ section.settings.image.alt | escape }}"
+									width="{{ section.settings.image.width }}"
+									height="{{ section.settings.image.height }}"
+									loading="lazy"
+									data-img-loading
+									onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+								>
+							</picture>
+						{%- endif %}
+
+						{% unless section.settings.image -%}
+							{{- 'lifestyle-1' | placeholder_svg_tag: 'banner__placeholder' }}
+						{% endunless %}
+					</div>
+				</div>
+				{% for block in section.blocks -%}
+					{%- assign quick_buy_modal_id = block.settings.product.handle | prepend: 'quick-view-modal' -%}
+					{%- assign spot_id = 'spot-' | append: section.id | append: block.id -%}
+					{%- assign spot_id_mobile = spot_id | append: '-mobile' -%}
+					{%- assign x_card_position = 'left' %}
+					{% assign y_card_position = 'top' %}
+
+					{% if block.settings.x_position > 33 and block.settings.x_position <= 67 -%}
+						{%- assign x_card_position = 'center' -%}
+					{%- endif %}
+
+					{% if block.settings.y_position > 33 and block.settings.y_position <= 67 -%}
+						{%- assign y_card_position = 'center' -%}
+					{%- endif %}
+
+					{% if block.settings.x_position > 67 %}{% assign x_card_position = 'right' %}{% endif %}
+
+					{% if block.settings.y_position > 67 %}{% assign y_card_position = 'bottom' %}{% endif %}
+
+					<div
+						class="hot-spots__spot"
+						style="--hot-spots-spot-x-position: {{ block.settings.x_position }};--hot-spots-spot-y-position: {{ block.settings.y_position }};"
+						{{ block.shopify_attributes }}
+					>
+						<div class="hot-spots__spot__control">
+							<label class="hot-spots__spot__label" for="{{ spot_id_mobile }}"></label>
+							<label class="hot-spots__spot__label mobile-hidden" for="{{ spot_id }}">
+								{% if section.settings.icon_type == 'bag' %}
+									<svg>
+										<use  xlink:href="#svg-icon-shopping-bag"></use>
+									</svg>
+								{% elsif section.settings.icon_type == 'cart' %}
+									<svg>
+										<use  xlink:href="#svg-icon-shopping-cart"></use>
+									</svg>
+								{% else %}
+									<svg>
+										<use  xlink:href="#svg-icon-plus"></use>
+									</svg>
+								{% endif %}
+							</label>
+
+							<div class="mobile-hidden">
+								<input class="hot-spots__spot__input" type="checkbox" id="{{ spot_id }}" hidden data-spot-trigger>
+
+								<div class="hot-spots__spot__card hot-spots__spot__card--position--{{ y_card_position }}-{{ x_card_position }} color-scheme-{{ section.settings.cards_color_scheme.id }}">
+									<div class="hot-spots__card-body">
+										{% capture capture_card_inner %}
+											<div class="hot-spots__card-body__inner">
+												<div class="hot-spots__card-body__image">
+													{% if block.settings.product.featured_image != blank %}
+														<picture>
+															<source srcset="{{ block.settings.product.featured_image | image_url: width: 70 }} 1x, {{ block.settings.product.featured_image | image_url: width: 140 }} 2x, {{ block.settings.product.featured_image | image_url: width: 210 }} 3x">
+
+															<img
+																src="{{ block.settings.product.featured_image | image_url }}"
+																alt="{{ block.settings.product.featured_image.alt | escape }}"
+																width="{{ block.settings.product.featured_image.width }}"
+																height="{{ block.settings.product.featured_image.height }}"
+																loading="lazy"
+																data-img-loading
+																onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+															>
+														</picture>
+													{%- else -%}
+														{{- 'product-1' | placeholder_svg_tag: '' }}
+													{% endif %}
+												</div>
+
+												<div class="hot-spots__card-body__info">
+													<h5 class="hot-spots__card-body__title">
+														{% if block.settings.product.title -%}
+															{{- block.settings.product.title -}}
+														{%- else -%}
+															{{- 'onboarding.product_title' | t -}}
+														{%- endif %}
+													</h5>
+
+													{% if section.settings.show_rating -%}
+														{%- if block.settings.product.metafields.reviews.rating.value.rating != blank %}
+															<div class="star-rating hot-spots__card-body__product-rating {% if settings.colors_yellow_starrating %}star-rating--colored{% endif %}">
+																<div class="star-rating__stars">
+																	{% assign product_rating = block.settings.product.metafields.reviews.rating.value.rating -%}
+																	{%- for i in (0..4) %}
+																		<div class="star-rating__icon" style="--star-rating-offset: {{ product_rating }};">
+																			<span class="star-rating__icon-front"></span>
+																			<span class="star-rating__icon-back"></span>
+																		</div>
+																		{% assign product_rating = product_rating | minus: 1 -%}
+																	{%- endfor %}
+																</div>
+
+																{% if block.settings.product.metafields.reviews.rating_count != blank %}
+																	<div class="star-rating__counter">
+																		{{
+																			'accessibility.reviews_count_html'
+																			| t: count: block.settings.product.metafields.reviews.rating_count
+																		}}
+																	</div>
+																{% endif %}
+															</div>
+														{% endif -%}
+													{%- endif %}
+
+													<p class="hot-spots__card-body__text">
+														{% if block.settings.product.price -%}
+															{%- if settings.currency_hide_trailing_zeros -%}
+																{{- block.settings.product.price | money_without_trailing_zeros -}}
+															{%- else -%}
+																{{- block.settings.product.price | money -}}
+															{%- endif -%}
+															{%- if settings.currency_show_currency_codes -%}
+																{{- shop.currency | prepend: '&nbsp;' -}}
+															{%- endif -%}
+														{%- else -%}
+															{{- 1999 | money -}}
+														{%- endif %}
+													</p>
+												</div>
+
+												{% if block.settings.product.url != blank and section.settings.enable_quick_view == false -%}
+													{%- if block.settings.product.url != blank -%}
+														<a
+															class="stretched-link"
+															href="{{ block.settings.product.url }}"
+															aria-label="{{ block.settings.product.title }}"
+														>
+														</a>
+													{%- endif -%}
+												{%- endif %}
+											</div>
+										{% endcapture -%}
+										{%- if section.settings.enable_quick_view and block.settings.product != blank %}
+											<x-modal-trigger
+												class="modal__trigger hot-spots__card-body__modal-trigger"
+												target-id="{{ quick_buy_modal_id }}"
+												tabindex="0"
+												role="button"
+											>
+												{{ capture_card_inner }}
+											</x-modal-trigger>
+										{%- else -%}
+											{{- capture_card_inner -}}
+										{%- endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% if section.settings.enable_quick_view and block.settings.product != blank -%}
+						<x-modal
+							class="modal"
+							id="{{ quick_buy_modal_id }}"
+							url="{{ block.settings.product.url | split: '?' | first }}"
+							url-section="product-quick-view"
+							style=""
+						>
+							<dialog class="modal__dialog" data-modal-element="dialog">
+								<div class="modal__content" data-modal-element="content"></div>
+							</dialog>
+						</x-modal>
+					{%- endif -%}
+					{%- capture capture_mobile_cards -%}
+						{{- capture_mobile_cards }}
+						<div class="hot-spots__card-body">
+							<input type="radio" id="{{ spot_id_mobile }}" name="{{ spot_mobile_input_name }}" hidden>
+							{%- capture capture_card_inner %}
+								<div class="hot-spots__card-body__inner">
+									<div class="hot-spots__card-body__image">
+										{% if block.settings.product.featured_image != blank %}
+											<picture>
+												<source srcset="{{ block.settings.product.featured_image | image_url: width: 70 }} 1x, {{ block.settings.product.featured_image | image_url: width: 140 }} 2x, {{ block.settings.product.featured_image | image_url: width: 210 }} 3x">
+
+												<img
+													src="{{ block.settings.product.featured_image | image_url }}"
+													alt="{{ block.settings.product.featured_image.alt | escape }}"
+													width="{{ block.settings.product.featured_image.width }}"
+													height="{{ block.settings.product.featured_image.height }}"
+													loading="lazy"
+													data-img-loading
+													onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+												>
+											</picture>
+										{%- else -%}
+											{{- 'product-1' | placeholder_svg_tag: '' }}
+										{% endif %}
+									</div>
+
+									<div class="hot-spots__card-body__info">
+										<h5 class="hot-spots__card-body__title">
+											{% if block.settings.product.title -%}
+												{{- block.settings.product.title -}}
+											{%- else -%}
+												{{- 'onboarding.product_title' | t -}}
+											{%- endif %}
+										</h5>
+
+										{% if section.settings.show_rating -%}
+											{%- if block.settings.product.metafields.reviews.rating.value.rating != blank %}
+												<div class="star-rating hot-spots__card-body__product-rating {% if settings.colors_yellow_starrating %}star-rating--colored{% endif %}">
+													<div class="star-rating__stars">
+														{% assign product_rating = block.settings.product.metafields.reviews.rating.value.rating -%}
+														{%- for i in (0..4) %}
+															<div class="star-rating__icon" style="--star-rating-offset: {{ product_rating }};">
+																<span class="star-rating__icon-front"></span>
+																<span class="star-rating__icon-back"></span>
+															</div>
+															{% assign product_rating = product_rating | minus: 1 -%}
+														{%- endfor %}
+													</div>
+
+													{% if block.settings.product.metafields.reviews.rating_count != blank %}
+														<div class="star-rating__counter">
+															{{
+																'accessibility.reviews_count_html'
+																| t: count: block.settings.product.metafields.reviews.rating_count
+															}}
+														</div>
+													{% endif %}
+												</div>
+											{% endif -%}
+										{%- endif %}
+
+										<p class="hot-spots__card-body__text">
+											{% if block.settings.product.price -%}
+												{%- if settings.currency_hide_trailing_zeros -%}
+													{{- block.settings.product.price | money_without_trailing_zeros -}}
+												{%- else -%}
+													{{- block.settings.product.price | money -}}
+												{%- endif -%}
+												{%- if settings.currency_show_currency_codes -%}
+													{{- shop.currency | prepend: '&nbsp;' -}}
+												{%- endif -%}
+											{%- else -%}
+												{{- 1999 | money -}}
+											{%- endif %}
+										</p>
+									</div>
+
+									{% if block.settings.product.url != blank and section.settings.enable_quick_view == false -%}
+										{%- if block.settings.product.url != blank -%}
+											<a
+												class="stretched-link"
+												href="{{ block.settings.product.url }}"
+												aria-label="{{ block.settings.product.title }}"
+											>
+											</a>
+										{%- endif -%}
+									{%- endif %}
+								</div>
+							{% endcapture -%}
+							{%- if section.settings.enable_quick_view and block.settings.product != blank %}
+								<x-modal-trigger
+									class="modal__trigger hot-spots__card-body__modal-trigger"
+									target-id="{{ quick_buy_modal_id }}"
+									tabindex="0"
+									role="button"
+								>
+									{{ capture_card_inner }}
+								</x-modal-trigger>
+							{%- else -%}
+								{{- capture_card_inner -}}
+							{%- endif %}
+						</div>
+					{% endcapture -%}
+				{%- endfor %}
+			</div>
+			<div class="hot-spots__mobile-cards desktop-hidden color-scheme-{{ section.settings.cards_color_scheme.id }}">
+				{{ capture_mobile_cards }}
+			</div>
+		</x-hot-spots>
+		<script type="module" src="{{ 'component-hot-spots.js' | asset_url }}"></script>
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Shoppable image",
+		"class": "shoppable-image-section",
+		"presets": [
+			{
+				"name": "Shoppable image",
+				"blocks": [
+					{
+						"type": "product"
+					}
+				],
+				"category": "Promotional"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "footer", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "image_picker",
+				"id": "image",
+				"label": "Image"
+			},
+			{
+				"type": "header",
+				"content": "Content"
+			},
+			{
+				"type": "text",
+				"id": "section_heading",
+				"label": "Heading",
+				"default": "Shoppable image"
+			},
+			{
+				"type": "select",
+				"id": "section_heading_size",
+				"label": "Heading size",
+				"options": [
+					{
+						"value": "h2",
+						"label": "Small"
+					},
+					{
+						"value": "h1",
+						"label": "Medium"
+					},
+					{
+						"value": "d3",
+						"label": "Large"
+					}
+				],
+				"default": "h1"
+			},
+			{
+				"type": "checkbox",
+				"id": "section_heading_animation",
+				"label": "Use heading animation",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "section_center_heading",
+				"label": "Center heading",
+				"default": true
+			},
+			{
+				"type": "inline_richtext",
+				"id": "section_description",
+				"label": "Text"
+			},
+			{
+				"type": "color_scheme",
+				"id": "section_color_scheme",
+				"label": "Color scheme",
+				"default": "alt"
+			},
+			{
+				"type": "color",
+				"id": "spots_color",
+				"label": "Dots color",
+				"default": "#ffffff"
+			},
+			{
+				"type": "select",
+				"id": "icon_type",
+				"label": "Dots icon type",
+				"options": [
+					{
+						"label": "Plus",
+						"value": "plus"
+					},
+					{
+						"label": "Cart",
+						"value": "cart"
+					},
+					{
+						"label": "Bag",
+						"value": "bag"
+					}
+				],
+				"default": "cart"
+			},
+			{
+				"type": "header",
+				"content": "Cards"
+			},
+			{
+				"type": "color_scheme",
+				"id": "cards_color_scheme",
+				"label": "Cards color scheme",
+				"default": "main"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_rating",
+				"label": "Show product rating"
+			},
+			{
+				"type": "checkbox",
+				"id": "enable_quick_view",
+				"label": "Enable quick buy"
+			}
+		],
+		"blocks": [
+			{
+				"name": "Product",
+				"type": "product",
+				"settings": [
+					{
+						"type": "product",
+						"id": "product",
+						"label": "Product"
+					},
+					{
+						"type": "header",
+						"content": "Dot position"
+					},
+					{
+						"type": "range",
+						"id": "x_position",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Horizontal position",
+						"default": 50,
+						"info": "0% - left, 100% - right"
+					},
+					{
+						"type": "range",
+						"id": "y_position",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Vertical position",
+						"default": 50,
+						"info": "0% - top, 100% - bottom"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

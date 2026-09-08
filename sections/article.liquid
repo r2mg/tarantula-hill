@@ -1,0 +1,213 @@
+{{ 'section-article.css' | asset_url | stylesheet_tag }}
+{% assign comments_area_id = 'pageCommentsArea' %}
+
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.color_scheme.id }}">
+	<div class="container section-wrapper__body container--size--x-small">
+		<div class="article-section__meta">
+			<div>
+				<span>{{ article.published_at | time_tag: format: 'date' }}</span>
+				<span>{{ article.author }}</span>
+			</div>
+			{% if section.settings.enable_share -%}
+				<span
+					><x-share
+						class="share share--labled"
+						fallback-msg="{{ 'general.share.success_message' | t }}"
+						style="--share-icon-scale: 1;"
+					>
+						<span class="mobile-hidden">{{ 'general.share.title' | t }}</span>
+						<svg class="share__icon">
+							<use  xlink:href="#svg-icon-share"></use>
+						</svg>
+					</x-share>
+					<script type="module" src="{{ 'component-share.js' | asset_url }}"></script>
+				</span>
+			{%- endif %}
+		</div>
+		<div class="rte rte--spaced">
+			{{ article.content }}
+		</div>
+		<div class="article-section__back-btn">
+			<a href="{{ blog.url }}" style="" class="button button--variant--outline">
+				{{- 'blogs.article.back_to_blog' | t -}}
+			</a>
+		</div>
+		{% if blog.comments_enabled? %}
+			<div class="article-section__footer">
+				<div class="article-section__comments-area" id="{{ comments_area_id }}">
+					{% if article.comments_count > 0 %}
+						<h2 class="heading heading--size--h5">{{ 'blogs.article.comments' | t: count: article.comments_count }}</h2>
+						<div style="" class="stack article-section__comments stack--v">
+							{% paginate article.comments by 10 %}
+								{% for comment in article.comments %}
+									<div class="article-section__comment">
+										<h3>{{ comment.author }}</h3>
+										<div>
+											{{ comment.content }}
+										</div>
+										<p class="text text--size--xs text--mute">{{ comment.created_at | time_tag: format: 'date' }}</p>
+									</div>
+								{% endfor %}
+								{% if paginate.parts.size > 0 %}
+									<nav class="paginate" role="navigation">
+										<a
+											class="paginate__item {% unless paginate.previous %}paginate__item--inert{% endunless %}"
+											href="{{ paginate.previous.url }}#{{ comments_area_id }}"
+											aria-label="{{ 'general.pagination.previous' | t }}"
+										>
+											<span>
+												<svg class="paginate__item__arrow">
+													<use  xlink:href="#svg-icon-arrow-left"></use>
+												</svg>
+											</span>
+										</a>
+										<span class="desktop-hidden"> {{ paginate.current_page }} / {{ paginate.pages }} </span>
+										{% for part in paginate.parts -%}
+											{%- if part.is_link -%}
+												<a
+													class="paginate__item mobile-hidden"
+													href="{{ part.url }}#{{ comments_area_id }}"
+													aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
+												>
+													<span>{{ part.title }}</span>
+												</a>
+											{%- else -%}
+												<span class="paginate__item {% if part.title == paginate.current_page %}paginate__item--active{% endif %} mobile-hidden">
+													{{ part.title }}
+												</span>
+											{%- endif -%}
+										{%- endfor %}
+										<a
+											class="paginate__item {% unless paginate.next %}paginate__item--inert{% endunless %}"
+											href="{{ paginate.next.url }}#{{ comments_area_id }}"
+											aria-label="{{ 'general.pagination.next' | t }}"
+										>
+											<span>
+												<svg class="paginate__item__arrow">
+													<use  xlink:href="#svg-icon-arrow-right"></use>
+												</svg>
+											</span>
+										</a>
+									</nav>
+								{% endif %}
+							{% endpaginate %}
+						</div>
+					{% endif %}
+					{% form 'new_comment', article %}
+						<div style="--stack-spacing:1.5" class="stack stack--v">
+							{% if form.errors %}
+								<div class="form-errors">
+									<h2 class="form-errors__heading" tabindex="-1" autofocus>
+										<span class="screen-reader">
+											{{ 'accessibility.error' | t }}
+										</span>
+										{{ 'templates.contact.form.error_heading' | t }}
+									</h2>
+									{{ form.errors | default_errors }}
+								</div>
+							{% endif %}
+							{% if form.posted_successfully? %}
+								<div class="badge badge--type--success">
+									{% assign post_message = 'blogs.article.success' | t -%}
+									{%- if blog.moderated? and comment.status == 'unapproved' -%}
+										{%- assign post_message = 'blogs.article.success_moderated' | t -%}
+									{%- endif -%}
+									{{- post_message }}
+								</div>
+							{% endif %}
+							<h2 class="heading heading--size--h5">{{ 'blogs.article.comment_form_title' | t }}</h2>
+							{{ 'component-span-grid.css' | asset_url | stylesheet_tag }}
+							<div class="span-grid span-grid--auto-height span-grid--gutter--x-small" style="">
+								<div class="span-grid__item" style="--span-grid-item-row: 1;--span-grid-item-col: 6;">
+									<div class="form-control">
+										<label class="form-control__label" for="CommentForm-author">{{ 'blogs.article.name' | t }}</label>
+
+										<input
+											class="form-control__input"
+											type="text"
+											name="comment[author]"
+											value="{{ form.author }}"
+											id="CommentForm-author"
+											required
+											autocomplete="name"
+											aria-required="true"
+											{% if form.errors contains 'name' %}
+												aria-invalid="true"
+											{% endif %}
+										>
+									</div>
+								</div>
+								<div class="span-grid__item" style="--span-grid-item-row: 1;--span-grid-item-col: 6;">
+									<div class="form-control">
+										<label class="form-control__label" for="CommentForm-email">{{ 'blogs.article.email' | t }}</label>
+
+										<input
+											class="form-control__input"
+											type="email"
+											name="comment[email]"
+											value="{{ form.email }}"
+											id="CommentForm-email"
+											required
+											autocomplete="email"
+											autocorrect="off"
+											autocapitalize="off"
+											aria-required="true"
+											{% if form.errors contains 'email' %}
+												aria-invalid="true"
+											{% endif %}
+										>
+									</div>
+								</div>
+								<div class="span-grid__item" style="--span-grid-item-row: 1;--span-grid-item-col: 12;">
+									<div class="form-control">
+										<label class="form-control__label" for="CommentForm-body">{{ 'blogs.article.message' | t }}</label>
+
+										<textarea
+											class="form-control__textarea"
+											name="comment[body]"
+											rows="5"
+											value="{{ form.body }}"
+											id="CommentForm-body"
+											required
+											aria-required="true"
+											{% if form.errors contains 'body' %}
+												aria-invalid="true"
+											{% endif -%}
+										>{{ form.body }}</textarea>
+									</div>
+								</div>
+							</div>
+
+							<button type="submit" style="" class="button">{{ 'blogs.article.post' | t }}</button>
+						</div>
+					{% endform %}
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+<script type="application/ld+json">
+	{{ article | structured_data }}
+</script>
+
+{% schema %}
+	{
+		"name": "Article",
+		"class": "article-section",
+		"settings": [
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "checkbox",
+				"id": "enable_share",
+				"label": "Show share icon",
+				"default": true,
+				"info": "Share functionality will not work in theme editor"
+			}
+		]
+	}
+{% endschema %}

@@ -1,0 +1,710 @@
+{% if section.settings.section_center_heading -%}
+	{%- assign heading_align = 'center' -%}
+{%- else -%}
+	{%- assign heading_align = 'left' -%}
+{%- endif %}
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.section_color_scheme.id }} {% if section.settings.section_center_heading %}section-wrapper--center-align{% endif %}">
+	{% if section.settings.section_heading != blank or section.settings.section_description != blank %}
+		<div class="container section-wrapper__header">
+			<div class="content content--align--{{ heading_align }}">
+				{% if section.settings.section_heading != blank %}
+					<div class="content__heading">
+						{% capture heading_capture %}
+							<h2 class="heading heading--size--{{ section.settings.section_heading_size }}">
+								{{ section.settings.section_heading }}
+							</h2>
+						{% endcapture %}
+						{% if section.settings.section_heading_animation %}
+							<div
+								class="scroll-animation scroll-animation--use--text-reveal scroll-animation--origin-align--{{ heading_align }} {% unless settings.appearance_animate_heading_on_mobile %}scroll-animation--only-desktop-animation{% endunless %}"
+								style=""
+							>
+								{{ heading_capture }}
+							</div>
+						{% else -%}
+							{{- heading_capture -}}
+						{%- endif %}
+					</div>
+				{% endif -%}
+				{%- if section.settings.section_description != blank %}
+					<div class="content__text">
+						<p class="text text--size--md">{{ section.settings.section_description }}</p>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+	<div class="section-wrapper__body">
+		{% capture capture_grid_content %}
+			{% for block in section.blocks %}
+				<div class="card">
+					{% if block.settings.link != blank -%}
+						<a class="stretched-link" href="{{ block.settings.link }}" aria-label="{{ block.settings.heading }}"> </a>
+					{%- endif %}
+					<div class="card__media">
+						<div class="feature-icon feature-icon--size--{{ section.settings.feature_icon_size }} feature-icon--mult {% if section.settings.center_content %}feature-icon--center{% endif %}">
+							{% if block.settings.feature_icon_img %}
+								<picture class="feature-icon__img">
+									<source srcset="{{ block.settings.feature_icon_img | image_url: width: 135 }} 1x, {{ block.settings.feature_icon_img | image_url: width: 270 }} 2x, {{ block.settings.feature_icon_img | image_url: width: 405 }} 3x">
+
+									<img
+										src="{{ block.settings.feature_icon_img | image_url }}"
+										alt="{{ block.settings.feature_icon_img.alt | escape }}"
+										width="{{ block.settings.feature_icon_img.width }}"
+										height="{{ block.settings.feature_icon_img.height }}"
+										loading="lazy"
+										data-img-loading
+										onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+									>
+								</picture>
+							{%- else %}
+								<div class="feature-icon__svg">
+									{{ block.settings.feature_icon_svg | append: '.svg' | inline_asset_content }}
+								</div>
+							{% endif %}
+						</div>
+					</div>
+					<div class="card__caption">
+						<div class="content content--spacing--sm {% if section.settings.center_content %}content--align--center{% endif %}">
+							{% if block.settings.heading != blank %}
+								<div class="content__heading">
+									<h2 class="heading heading--size--h6">
+										{{ block.settings.heading }}
+									</h2>
+								</div>
+							{% endif -%}
+							{%- if block.settings.text != blank %}
+								<div class="content__text">
+									<p class="text text--size--md">{{ block.settings.text }}</p>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		{% endcapture %}
+		{% if section.settings.stack_grid_layout == 'grid' %}
+			<div class="container">
+				<div
+					class="grid"
+					style="--grid-columns: {{ section.settings.stack_grid_desktop_columns }};--grid-mobile-columns: {{ section.settings.stack_grid_mobile_columns }};"
+				>
+					{{ capture_grid_content }}
+				</div>
+			</div>
+		{% else -%}
+			{{- 'component-inline-carousel.css' | asset_url | stylesheet_tag }}
+			<x-inline-carousel
+				class="inline-carousel"
+				items-count="{{ section.blocks.size }}"
+				columns="{{ section.settings.stack_grid_desktop_columns }}"
+				style="--inline-carousel-columns: {{ section.settings.stack_grid_desktop_columns }};--inline-carousel-mobile-columns: {% if section.settings.stack_grid_mobile_columns == '1' %}1.25{% else %}{{ section.settings.stack_grid_mobile_columns }}{% endif %};--inline-carousel-items-count: {{ section.blocks.size }};"
+				section-id="{{ section.id }}"
+			>
+				<div class="inline-carousel__view" data-inline-carousel-element="view">
+					<div class="container inline-carousel__container container--size--adaptive">
+						<div class="inline-carousel__track" data-inline-carousel-element="track">
+							{{ capture_grid_content }}
+							{% unless section.settings.stack_grid_mobile_columns == '1' %}
+								<div class="inline-carousel__psuedo-item"></div>
+							{% endunless %}
+						</div>
+					</div>
+					<div class="container inline-carousel__nav-container">
+						<button
+							class="inline-carousel__nav-prev"
+							aria-label="{{ 'general.slider.previous_slide' | t }}"
+							data-inline-carousel-element="nav-prev"
+						>
+							<span class="carousel-arrow">
+								<svg class="carousel-arrow__icon">
+									<use  xlink:href="#svg-icon-arrow-left"></use>
+								</svg>
+							</span>
+						</button>
+						<button
+							class="inline-carousel__nav-next"
+							aria-label="{{ 'general.slider.next_slide' | t }}"
+							data-inline-carousel-element="nav-next"
+						>
+							<span class="carousel-arrow">
+								<svg class="carousel-arrow__icon">
+									<use  xlink:href="#svg-icon-arrow-right"></use>
+								</svg>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div class="container">
+					<x-carousel-pagination
+						class="carousel-pagination inline-carousel__mobile-pagination"
+						section-id="{{ section.id }}"
+					>
+						{% for i in (0..section.blocks.size) -%}
+							{%- unless forloop.last -%}
+								<label>
+									<input
+										class="carousel-pagination__radio"
+										type="radio"
+										name="{{ section.id | append: 'carousel-pagination' }}"
+										value="{{ i }}"
+										data-carousel-pagination-element="radio"
+										{% if forloop.first %}
+											checked
+										{% endif %}
+									>
+									<div class="carousel-pagination__dot"></div>
+								</label>
+							{%- endunless -%}
+						{%- endfor %}
+					</x-carousel-pagination>
+					<script type="module" src="{{ 'component-carousel-pagination.js' | asset_url }}"></script>
+				</div>
+			</x-inline-carousel>
+
+			<script type="module" src="{{ 'component-inline-carousel.js' | asset_url }}"></script>
+		{% endif %}
+	</div>
+</div>
+
+{% schema %}
+	{
+		"name": "Text with icons",
+		"class": "text-with-icons-section",
+		"presets": [
+			{
+				"name": "Text with icons",
+				"blocks": [
+					{
+						"type": "item"
+					},
+					{
+						"type": "item"
+					},
+					{
+						"type": "item"
+					},
+					{
+						"type": "item"
+					}
+				],
+				"category": "Store information"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "text",
+				"id": "section_heading",
+				"label": "Heading"
+			},
+			{
+				"type": "select",
+				"id": "section_heading_size",
+				"label": "Heading size",
+				"options": [
+					{
+						"value": "h2",
+						"label": "Small"
+					},
+					{
+						"value": "h1",
+						"label": "Medium"
+					},
+					{
+						"value": "d3",
+						"label": "Large"
+					}
+				],
+				"default": "h1"
+			},
+			{
+				"type": "checkbox",
+				"id": "section_heading_animation",
+				"label": "Use heading animation",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "section_center_heading",
+				"label": "Center heading",
+				"default": true
+			},
+			{
+				"type": "inline_richtext",
+				"id": "section_description",
+				"label": "Text"
+			},
+			{
+				"type": "color_scheme",
+				"id": "section_color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "header",
+				"content": "Format"
+			},
+			{
+				"id": "stack_grid_layout",
+				"label": "Layout",
+				"type": "select",
+				"options": [
+					{
+						"value": "stack",
+						"label": "Stack"
+					},
+					{
+						"value": "grid",
+						"label": "Grid"
+					}
+				],
+				"default": "stack"
+			},
+			{
+				"type": "select",
+				"id": "stack_grid_desktop_columns",
+				"label": "Desktop columns",
+				"options": [
+					{
+						"value": "2",
+						"label": "2"
+					},
+					{
+						"value": "3",
+						"label": "3"
+					},
+					{
+						"value": "4",
+						"label": "4"
+					},
+					{
+						"value": "5",
+						"label": "5"
+					}
+				],
+				"default": "4"
+			},
+			{
+				"type": "select",
+				"id": "stack_grid_mobile_columns",
+				"label": "Mobile columns",
+				"options": [
+					{
+						"value": "1",
+						"label": "1"
+					},
+					{
+						"value": "2",
+						"label": "2"
+					}
+				],
+				"default": "2"
+			},
+			{
+				"type": "header",
+				"content": "Item"
+			},
+			{
+				"type": "checkbox",
+				"id": "center_content",
+				"label": "Center content"
+			},
+			{
+				"type": "select",
+				"id": "feature_icon_size",
+				"label": "Size",
+				"options": [
+					{
+						"label": "Small",
+						"value": "small"
+					},
+					{
+						"label": "Medium",
+						"value": "medium"
+					},
+					{
+						"label": "Large",
+						"value": "large"
+					}
+				],
+				"default": "small"
+			}
+		],
+		"blocks": [
+			{
+				"name": "Item",
+				"type": "item",
+				"settings": [
+					{
+						"type": "select",
+						"id": "feature_icon_svg",
+						"label": "Icon",
+						"options": [
+							{
+								"label": "Smile",
+								"value": "smiley",
+								"group": "Common"
+							},
+							{
+								"label": "Heart",
+								"value": "heart",
+								"group": "Common"
+							},
+							{
+								"label": "Charity",
+								"value": "hand-heart",
+								"group": "Common"
+							},
+							{
+								"label": "Thumbs up",
+								"value": "thumbs-up",
+								"group": "Common"
+							},
+							{
+								"label": "Handshake",
+								"value": "handshake",
+								"group": "Common"
+							},
+							{
+								"label": "Fire",
+								"value": "fire",
+								"group": "Common"
+							},
+							{
+								"label": "Gift",
+								"value": "gift",
+								"group": "Common"
+							},
+							{
+								"label": "Award",
+								"value": "medal",
+								"group": "Common"
+							},
+							{
+								"label": "Trophy",
+								"value": "trophy",
+								"group": "Common"
+							},
+							{
+								"label": "Badge",
+								"value": "seal-check",
+								"group": "Common"
+							},
+							{
+								"label": "Gem",
+								"value": "sketch-logo",
+								"group": "Common"
+							},
+							{
+								"label": "Rocket",
+								"value": "rocket-launch",
+								"group": "Common"
+							},
+							{
+								"label": "Star",
+								"value": "star",
+								"group": "Common"
+							},
+							{
+								"label": "Flag",
+								"value": "flag",
+								"group": "Common"
+							},
+							{
+								"label": "Info",
+								"value": "info",
+								"group": "Common"
+							},
+							{
+								"label": "Checkmark",
+								"value": "check-circle",
+								"group": "Common"
+							},
+							{
+								"label": "Warning",
+								"value": "warning",
+								"group": "Common"
+							},
+							{
+								"label": "Ban",
+								"value": "prohibit",
+								"group": "Common"
+							},
+							{
+								"label": "Lock",
+								"value": "lock-key",
+								"group": "Common"
+							},
+							{
+								"label": "Clock",
+								"value": "clock",
+								"group": "Common"
+							},
+							{
+								"label": "Alarm",
+								"value": "bell-ringing",
+								"group": "Common"
+							},
+							{
+								"label": "Pencil",
+								"value": "pencil",
+								"group": "Common"
+							},
+							{
+								"label": "Pin",
+								"value": "push-pin",
+								"group": "Common"
+							},
+							{
+								"label": "Document",
+								"value": "file-text",
+								"group": "Common"
+							},
+							{
+								"label": "Calendar",
+								"value": "calendar-dots",
+								"group": "Common"
+							},
+							{
+								"label": "User",
+								"value": "user-circle",
+								"group": "Common"
+							},
+							{
+								"label": "Storefront",
+								"value": "storefront",
+								"group": "Shop"
+							},
+							{
+								"label": "Cart",
+								"value": "shopping-cart",
+								"group": "Shop"
+							},
+							{
+								"label": "Bag",
+								"value": "handbag",
+								"group": "Shop"
+							},
+							{
+								"label": "Wallet",
+								"value": "wallet",
+								"group": "Shop"
+							},
+							{
+								"label": "Card",
+								"value": "credit-card",
+								"group": "Shop"
+							},
+							{
+								"label": "Money",
+								"value": "money",
+								"group": "Shop"
+							},
+							{
+								"label": "Coins",
+								"value": "coins",
+								"group": "Shop"
+							},
+							{
+								"label": "Coupon",
+								"value": "tag",
+								"group": "Shop"
+							},
+							{
+								"label": "Return",
+								"value": "arrows-clockwise",
+								"group": "Shop"
+							},
+							{
+								"label": "Truck",
+								"value": "truck",
+								"group": "Logistics"
+							},
+							{
+								"label": "Plane",
+								"value": "airplane-tilt",
+								"group": "Logistics"
+							},
+							{
+								"label": "Map pin",
+								"value": "map-pin",
+								"group": "Logistics"
+							},
+							{
+								"label": "Package",
+								"value": "package",
+								"group": "Logistics"
+							},
+							{
+								"label": "Ruler",
+								"value": "ruler",
+								"group": "Measurement"
+							},
+							{
+								"label": "Scales",
+								"value": "scales",
+								"group": "Measurement"
+							},
+							{
+								"label": "Dimensions",
+								"value": "vector-three",
+								"group": "Measurement"
+							},
+							{
+								"label": "Percent",
+								"value": "seal-percent",
+								"group": "Measurement"
+							},
+							{
+								"label": "Chart",
+								"value": "chart-bar",
+								"group": "Measurement"
+							},
+							{
+								"label": "Calculator",
+								"value": "calculator",
+								"group": "Measurement"
+							},
+							{
+								"label": "At sign",
+								"value": "at",
+								"group": "Connection"
+							},
+							{
+								"label": "Envelope",
+								"value": "envelope",
+								"group": "Connection"
+							},
+							{
+								"label": "Phone",
+								"value": "phone",
+								"group": "Connection"
+							},
+							{
+								"label": "Support",
+								"value": "headset",
+								"group": "Connection"
+							},
+							{
+								"label": "Chat",
+								"value": "chats",
+								"group": "Connection"
+							},
+							{
+								"label": "Comment",
+								"value": "chat-centered-text",
+								"group": "Connection"
+							},
+							{
+								"label": "Link",
+								"value": "link-simple",
+								"group": "Connection"
+							},
+							{
+								"label": "External link",
+								"value": "arrow-square-out",
+								"group": "Connection"
+							},
+							{
+								"label": "Paper plane",
+								"value": "paper-plane-tilt",
+								"group": "Connection"
+							},
+							{
+								"label": "Bluetooth",
+								"value": "bluetooth",
+								"group": "Tech"
+							},
+							{
+								"label": "WIFI",
+								"value": "wifi-high",
+								"group": "Tech"
+							},
+							{
+								"label": "AI",
+								"value": "sparkle-star",
+								"group": "Tech"
+							},
+							{
+								"label": "Controller",
+								"value": "game-controller",
+								"group": "Tech"
+							},
+							{
+								"label": "Chip",
+								"value": "cpu",
+								"group": "Tech"
+							},
+							{
+								"label": "Power",
+								"value": "power",
+								"group": "Tech"
+							},
+							{
+								"label": "Gear",
+								"value": "gear",
+								"group": "Tech"
+							},
+							{
+								"label": "Battery",
+								"value": "battery-charging",
+								"group": "Tech"
+							},
+							{
+								"label": "Earth",
+								"value": "globe",
+								"group": "Ecology"
+							},
+							{
+								"label": "Tree",
+								"value": "tree",
+								"group": "Ecology"
+							},
+							{
+								"label": "Leaf",
+								"value": "leaf",
+								"group": "Ecology"
+							},
+							{
+								"label": "Paw",
+								"value": "paw-print",
+								"group": "Ecology"
+							},
+							{
+								"label": "Recycle",
+								"value": "recycle",
+								"group": "Ecology"
+							}
+						]
+					},
+					{
+						"type": "image_picker",
+						"id": "feature_icon_img",
+						"label": "Image",
+						"info": "Will replace icon if selected"
+					},
+					{
+						"type": "text",
+						"id": "heading",
+						"label": "Heading",
+						"default": "Feature heading"
+					},
+					{
+						"type": "text",
+						"id": "text",
+						"label": "Text",
+						"default": "Describe your store feature"
+					},
+					{
+						"type": "url",
+						"id": "link",
+						"label": "Link"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

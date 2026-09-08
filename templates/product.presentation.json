@@ -1,0 +1,146 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+	"sections": {
+		"hero_JXGH3t": {
+			"type": "hero",
+			"blocks": {
+				"heading_hrfY4F": {
+					"type": "heading",
+					"settings": {
+						"heading_text": "{{ product.title }}",
+						"heading_size": "h1"
+					}
+				},
+				"description_qNRwim": {
+					"type": "description",
+					"disabled": true,
+					"settings": {
+						"text_content": "<p>Give customers details about the banner image(s) or content on the template.</p>"
+					}
+				},
+				"button_A4VQLF": {
+					"type": "button",
+					"settings": {
+						"button_label": "View Details",
+						"button_variant": "outline",
+						"button_link": "#product-description"
+					}
+				}
+			},
+			"block_order": [
+				"heading_hrfY4F",
+				"description_qNRwim",
+				"button_A4VQLF"
+			],
+			"settings": {
+				"banner_image": "{{ product.featured_image }}",
+				"banner_overlay": 54,
+				"banner_size": "screen",
+				"gyro_effect": true,
+				"scroll_clip": true,
+				"text_align": "center",
+				"content_position": "bottom-center",
+				"content_box": false,
+				"color_scheme": "invert"
+			}
+		},
+		"product": {
+			"type": "product",
+			"blocks": {
+				"title": {
+					"type": "title",
+					"settings": {
+						"title_size": "h1",
+						"show_vendor": false,
+						"show_rating": true
+					}
+				},
+				"price": {
+					"type": "price",
+					"settings": {
+						"show_taxes_note": true
+					}
+				},
+				"variantPicker": {
+					"type": "variant_picker",
+					"settings": {
+						"picker_type": "pills",
+						"enable_color_swatches": true,
+						"variant_image_options": ""
+					}
+				},
+				"inventory_status_jQJJPh": {
+					"type": "inventory_status",
+					"settings": {
+						"low_inventory_threshold": 10
+					}
+				},
+				"buyButtons": {
+					"type": "buy_buttons",
+					"settings": {
+						"show_dynamic_checkout": true,
+						"show_recipient_form": true,
+						"show_payment_icons": true,
+						"show_qty_selector": true
+					}
+				},
+				"description_GbiaxH": {
+					"type": "description",
+					"settings": {
+						"accordion": false,
+						"show_icon": false,
+						"feature_icon_svg": "smiley",
+						"feature_icon_size": "medium"
+					}
+				}
+			},
+			"block_order": [
+				"title",
+				"price",
+				"variantPicker",
+				"inventory_status_jQJJPh",
+				"buyButtons",
+				"description_GbiaxH"
+			],
+			"settings": {
+				"color_scheme": "",
+				"enable_share": true,
+				"media_position": "left",
+				"media_size": "large",
+				"thumbs_position": "aside",
+				"gallery_ratio": "square",
+				"media_fit": "original",
+				"enable_autoplay": false
+			}
+		},
+		"related": {
+			"type": "related-products",
+			"settings": {
+				"section_heading": "You may also like",
+				"section_heading_size": "h1",
+				"section_heading_animation": true,
+				"section_center_heading": true,
+				"section_description": "",
+				"section_color_scheme": "",
+				"gyro_effect": false,
+				"products_limit": 4,
+				"stack_grid_layout": "stack",
+				"stack_grid_desktop_columns": "3",
+				"stack_grid_mobile_columns": "2"
+			}
+		}
+	},
+	"order": [
+		"hero_JXGH3t",
+		"product",
+		"related"
+	]
+}

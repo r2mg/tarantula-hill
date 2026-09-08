@@ -1,0 +1,626 @@
+{% comment %}
+  Section: Ice Cream Locations — Hours & Addresses
+  Displays two locations side by side with editable hours, address, and contact info.
+  Matches the T-Hill Nova theme layout patterns: section-wrapper, container,
+  content blocks, heading classes, and color-scheme variables.
+  Add via: Online Store > Themes > Customize > Add Section (ice cream page)
+{% endcomment %}
+
+<div class="section-wrapper color-scheme-{{ section.settings.color_scheme }} section-wrapper--y-offset--padding">
+
+  {%- comment -%} Optional section header {%- endcomment -%}
+  {% if section.settings.eyebrow != blank or section.settings.heading != blank %}
+    <div class="container section-wrapper__header" style="margin-bottom: 3rem;">
+      <div class="content content--align--{{ section.settings.heading_align }}">
+
+        {% if section.settings.eyebrow != blank %}
+          <div class="content__subheading">
+            <div class="subheading">{{ section.settings.eyebrow }}</div>
+          </div>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <div class="content__heading">
+            <h2 class="heading heading--size--h1">{{ section.settings.heading }}</h2>
+          </div>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="content__text">
+            <div class="rte">{{ section.settings.description }}</div>
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+  {% endif %}
+
+  {%- comment -%} Two-column location grid {%- endcomment -%}
+  <div class="container section-wrapper__body">
+    <div class="ic-locations-grid">
+
+      {% for block in section.blocks %}
+        {% if block.type == 'location' %}
+          <div class="ic-location" {{ block.shopify_attributes }}>
+
+            {%- comment -%} Location image {%- endcomment -%}
+            {% if block.settings.image != blank %}
+              <div class="ic-location__image">
+                {{ block.settings.image | image_url: width: 900 | image_tag:
+                  loading: 'lazy',
+                  alt: block.settings.location_name | escape
+                }}
+              </div>
+            {% else %}
+              <div class="ic-location__image ic-location__image--placeholder">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+
+            {%- comment -%} Location card body {%- endcomment -%}
+            <div class="ic-location__body">
+
+              {%- comment -%} Name + badge {%- endcomment -%}
+              <div class="ic-location__header">
+                {% if block.settings.badge != blank %}
+                  <span class="ic-location__badge">{{ block.settings.badge }}</span>
+                {% endif %}
+                <h3 class="heading ic-location__name">{{ block.settings.location_name }}</h3>
+              </div>
+
+              {%- comment -%} Address {%- endcomment -%}
+              {% if block.settings.address != blank %}
+                <div class="ic-location__address">
+                  <p class="ic-location__address-label subheading">Address</p>
+                  <address>{{ block.settings.address | newline_to_br }}</address>
+                  {% if block.settings.maps_url != blank %}
+                    <a href="{{ block.settings.maps_url }}" target="_blank" rel="noopener" class="ic-location__maps-link">
+                      Get Directions
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M2 10L10 2M10 2H4M10 2V8"/>
+                      </svg>
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              {%- comment -%} Hours {%- endcomment -%}
+              <div class="ic-location__hours">
+                <p class="ic-location__address-label subheading">Hours</p>
+                <ul class="ic-hours-list">
+                  {% if block.settings.hours_mon != blank %}
+                    <li class="ic-hours-item">
+                      <span class="ic-hours-day">Monday</span>
+                      <span class="ic-hours-time">{{ block.settings.hours_mon }}</span>
+                    </li>
+                  {% endif %}
+                  {% if block.settings.hours_tue != blank %}
+                    <li class="ic-hours-item">
+                      <span class="ic-hours-day">Tuesday</span>
+                      <span class="ic-hours-time">{{ block.settings.hours_tue }}</span>
+                    </li>
+                  {% endif %}
+                  {% if block.settings.hours_wed != blank %}
+                    <li class="ic-hours-item">
+                      <span class="ic-hours-day">Wednesday</span>
+                      <span class="ic-hours-time">{{ block.settings.hours_wed }}</span>
+                    </li>
+                  {% endif %}
+                  {% if block.settings.hours_thu != blank %}
+                    <li class="ic-hours-item">
+                      <span class="ic-hours-day">Thursday</span>
+                      <span class="ic-hours-time">{{ block.settings.hours_thu }}</span>
+                    </li>
+                  {% endif %}
+                  {% if block.settings.hours_fri != blank %}
+                    <li class="ic-hours-item">
+                      <span class="ic-hours-day">Friday</span>
+                      <span class="ic-hours-time">{{ block.settings.hours_fri }}</span>
+                    </li>
+                  {% endif %}
+                  {% if block.settings.hours_sat != blank %}
+                    <li class="ic-hours-item">
+                      <span class="ic-hours-day">Saturday</span>
+                      <span class="ic-hours-time">{{ block.settings.hours_sat }}</span>
+                    </li>
+                  {% endif %}
+                  {% if block.settings.hours_sun != blank %}
+                    <li class="ic-hours-item">
+                      <span class="ic-hours-day">Sunday</span>
+                      <span class="ic-hours-time">{{ block.settings.hours_sun }}</span>
+                    </li>
+                  {% endif %}
+                  {% if block.settings.hours_note != blank %}
+                    <li class="ic-hours-item ic-hours-item--note">
+                      <span class="ic-hours-note">{{ block.settings.hours_note }}</span>
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+
+              {%- comment -%} Phone + optional CTA button {%- endcomment -%}
+              {% if block.settings.phone != blank %}
+                <p class="ic-location__phone">
+                  <a href="tel:{{ block.settings.phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}">
+                    {{ block.settings.phone }}
+                  </a>
+                </p>
+              {% endif %}
+
+              {% if block.settings.button_label != blank %}
+                <div class="ic-location__cta">
+                  <a href="{{ block.settings.button_url }}" class="button">
+                    {{ block.settings.button_label }}
+                  </a>
+                </div>
+              {% endif %}
+
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ─── Two-column grid ─────────────────────────────────── */
+  .ic-locations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* ─── Location card ───────────────────────────────────── */
+  .ic-location {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─── Image ───────────────────────────────────────────── */
+  .ic-location__image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    margin-bottom: 1.75rem;
+    border-radius: 0;
+  }
+
+  .ic-location__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+    transition: transform 0.4s ease;
+  }
+
+  .ic-location:hover .ic-location__image img {
+    transform: scale(1.02);
+  }
+
+  .ic-location__image--placeholder {
+    background: var(--color-scheme-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ic-location__image--placeholder svg {
+    width: 60px;
+    height: 60px;
+    opacity: 0.2;
+  }
+
+  /* ─── Card body ───────────────────────────────────────── */
+  .ic-location__body {
+    flex: 1;
+  }
+
+  /* ─── Header: badge + name ────────────────────────────── */
+  .ic-location__header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-scheme-border);
+  }
+
+  .ic-location__badge {
+    display: inline-block;
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.15em;
+    background: var(--color-scheme-button-background);
+    color: var(--color-scheme-button-text);
+    padding: 0.25rem 0.75rem;
+    border-radius: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .ic-location__name {
+    font-family: var(--glob-heading-font) !important;
+    font-weight: var(--glob-heading-font-weight) !important;
+    text-transform: var(--glob-heading-transform) !important;
+    font-size: clamp(1.5rem, 3vw, 2rem) !important;
+    line-height: 1.05 !important;
+    letter-spacing: calc(var(--glob-heading-letter-spacing) * 0.1em) !important;
+    margin: 0 !important;
+    color: var(--color-scheme-text) !important;
+  }
+
+  /* ─── Section label (Address / Hours) ────────────────── */
+  .ic-location__address-label {
+    font-family: var(--glob-subheading-font) !important;
+    font-weight: var(--glob-subheading-weight) !important;
+    text-transform: var(--glob-subheading-text-transform) !important;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;
+    letter-spacing: 0.15em !important;
+    opacity: 0.5 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* ─── Address block ───────────────────────────────────── */
+  .ic-location__address {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--color-scheme-border);
+  }
+
+  .ic-location__address address {
+    font-style: normal;
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    line-height: 1.65;
+    opacity: 0.85;
+    margin-bottom: 0.6rem;
+  }
+
+  .ic-location__maps-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.15s ease;
+  }
+
+  .ic-location__maps-link:hover {
+    opacity: 1;
+    text-decoration: none;
+  }
+
+  /* ─── Hours list ──────────────────────────────────────── */
+  .ic-location__hours {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--color-scheme-border);
+  }
+
+  .ic-hours-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ic-hours-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-scheme-border);
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    gap: 1rem;
+  }
+
+  .ic-hours-item:last-child {
+    border-bottom: none;
+  }
+
+  .ic-hours-day {
+    opacity: 0.65;
+    white-space: nowrap;
+  }
+
+  .ic-hours-time {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .ic-hours-item--note {
+    justify-content: flex-start;
+    border-bottom: none;
+    padding-top: 0.75rem;
+  }
+
+  .ic-hours-note {
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    opacity: 0.5;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ─── Phone ───────────────────────────────────────────── */
+  .ic-location__phone {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+  }
+
+  .ic-location__phone a {
+    text-decoration: none;
+    opacity: 0.85;
+  }
+
+  .ic-location__phone a:hover {
+    opacity: 1;
+  }
+
+  /* ─── CTA button ──────────────────────────────────────── */
+  .ic-location__cta {
+    margin-top: 0.25rem;
+  }
+
+  /* ─── Vertical divider between locations (desktop) ────── */
+  .ic-locations-grid {
+    position: relative;
+  }
+
+  .ic-locations-grid::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: var(--color-scheme-border);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  /* ─── Responsive ──────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .ic-locations-grid {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+
+    .ic-locations-grid::after {
+      display: none;
+    }
+
+    .ic-location:not(:last-child) {
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--color-scheme-border);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ice Cream Locations",
+  "tag": "section",
+  "class": "ice-cream-locations-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "main", "label": "White" },
+        { "value": "alt", "label": "Light Gray" },
+        { "value": "invert", "label": "Black" }
+      ],
+      "default": "invert"
+    },
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Find Us"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Two Locations, One Obsession"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "info": "Leave blank to hide"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "location",
+      "name": "Location",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Location Info"
+        },
+        {
+          "type": "text",
+          "id": "location_name",
+          "label": "Location name",
+          "default": "Thousand Oaks"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge (optional)",
+          "info": "e.g. 'Now Open', 'New Location' — leave blank to hide"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Location photo"
+        },
+        {
+          "type": "header",
+          "content": "Address"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Street address",
+          "info": "Use line breaks for multi-line address",
+          "default": "2890 Tapo Canyon Rd\nSimi Valley, CA 93063"
+        },
+        {
+          "type": "url",
+          "id": "maps_url",
+          "label": "Google Maps URL",
+          "info": "Links to 'Get Directions'"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone number",
+          "default": "(805) 555-0100"
+        },
+        {
+          "type": "header",
+          "content": "Hours"
+        },
+        {
+          "type": "text",
+          "id": "hours_mon",
+          "label": "Monday",
+          "default": "3PM – 10PM"
+        },
+        {
+          "type": "text",
+          "id": "hours_tue",
+          "label": "Tuesday",
+          "default": "12PM – 10PM"
+        },
+        {
+          "type": "text",
+          "id": "hours_wed",
+          "label": "Wednesday",
+          "default": "12PM – 10PM"
+        },
+        {
+          "type": "text",
+          "id": "hours_thu",
+          "label": "Thursday",
+          "default": "12PM – 10PM"
+        },
+        {
+          "type": "text",
+          "id": "hours_fri",
+          "label": "Friday",
+          "default": "12PM – 1AM"
+        },
+        {
+          "type": "text",
+          "id": "hours_sat",
+          "label": "Saturday",
+          "default": "12PM – 1AM"
+        },
+        {
+          "type": "text",
+          "id": "hours_sun",
+          "label": "Sunday",
+          "default": "12PM – 10PM"
+        },
+        {
+          "type": "text",
+          "id": "hours_note",
+          "label": "Hours note",
+          "info": "Optional — e.g. 'Hours may vary on holidays'"
+        },
+        {
+          "type": "header",
+          "content": "Call to Action"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "info": "Leave blank to hide button"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ice Cream Locations",
+      "blocks": [
+        {
+          "type": "location",
+          "settings": {
+            "location_name": "Thousand Oaks",
+
+            "address": "2175 Tapo Canyon Rd\nThousand Oaks, CA 91362",
+            "phone": "(805) 555-0100",
+            "hours_mon": "3PM – 10PM",
+            "hours_tue": "12PM – 10PM",
+            "hours_wed": "12PM – 10PM",
+            "hours_thu": "12PM – 10PM",
+            "hours_fri": "12PM – 1AM",
+            "hours_sat": "12PM – 1AM",
+            "hours_sun": "12PM – 10PM",
+            "button_label": "Get Directions",
+            "button_url": ""
+          }
+        },
+        {
+          "type": "location",
+          "settings": {
+            "location_name": "San Marcos",
+            "badge": "New Location",
+            "address": "123 Discovery St\nSan Marcos, CA 92078",
+            "phone": "(760) 555-0200",
+            "hours_mon": "Closed",
+            "hours_tue": "12PM – 9PM",
+            "hours_wed": "12PM – 9PM",
+            "hours_thu": "12PM – 9PM",
+            "hours_fri": "12PM – 10PM",
+            "hours_sat": "11AM – 10PM",
+            "hours_sun": "11AM – 9PM",
+            "button_label": "Get Directions",
+            "button_url": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

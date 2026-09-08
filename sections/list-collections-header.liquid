@@ -1,0 +1,184 @@
+{% if section.settings.page_header_image != null and section.settings.page_header_overlap -%}
+	{%- assign header_overlap_class = 'page-header--header-overlap' -%}
+{%- endif -%}
+{%- capture capture_heading_content -%}
+	{%- if section.settings.page_header_center_text -%}
+		{%- assign text_align = 'middle-center' -%}
+	{%- else -%}
+		{%- assign text_align = 'middle-left' -%}
+	{%- endif %}
+	<div class="placer placer--position--{{ text_align }} placer--container placer--offset--x-large" style="">
+		<div class="container placer__container">
+			<div class="placer__target">
+				<div class="content page-header__content content--position-align--{{ text_align }} content--compact-text">
+					<div class="content__heading">
+						<h1 class="heading heading--size--{{ section.settings.page_header_heading_size }}">
+							{{ 'sections.collection_list.all_collections' | t }}
+						</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endcapture -%}
+{%- capture capture_root %}
+	<div class="page-header {{ header_overlap_class }} color-scheme-{{ section.settings.page_header_color_scheme.id }}">
+		{% if section.settings.page_header_image != blank %}
+			<div
+				class="banner banner--size--{{ section.settings.page_header_image_size }}"
+				style="--banner-overlay: {{ section.settings.page_header_image_overlay | times: 0.01 }};--banner-focal: {{ section.settings.page_header_image.presentation.focal_point }};"
+			>
+				<div class="banner__overlay"></div>
+
+				{% if section.settings.page_header_image != blank %}
+					<picture class="banner__image">
+						<source
+							srcset="
+								{% if section.settings.page_header_image.width >= 375 %}{{ section.settings.page_header_image | image_url: width: 375 }} 375w,{% endif %}
+								{% if section.settings.page_header_image.width >= 550 %}{{ section.settings.page_header_image | image_url: width: 550 }} 550w,{% endif %}
+								{% if section.settings.page_header_image.width >= 750 %}{{ section.settings.page_header_image | image_url: width: 750 }} 750w,{% endif %}
+								{% if section.settings.page_header_image.width >= 1100 %}{{ section.settings.page_header_image | image_url: width: 1100 }} 1100w,{% endif %}
+								{% if section.settings.page_header_image.width >= 1500 %}{{ section.settings.page_header_image | image_url: width: 1500 }} 1500w,{% endif %}
+								{% if section.settings.page_header_image.width >= 1780 %}{{ section.settings.page_header_image | image_url: width: 1780 }} 1780w,{% endif %}
+								{% if section.settings.page_header_image.width >= 2000 %}{{ section.settings.page_header_image | image_url: width: 2000 }} 2000w,{% endif %}
+								{% if section.settings.page_header_image.width >= 3000 %}{{ section.settings.page_header_image | image_url: width: 3000 }} 3000w,{% endif %}
+								{% if section.settings.page_header_image.width >= 3840 %}{{ section.settings.page_header_image | image_url: width: 3840 }} 3840w,{% endif %}
+								{{ section.settings.page_header_image | image_url }} {{ section.settings.page_header_image.width }}w
+							"
+							sizes="100vw"
+						>
+
+						<img
+							src="{{ section.settings.page_header_image | image_url }}"
+							alt="{{ section.settings.page_header_image.alt | escape }}"
+							width="{{ section.settings.page_header_image.width }}"
+							height="{{ section.settings.page_header_image.height }}"
+							fetchpriority="high"
+						>
+					</picture>
+				{%- endif %}
+
+				{% unless section.settings.page_header_image %}
+				{% endunless %}
+
+				<div class="banner__content">
+					{{ capture_heading_content }}
+				</div>
+			</div>
+		{% else -%}
+			{{- capture_heading_content -}}
+		{%- endif %}
+	</div>
+{% endcapture %}
+{% capture capture_clip %}{{ capture_root }}{% endcapture %}
+{% if section.settings.page_header_scroll_clip %}
+	<div
+		class="scroll-animation scroll-animation--use--{% if section.index0 == 0 %}clip-out{% else %}clip-in{% endif %}"
+		style=""
+	>
+		{{ capture_clip }}
+	</div>
+{% else -%}
+	{{- capture_clip -}}
+{%- endif %}
+
+{% schema %}
+	{
+		"name": "List collections header",
+		"class": "page-header-overlap-section list-collections-header-section",
+		"settings": [
+			{
+				"type": "color_scheme",
+				"id": "page_header_color_scheme",
+				"label": "Color scheme",
+				"default": "invert"
+			},
+			{
+				"type": "checkbox",
+				"id": "page_header_center_text",
+				"label": "Center text",
+				"default": true
+			},
+			{
+				"type": "select",
+				"id": "page_header_heading_size",
+				"label": "Heading size",
+				"options": [
+					{
+						"value": "h2",
+						"label": "Small"
+					},
+					{
+						"value": "h1",
+						"label": "Medium"
+					},
+					{
+						"value": "d3",
+						"label": "Large"
+					}
+				],
+				"default": "h1"
+			},
+			{
+				"type": "header",
+				"content": "Image"
+			},
+			{
+				"type": "image_picker",
+				"id": "page_header_image",
+				"label": "Custom image",
+				"info": "Use metafields if you want to set a custom image for each page. [Learn more](https://support.milehighthemes.com/article/73-creating-advanced-custom-templates-using-metafields-video-tutorial)."
+			},
+			{
+				"type": "range",
+				"id": "page_header_image_overlay",
+				"label": "Overlay",
+				"min": 0,
+				"max": 100,
+				"step": 1,
+				"default": 30,
+				"unit": "%"
+			},
+			{
+				"type": "select",
+				"id": "page_header_image_size",
+				"label": "Size",
+				"options": [
+					{
+						"value": "auto",
+						"label": "Original"
+					},
+					{
+						"value": "full",
+						"label": "Fit text"
+					},
+					{
+						"value": "small",
+						"label": "Small"
+					},
+					{
+						"value": "medium",
+						"label": "Medium"
+					},
+					{
+						"value": "large",
+						"label": "Large"
+					}
+				],
+				"default": "medium"
+			},
+			{
+				"type": "checkbox",
+				"id": "page_header_scroll_clip",
+				"label": "Enable clip effect on scroll"
+			},
+			{
+				"type": "checkbox",
+				"id": "page_header_overlap",
+				"label": "Overlap header",
+				"default": true,
+				"info": "Overlap must also be enabled in the Header section"
+			}
+		]
+	}
+{% endschema %}

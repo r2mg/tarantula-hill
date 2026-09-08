@@ -1,0 +1,563 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_RUxVbb": {
+      "type": "hero",
+      "blocks": {
+        "heading_xYUVGm": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "PARTY PACKAGES & CATERING",
+            "heading_size": "h1"
+          }
+        },
+        "subheading_VNhFEJ": {
+          "type": "subheading",
+          "settings": {
+            "subheading_text": "We do not offer general reservations at this location. Seating is available on a first-come, first-served basis."
+          }
+        }
+      },
+      "block_order": [
+        "heading_xYUVGm",
+        "subheading_VNhFEJ"
+      ],
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/IMG_3065.jpg",
+        "banner_overlay": 40,
+        "banner_size": "medium",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    },
+    "seating_reservations_gHVRJT": {
+      "type": "seating-reservations",
+      "blocks": {
+        "seating_tier_kKjnEh": {
+          "type": "seating_tier",
+          "settings": {
+            "guest_label": "Up to 10 guests",
+            "table_count": "1 picnic table",
+            "price": "$100"
+          }
+        },
+        "seating_tier_Q34NAE": {
+          "type": "seating_tier",
+          "settings": {
+            "guest_label": "Up to 20 guests",
+            "table_count": "2 picnic tables",
+            "price": "$200"
+          }
+        },
+        "seating_tier_eWmyh4": {
+          "type": "seating_tier",
+          "disabled": true,
+          "settings": {
+            "guest_label": "Up to 30 guests",
+            "table_count": "3 picnic tables",
+            "price": "$300"
+          }
+        }
+      },
+      "block_order": [
+        "seating_tier_kKjnEh",
+        "seating_tier_Q34NAE",
+        "seating_tier_eWmyh4"
+      ],
+      "name": "Seating Reservations",
+      "settings": {
+        "color_scheme": "main",
+        "eyebrow": "Reserve Your Spot at least 10 days prior",
+        "heading": "Step 1. Picnic Table Seating",
+        "description": "<p>Reserve a picnic table online up to 10 days in advance. Seating is subject to availability. Reservations are limited to 2 hours, unhosted, and non-refundable. Outside food, desserts, and drinks are not permitted without prior approval and applicable fees. Table locations cannot be guaranteed.</p>",
+        "policy_heading": "Abandonment Policy",
+        "policy_text": "<p>All rental fees are non-refundable and do not apply to food or beverage charges. Parties must begin on time. If your group has not arrived within 20 minutes of the scheduled start time, your reserved tables may be released. Fees paid are non-refundable.</p>",
+        "button_label": "",
+        "button_url": ""
+      }
+    },
+    "party_ready_packages_t8wnww": {
+      "type": "party-ready-packages",
+      "blocks": {
+        "package_zAehjf": {
+          "type": "package",
+          "settings": {
+            "featured": false,
+            "badge": "",
+            "package_name": "Package One",
+            "guest_count": "Up to 10 guests",
+            "price": "$195",
+            "includes": "4 pizzas\n4 bites\n2 Caesar salads"
+          }
+        },
+        "package_MGmMUe": {
+          "type": "package",
+          "settings": {
+            "featured": true,
+            "badge": "Best Value",
+            "package_name": "Package Two",
+            "guest_count": "Up to 20 guests",
+            "price": "$340",
+            "includes": "8 pizzas\n8 bites\n3 Caesar salads"
+          }
+        }
+      },
+      "block_order": [
+        "package_zAehjf",
+        "package_MGmMUe"
+      ],
+      "name": "Party Ready Packages",
+      "settings": {
+        "color_scheme": "main",
+        "eyebrow": "Order party package when you arrive",
+        "heading": "STEP 2. PARTY PACKAGES READY",
+        "description": "<p>Perfect for smaller groups of up to 20. After booking your picnic table, you can add a Party Ready Package — we’ll prepare everything fresh and deliver it directly to your table.</p>",
+        "show_price_note": false,
+        "price_note_text": "2026 Pricing — Reflects 5% Increase",
+        "footnote": "<p>Food is delivered to your table; additional service is not included. Pricing shown does not include tax and gratuity.</p><p>For groups larger than 20 guests, please get in contact with our events team using the button below for a custom on-site event quote.</p>",
+        "button_label": "",
+        "button_url": ""
+      }
+    },
+    "house_rules_xK8dWY": {
+      "type": "house-rules",
+      "blocks": {
+        "rule_6aDtNV": {
+          "type": "rule",
+          "disabled": true,
+          "settings": {
+            "rule_text": "Order party packages at least 2 weeks in advance"
+          }
+        },
+        "rule_CdW3rJ": {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Outside food, desserts, and drinks require prior approval and may incur additional fees"
+          }
+        },
+        "rule_7fKeYq": {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Seating is limited to 2 hours. Parties must arrive on time, and table placement is subject to availability"
+          }
+        },
+        "rule_xrmQQ4": {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Pet policy applies to all reserved seating — indoor rentals are pet-free"
+          }
+        },
+        "rule_RbALYr": {
+          "type": "rule",
+          "settings": {
+            "rule_text": "For groups of more than 20, contact us for a custom buffet quote"
+          }
+        },
+        "rule_dMbETw": {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Seating and placement is subject to availability."
+          }
+        },
+        "rule_YcT4yL": {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Reservation start times are available between 12PM and 6PM, with all reservations concluding by 8PM."
+          }
+        }
+      },
+      "block_order": [
+        "rule_6aDtNV",
+        "rule_CdW3rJ",
+        "rule_7fKeYq",
+        "rule_xrmQQ4",
+        "rule_RbALYr",
+        "rule_dMbETw",
+        "rule_YcT4yL"
+      ],
+      "name": "House Rules",
+      "settings": {
+        "color_scheme": "alt",
+        "eyebrow": "Good to Know",
+        "heading": "House Rules",
+        "description": "<p>A few things to keep in mind before you book.</p>",
+        "button_label": "",
+        "button_url": ""
+      }
+    },
+    "slideshow_NfKbzn": {
+      "type": "slideshow",
+      "blocks": {
+        "image_NPKJUc": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/THill_EK_102024_0985.jpg",
+            "banner_overlay": 0,
+            "content_position": "middle-center",
+            "content_box": false,
+            "subheading_text": "",
+            "heading_text": "",
+            "heading_size": "h2",
+            "text_content": "",
+            "button_label": "",
+            "button_variant": "outline",
+            "button_link": "",
+            "color_scheme": "invert"
+          }
+        },
+        "image_AgMR9U": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/THill_EK_052925_2353.jpg",
+            "banner_overlay": 0,
+            "content_position": "middle-center",
+            "content_box": false,
+            "subheading_text": "",
+            "heading_text": "",
+            "heading_size": "h1",
+            "text_content": "",
+            "button_label": "",
+            "button_variant": "outline",
+            "button_link": "",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_NPKJUc",
+        "image_AgMR9U"
+      ],
+      "disabled": true,
+      "name": "Slideshow",
+      "settings": {
+        "image_size": "large",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "show_arrows_on_desktop": false,
+        "autoplay": "4"
+      }
+    },
+    "buffet_packages_PWgkeB": {
+      "type": "buffet-packages",
+      "blocks": {
+        "highlight_9UiLD3": {
+          "type": "highlight",
+          "settings": {
+            "label": "Minimum guests",
+            "value": "20+"
+          }
+        },
+        "highlight_rBE9J8": {
+          "type": "highlight",
+          "settings": {
+            "label": "Menu options",
+            "value": "Pizza, Taco, and  BBQ spreads"
+          }
+        },
+        "highlight_FUfbBE": {
+          "type": "highlight",
+          "settings": {
+            "label": "Bar service",
+            "value": "Drink tickets or open bar available"
+          }
+        },
+        "highlight_cRADg8": {
+          "type": "highlight",
+          "settings": {
+            "label": "Staffing",
+            "value": "Fully staffed — we handle setup and service"
+          }
+        },
+        "highlight_FwnBxC": {
+          "type": "highlight",
+          "settings": {
+            "label": "Lead time required",
+            "value": "Minimum 3 weeks advance notice"
+          }
+        }
+      },
+      "block_order": [
+        "highlight_9UiLD3",
+        "highlight_rBE9J8",
+        "highlight_FUfbBE",
+        "highlight_cRADg8",
+        "highlight_FwnBxC"
+      ],
+      "name": "Buffet Packages",
+      "settings": {
+        "color_scheme": "alt",
+        "eyebrow": "Bigger Celebrations",
+        "heading": "Buffet Packages",
+        "description": "<p>Ideal for larger celebrations — class reunions, weddings, company parties, graduations, or any event with 20+ guests. We set up a full buffet spread with pizza, BBQ, and taco options, plus choose between drink tickets or an open bar. Our team handles everything.</p>",
+        "lead_time": "",
+        "button_label": "",
+        "button_url": "mailto:events@thillbc.com"
+      }
+    },
+    "slideshow_AWzaYc": {
+      "type": "slideshow",
+      "blocks": {
+        "image_dqaH8J": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "banner_image": "shopify://shop_images/THill_EK_090425_4037_1.jpg",
+            "banner_overlay": 0,
+            "content_position": "middle-center",
+            "content_box": false,
+            "subheading_text": "",
+            "heading_text": "",
+            "heading_size": "h2",
+            "text_content": "",
+            "button_label": "",
+            "button_variant": "outline",
+            "button_link": "",
+            "color_scheme": "invert"
+          }
+        },
+        "image_kPi7Py": {
+          "type": "image",
+          "settings": {
+            "banner_image": "shopify://shop_images/THill_EK_052925_2349.jpg",
+            "banner_overlay": 0,
+            "content_position": "middle-center",
+            "content_box": false,
+            "subheading_text": "",
+            "heading_text": "",
+            "heading_size": "h1",
+            "text_content": "",
+            "button_label": "",
+            "button_variant": "outline",
+            "button_link": "",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_dqaH8J",
+        "image_kPi7Py"
+      ],
+      "disabled": true,
+      "name": "Slideshow",
+      "settings": {
+        "image_size": "large",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "show_arrows_on_desktop": false,
+        "autoplay": "4"
+      }
+    },
+    "image_with_text_TUpTKT": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_kpkmG9": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "PARTY READY PACKAGES",
+            "heading_animation": true,
+            "heading_size": "h2"
+          }
+        },
+        "description_UJntPq": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Want great food without all the fuss? These grab-and-go packages are perfect for smaller crews (10-40 people). We'll prep everything fresh and have it ready for pickup - no staff, no setup, just delicious food ready to roll. Great for birthdays, casual hangouts, or when you want to keep things simple. Just order 2 weeks ahead and you're set.</p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_kpkmG9",
+        "description_UJntPq"
+      ],
+      "disabled": true,
+      "name": "Image with text",
+      "settings": {
+        "color_scheme": "",
+        "hover_parallax": false,
+        "use_bg": false,
+        "image": "shopify://shop_images/65d519ab3500a83244f1783a_IMG_8690-p-500_3f7f19e4-81f2-4c6c-a372-d3924987f18a.jpg",
+        "image_position": "left",
+        "image_width": "medium",
+        "image_size": "auto",
+        "text_align": "left",
+        "content_position": "middle-center"
+      }
+    },
+    "page-header": {
+      "type": "page-header",
+      "disabled": true,
+      "settings": {
+        "page_header_color_scheme": "",
+        "page_header_center_text": true,
+        "page_header_heading_size": "h1",
+        "page_header_image_overlay": 30,
+        "page_header_image_size": "medium",
+        "page_header_scroll_clip": false,
+        "page_header_overlap": true
+      }
+    },
+    "image_with_text_DFgzJn": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_Aqd8GN": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "BUFFET PACKAGES",
+            "heading_animation": true,
+            "heading_size": "h2"
+          }
+        },
+        "description_MAjeGB": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Perfect for the big celebrations - weddings, company parties, graduations, or any time you've got 25+ people to feed. We'll set up a killer buffet spread with pizza, pasta, BBQ, and taco options, plus we can hook you up with drink tickets or an open bar. Our team handles everything so you can actually enjoy your own party. Just give us 3 weeks heads up and we'll make it happen.</p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_Aqd8GN",
+        "description_MAjeGB"
+      ],
+      "disabled": true,
+      "name": "Image with text",
+      "settings": {
+        "color_scheme": "",
+        "hover_parallax": false,
+        "use_bg": false,
+        "image": "shopify://shop_images/65d519a9d12c9e93e6b5859d_IMG_5697-p-500_f7fa9514-49c2-499d-aa59-e4b966f41ef9.jpg",
+        "image_position": "right",
+        "image_width": "medium",
+        "image_size": "auto",
+        "text_align": "left",
+        "content_position": "middle-center"
+      }
+    },
+    "image_with_text_37ibFk": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_k7AVHh": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "EVENT SPACE RENTALS",
+            "heading_animation": true,
+            "heading_size": "h2"
+          }
+        },
+        "description_wBcbyz": {
+          "type": "description",
+          "settings": {
+            "text_content": "<p>Rentals from a table of eight to a partial/total brewery buyout. Our back patio seats up to 150 guests with a maximum occupancy of 500. Our front party rental deck seats up to 118 with a maximum occupancy of 150.Great for company parties, class reunions, celebration of life, concerts, and endless opportunities.</p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_k7AVHh",
+        "description_wBcbyz"
+      ],
+      "disabled": true,
+      "name": "Image with text",
+      "settings": {
+        "color_scheme": "",
+        "hover_parallax": false,
+        "use_bg": false,
+        "image": "shopify://shop_images/60137091fd6868a7a62ee424_TARANTULAHILL_BREWINGCO_THOUSAND_OAKS_BEER_HOME-p-500_fc8eed44-816a-4f51-994c-6dbd400e27a6.jpg",
+        "image_position": "left",
+        "image_width": "medium",
+        "image_size": "auto",
+        "text_align": "left",
+        "content_position": "middle-center"
+      }
+    },
+    "page": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container_width": "normal"
+      }
+    },
+    "tripleseat_form_j6BQqi": {
+      "type": "tripleseat-form",
+      "name": "Book Your Event Form",
+      "settings": {
+        "color_scheme": "invert",
+        "eyebrow": "Parties of 20 or less",
+        "heading": "Book your table",
+        "description": "<p>Fill out the form and we'll confirm our availability. For fastest response, please submit at least 14 days before your event date.</p>",
+        "show_details": true,
+        "detail_1_label": "Lead Time",
+        "detail_1": "14 day minimum for table rental",
+        "detail_2_label": "booked table hours",
+        "detail_2": "Mon 3-8PM  | Tues-Sun 12-8PM",
+        "detail_3_label": "Questions?",
+        "detail_3": "Please direct your questions to the form"
+      }
+    },
+    "custom_liquid_ywQtTK": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "custom_css": [
+        "/* Triple C Form Center */.triple-c-integration,.triple-c-widget,form {display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 auto !important; width: 100% !important; max-width: 500px !important; font-family: \"Poppins\", sans-serif !important;}",
+        ".triple-c-integration h1,.triple-c-integration h2,.triple-c-widget h1,.triple-c-widget h2 {font-family: \"Poppins Black\", sans-serif !important; font-weight: 900 !important;}"
+      ],
+      "name": "Custom liquid",
+      "settings": {
+        "section_heading": "",
+        "section_heading_size": "h1",
+        "section_heading_animation": true,
+        "section_center_heading": true,
+        "section_description": "",
+        "section_color_scheme": "invert",
+        "liquid_content": "{% comment %}\n  Triple C Integration - Custom Liquid Section\n  Copy and paste this code directly into a Custom Liquid section in your theme editor\n{% endcomment %}\n\n<div class=\"triple-c-integration\">\n  <h2 class=\"triple-c-header\">Book Your Event</h2>\n  <script src=\"https://api.tripleseat.com/v1/leads/ts_script.js?lead_form_id=40253&public_key=5b4725353b4a6782d9885222a1964f52f496eda8\"></script>\n  <a id=\"tripleseat_link\" href=\"https://www.tripleseat.com\">Private Event Software powered by Tripleseat</a>\n</div>\n\n<style>\n  .triple-c-header {\n    font-family: 'Poppins Black', 'Poppins', sans-serif !important;\n    font-weight: 900 !important;\n    font-size: 2rem !important;\n    margin: 0 0 20px 0 !important;\n    color: inherit !important;\n  }\n\n  .triple-c-integration {\n    font-family: 'Poppins', sans-serif;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    text-align: center;\n    margin: 0 auto;\n    width: 100%;\n    max-width: 600px;\n    padding: 20px 15px 0 15px;\n  }\n\n  .triple-c-integration button {\n    background-color: black !important;\n    color: white !important;\n    border: none !important;\n    padding: 10px 20px !important;\n    font-family: 'Poppins', sans-serif !important;\n    font-size: 16px !important;\n    border-radius: 5px !important;\n    cursor: pointer !important;\n  }\n\n  .triple-c-integration button:hover {\n    background-color: darkgray !important;\n    color: black !important;\n  }\n\n  /* Form styling improvements */\n  .triple-c-integration form {\n    width: 100% !important;\n    max-width: 500px !important;\n    margin: 0 auto !important;\n  }\n\n  .triple-c-integration input,\n  .triple-c-integration textarea,\n  .triple-c-integration select {\n    width: 100% !important;\n    padding: 12px !important;\n    margin: 8px 0 !important;\n    border: 1px solid #ccc !important;\n    border-radius: 5px !important;\n    font-family: 'Poppins', sans-serif !important;\n    font-size: 14px !important;\n    box-sizing: border-box !important;\n  }\n\n  .triple-c-integration label {\n    display: block !important;\n    margin-top: 10px !important;\n    margin-bottom: 5px !important;\n    font-family: 'Poppins Black', 'Poppins', sans-serif !important;\n    font-weight: 700 !important;\n    text-align: left !important;\n  }\n\n  .triple-c-integration .form-row {\n    display: flex !important;\n    gap: 10px !important;\n    width: 100% !important;\n  }\n\n  .triple-c-integration .form-row input {\n    flex: 1 !important;\n  }\n\n  .triple-c-integration a {\n    font-family: 'Poppins', sans-serif;\n    color: inherit;\n    text-decoration: none;\n    margin-top: 15px;\n    font-size: 12px;\n    opacity: 0.7;\n  }\n\n  .triple-c-integration a:hover {\n    opacity: 0.9;\n  }\n\n  /* Mobile responsive */\n  @media screen and (max-width: 768px) {\n    .triple-c-integration {\n      padding: 15px 10px 0 10px;\n      max-width: 100%;\n    }\n    \n    .triple-c-integration button {\n      font-size: 14px !important;\n      padding: 12px 20px !important;\n      width: 100% !important;\n      margin-top: 10px !important;\n    }\n\n    .triple-c-integration .form-row {\n      flex-direction: column !important;\n      gap: 0 !important;\n    }\n  }\n</style>"
+      }
+    },
+    "hero_Y7WYb6": {
+      "type": "hero",
+      "name": "Hero",
+      "settings": {
+        "banner_image": "shopify://shop_images/THill_EK_062825_2700.jpg",
+        "banner_overlay": 0,
+        "banner_size": "large",
+        "gyro_effect": false,
+        "scroll_clip": false,
+        "text_align": "center",
+        "content_position": "middle-center",
+        "content_box": false,
+        "color_scheme": ""
+      }
+    }
+  },
+  "order": [
+    "hero_RUxVbb",
+    "seating_reservations_gHVRJT",
+    "party_ready_packages_t8wnww",
+    "house_rules_xK8dWY",
+    "slideshow_NfKbzn",
+    "buffet_packages_PWgkeB",
+    "slideshow_AWzaYc",
+    "image_with_text_TUpTKT",
+    "page-header",
+    "image_with_text_DFgzJn",
+    "image_with_text_37ibFk",
+    "page",
+    "tripleseat_form_j6BQqi",
+    "custom_liquid_ywQtTK",
+    "hero_Y7WYb6"
+  ]
+}

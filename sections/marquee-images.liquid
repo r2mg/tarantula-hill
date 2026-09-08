@@ -1,0 +1,232 @@
+{% style %}
+	.marquee-images-section__item--size--small {
+		--marquee-images-content-size: 6rem;
+	}
+
+	.marquee-images-section__item--size--medium {
+		--marquee-images-content-size: 8rem;
+	}
+
+	.marquee-images-section__item--size--large {
+		--marquee-images-content-size: 10rem;
+	}
+
+	.marquee-images-section__item {
+		position: relative;
+		flex-shrink: 0;
+		width: max-content;
+		height: var(--marquee-images-content-size, 8rem);
+	}
+
+	.marquee-images-section__image {
+		height: var(--marquee-images-content-size, 8rem);
+	}
+
+	.marquee-images-section__image > img {
+		height: var(--marquee-images-content-size, 8rem);
+		width: auto;
+	}
+{% endstyle %}
+{%- if section.blocks.size > 0 -%}
+	{%- capture capture_blocks -%}
+		{%- for block in section.blocks %}
+			<div class="marquee-images-section__item marquee-images-section__item--size--{{ section.settings.content_size }}">
+				{% assign link_aria_label = block.settings.image.alt %}
+				{% if block.settings.image != blank %}
+					<picture class="marquee-images-section__image">
+						<source srcset="{{ block.settings.image | image_url: width: 200 }} 1x, {{ block.settings.image | image_url: width: 400 }} 2x, {{ block.settings.image | image_url: width: 600 }} 3x">
+
+						<img
+							src="{{ block.settings.image | image_url }}"
+							alt="{{ block.settings.image.alt | escape }}"
+							width="{{ block.settings.image.width }}"
+							height="{{ block.settings.image.height }}"
+							loading="lazy"
+							data-img-loading
+							onload="this.removeAttribute(&#34;data-img-loading&#34;)"
+						>
+					</picture>
+				{%- else %}
+					{{
+						forloop.index0
+						| modulo: 6
+						| plus: 1
+						| prepend: '-'
+						| prepend: 'collection'
+						| placeholder_svg_tag: 'marquee-images-section__image'
+					-}}
+				{%- endif %}
+				{% if block.settings.link != blank -%}
+					{%- if block.settings.link != blank -%}
+						<a class="stretched-link" href="{{ block.settings.link }}" aria-label="{{ link_aria_label }}"> </a>
+					{%- endif -%}
+				{%- endif %}
+			</div>
+		{% endfor -%}
+	{%- endcapture -%}
+{%- endif %}
+
+<div class="color-scheme-{{ section.settings.color_scheme.id }}">
+	<x-moving-line
+		class="moving-line moving-line--animation--{{ section.settings.type }} {% if section.settings.stop_on_hover %}moving-line--stop-on-hover{% endif %} moving-line--spacing--{{ section.settings.space_between }}"
+		style="--moving-line-direction: {{ section.settings.direction }};--moving-line-animation-speed-mult: {{ section.settings.speed }};"
+	>
+		<div class="moving-line__content" data-moving-line-element="content">
+			{{ capture_blocks }}
+		</div>
+	</x-moving-line>
+	<script type="module" src="{{ 'component-moving-line.js' | asset_url }}"></script>
+</div>
+
+{% schema %}
+	{
+		"name": "Marquee images",
+		"class": "marquee-images-section",
+		"presets": [
+			{
+				"name": "Marquee images",
+				"blocks": [
+					{
+						"type": "image"
+					},
+					{
+						"type": "image"
+					}
+				],
+				"category": "Promotional"
+			}
+		],
+		"disabled_on": {
+			"templates": ["password"],
+			"groups": ["header", "custom.overlay"]
+		},
+		"settings": [
+			{
+				"type": "color_scheme",
+				"id": "color_scheme",
+				"label": "Color scheme"
+			},
+			{
+				"type": "select",
+				"id": "content_size",
+				"label": "Images height",
+				"options": [
+					{
+						"label": "Small",
+						"value": "small"
+					},
+					{
+						"label": "Medium",
+						"value": "medium"
+					},
+					{
+						"label": "Large",
+						"value": "large"
+					}
+				],
+				"default": "medium"
+			},
+			{
+				"type": "select",
+				"id": "type",
+				"label": "Moving type",
+				"options": [
+					{
+						"label": "Auto",
+						"value": "auto"
+					},
+					{
+						"label": "On scroll",
+						"value": "scroll"
+					}
+				],
+				"default": "scroll"
+			},
+			{
+				"type": "checkbox",
+				"id": "stop_on_hover",
+				"label": "Stop on mouseover",
+				"default": true,
+				"info": "Affects only 'Auto' moving type"
+			},
+			{
+				"type": "select",
+				"id": "direction",
+				"label": "Moving direction",
+				"options": [
+					{
+						"label": "To left",
+						"value": "normal"
+					},
+					{
+						"label": "To right",
+						"value": "reverse"
+					}
+				],
+				"default": "normal"
+			},
+			{
+				"type": "select",
+				"id": "speed",
+				"label": "Moving speed",
+				"options": [
+					{
+						"label": "Slow",
+						"value": "2"
+					},
+					{
+						"label": "Normal",
+						"value": "1"
+					},
+					{
+						"label": "Fast",
+						"value": "0.5"
+					}
+				],
+				"default": "1"
+			},
+			{
+				"type": "select",
+				"id": "space_between",
+				"label": "Space between images",
+				"options": [
+					{
+						"label": "None",
+						"value": "none"
+					},
+					{
+						"label": "Small",
+						"value": "small"
+					},
+					{
+						"label": "Medium",
+						"value": "medium"
+					},
+					{
+						"label": "Large",
+						"value": "large"
+					}
+				],
+				"default": "none"
+			}
+		],
+		"blocks": [
+			{
+				"name": "Image",
+				"type": "image",
+				"settings": [
+					{
+						"type": "image_picker",
+						"id": "image",
+						"label": "Image"
+					},
+					{
+						"type": "url",
+						"id": "link",
+						"label": "Link"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}
