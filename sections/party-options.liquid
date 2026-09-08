@@ -34,14 +34,14 @@
   assign uid = section.id
   assign table_key = 'rent-a-table'
   assign buffet_key = 'buffet-service'
+  assign active_scheme = 'color-scheme-' | append: section.settings.card_active_color_scheme
 -%}
 
-<div class="party-options" id="PartyOptions-{{ uid }}">
+<div class="section-wrapper color-scheme-{{ section.settings.color_scheme }} section-wrapper--y-offset--padding">
+  <div class="section__inner container">
+    <div class="party-options" id="PartyOptions-{{ uid }}">
 
-  {%- comment -%} ── Chooser band ──────────────────────────────────────── {%- endcomment -%}
-  <div class="section-wrapper color-scheme-{{ section.settings.color_scheme }} section-wrapper--y-offset--padding">
-    <div class="section__inner container">
-
+      {%- comment -%} ── Chooser ─────────────────────────────────────── {%- endcomment -%}
       <div class="po-chooser">
         {% if section.settings.eyebrow != blank %}
           <p class="subheading po-eyebrow">{{ section.settings.eyebrow }}</p>
@@ -60,7 +60,7 @@
           {%- comment -%} Option 1 card — rent a table {%- endcomment -%}
           <button
             type="button"
-            class="po-card"
+            class="po-card {{ active_scheme }}"
             data-po-option="{{ table_key }}"
             aria-pressed="true"
             aria-controls="PartyOptions-{{ uid }}-{{ table_key }}"
@@ -126,13 +126,6 @@
           {%- endcomment -%}
         </div>
       </div>
-
-    </div>
-  </div>
-
-  {%- comment -%} ── Panel band — its own colour scheme ────────────────── {%- endcomment -%}
-  <div class="section-wrapper color-scheme-{{ section.settings.panel_color_scheme }} section-wrapper--y-offset--padding">
-    <div class="section__inner container">
 
       {%- comment -%} ── Option 1 panel — rent a table ───────────────── {%- endcomment -%}
       <div
@@ -365,6 +358,11 @@
 
 <style>
   /* ══ Chooser ═════════════════════════════════════════════════════════ */
+  {{ s }} {
+    --po-focus: var(--color-scheme-text);
+    scroll-margin-top: 5rem;
+  }
+
   {{ s }} .po-eyebrow {
     margin-bottom: 0.5rem;
     font-size: calc(var(--glob-text-scale-xs) * 1rem);
@@ -394,6 +392,7 @@
   }
 
   {{ s }} .po-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -417,13 +416,33 @@
     border-color: var(--color-scheme-text);
   }
 
+  /* Selected card carries its own colour scheme (see card_active_color_scheme),
+     so everything inside it — including the theme .button — flips with it. */
   {{ s }} .po-card[aria-pressed="true"] {
-    border-color: var(--color-scheme-text);
-    box-shadow: inset 0 0 0 1px var(--color-scheme-text);
+    background: var(--color-scheme-background);
+    color: var(--color-scheme-text);
+    border-color: var(--color-scheme-background);
   }
 
+  /* The notch: a square rotated 45deg straddling the bottom edge, so the
+     card's outline reads as continuing down into a point at the panel. */
+  {{ s }} .po-card[aria-pressed="true"]::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 15px;
+    height: 15px;
+    transform: translate(-50%, 50%) rotate(45deg);
+    background: var(--color-scheme-background);
+    border-right: 1px solid var(--color-scheme-border);
+    border-bottom: 1px solid var(--color-scheme-border);
+  }
+
+  /* Focus ring uses the section's text colour, not the selected card's
+     inverted one, so it stays visible against the page. */
   {{ s }} .po-card:focus-visible {
-    outline: 2px solid var(--color-scheme-text);
+    outline: 2px solid var(--po-focus);
     outline-offset: 3px;
   }
 
@@ -495,6 +514,21 @@
     top: 0;
     width: 100%;
     pointer-events: none;
+  }
+
+  {{ s }} .po-panel {
+    margin-top: 3rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    {{ s }} .po-panel--enter {
+      animation: po-panel-enter 180ms ease-out;
+    }
+  }
+
+  @keyframes po-panel-enter {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
   }
 
   {{ s }} .po-panel__grid {
@@ -1256,6 +1290,10 @@
       padding: 1.5rem 1.25rem;
     }
 
+    {{ s }} .po-panel {
+      margin-top: 2rem;
+    }
+
     {{ s }} .po-package {
       padding: 1.5rem 1.25rem;
     }
@@ -1274,6 +1312,8 @@
     var HIDE_MODE = 'attribute';
 
     var DEFAULT_OPTION = '{{ table_key }}';
+    var ACTIVE_SCHEME = '{{ active_scheme }}';
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var cards = root.querySelectorAll('[data-po-option]');
     var panels = root.querySelectorAll('[data-po-panel]');
 
@@ -1296,16 +1336,19 @@
       return false;
     }
 
-    function select(name, updateHash) {
+    function select(name, updateHash, animate) {
       if (!isKnown(name)) name = DEFAULT_OPTION;
 
       for (var i = 0; i < cards.length; i++) {
         var active = cards[i].getAttribute('data-po-option') === name;
         cards[i].setAttribute('aria-pressed', active ? 'true' : 'false');
+        if (ACTIVE_SCHEME) cards[i].classList.toggle(ACTIVE_SCHEME, active);
       }
 
       for (var j = 0; j < panels.length; j++) {
-        showPanel(panels[j], panels[j].getAttribute('data-po-panel') === name);
+        var show = panels[j].getAttribute('data-po-panel') === name;
+        showPanel(panels[j], show);
+        if (show && animate && !reduceMotion) replay(panels[j]);
       }
 
       if (updateHash && window.history && window.history.replaceState) {
@@ -1315,15 +1358,28 @@
       }
     }
 
+    /* Restart the enter animation on a panel that may already carry the class. */
+    function replay(panel) {
+      panel.classList.remove('po-panel--enter');
+      void panel.offsetWidth;
+      panel.classList.add('po-panel--enter');
+    }
+
+    root.addEventListener('animationend', function (event) {
+      if (event.animationName === 'po-panel-enter') {
+        event.target.classList.remove('po-panel--enter');
+      }
+    });
+
     for (var i = 0; i < cards.length; i++) {
       cards[i].addEventListener('click', function (event) {
-        select(event.currentTarget.getAttribute('data-po-option'), true);
+        select(event.currentTarget.getAttribute('data-po-option'), true, true);
       });
     }
 
     window.addEventListener('hashchange', function () {
       var name = window.location.hash.replace('#', '');
-      if (isKnown(name)) select(name, false);
+      if (isKnown(name)) select(name, false, true);
     });
 
     /* Food packages disclosure */
@@ -1348,7 +1404,16 @@
       });
     }
 
-    select(window.location.hash.replace('#', '') || DEFAULT_OPTION, false);
+    var initial = window.location.hash.replace('#', '');
+    select(initial || DEFAULT_OPTION, false, false);
+
+    /* Deep link: land on the chooser so both options and the selected one
+       are visible, rather than dropping the visitor inside the panel. */
+    if (isKnown(initial)) {
+      requestAnimationFrame(function () {
+        root.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      });
+    }
   })();
 </script>
 
@@ -1361,7 +1426,7 @@
     {
       "type": "select",
       "id": "color_scheme",
-      "label": "Chooser color scheme",
+      "label": "Color scheme",
       "options": [
         { "value": "main", "label": "White" },
         { "value": "alt", "label": "Light Gray" },
@@ -1371,15 +1436,15 @@
     },
     {
       "type": "select",
-      "id": "panel_color_scheme",
-      "label": "Panel color scheme",
-      "info": "Background behind the selected option's details and booking form.",
+      "id": "card_active_color_scheme",
+      "label": "Selected card color scheme",
+      "info": "Applied to whichever option card is selected. Buttons and text inside it follow this scheme.",
       "options": [
         { "value": "main", "label": "White" },
         { "value": "alt", "label": "Light Gray" },
         { "value": "invert", "label": "Black" }
       ],
-      "default": "alt"
+      "default": "invert"
     },
     {
       "type": "header",
