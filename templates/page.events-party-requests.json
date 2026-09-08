@@ -254,6 +254,7 @@
         "b_heading": "Buffet service",
         "b_description": "<p>Ideal for larger celebrations — class reunions, weddings, company parties, graduations, or any event with 20+ guests. We set up a full buffet spread with pizza, BBQ, and taco options, plus choose between drink tickets or an open bar. Our team handles everything.</p>",
         "rules_heading": "Before you book",
+        "rules_color_scheme": "alt",
         "ts_public_key": "5b4725353b4a6782d9885222a1964f52f496eda8",
         "t_lead_form_id": "40253",
         "b_lead_form_id": "2306",

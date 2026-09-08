@@ -35,6 +35,7 @@
   assign table_key = 'rent-a-table'
   assign buffet_key = 'buffet-service'
   assign active_scheme = 'color-scheme-' | append: section.settings.card_active_color_scheme
+  assign rules_scheme = 'color-scheme-' | append: section.settings.rules_color_scheme
 -%}
 
 <div class="section-wrapper color-scheme-{{ section.settings.color_scheme }} section-wrapper--y-offset--padding">
@@ -236,7 +237,7 @@
             {% endfor %}
 
             {% if has_table_rules %}
-              <div class="po-rules">
+              <div class="po-rules {{ rules_scheme }}">
                 {% if section.settings.rules_heading != blank %}
                   <p class="po-rules__heading">{{ section.settings.rules_heading }}</p>
                 {% endif %}
@@ -319,7 +320,7 @@
             {% endfor %}
 
             {% if has_buffet_rules %}
-              <div class="po-rules">
+              <div class="po-rules {{ rules_scheme }}">
                 {% if section.settings.rules_heading != blank %}
                   <p class="po-rules__heading">{{ section.settings.rules_heading }}</p>
                 {% endif %}
@@ -756,7 +757,15 @@
     opacity: 0.85;
   }
 
-  /* ══ House rules ═════════════════════════════════════════════════════ */
+  /* ══ House rules ═════════════════════════════════════════════════════
+     Boxed and on their own colour scheme, so they read as reference copy
+     rather than as more form UI sitting beside the booking form. */
+  {{ s }} .po-rules {
+    background: var(--color-scheme-background);
+    color: var(--color-scheme-text);
+    padding: 1.75rem;
+  }
+
   {{ s }} .po-rules__heading {
     font-family: var(--glob-subheading-font);
     font-weight: var(--glob-subheading-weight);
@@ -764,7 +773,7 @@
     font-size: calc(var(--glob-text-scale-xs) * 1rem);
     letter-spacing: 0.15em;
     opacity: 0.5;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.9rem;
   }
 
   {{ s }} .po-rules__list {
@@ -773,26 +782,27 @@
     padding: 0;
   }
 
+  /* No dividing rule per item: the box does the containing, and the old
+     borders rhymed with the form's underlined fields. */
   {{ s }} .po-rule {
     display: flex;
     align-items: flex-start;
-    gap: 1rem;
-    padding: 1.1rem 0;
-    border-bottom: 1px solid var(--color-scheme-border);
+    gap: 0.75rem;
+    padding: 0.4rem 0;
     font-size: calc(var(--glob-text-scale-sm) * 1rem);
     line-height: 1.55;
   }
 
+  /* Unboxed check: the 20px outlined square read as a checkbox. */
   {{ s }} .po-rule__mark {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    border: 1.5px solid currentColor;
-    margin-top: 0.15rem;
-    opacity: 0.9;
+    width: 12px;
+    height: 12px;
+    min-width: 12px;
+    margin-top: 0.35rem;
+    opacity: 0.5;
   }
 
   {{ s }} .po-rule__text {
@@ -1294,6 +1304,10 @@
       margin-top: 2rem;
     }
 
+    {{ s }} .po-rules {
+      padding: 1.35rem 1.25rem;
+    }
+
     {{ s }} .po-package {
       padding: 1.5rem 1.25rem;
     }
@@ -1621,6 +1635,18 @@
       "id": "rules_heading",
       "label": "Rules heading",
       "default": "Before you book"
+    },
+    {
+      "type": "select",
+      "id": "rules_color_scheme",
+      "label": "Rules box color scheme",
+      "info": "The rules sit in a filled box so they read apart from the booking form.",
+      "options": [
+        { "value": "main", "label": "White" },
+        { "value": "alt", "label": "Light Gray" },
+        { "value": "invert", "label": "Black" }
+      ],
+      "default": "alt"
     },
     {
       "type": "header",
