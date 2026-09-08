@@ -891,7 +891,11 @@
     line-height: 1.4 !important;
   }
 
-  {{ s }} .po-form-wrap--table #tripleseat_embed_form h2:first-of-type {
+  /* Only the form's very first heading loses its top margin. NOT
+     `h2:first-of-type` — in this table-based form every h2 sits alone in its
+     own <td>, so that selector matches every heading and flattens the
+     spacing above all of them. */
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr:first-child h2 {
     margin-top: 0 !important;
   }
 
@@ -1156,18 +1160,36 @@
     background-position: center !important;
   }
 
-  {{ s }} .po-form-wrap .row_gdpr_consent td,
-  {{ s }} .po-form-wrap td:has(input[type="checkbox"]) {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: flex-start !important;
-    gap: 0.75rem !important;
+  /* Consent / opt-in rows in the legacy form.
+     Tripleseat's own injected CSS floats BOTH the checkbox and its label:
+       #tripleseat_embed_form .row_gdpr_consent input,
+       #tripleseat_embed_form .row_gdpr_consent label { float: left; }
+     That leaves the cell with no in-flow content, so it collapses to zero
+     height and the next section heading rides up into the row. Making the
+     cell a grid container fixes it at the source — float is ignored on grid
+     items — and gives the control and its label explicit columns.
+     These selectors include #tripleseat_embed_form so they outweigh the
+     generic `td { display: block }` reset further up, which has two IDs. */
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr.row_gdpr_consent td,
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr.row_email_opt_out td,
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form td:has(input[type="checkbox"]) {
+    display: grid !important;
+    grid-template-columns: 16px minmax(0, 1fr) !important;
+    column-gap: 0.75rem !important;
+    row-gap: 0 !important;
+    align-items: start !important;
     width: 100% !important;
   }
 
-  {{ s }} .po-form-wrap .row_gdpr_consent label,
-  {{ s }} .po-form-wrap td:has(input[type="checkbox"]) label {
-    order: 1 !important;
+  /* Belt and braces: drop the floats themselves, which also covers the other
+     rows Tripleseat floats (.location_list, booking checkboxes). */
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form td > input[type="checkbox"],
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form td > label,
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form .location_list label {
+    float: none !important;
+  }
+
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form td:has(input[type="checkbox"]) > label {
     opacity: 0.55 !important;
     font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;
     letter-spacing: 0.02em !important;
