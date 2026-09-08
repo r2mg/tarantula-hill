@@ -65,6 +65,9 @@
             aria-controls="PartyOptions-{{ uid }}-{{ table_key }}"
           >
             <span class="po-card__top">
+              {% if section.settings.t_eyebrow != blank %}
+                <span class="po-card__eyebrow">{{ section.settings.t_eyebrow }}</span>
+              {% endif %}
               {% if section.settings.t_label != blank %}
                 <span class="po-card__label">{{ section.settings.t_label }}</span>
               {% endif %}
@@ -92,6 +95,9 @@
             aria-controls="PartyOptions-{{ uid }}-{{ buffet_key }}"
           >
             <span class="po-card__top">
+              {% if section.settings.b_eyebrow != blank %}
+                <span class="po-card__eyebrow">{{ section.settings.b_eyebrow }}</span>
+              {% endif %}
               {% if section.settings.b_label != blank %}
                 <span class="po-card__label">{{ section.settings.b_label }}</span>
               {% endif %}
@@ -417,6 +423,16 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+  }
+
+  {{ s }} .po-card__eyebrow {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 0.9rem);
+    letter-spacing: 0.18em;
+    opacity: 0.45;
+    margin-bottom: 0.15rem;
   }
 
   {{ s }} .po-card__label {
@@ -1384,6 +1400,12 @@
     },
     {
       "type": "text",
+      "id": "t_eyebrow",
+      "label": "Card eyebrow",
+      "default": "Option 1"
+    },
+    {
+      "type": "text",
       "id": "t_label",
       "label": "Card label",
       "default": "Rent a table"
@@ -1415,6 +1437,12 @@
     {
       "type": "header",
       "content": "Option 2 card — Buffet service"
+    },
+    {
+      "type": "text",
+      "id": "b_eyebrow",
+      "label": "Card eyebrow",
+      "default": "Option 2"
     },
     {
       "type": "text",
