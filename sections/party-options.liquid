@@ -1,0 +1,1950 @@
+{% comment %}
+  Section: Party Options — Rent a table / Buffet service
+  Location: Tarantula Hill Brewing Co. — Book a Party page
+  Add via: Online Store > Themes > Customize > Add Section
+
+  Replaces the old "Step 1 / Step 2" stack (seating-reservations +
+  party-ready-packages + house-rules + buffet-packages + tripleseat-form)
+  with two independent booking options behind a chooser.
+
+  ── How it works ────────────────────────────────────────────────────────
+  - Two cards act as radio-ish toggles (aria-pressed, keyboard operable).
+  - Selecting one reveals its panel, hides the other, and sets the URL hash
+    (#rent-a-table / #buffet-service). The hash is read back on load.
+  - BOTH Tripleseat script tags are in the DOM on page load. Panels are
+    toggled, never injected, so neither embed is re-initialised. See
+    HIDE_MODE in the script below if reCAPTCHA misbehaves in a hidden panel.
+
+  ── Notes on the Tripleseat embeds (do not modify the script tags) ───────
+  - Option 1 uses the legacy v1 lead form endpoint (lead_form_id).
+  - Option 2 uses the newer dynamic lead form endpoint (dynamic_lead_form_id).
+  - Both embeds inject an element with id="tripleseat_embed_form", so with
+    both on one page that id is duplicated. All CSS below is scoped to this
+    section AND to the owning panel so the two forms cannot style each other.
+    The table panel is rendered first so a getElementById() lookup in the
+    legacy script resolves to its own form.
+  - The v1 script tag is NOT deferred here (it was in sections/tripleseat-form.liquid).
+    It writes the Google reCAPTCHA <script> with document.write(), which the
+    browser drops when the writing script is deferred; without defer it loads
+    its own reCAPTCHA instead of relying on the buffet embed to load it.
+{% endcomment %}
+
+{%- liquid
+  assign s = '#PartyOptions-' | append: section.id
+  assign uid = section.id
+  assign table_key = 'rent-a-table'
+  assign buffet_key = 'buffet-service'
+  assign active_scheme = 'color-scheme-' | append: section.settings.card_active_color_scheme
+  assign rules_scheme = 'color-scheme-' | append: section.settings.rules_color_scheme
+-%}
+
+<div class="section-wrapper color-scheme-{{ section.settings.color_scheme }} section-wrapper--y-offset--padding">
+  <div class="section__inner container">
+    <div class="party-options" id="PartyOptions-{{ uid }}">
+
+      {%- comment -%} ── Chooser ─────────────────────────────────────── {%- endcomment -%}
+      <div class="po-chooser">
+        {% if section.settings.eyebrow != blank %}
+          <p class="subheading po-eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="section__heading po-heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="rte po-intro">{{ section.settings.description }}</div>
+        {% endif %}
+
+        <div class="po-cards" role="group" aria-label="{{ section.settings.heading | escape }}">
+
+          {%- comment -%} Option 1 card — rent a table {%- endcomment -%}
+          <button
+            type="button"
+            class="po-card {{ active_scheme }}"
+            data-po-option="{{ table_key }}"
+            aria-pressed="true"
+            aria-controls="PartyOptions-{{ uid }}-{{ table_key }}"
+          >
+            <span class="po-card__top">
+              {% if section.settings.t_eyebrow != blank %}
+                <span class="po-card__eyebrow">{{ section.settings.t_eyebrow }}</span>
+              {% endif %}
+              {% if section.settings.t_label != blank %}
+                <span class="po-card__label">{{ section.settings.t_label }}</span>
+              {% endif %}
+              {% if section.settings.t_guests != blank %}
+                <span class="po-card__guests">{{ section.settings.t_guests }}</span>
+              {% endif %}
+            </span>
+            {% if section.settings.t_pitch != blank %}
+              <span class="po-card__pitch">{{ section.settings.t_pitch }}</span>
+            {% endif %}
+            {% if section.settings.t_meta != blank %}
+              <span class="po-card__meta">{{ section.settings.t_meta }}</span>
+            {% endif %}
+            {% if section.settings.t_button != blank %}
+              <span class="button po-card__button">{{ section.settings.t_button }}</span>
+            {% endif %}
+          </button>
+
+          {%- comment -%} Option 2 card — buffet service {%- endcomment -%}
+          <button
+            type="button"
+            class="po-card"
+            data-po-option="{{ buffet_key }}"
+            aria-pressed="false"
+            aria-controls="PartyOptions-{{ uid }}-{{ buffet_key }}"
+          >
+            <span class="po-card__top">
+              {% if section.settings.b_eyebrow != blank %}
+                <span class="po-card__eyebrow">{{ section.settings.b_eyebrow }}</span>
+              {% endif %}
+              {% if section.settings.b_label != blank %}
+                <span class="po-card__label">{{ section.settings.b_label }}</span>
+              {% endif %}
+              {% if section.settings.b_guests != blank %}
+                <span class="po-card__guests">{{ section.settings.b_guests }}</span>
+              {% endif %}
+            </span>
+            {% if section.settings.b_pitch != blank %}
+              <span class="po-card__pitch">{{ section.settings.b_pitch }}</span>
+            {% endif %}
+            {% if section.settings.b_meta != blank %}
+              <span class="po-card__meta">{{ section.settings.b_meta }}</span>
+            {% endif %}
+            {% if section.settings.b_button != blank %}
+              <span class="button po-card__button">{{ section.settings.b_button }}</span>
+            {% endif %}
+          </button>
+
+          {%- comment -%}
+            TODO — open question for the client, do not guess:
+            a group of exactly 20 people. Option 1 says "up to 20" and
+            Option 2 says "20+", so both currently claim it. Once decided,
+            fix t_guests / b_guests (and the "For groups of more than 20…"
+            rule) so only one side owns 20.
+          {%- endcomment -%}
+        </div>
+      </div>
+
+      {%- comment -%} ── Option 1 panel — rent a table ───────────────── {%- endcomment -%}
+      <div
+        class="po-panel po-panel--table"
+        id="PartyOptions-{{ uid }}-{{ table_key }}"
+        data-po-panel="{{ table_key }}"
+        role="region"
+        aria-label="{{ section.settings.t_heading | escape }}"
+      >
+        <div class="po-panel__grid">
+
+          <div class="po-panel__details">
+            {% if section.settings.t_heading != blank %}
+              <h3 class="po-panel__heading">{{ section.settings.t_heading }}</h3>
+            {% endif %}
+
+            {% if section.settings.t_description != blank %}
+              <div class="rte po-panel__intro">{{ section.settings.t_description }}</div>
+            {% endif %}
+
+            {%- comment -%} Seating tiers {%- endcomment -%}
+            {% assign has_tiers = false %}
+            {% for block in section.blocks %}
+              {% if block.type == 'seating_tier' %}{% assign has_tiers = true %}{% endif %}
+            {% endfor %}
+
+            {% if has_tiers %}
+              <div class="po-tiers">
+                {% for block in section.blocks %}
+                  {% if block.type == 'seating_tier' %}
+                    <div class="po-tier" {{ block.shopify_attributes }}>
+                      {% if block.settings.label != blank %}
+                        <p class="po-tier__label">{{ block.settings.label }}</p>
+                      {% endif %}
+                      <p class="po-tier__guests">{{ block.settings.guest_label }}</p>
+                      <p class="po-tier__tables">{{ block.settings.table_count }}</p>
+                      <p class="po-tier__price">{{ block.settings.price }}</p>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {%- comment -%}
+              Food packages — collapsed by default.
+              TODO — open question for the client, do not guess: should this
+              expand inline (as built) or link out to a menu page instead?
+            {%- endcomment -%}
+            {% assign has_packages = false %}
+            {% for block in section.blocks %}
+              {% if block.type == 'package' %}{% assign has_packages = true %}{% endif %}
+            {% endfor %}
+
+            {% if has_packages and section.settings.packages_button_label != blank %}
+              <div class="po-packages">
+                <button
+                  type="button"
+                  class="button button--variant--outline po-packages__toggle"
+                  aria-expanded="false"
+                  aria-controls="PartyOptions-{{ uid }}-packages"
+                  data-po-packages-toggle
+                  data-label-show="{{ section.settings.packages_button_label | escape }}"
+                  data-label-hide="Hide food packages"
+                >{{ section.settings.packages_button_label }}</button>
+
+                <div class="po-packages__body" id="PartyOptions-{{ uid }}-packages" hidden>
+                  {% if section.settings.packages_description != blank %}
+                    <div class="rte po-packages__intro">{{ section.settings.packages_description }}</div>
+                  {% endif %}
+
+                  <div class="po-package-grid">
+                    {% for block in section.blocks %}
+                      {% if block.type == 'package' %}
+                        <div class="po-package{% if block.settings.featured %} po-package--featured{% endif %}" {{ block.shopify_attributes }}>
+                          {% if block.settings.badge != blank %}
+                            <span class="po-package__badge">{{ block.settings.badge }}</span>
+                          {% endif %}
+                          <p class="po-package__name">{{ block.settings.package_name }}</p>
+                          <p class="po-package__guests">{{ block.settings.guest_count }}</p>
+                          <p class="po-package__price">{{ block.settings.price }}</p>
+                          <div class="po-package__includes">{{ block.settings.includes | newline_to_br }}</div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+
+                  {% if section.settings.packages_footnote != blank %}
+                    <div class="rte po-packages__footnote">{{ section.settings.packages_footnote }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+
+            {%- comment -%} Abandonment policy {%- endcomment -%}
+            {% if section.settings.t_policy_text != blank %}
+              <div class="po-policy">
+                {% if section.settings.t_policy_heading != blank %}
+                  <p class="po-policy__heading">{{ section.settings.t_policy_heading }}</p>
+                {% endif %}
+                <div class="rte po-policy__text">{{ section.settings.t_policy_text }}</div>
+              </div>
+            {% endif %}
+
+            {%- comment -%} House rules — shared blocks, table scope {%- endcomment -%}
+            {% assign has_table_rules = false %}
+            {% for block in section.blocks %}
+              {% if block.type == 'rule' and block.settings.show_on != 'buffet' %}{% assign has_table_rules = true %}{% endif %}
+            {% endfor %}
+
+            {% if has_table_rules %}
+              <div class="po-rules {{ rules_scheme }}">
+                {% if section.settings.rules_heading != blank %}
+                  <p class="po-rules__heading">{{ section.settings.rules_heading }}</p>
+                {% endif %}
+                <ul class="po-rules__list">
+                  {% for block in section.blocks %}
+                    {% if block.type == 'rule' and block.settings.show_on != 'buffet' %}
+                      <li class="po-rule" {{ block.shopify_attributes }}>
+                        <span class="po-rule__mark" aria-hidden="true">
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="1.5,5 3.5,7.5 8.5,2.5"/>
+                          </svg>
+                        </span>
+                        <span class="po-rule__text">{{ block.settings.rule_text }}</span>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          </div>
+
+          {%- comment -%} Tripleseat — legacy v1 table rental form {%- endcomment -%}
+          <div class="po-panel__form po-form-wrap po-form-wrap--table">
+            {%- comment -%} theme-check-disable RemoteAsset, ParserBlockingScript {%- endcomment -%}
+            <script src="https://api.tripleseat.com/v1/leads/ts_script.js?lead_form_id={{ section.settings.t_lead_form_id }}&public_key={{ section.settings.ts_public_key }}"></script>
+            {%- comment -%} theme-check-enable RemoteAsset, ParserBlockingScript {%- endcomment -%}
+            <a id="tripleseat_link" class="po-form-credit" href="https://www.tripleseat.com">{{ section.settings.form_credit_text }}</a>
+          </div>
+
+        </div>
+      </div>
+
+      {%- comment -%} ── Option 2 panel — buffet service ─────────────── {%- endcomment -%}
+      <div
+        class="po-panel po-panel--buffet"
+        id="PartyOptions-{{ uid }}-{{ buffet_key }}"
+        data-po-panel="{{ buffet_key }}"
+        role="region"
+        aria-label="{{ section.settings.b_heading | escape }}"
+        hidden
+      >
+        <div class="po-panel__grid">
+
+          <div class="po-panel__details">
+            {% if section.settings.b_heading != blank %}
+              <h3 class="po-panel__heading">{{ section.settings.b_heading }}</h3>
+            {% endif %}
+
+            {% if section.settings.b_description != blank %}
+              <div class="rte po-panel__intro">{{ section.settings.b_description }}</div>
+            {% endif %}
+
+            {%- comment -%} Buffet highlights {%- endcomment -%}
+            {% assign has_highlights = false %}
+            {% for block in section.blocks %}
+              {% if block.type == 'buffet_highlight' %}{% assign has_highlights = true %}{% endif %}
+            {% endfor %}
+
+            {% if has_highlights %}
+              <div class="po-highlights">
+                {% for block in section.blocks %}
+                  {% if block.type == 'buffet_highlight' %}
+                    <div class="po-highlight" {{ block.shopify_attributes }}>
+                      {% if block.settings.label != blank %}
+                        <p class="po-highlight__label">{{ block.settings.label }}</p>
+                      {% endif %}
+                      {% if block.settings.value != blank %}
+                        <p class="po-highlight__value">{{ block.settings.value }}</p>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {%- comment -%} House rules — shared blocks, buffet scope {%- endcomment -%}
+            {% assign has_buffet_rules = false %}
+            {% for block in section.blocks %}
+              {% if block.type == 'rule' and block.settings.show_on != 'table' %}{% assign has_buffet_rules = true %}{% endif %}
+            {% endfor %}
+
+            {% if has_buffet_rules %}
+              <div class="po-rules {{ rules_scheme }}">
+                {% if section.settings.rules_heading != blank %}
+                  <p class="po-rules__heading">{{ section.settings.rules_heading }}</p>
+                {% endif %}
+                <ul class="po-rules__list">
+                  {% for block in section.blocks %}
+                    {% if block.type == 'rule' and block.settings.show_on != 'table' %}
+                      <li class="po-rule" {{ block.shopify_attributes }}>
+                        <span class="po-rule__mark" aria-hidden="true">
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="1.5,5 3.5,7.5 8.5,2.5"/>
+                          </svg>
+                        </span>
+                        <span class="po-rule__text">{{ block.settings.rule_text }}</span>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          </div>
+
+          {%- comment -%} Tripleseat — dynamic buffet / event form {%- endcomment -%}
+          <div class="po-panel__form po-form-wrap po-form-wrap--buffet">
+            {%- comment -%} theme-check-disable RemoteAsset, ParserBlockingScript {%- endcomment -%}
+            <script src="https://api.tripleseat.com/ts/dynamic_leads/ts_script.js?dynamic_lead_form_id={{ section.settings.b_lead_form_id }}&public_key={{ section.settings.ts_public_key }}"></script>
+            {%- comment -%} theme-check-enable RemoteAsset, ParserBlockingScript {%- endcomment -%}
+            <a id="tripleseat_link_buffet" class="po-form-credit" href="https://www.tripleseat.com">{{ section.settings.form_credit_text }}</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ══ Chooser ═════════════════════════════════════════════════════════ */
+  {{ s }} {
+    --po-focus: var(--color-scheme-text);
+    scroll-margin-top: 5rem;
+  }
+
+  {{ s }} .po-eyebrow {
+    margin-bottom: 0.5rem;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+  }
+
+  {{ s }} .po-heading {
+    font-family: var(--glob-heading-font);
+    font-weight: var(--glob-heading-font-weight);
+    text-transform: var(--glob-heading-transform);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.05;
+    margin-bottom: 0.75rem;
+  }
+
+  {{ s }} .po-intro {
+    max-width: 640px;
+    margin-bottom: 2.5rem;
+    opacity: 0.7;
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    line-height: 1.65;
+  }
+
+  {{ s }} .po-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  {{ s }} .po-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: 100%;
+    margin: 0;
+    padding: 2rem 1.75rem;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: 1px solid var(--color-scheme-border);
+    border-radius: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  {{ s }} .po-card:hover {
+    border-color: var(--color-scheme-text);
+  }
+
+  /* Selected card carries its own colour scheme (see card_active_color_scheme),
+     so everything inside it — including the theme .button — flips with it. */
+  {{ s }} .po-card[aria-pressed="true"] {
+    background: var(--color-scheme-background);
+    color: var(--color-scheme-text);
+    border-color: var(--color-scheme-background);
+  }
+
+  /* The notch: a square rotated 45deg straddling the bottom edge, so the
+     card's outline reads as continuing down into a point at the panel. */
+  {{ s }} .po-card[aria-pressed="true"]::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 15px;
+    height: 15px;
+    transform: translate(-50%, 50%) rotate(45deg);
+    background: var(--color-scheme-background);
+    border-right: 1px solid var(--color-scheme-border);
+    border-bottom: 1px solid var(--color-scheme-border);
+  }
+
+  /* Focus ring uses the section's text colour, not the selected card's
+     inverted one, so it stays visible against the page. */
+  {{ s }} .po-card:focus-visible {
+    outline: 2px solid var(--po-focus);
+    outline-offset: 3px;
+  }
+
+  {{ s }} .po-card__top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  {{ s }} .po-card__eyebrow {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 0.9rem);
+    letter-spacing: 0.18em;
+    opacity: 0.45;
+    margin-bottom: 0.15rem;
+  }
+
+  {{ s }} .po-card__label {
+    font-family: var(--glob-heading-font);
+    font-weight: var(--glob-heading-font-weight);
+    text-transform: var(--glob-heading-transform);
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    line-height: 1.1;
+  }
+
+  {{ s }} .po-card__guests {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+  }
+
+  {{ s }} .po-card__pitch {
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    line-height: 1.55;
+    opacity: 0.8;
+  }
+
+  {{ s }} .po-card__meta {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.1em;
+    opacity: 0.55;
+  }
+
+  {{ s }} .po-card__button {
+    margin-top: 0.75rem;
+    pointer-events: none;
+  }
+
+  /* ══ Panels ══════════════════════════════════════════════════════════ */
+  {{ s }} .po-panel[hidden] {
+    display: none;
+  }
+
+  /* Fallback hide mode — see HIDE_MODE in the script below. Keeps the panel
+     in the layout (so embedded widgets can measure themselves) while making
+     it invisible and untabbable. */
+  {{ s }} .po-panel--offscreen {
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  {{ s }} .po-panel {
+    margin-top: 3rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    {{ s }} .po-panel--enter {
+      animation: po-panel-enter 180ms ease-out;
+    }
+  }
+
+  @keyframes po-panel-enter {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  {{ s }} .po-panel__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  {{ s }} .po-panel__heading {
+    font-family: var(--glob-heading-font);
+    font-weight: var(--glob-heading-font-weight);
+    text-transform: var(--glob-heading-transform);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.05;
+    margin-bottom: 0.75rem;
+  }
+
+  {{ s }} .po-panel__intro {
+    opacity: 0.7;
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    line-height: 1.65;
+    margin-bottom: 2rem;
+  }
+
+  {{ s }} .po-panel__intro p + p {
+    margin-top: 0.85rem;
+  }
+
+  /* ══ Seating tiers ═══════════════════════════════════════════════════ */
+  {{ s }} .po-tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  {{ s }} .po-tier {
+    border: 1px solid var(--color-scheme-border);
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+  }
+
+  {{ s }} .po-tier__label {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+    margin-bottom: 0.6rem;
+  }
+
+  {{ s }} .po-tier__guests {
+    font-family: var(--glob-heading-font);
+    font-weight: var(--glob-heading-font-weight);
+    text-transform: var(--glob-heading-transform);
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  {{ s }} .po-tier__tables {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.1em;
+    opacity: 0.55;
+    margin-bottom: 1rem;
+  }
+
+  {{ s }} .po-tier__price {
+    font-family: var(--glob-heading-font);
+    font-weight: var(--glob-heading-font-weight);
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    line-height: 1;
+  }
+
+  /* ══ Food packages (collapsible) ═════════════════════════════════════ */
+  {{ s }} .po-packages {
+    margin-bottom: 2rem;
+  }
+
+  {{ s }} .po-packages__body[hidden] {
+    display: none;
+  }
+
+  {{ s }} .po-packages__body {
+    margin-top: 1.5rem;
+  }
+
+  {{ s }} .po-packages__intro {
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    line-height: 1.65;
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+  }
+
+  {{ s }} .po-package-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  {{ s }} .po-package {
+    border: 1px solid var(--color-scheme-border);
+    padding: 1.75rem;
+    position: relative;
+  }
+
+  {{ s }} .po-package--featured {
+    border-width: 2px;
+    border-color: var(--color-scheme-text);
+  }
+
+  {{ s }} .po-package__badge {
+    display: block;
+    width: fit-content;
+    background: var(--color-scheme-button-background);
+    color: var(--color-scheme-button-text);
+    font-family: var(--glob-button-font);
+    font-weight: var(--glob-button-weight);
+    text-transform: var(--glob-button-text-transform);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  {{ s }} .po-package__name {
+    font-family: var(--glob-heading-font);
+    font-weight: var(--glob-heading-font-weight);
+    text-transform: var(--glob-heading-transform);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+
+  {{ s }} .po-package__guests {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+    margin-bottom: 1.25rem;
+  }
+
+  {{ s }} .po-package__price {
+    font-family: var(--glob-heading-font);
+    font-weight: var(--glob-heading-font-weight);
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    line-height: 1;
+    margin-bottom: 1.25rem;
+  }
+
+  {{ s }} .po-package__includes {
+    border-top: 1px solid var(--color-scheme-border);
+    padding-top: 1rem;
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    line-height: 1.9;
+    opacity: 0.75;
+  }
+
+  {{ s }} .po-packages__footnote {
+    margin-top: 1.5rem;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    font-style: italic;
+    line-height: 1.6;
+    opacity: 0.5;
+    max-width: 640px;
+  }
+
+  {{ s }} .po-packages__footnote p + p {
+    margin-top: 0.6rem;
+  }
+
+  /* ══ Abandonment policy ══════════════════════════════════════════════ */
+  {{ s }} .po-policy {
+    border-left: 3px solid var(--color-scheme-text);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  {{ s }} .po-policy__heading {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  {{ s }} .po-policy__text {
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    opacity: 0.75;
+    line-height: 1.65;
+  }
+
+  /* ══ Buffet highlights ═══════════════════════════════════════════════ */
+  {{ s }} .po-highlights {
+    border-top: 1px solid var(--color-scheme-border);
+    margin-bottom: 2rem;
+  }
+
+  {{ s }} .po-highlight {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--color-scheme-border);
+  }
+
+  {{ s }} .po-highlight__label {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+    margin-bottom: 0.3rem;
+  }
+
+  {{ s }} .po-highlight__value {
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  /* ══ House rules ═════════════════════════════════════════════════════
+     Boxed and on their own colour scheme, so they read as reference copy
+     rather than as more form UI sitting beside the booking form. */
+  {{ s }} .po-rules {
+    background: var(--color-scheme-background);
+    color: var(--color-scheme-text);
+    padding: 1.75rem;
+  }
+
+  {{ s }} .po-rules__heading {
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+    margin-bottom: 0.9rem;
+  }
+
+  {{ s }} .po-rules__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* No dividing rule per item: the box does the containing, and the old
+     borders rhymed with the form's underlined fields. */
+  {{ s }} .po-rule {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    line-height: 1.55;
+  }
+
+  /* Unboxed check: the 20px outlined square read as a checkbox. */
+  {{ s }} .po-rule__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    min-width: 12px;
+    margin-top: 0.35rem;
+    opacity: 0.5;
+  }
+
+  {{ s }} .po-rule__text {
+    opacity: 0.8;
+  }
+
+  /* ══ Tripleseat form credit link ═════════════════════════════════════ */
+  {{ s }} .po-form-credit {
+    display: block !important;
+    margin-top: 1.25rem !important;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;
+    opacity: 0.3 !important;
+    text-decoration: none !important;
+    font-family: var(--glob-body-font) !important;
+    color: var(--color-scheme-text) !important;
+    text-align: left !important;
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     Tripleseat form styling.
+     Every selector is scoped to this section AND to the owning panel,
+     because both embeds inject id="tripleseat_embed_form".
+     ══════════════════════════════════════════════════════════════════════ */
+
+  /* ── Legacy v1 form (table panel): table markup → block layout ──────── */
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form table,
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tbody {
+    display: block !important;
+    width: 100% !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Only reset rows Tripleseat has not hidden via inline style — its JS
+     toggles conditional rows with style="display: none". */
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr:not([style*="display: none"]) {
+    display: block !important;
+    width: 100% !important;
+    border: none !important;
+    background: transparent !important;
+    box-sizing: border-box !important;
+    margin-top: 1.65rem !important;
+  }
+
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr[style*="display: none"] {
+    display: none !important;
+  }
+
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form td {
+    display: block !important;
+    width: 100% !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-sizing: border-box !important;
+    float: none !important;
+  }
+
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr.row_contact_header,
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr.row_details_header {
+    margin-top: 0 !important;
+  }
+
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr.row_first_name:not([style*="display: none"]),
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr.row_time:not([style*="display: none"]) {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form h2 {
+    font-family: var(--glob-subheading-font) !important;
+    font-weight: var(--glob-subheading-weight) !important;
+    text-transform: var(--glob-subheading-text-transform) !important;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;
+    letter-spacing: 0.2em !important;
+    opacity: 0.45 !important;
+    margin: 2.75rem 0 1.35rem !important;
+    padding-bottom: 0.85rem !important;
+    border-bottom: 1px solid var(--color-scheme-border) !important;
+    color: var(--color-scheme-text) !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Only the form's very first heading loses its top margin. NOT
+     `h2:first-of-type` — in this table-based form every h2 sits alone in its
+     own <td>, so that selector matches every heading and flattens the
+     spacing above all of them. */
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr:first-child h2 {
+    margin-top: 0 !important;
+  }
+
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form .row_robot_check {
+    margin-top: 1.75rem !important;
+  }
+
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form .row_submit {
+    margin-top: 2rem !important;
+  }
+
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form #lead_form_submit {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Referral "other" textarea — Tripleseat toggles it, so no display override */
+  {{ s }} .po-form-wrap--table #other_referral_text {
+    margin-top: 0.75rem;
+  }
+
+  {{ s }} .po-form-wrap--table #other_referral_text[style*="display: none"] {
+    display: none !important;
+  }
+
+  /* ── Dynamic form (buffet panel) ────────────────────────────────────── */
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-title,
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-text,
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-heading-h1 {
+    display: none !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-heading {
+    font-family: var(--glob-subheading-font) !important;
+    font-weight: var(--glob-subheading-weight) !important;
+    text-transform: var(--glob-subheading-text-transform) !important;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;
+    letter-spacing: 0.2em !important;
+    opacity: 0.45 !important;
+    margin: 2.75rem 0 1.35rem !important;
+    padding-bottom: 0.85rem !important;
+    border-bottom: 1px solid var(--color-scheme-border) !important;
+    color: var(--color-scheme-text) !important;
+    line-height: 1.4 !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-heading:first-of-type {
+    margin-top: 0 !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-field-group {
+    margin-bottom: 1.65rem !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-name-fields {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-time-icon {
+    display: none !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-time-wrapper,
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-date-wrapper {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-char-count {
+    text-align: right !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-checkbox-item,
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-checkbox-wrapper {
+    display: grid !important;
+    grid-template-columns: 18px minmax(0, 1fr) !important;
+    column-gap: 0.8rem !important;
+    row-gap: 0 !important;
+    align-items: start !important;
+    width: 100% !important;
+    margin: 0.35rem 0 1.5rem !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-checkbox-item > input[type="checkbox"],
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-checkbox-wrapper > input[type="checkbox"],
+  {{ s }} .po-form-wrap--buffet input.tripleseat-dlf-checkbox {
+    grid-column: 1 !important;
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    max-width: 16px !important;
+    margin: 0.17rem 0 0 !important;
+    padding: 0 !important;
+    align-self: start !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-checkbox-item > label,
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-checkbox-wrapper > label,
+  {{ s }} .po-form-wrap--buffet label.tripleseat-dlf-checkbox-label {
+    grid-column: 2 !important;
+    display: block !important;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.55 !important;
+    text-align: left !important;
+    opacity: 0.55 !important;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;
+    letter-spacing: 0.02em !important;
+    text-transform: none !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-checkbox-label a {
+    display: inline !important;
+  }
+
+  {{ s }} .po-form-wrap--buffet .tripleseat-dlf-error {
+    display: block !important;
+    margin-top: 0.4rem !important;
+    font-family: var(--glob-body-font) !important;
+    font-size: calc(var(--glob-text-scale-xs) * 0.92rem) !important;
+    line-height: 1.45 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* ── Shared: labels, inputs, help text, submit, captcha ─────────────── */
+  {{ s }} .po-form-wrap label {
+    display: block !important;
+    font-family: var(--glob-subheading-font) !important;
+    font-weight: var(--glob-subheading-weight) !important;
+    text-transform: var(--glob-subheading-text-transform) !important;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;
+    letter-spacing: 0.1em !important;
+    opacity: 0.6 !important;
+    margin: 0 0 0.35rem !important;
+    text-align: left !important;
+    color: var(--color-scheme-text) !important;
+  }
+
+  {{ s }} .po-form-wrap span.required {
+    opacity: 0.4 !important;
+    font-size: 0.75em !important;
+    margin-left: 2px !important;
+    color: var(--color-scheme-text) !important;
+  }
+
+  {{ s }} .po-form-wrap input[type="text"],
+  {{ s }} .po-form-wrap input[type="email"],
+  {{ s }} .po-form-wrap input[type="tel"],
+  {{ s }} .po-form-wrap input[type="date"],
+  {{ s }} .po-form-wrap input[type="number"],
+  {{ s }} .po-form-wrap input[type="time"],
+  {{ s }} .po-form-wrap input.text,
+  {{ s }} .po-form-wrap input.form-control,
+  {{ s }} .po-form-wrap input.timeselect_input,
+  {{ s }} .po-form-wrap input.tripleseat-dlf-input,
+  {{ s }} .po-form-wrap textarea:not(.g-recaptcha-response),
+  {{ s }} .po-form-wrap select {
+    display: block !important;
+    width: 100% !important;
+    font-family: var(--glob-body-font) !important;
+    font-size: calc(var(--glob-text-scale-sm) * 1rem) !important;
+    font-weight: var(--glob-body-font-weight) !important;
+    color: var(--color-scheme-text) !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid var(--color-scheme-border) !important;
+    border-radius: 0 !important;
+    padding: 0.55rem 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    transition: border-color 0.15s ease !important;
+    box-sizing: border-box !important;
+  }
+
+  {{ s }} .po-form-wrap input[type="text"]:focus,
+  {{ s }} .po-form-wrap input[type="email"]:focus,
+  {{ s }} .po-form-wrap input[type="tel"]:focus,
+  {{ s }} .po-form-wrap input[type="date"]:focus,
+  {{ s }} .po-form-wrap input[type="number"]:focus,
+  {{ s }} .po-form-wrap input[type="time"]:focus,
+  {{ s }} .po-form-wrap input.text:focus,
+  {{ s }} .po-form-wrap input.form-control:focus,
+  {{ s }} .po-form-wrap input.timeselect_input:focus,
+  {{ s }} .po-form-wrap input.tripleseat-dlf-input:focus,
+  {{ s }} .po-form-wrap textarea:not(.g-recaptcha-response):focus,
+  {{ s }} .po-form-wrap select:focus {
+    border-bottom-color: var(--color-scheme-text) !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  {{ s }} .po-form-wrap textarea:not(.g-recaptcha-response) {
+    min-height: 90px !important;
+    resize: vertical !important;
+  }
+
+  {{ s }} .po-form-wrap select {
+    cursor: pointer !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M1 1l5 5 5-5'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.25rem center !important;
+    padding-right: 1.5rem !important;
+  }
+
+  {{ s }} .po-form-wrap .tripleseat-dlf-label + input,
+  {{ s }} .po-form-wrap .tripleseat-dlf-label + select,
+  {{ s }} .po-form-wrap .tripleseat-dlf-label + textarea,
+  {{ s }} .po-form-wrap label + input:not([type="checkbox"]),
+  {{ s }} .po-form-wrap label + select,
+  {{ s }} .po-form-wrap label + textarea,
+  {{ s }} .po-form-wrap label + .tripleseat-dlf-time-wrapper {
+    margin-top: 0.4rem !important;
+  }
+
+  {{ s }} .po-form-wrap .tripleseat-dlf-help-text,
+  {{ s }} .po-form-wrap .tripleseat-dlf-char-count,
+  {{ s }} .po-form-wrap small {
+    display: block !important;
+    margin-top: 0.45rem !important;
+    margin-bottom: 0 !important;
+    font-family: var(--glob-body-font) !important;
+    font-size: calc(var(--glob-text-scale-xs) * 0.92rem) !important;
+    font-style: italic !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    color: var(--color-scheme-text) !important;
+    opacity: 0.48 !important;
+  }
+
+  {{ s }} .po-form-wrap input[type="checkbox"] {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    flex-shrink: 0 !important;
+    margin-top: 0.15rem !important;
+    border: 1.5px solid currentColor !important;
+    border-radius: 0 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    background: transparent !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+  }
+
+  {{ s }} .po-form-wrap input[type="checkbox"]:checked {
+    background-color: var(--color-scheme-text) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolyline points='1.5,5 3.5,7.5 8.5,2.5' fill='none' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+  }
+
+  /* Consent / opt-in rows in the legacy form.
+     Tripleseat's own injected CSS floats BOTH the checkbox and its label:
+       #tripleseat_embed_form .row_gdpr_consent input,
+       #tripleseat_embed_form .row_gdpr_consent label { float: left; }
+     That leaves the cell with no in-flow content, so it collapses to zero
+     height and the next section heading rides up into the row. Making the
+     cell a grid container fixes it at the source — float is ignored on grid
+     items — and gives the control and its label explicit columns.
+     These selectors include #tripleseat_embed_form so they outweigh the
+     generic `td { display: block }` reset further up, which has two IDs. */
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr.row_gdpr_consent td,
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form tr.row_email_opt_out td,
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form td:has(input[type="checkbox"]) {
+    display: grid !important;
+    grid-template-columns: 16px minmax(0, 1fr) !important;
+    column-gap: 0.75rem !important;
+    row-gap: 0 !important;
+    align-items: start !important;
+    width: 100% !important;
+  }
+
+  /* Belt and braces: drop the floats themselves, which also covers the other
+     rows Tripleseat floats (.location_list, booking checkboxes). */
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form td > input[type="checkbox"],
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form td > label,
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form .location_list label {
+    float: none !important;
+  }
+
+  {{ s }} .po-form-wrap--table #tripleseat_embed_form td:has(input[type="checkbox"]) > label {
+    opacity: 0.55 !important;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;
+    letter-spacing: 0.02em !important;
+    text-transform: none !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+  }
+
+  /* Honeypot + reCAPTCHA response field stay out of the layout */
+  {{ s }} .po-form-wrap #lead_form_website_group,
+  {{ s }} .po-form-wrap textarea.g-recaptcha-response {
+    display: none !important;
+    visibility: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+    pointer-events: none !important;
+  }
+
+  {{ s }} .po-form-wrap .g-recaptcha,
+  {{ s }} .po-form-wrap .tripleseat-dlf-captcha-container {
+    margin-top: 0.5rem !important;
+    margin-bottom: 1.35rem !important;
+  }
+
+  {{ s }} .po-form-wrap .tripleseat-dlf-submit,
+  {{ s }} .po-form-wrap input[type="submit"],
+  {{ s }} .po-form-wrap input#lead_submit,
+  {{ s }} .po-form-wrap button[type="submit"] {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: max-content !important;
+    flex: 0 0 auto !important;
+    align-self: flex-start !important;
+    font-family: var(--glob-button-font) !important;
+    font-weight: var(--glob-button-weight) !important;
+    text-transform: var(--glob-button-text-transform) !important;
+    letter-spacing: calc(var(--glob-button-letter-spacing) * 0.1em) !important;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;
+    background: var(--color-scheme-button-background) !important;
+    color: var(--color-scheme-button-text) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0.9rem 2.5rem !important;
+    cursor: pointer !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    transition: opacity 0.15s ease !important;
+    margin: 0.25rem 0 0 !important;
+    box-shadow: none !important;
+  }
+
+  {{ s }} .po-form-wrap .tripleseat-dlf-submit:hover,
+  {{ s }} .po-form-wrap input[type="submit"]:hover,
+  {{ s }} .po-form-wrap input#lead_submit:hover,
+  {{ s }} .po-form-wrap button[type="submit"]:hover {
+    opacity: 0.75 !important;
+  }
+
+  /* jQuery UI datepicker is appended to <body>, so it cannot be scoped. */
+  .ui-datepicker {
+    font-family: var(--glob-body-font) !important;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;
+    border: 1px solid rgba(40, 40, 40, 0.2) !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1) !important;
+    z-index: 9999 !important;
+  }
+
+  .ui-datepicker .ui-datepicker-header {
+    background: #282828 !important;
+    color: #fff !important;
+    border-radius: 0 !important;
+    border: none !important;
+    padding: 0.5rem !important;
+  }
+
+  .ui-datepicker .ui-datepicker-title {
+    font-family: var(--glob-heading-font) !important;
+    font-weight: var(--glob-heading-font-weight) !important;
+    text-transform: var(--glob-heading-transform) !important;
+    font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;
+    letter-spacing: 0.1em !important;
+  }
+
+  .ui-datepicker td.ui-state-active a,
+  .ui-datepicker td .ui-state-active {
+    background: #282828 !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+
+  .ui-datepicker td a:hover {
+    background: rgba(40, 40, 40, 0.08) !important;
+    border-radius: 0 !important;
+  }
+
+  .ui-datepicker .ui-datepicker-prev,
+  .ui-datepicker .ui-datepicker-next {
+    border-radius: 0 !important;
+    top: 4px !important;
+  }
+
+  /* ══ Responsive ══════════════════════════════════════════════════════ */
+  @media (max-width: 900px) {
+    {{ s }} .po-panel__grid {
+      grid-template-columns: 1fr !important;
+      gap: 2.5rem !important;
+    }
+
+    {{ s }} .po-form-wrap--table #tripleseat_embed_form tr.row_first_name:not([style*="display: none"]),
+    {{ s }} .po-form-wrap--table #tripleseat_embed_form tr.row_time:not([style*="display: none"]),
+    {{ s }} .po-form-wrap--buffet .tripleseat-dlf-name-fields {
+      grid-template-columns: 1fr !important;
+      gap: 0 !important;
+    }
+  }
+
+  @media (max-width: 749px) {
+    {{ s }} .po-cards {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    {{ s }} .po-card {
+      padding: 1.5rem 1.25rem;
+    }
+
+    {{ s }} .po-panel {
+      margin-top: 2rem;
+    }
+
+    {{ s }} .po-rules {
+      padding: 1.35rem 1.25rem;
+    }
+
+    {{ s }} .po-package {
+      padding: 1.5rem 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var root = document.getElementById('PartyOptions-{{ uid }}');
+    if (!root) return;
+
+    /* 'attribute' hides the inactive panel with [hidden].
+       Switch to 'offscreen' if a third-party widget inside a hidden panel
+       (Tripleseat's reCAPTCHA) fails to render or size itself — that mode
+       keeps the panel laid out but invisible. */
+    var HIDE_MODE = 'attribute';
+
+    var DEFAULT_OPTION = '{{ table_key }}';
+    var ACTIVE_SCHEME = '{{ active_scheme }}';
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cards = root.querySelectorAll('[data-po-option]');
+    var panels = root.querySelectorAll('[data-po-panel]');
+
+    function showPanel(panel, show) {
+      if (HIDE_MODE === 'offscreen') {
+        panel.hidden = false;
+        panel.classList.toggle('po-panel--offscreen', !show);
+        panel.setAttribute('aria-hidden', show ? 'false' : 'true');
+      } else {
+        panel.classList.remove('po-panel--offscreen');
+        panel.hidden = !show;
+        panel.removeAttribute('aria-hidden');
+      }
+    }
+
+    function isKnown(name) {
+      for (var i = 0; i < panels.length; i++) {
+        if (panels[i].getAttribute('data-po-panel') === name) return true;
+      }
+      return false;
+    }
+
+    function select(name, updateHash, animate) {
+      if (!isKnown(name)) name = DEFAULT_OPTION;
+
+      for (var i = 0; i < cards.length; i++) {
+        var active = cards[i].getAttribute('data-po-option') === name;
+        cards[i].setAttribute('aria-pressed', active ? 'true' : 'false');
+        if (ACTIVE_SCHEME) cards[i].classList.toggle(ACTIVE_SCHEME, active);
+      }
+
+      for (var j = 0; j < panels.length; j++) {
+        var show = panels[j].getAttribute('data-po-panel') === name;
+        showPanel(panels[j], show);
+        if (show && animate && !reduceMotion) replay(panels[j]);
+      }
+
+      if (updateHash && window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', '#' + name);
+      } else if (updateHash) {
+        window.location.hash = name;
+      }
+    }
+
+    /* Restart the enter animation on a panel that may already carry the class. */
+    function replay(panel) {
+      panel.classList.remove('po-panel--enter');
+      void panel.offsetWidth;
+      panel.classList.add('po-panel--enter');
+    }
+
+    root.addEventListener('animationend', function (event) {
+      if (event.animationName === 'po-panel-enter') {
+        event.target.classList.remove('po-panel--enter');
+      }
+    });
+
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].addEventListener('click', function (event) {
+        select(event.currentTarget.getAttribute('data-po-option'), true, true);
+      });
+    }
+
+    window.addEventListener('hashchange', function () {
+      var name = window.location.hash.replace('#', '');
+      if (isKnown(name)) select(name, false, true);
+    });
+
+    /* Food packages disclosure */
+    var toggle = root.querySelector('[data-po-packages-toggle]');
+    if (toggle) {
+      var body = document.getElementById(toggle.getAttribute('aria-controls'));
+      toggle.addEventListener('click', function () {
+        var open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+        toggle.textContent = open
+          ? toggle.getAttribute('data-label-show')
+          : toggle.getAttribute('data-label-hide');
+        if (body) body.hidden = open;
+      });
+    }
+
+    /* Theme editor: reveal the panel that owns the block being edited. */
+    if (window.Shopify && window.Shopify.designMode) {
+      document.addEventListener('shopify:block:select', function (event) {
+        var panel = event.target.closest ? event.target.closest('[data-po-panel]') : null;
+        if (panel && root.contains(panel)) select(panel.getAttribute('data-po-panel'), false);
+      });
+    }
+
+    var initial = window.location.hash.replace('#', '');
+    select(initial || DEFAULT_OPTION, false, false);
+
+    /* Deep link: land on the chooser so both options and the selected one
+       are visible, rather than dropping the visitor inside the panel. */
+    if (isKnown(initial)) {
+      requestAnimationFrame(function () {
+        root.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Party Options",
+  "tag": "section",
+  "class": "party-options-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "main", "label": "White" },
+        { "value": "alt", "label": "Light Gray" },
+        { "value": "invert", "label": "Black" }
+      ],
+      "default": "main"
+    },
+    {
+      "type": "select",
+      "id": "card_active_color_scheme",
+      "label": "Selected card color scheme",
+      "info": "Applied to whichever option card is selected. Buttons and text inside it follow this scheme.",
+      "options": [
+        { "value": "main", "label": "White" },
+        { "value": "alt", "label": "Light Gray" },
+        { "value": "invert", "label": "Black" }
+      ],
+      "default": "invert"
+    },
+    {
+      "type": "header",
+      "content": "Chooser"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Book a Party"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose how to book"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Two ways to celebrate at Tarantula Hill. Pick the one that fits your group.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Option 1 card — Rent a table"
+    },
+    {
+      "type": "text",
+      "id": "t_eyebrow",
+      "label": "Card eyebrow",
+      "default": "Option 1"
+    },
+    {
+      "type": "text",
+      "id": "t_label",
+      "label": "Card label",
+      "default": "Rent a table"
+    },
+    {
+      "type": "text",
+      "id": "t_guests",
+      "label": "Card guest count",
+      "default": "Up to 20 people"
+    },
+    {
+      "type": "text",
+      "id": "t_pitch",
+      "label": "Card pitch (one line)",
+      "default": "Reserve a picnic table online for guaranteed seating."
+    },
+    {
+      "type": "text",
+      "id": "t_meta",
+      "label": "Card meta line",
+      "default": "From $100 · book 10+ days ahead"
+    },
+    {
+      "type": "text",
+      "id": "t_button",
+      "label": "Card button label",
+      "default": "Book a table"
+    },
+    {
+      "type": "header",
+      "content": "Option 2 card — Buffet service"
+    },
+    {
+      "type": "text",
+      "id": "b_eyebrow",
+      "label": "Card eyebrow",
+      "default": "Option 2"
+    },
+    {
+      "type": "text",
+      "id": "b_label",
+      "label": "Card label",
+      "default": "Buffet service"
+    },
+    {
+      "type": "text",
+      "id": "b_guests",
+      "label": "Card guest count",
+      "default": "20+ people"
+    },
+    {
+      "type": "text",
+      "id": "b_pitch",
+      "label": "Card pitch (one line)",
+      "default": "A full staffed buffet spread with bar service for bigger events."
+    },
+    {
+      "type": "text",
+      "id": "b_meta",
+      "label": "Card meta line",
+      "default": "Custom quote · 3+ weeks ahead"
+    },
+    {
+      "type": "text",
+      "id": "b_button",
+      "label": "Card button label",
+      "default": "Request a quote"
+    },
+    {
+      "type": "header",
+      "content": "Option 1 panel — Rent a table"
+    },
+    {
+      "type": "text",
+      "id": "t_heading",
+      "label": "Panel heading",
+      "default": "Rent a table"
+    },
+    {
+      "type": "richtext",
+      "id": "t_description",
+      "label": "Panel description",
+      "default": "<p>Reserve a picnic table online up to 10 days in advance. Seating is subject to availability. Reservations are limited to 2 hours, unhosted, and non-refundable. Outside food, desserts, and drinks are not permitted without prior approval and applicable fees. Table locations cannot be guaranteed.</p><p>Fill out the form and we'll confirm our availability. For fastest response, please submit at least 14 days before your event date.</p>"
+    },
+    {
+      "type": "text",
+      "id": "t_policy_heading",
+      "label": "Policy block heading",
+      "default": "Abandonment Policy"
+    },
+    {
+      "type": "richtext",
+      "id": "t_policy_text",
+      "label": "Policy text",
+      "default": "<p>All rental fees are non-refundable and do not apply to food or beverage charges. Parties must begin on time. If your group has not arrived within 20 minutes of the scheduled start time, your reserved tables may be released. Fees paid are non-refundable.</p>"
+    },
+    {
+      "type": "text",
+      "id": "packages_button_label",
+      "label": "Food packages button label",
+      "info": "Leave blank to hide the food packages block. Button text flips to \"Hide food packages\" when open.",
+      "default": "View food packages"
+    },
+    {
+      "type": "richtext",
+      "id": "packages_description",
+      "label": "Food packages intro",
+      "info": "Shown at the top of the expanded food packages block.",
+      "default": "<p>Perfect for smaller groups of up to 20. We’ll prepare everything fresh and deliver it directly to your table.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "packages_footnote",
+      "label": "Food packages footnote",
+      "default": "<p>Food is delivered to your table; additional service is not included. Pricing shown does not include tax and gratuity.</p><p>For groups larger than 20 guests, please get in contact with our events team for a custom on-site event quote.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Option 2 panel — Buffet service"
+    },
+    {
+      "type": "text",
+      "id": "b_heading",
+      "label": "Panel heading",
+      "default": "Buffet service"
+    },
+    {
+      "type": "richtext",
+      "id": "b_description",
+      "label": "Panel description",
+      "default": "<p>Ideal for larger celebrations — class reunions, weddings, company parties, graduations, or any event with 20+ guests. We set up a full buffet spread with pizza, BBQ, and taco options, plus choose between drink tickets or an open bar. Our team handles everything.</p>"
+    },
+    {
+      "type": "header",
+      "content": "House rules"
+    },
+    {
+      "type": "text",
+      "id": "rules_heading",
+      "label": "Rules heading",
+      "default": "Before you book"
+    },
+    {
+      "type": "select",
+      "id": "rules_color_scheme",
+      "label": "Rules box color scheme",
+      "info": "The rules sit in a filled box so they read apart from the booking form.",
+      "options": [
+        { "value": "main", "label": "White" },
+        { "value": "alt", "label": "Light Gray" },
+        { "value": "invert", "label": "Black" }
+      ],
+      "default": "alt"
+    },
+    {
+      "type": "header",
+      "content": "Tripleseat forms"
+    },
+    {
+      "type": "text",
+      "id": "ts_public_key",
+      "label": "Tripleseat public key",
+      "default": "5b4725353b4a6782d9885222a1964f52f496eda8"
+    },
+    {
+      "type": "text",
+      "id": "t_lead_form_id",
+      "label": "Option 1 lead form ID",
+      "info": "Legacy lead form (table rentals).",
+      "default": "40253"
+    },
+    {
+      "type": "text",
+      "id": "b_lead_form_id",
+      "label": "Option 2 dynamic lead form ID",
+      "info": "Dynamic lead form (buffet / large events).",
+      "default": "2306"
+    },
+    {
+      "type": "text",
+      "id": "form_credit_text",
+      "label": "Form credit link text",
+      "default": "Private Event Software powered by Tripleseat"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "seating_tier",
+      "name": "Seating tier",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tier label",
+          "default": "Option A"
+        },
+        {
+          "type": "text",
+          "id": "guest_label",
+          "label": "Guest count",
+          "default": "Up to 10 guests"
+        },
+        {
+          "type": "text",
+          "id": "table_count",
+          "label": "Table count label",
+          "default": "1 picnic table"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$100"
+        }
+      ]
+    },
+    {
+      "type": "package",
+      "name": "Food package",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Featured (bold border)",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge label (optional)",
+          "info": "e.g. 'Best Value' — leave blank to hide"
+        },
+        {
+          "type": "text",
+          "id": "package_name",
+          "label": "Package name",
+          "default": "Package One"
+        },
+        {
+          "type": "text",
+          "id": "guest_count",
+          "label": "Guest count label",
+          "default": "Up to 10 guests"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$195"
+        },
+        {
+          "type": "textarea",
+          "id": "includes",
+          "label": "What's included (one item per line)",
+          "default": "4 pizzas\n4 bites\n2 Caesar salads"
+        }
+      ]
+    },
+    {
+      "type": "rule",
+      "name": "House rule",
+      "settings": [
+        {
+          "type": "text",
+          "id": "rule_text",
+          "label": "Rule text",
+          "default": "Outside food, desserts, and drinks require prior approval and may incur additional fees"
+        },
+        {
+          "type": "select",
+          "id": "show_on",
+          "label": "Show on",
+          "options": [
+            { "value": "both", "label": "Both options" },
+            { "value": "table", "label": "Rent a table only" },
+            { "value": "buffet", "label": "Buffet service only" }
+          ],
+          "default": "both"
+        }
+      ]
+    },
+    {
+      "type": "buffet_highlight",
+      "name": "Buffet highlight",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Minimum guests"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "20+"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Party Options",
+      "blocks": [
+        {
+          "type": "seating_tier",
+          "settings": {
+            "label": "Option A",
+            "guest_label": "Up to 10 guests",
+            "table_count": "1 picnic table",
+            "price": "$100"
+          }
+        },
+        {
+          "type": "seating_tier",
+          "settings": {
+            "label": "Option B",
+            "guest_label": "Up to 20 guests",
+            "table_count": "2 picnic tables",
+            "price": "$200"
+          }
+        },
+        {
+          "type": "package",
+          "settings": {
+            "featured": false,
+            "badge": "",
+            "package_name": "Package One",
+            "guest_count": "Up to 10 guests",
+            "price": "$195",
+            "includes": "4 pizzas\n4 bites\n2 Caesar salads"
+          }
+        },
+        {
+          "type": "package",
+          "settings": {
+            "featured": true,
+            "badge": "Best Value",
+            "package_name": "Package Two",
+            "guest_count": "Up to 20 guests",
+            "price": "$340",
+            "includes": "8 pizzas\n8 bites\n3 Caesar salads"
+          }
+        },
+        {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Outside food, desserts, and drinks require prior approval and may incur additional fees",
+            "show_on": "both"
+          }
+        },
+        {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Seating is limited to 2 hours. Parties must arrive on time, and table placement is subject to availability",
+            "show_on": "both"
+          }
+        },
+        {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Pet policy applies to all reserved seating — indoor rentals are pet-free",
+            "show_on": "both"
+          }
+        },
+        {
+          "type": "rule",
+          "settings": {
+            "rule_text": "For groups of more than 20, contact us for a custom buffet quote",
+            "show_on": "both"
+          }
+        },
+        {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Seating and placement is subject to availability.",
+            "show_on": "both"
+          }
+        },
+        {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Reservation start times are available between 12PM and 6PM, with all reservations concluding by 8PM.",
+            "show_on": "both"
+          }
+        },
+        {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Lead time: 14 day minimum for table rental",
+            "show_on": "table"
+          }
+        },
+        {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Booked table hours: Mon 3-8PM  | Tues-Sun 12-8PM",
+            "show_on": "table"
+          }
+        },
+        {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Questions? Please direct your questions to the form",
+            "show_on": "table"
+          }
+        },
+        {
+          "type": "buffet_highlight",
+          "settings": { "label": "Minimum guests", "value": "20+" }
+        },
+        {
+          "type": "buffet_highlight",
+          "settings": { "label": "Menu options", "value": "Pizza, Taco, and  BBQ spreads" }
+        },
+        {
+          "type": "buffet_highlight",
+          "settings": { "label": "Bar service", "value": "Drink tickets or open bar available" }
+        },
+        {
+          "type": "buffet_highlight",
+          "settings": { "label": "Staffing", "value": "Fully staffed — we handle setup and service" }
+        },
+        {
+          "type": "buffet_highlight",
+          "settings": { "label": "Lead time required", "value": "Minimum 3 weeks advance notice" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
