@@ -175,12 +175,20 @@
               TODO — open question for the client, do not guess: should this
               expand inline (as built) or link out to a menu page instead?
             {%- endcomment -%}
+            {%- comment -%}
+              HIDDEN 2026-09-11 at the client's request — the food packages
+              button and its panel are switched off for now. Flip
+              show_packages back to true to restore it; the package blocks,
+              copy, and styles are all left in place untouched.
+            {%- endcomment -%}
+            {% assign show_packages = false %}
+
             {% assign has_packages = false %}
             {% for block in section.blocks %}
               {% if block.type == 'package' %}{% assign has_packages = true %}{% endif %}
             {% endfor %}
 
-            {% if has_packages and section.settings.packages_button_label != blank %}
+            {% if show_packages and has_packages and section.settings.packages_button_label != blank %}
               <div class="po-packages">
                 <button
                   type="button"
@@ -1616,7 +1624,7 @@
       "type": "text",
       "id": "packages_button_label",
       "label": "Food packages button label",
-      "info": "Leave blank to hide the food packages block. Button text flips to \"Hide food packages\" when open.",
+      "info": "Currently hidden on the live page — see the show_packages switch in this section's Liquid. Leave blank to hide the food packages block. Button text flips to \"Hide food packages\" when open.",
       "default": "View food packages"
     },
     {
