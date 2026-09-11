@@ -136,13 +136,21 @@
         role="region"
         aria-label="{{ section.settings.t_heading | escape }}"
       >
+        {% comment %}
+          The open panel's title sits above the grid, centred and underlined,
+          so the panel reads as its own titled region — without it the heading
+          sat in the left column and it was easy to start filling in the form
+          under the wrong option.
+        {% endcomment %}
+        {% if section.settings.t_heading != blank %}
+          <header class="po-panel__header">
+            <h3 class="po-panel__heading">{{ section.settings.t_heading }}</h3>
+          </header>
+        {% endif %}
+
         <div class="po-panel__grid">
 
           <div class="po-panel__details">
-            {% if section.settings.t_heading != blank %}
-              <h3 class="po-panel__heading">{{ section.settings.t_heading }}</h3>
-            {% endif %}
-
             {% if section.settings.t_description != blank %}
               <div class="rte po-panel__intro">{{ section.settings.t_description }}</div>
             {% endif %}
@@ -287,13 +295,21 @@
         aria-label="{{ section.settings.b_heading | escape }}"
         hidden
       >
+        {% comment %}
+          The open panel's title sits above the grid, centred and underlined,
+          so the panel reads as its own titled region — without it the heading
+          sat in the left column and it was easy to start filling in the form
+          under the wrong option.
+        {% endcomment %}
+        {% if section.settings.b_heading != blank %}
+          <header class="po-panel__header">
+            <h3 class="po-panel__heading">{{ section.settings.b_heading }}</h3>
+          </header>
+        {% endif %}
+
         <div class="po-panel__grid">
 
           <div class="po-panel__details">
-            {% if section.settings.b_heading != blank %}
-              <h3 class="po-panel__heading">{{ section.settings.b_heading }}</h3>
-            {% endif %}
-
             {% if section.settings.b_description != blank %}
               <div class="rte po-panel__intro">{{ section.settings.b_description }}</div>
             {% endif %}
@@ -547,13 +563,31 @@
     align-items: start;
   }
 
+  /* Panel title: centred above the grid, with a rule under the words. It is
+     the marker for which option is open, so it spans the panel rather than
+     sitting in the left column. */
+  {{ s }} .po-panel__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
   {{ s }} .po-panel__heading {
     font-family: var(--glob-heading-font);
     font-weight: var(--glob-heading-font-weight);
     text-transform: var(--glob-heading-transform);
     font-size: clamp(1.75rem, 4vw, 2.5rem);
     line-height: 1.05;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0;
+  }
+
+  {{ s }} .po-panel__header .po-panel__heading::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 2px;
+    margin: 1rem auto 0;
+    background: currentColor;
+    opacity: 0.45;
   }
 
   {{ s }} .po-panel__intro {
@@ -1332,6 +1366,10 @@
 
     {{ s }} .po-panel {
       margin-top: 2rem;
+    }
+
+    {{ s }} .po-panel__header {
+      margin-bottom: 2rem;
     }
 
     {{ s }} .po-rules {
