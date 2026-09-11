@@ -96,6 +96,13 @@
             "includes": "8 pizzas\n8 bites\n3 Caesar salads"
           }
         },
+        "rule_MinPurchase": {
+          "type": "rule",
+          "settings": {
+            "rule_text": "A minimum food and drink purchase is required. Once seated, you can choose from two preset meal packages or from the restaurant menu to ensure the minimum purchase threshold is met.",
+            "show_on": "table"
+          }
+        },
         "rule_6aDtNV": {
           "type": "rule",
           "disabled": true,
@@ -209,6 +216,7 @@
         "seating_tier_eWmyh4",
         "package_zAehjf",
         "package_MGmMUe",
+        "rule_MinPurchase",
         "rule_6aDtNV",
         "rule_CdW3rJ",
         "rule_7fKeYq",
@@ -246,7 +254,7 @@
         "b_button": "Request a quote",
         "t_heading": "Rent a table",
         "t_description": "<p>Reserve a picnic table online up to 10 days in advance. Seating is subject to availability. Reservations are limited to 2 hours, unhosted, and non-refundable. Outside food, desserts, and drinks are not permitted without prior approval and applicable fees. Table locations cannot be guaranteed.</p><p>Fill out the form and we'll confirm our availability. For fastest response, please submit at least 14 days before your event date.</p>",
-        "t_policy_heading": "Abandonment Policy",
+        "t_policy_heading": "Refund Policy",
         "t_policy_text": "<p>All rental fees are non-refundable and do not apply to food or beverage charges. Parties must begin on time. If your group has not arrived within 20 minutes of the scheduled start time, your reserved tables may be released. Fees paid are non-refundable.</p>",
         "packages_button_label": "View food packages",
         "packages_description": "<p>Perfect for smaller groups of up to 20. We’ll prepare everything fresh and deliver it directly to your table.</p>",
