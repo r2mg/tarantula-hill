@@ -96,6 +96,13 @@
             "includes": "8 pizzas\n8 bites\n3 Caesar salads"
           }
         },
+        "rule_MinPurchase": {
+          "type": "rule",
+          "settings": {
+            "rule_text": "A minimum food and drink purchase is required. Once seated, you can choose from two preset meal packages or from the restaurant menu to ensure the minimum purchase threshold is met.",
+            "show_on": "table"
+          }
+        },
         "rule_6aDtNV": {
           "type": "rule",
           "disabled": true,
@@ -209,6 +216,7 @@
         "seating_tier_eWmyh4",
         "package_zAehjf",
         "package_MGmMUe",
+        "rule_MinPurchase",
         "rule_6aDtNV",
         "rule_CdW3rJ",
         "rule_7fKeYq",
