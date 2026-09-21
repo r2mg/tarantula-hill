@@ -567,6 +567,7 @@
         "description_nPz7dq",
         "button_g9hNx4"
       ],
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "color_scheme": "invert",
