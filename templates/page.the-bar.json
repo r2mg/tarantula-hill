@@ -122,6 +122,71 @@
         "content_position": "middle-center"
       }
     },
+    "menu_bar7Qw": {
+      "type": "menu",
+      "blocks": {
+        "category_bSg7Kt": {
+          "type": "category",
+          "settings": {
+            "category_name": "Signature Cocktails",
+            "category_note": "",
+            "items": "Basil Lemonade $14\nA refreshing, herbaceous twist on a classic vodka lemonade. Light, bubbly, and infused with fresh basil and citrus for a bold yet crisp finish.\nSub | Tito's +$2  |  Grey Goose +$3\n\nClassic Margarita $14\nJuicy, tart, and endlessly customizable. Enjoy classic lime or mix it up with fresh fruit flavors—add a little spice if you're feeling bold!\nAdd | Make it a Cadillac +$2  |  Strawberry or Raspberry +$2  |  Make it Spicy +25¢\n| Make it Frozen at No Charge\n\nEl Mezcalero $14\nA smoky and floral mezcal cocktail with vibrant yuzu and sweet pineapple juice, finished with a Tajín rim for a tangy kick.\nSub | Los Vecinos +$1  |  Yuu Baal +$2\n\nT-Hill Old Fashioned $15\nHouse old Fashioned made with Buffalo Trace Bourbon, brown sugar syrup, and aromatic and orange bitters. Garnished with an Amarena Cherry and orange peel.\nAdd | Whistle Pig Maple Syrup +$4\nSub | Los Vecinos Mezcal or Arette Blanco\n\nBarrel Aged Maple Old Fashioned $15\nGarrison Brothers Small Batch Bourbon, Maple Syrup, and Orange Bitters. Poured straight from the Barrel.\n\nEspresso Martini $14\nA T-Hill twist on a Classic! Made with Local Ragamuffin Cold Brew, Mario's Hard Espresso, and Brown Sugar Syrup with a coffee bean and grounds garnish.\n\nRazzle Dazzle Vodka Lemonade $14\nA fruit forward and bubbly cocktail made with raspberry, fresh lemon juice, simple syrup and topped with Prosecco.\n\nTarantula Tea $19\nAs close as we get to a Long Island or AMF. Our take on a classic. Gin, Vodka, Tequila, Citrus, Soda Water and Creme de Violette.",
+            "category_footer": ""
+          }
+        },
+        "category_bCl4Rw": {
+          "type": "category",
+          "settings": {
+            "category_name": "Classic Cocktails",
+            "category_note": "",
+            "items": "Vodka Red Bull $14\nGruven Vodka with Redbull\nSub | Tito's +$1  |  Grey Goose +$2  |  Gran Clasico Tequila\n\nPaloma $13\nGran Clasico Tequila, Squirt\nSub | Tesoro Blanco +$1  |  Arette Blanco +$1  |  Tequila Ocho Blanco +$2  |  Lalo Blanco +$2  |  Siete Leguas +$4\n\nMule $15\nGruven Vodka with lime juice, simple syrup, ginger beer\nVodka | Tito's +$2  |  Grey Goose +$3\nTequila | Gran Clasico  |  Tesoro Blanco +$1  |  Arette Blanco +$1  |  Tequila Ocho Blanco +$2  |  Lalo Blanco +$2  |  Siete Leguas +$4\n\nMartini $16\nGruven Vodka Dry, add Dry Vermouth\nAdd | Dirty +$1  |  Extra Dirty +$1.50\nVodka | Tito's +$3  |  Grey Goose +$5\nGin | City of London  |  Hendrick's +$4  |  The Botanist +$4\n\nSour $15\nBuffalo Trace Bourbon, lemon juice and simple syrup\nAdd | Egg Whites +$2\nWhiskey | Michter's Bourbon +$1  |  Redwood Empire Lost Monarch Blended Whiskey +$1\nTequila | Gran Clasico  |  Tequila Ocho Blanco +$2\nVodka | Gruven  |  Tito's +$2  |  Grey Goose +$3\n\nCosmopolitan $15\nGruven Vodka, Cranberry, Lime Juice, Simple Syrup, Orange Liqueur\nSub | Tito's +$1  |  Grey Goose +$2\n\nManhattan $16\nSagamore Rye Whiskey, Sweet vermouth and Aromatic Bitters\nT-Hill Style | Sub Atost: A California Aperitif\nWhiskey | Michter's Rye +$1  |  Buffalo Trace +$1\n\nNegroni $15\nCity of London Gin, Sweet Vermouth, Negroni Bitter Apertivo\nGin | Hendrick's +$4\nBoulevardier | Buffalo Trace +$2\nTequila | Los Vecinos Mezcal +$1\n\nFrench 75 $15\nCity of London Gin, lemon juice, simple syrup topped with Prosecco\nGin | Hendrick's +$4  |  The Botanist +$4\nVodka (French 76) | Gruven  |  Tito's +$2  |  Grey Goose +$3",
+            "category_footer": ""
+          }
+        },
+        "category_bSp2Hz": {
+          "type": "category",
+          "settings": {
+            "category_name": "Spritzes",
+            "category_note": "",
+            "items": "California Spritz $14\nA unique California spritz; made with Atost California Aperitif, Prosecco, and Soda Water. Atost is a modern & bittersweet California Aperitif made with freshly picked oranges & juicy strawberries grown in the sun-soaked orchards of Ventura.\n\nAperol Spritz $14\nAn Italian classic that is both bubbly and refreshing. Made with Aperol from Negroni Apertivo Sixteen, Prosecco, and Soda Water.",
+            "category_footer": ""
+          }
+        },
+        "category_bSh9Nq": {
+          "type": "category",
+          "settings": {
+            "category_name": "Signature Shots",
+            "category_note": "",
+            "items": "Mexican Candy Shot $8\nA sweet and tangy tequila shot. Bursting with juicy mango, balanced by a hint of lime and a tajin rim for the perfect finish.\n\nLemon Drop Shot $10\nA fun, lemony vodka shot with a sugar rim!\n\nGreen Tea Shot $11\nJameson, Peach Schnapps, Lemon Juice with a splash of Sprite\n\nWhite Tea Shot $10\nVodka, Peach Schnapps, Lemon Juice with a splash of Sprite",
+            "category_footer": ""
+          }
+        },
+        "category_bMk5Vd": {
+          "type": "category",
+          "settings": {
+            "category_name": "Mocktails",
+            "category_note": "",
+            "items": "No Es Real Non-Alc Margarita $10\nA booze-free take on a classic! With Lime, Orange Juice, Agave Nectar, and Soda Water.\n\nTropical Sipper $10\nPineapple, strawberry, lime, coconut and simple syrups\n\nNo-jito $10\nNo buzz, no problem. This cocktail features lime, simple syrup and fresh mint!\n\nNon-Alc Blood Orange Margarita $10\nNo buzz, no problem. This cocktail features lime, simple syrup and fresh mint!",
+            "category_footer": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_bSg7Kt",
+        "category_bCl4Rw",
+        "category_bSp2Hz",
+        "category_bSh9Nq",
+        "category_bMk5Vd"
+      ],
+      "name": "Menu",
+      "settings": {
+        "color_scheme": "main",
+        "heading_align": "center",
+        "eyebrow": "",
+        "heading": "",
+        "description": ""
+      }
+    },
     "ss_flexible_tabs_gAp6yW": {
       "type": "ss-flexible-tabs",
       "blocks": {
@@ -724,7 +789,8 @@
         "content_width": 120,
         "border_thickness": 0,
         "lazy": true
-      }
+      },
+      "disabled": true
     },
     "shoppable_image_ajY4RF": {
       "type": "shoppable-image",
@@ -763,6 +829,7 @@
     "page-header",
     "page",
     "image_with_text_3VP47B",
+    "menu_bar7Qw",
     "ss_flexible_tabs_gAp6yW",
     "shoppable_image_ajY4RF"
   ]
