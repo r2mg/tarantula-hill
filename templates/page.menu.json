@@ -51,8 +51,8 @@
           "type": "category",
           "settings": {
             "category_name": "Pizza",
-            "category_note": "*Gluten Free Pizza +$6.5  *Vegan Cheese +$4  *Add Egg +$3",
-            "items": "Cheese $19\nMozzarella, Parmesan, Tomato Sauce\n\nMargherita $19\nFresh Mozzarella, Tomato Sauce, Fresh Basil, Extra Virgin Olive Oil, Sea Salt\n\nHot Pepperoni $23\nPepperoni, Mozzarella, Oregano, Hot Honey Drizzle, Tomato Sauce\n\nThe Goomba $22\nPortobello, Cremini and Oyster Mushrooms, Fontina, Herbed Ricotta Sauce, True Salt\n\nHaole $21\nBacon, Mozzarella, Pineapple, Pickled Jalapeños, Tomato Sauce\n\nThe BBQ Chicken $22\nRoasted Chicken, Mozzarella, Fontina, Parmesan, Red Onions, Pickled Jalapeños, Cilantro Mix, BBQ Sauce\n\nThe Carnivore $25\nPepperoni, Fennel Sausage, Bacon, Calabrese, Mozzarella, Tomato Sauce\n\nGoat Arugula $21\nGoat Cheese, Mozzarella, Fresh Mozzarella, Parmesan, Fresh Arugula Tossed in Extra Virgin Olive Oil, Saba\n\nProsciutto Formaggio $25\nProsciutto di Parma, Burrata, Arugula, Oregano, Sea Salt, Saba, Tomato Sauce\n\nHot Honey Short Rib $27\nBraised Short Rib, Fontina, Mushrooms, Red Onions, Crispy Shallots, Hot Honey Drizzle, Herbed Ricotta Sauce\n\nSpecial Pizza $25\nThe Pizza Special of the Day!",
+            "category_note": "*Gluten Free Pizza +$6.50  *Vegan Cheese +$4  *Add Egg +$3",
+            "items": "Cheese $19\nMozzarella, Parmesan, Tomato Sauce\n\nMargherita $19\nFresh Mozzarella, Tomato Sauce, Fresh Basil, Extra Virgin Olive Oil, Sea Salt\n\nPepperoni $20\nPepperoni, Mozzarella, Oregano, Tomato Sauce\n\nThe Goomba $22\nPortobello, Cremini and Oyster Mushrooms, Fontina, Truffle Salt, Herbed Ricotta Sauce\n\nThe Spicy BBQ Chicken $22\nRoasted Chicken, Mozzarella, Fontina, Parmesan, Red Onions, Pickled Jalapeños, Cilantro Mix, Spicy BBQ Sauce\n\nHaole [How-ley] $21\nBacon, Mozzarella, Pineapple, Pickled Jalapeños, Tomato Sauce\n\nThe Carnivore $25\nPepperoni, Fennel Sausage, Bacon, Calabrese, Mozzarella, Tomato Sauce\n\nProsciutto Formaggio $25\nProsciutto di Parma, Burrata, Arugula, Oregano, Sea Salt, Saba, Tomato Sauce\n\nGoat Arugula $21\nGoat Cheese, Mozzarella, Fresh Mozzarella, Parmesan, Saba, Lemon Juice, Fresh Arugula Tossed in Extra Virgin Olive Oil\n\nHot Honey Pepperoni $23\nPepperoni, Mozzarella, Fresh Mozzarella, Oregano, Hot Honey Drizzle, Tomato Sauce\n\nHot Honey Short Rib $27\nBraised Short Rib, Fontina, Mushrooms, Red Onions, Crispy Shallots, Hot Honey Drizzle, Herbed Ricotta Sauce\n\nSpecial Pizza $25\nThe Pizza Special of the Day!",
             "category_footer": ""
           }
         },
@@ -60,27 +60,27 @@
           "type": "category",
           "settings": {
             "category_name": "Sandwiches",
-            "category_note": "*Served with Adobo Fries  *Choice of Ketchup or Aioli",
-            "items": "The Veganiese Sando $19\nBlack Bean Patty, Hummus, Avocado, Heirloom Tomatoes, Baby Kale, Shaved Fennel, Onions, Peppers, Cucumber on Whole Grain\n\nCubano Sandwich $21\nProsciutto di Parma, Coto Ham, Fontina Cheese, Hot Pickles, Pickled Sriracha, Mojo Aioli on Pressed French Baguette\n\nWarm Chicken Club Sandwich $20\nChicken Breast, Bacon, Cheddar, Avocado, Baby Spinach, Tomatoes, Sriracha Aioli on Ciabatta\n\nCheeseburger $20\nBeef Patty or Lean Ground Turkey Patty, American Cheese, Lettuce, Tomatoes, House Pickles, T-Hill Dijonnaise on Brioche Bun\n\nShort Rib Dip $26\n12-Hour Braised Short Rib, Crispy Shallots, Pickled Serranos, Wild Leek Aioli, Short Rib Au Jus Dip on French Roll\n\nBBQ Sandwich $26\nGrilled Flank Steak, Bacon, Tillamook Cheddar, Avocado, Arugula, Hot Pickles, Shaved Onions, T-Hill BBQ Sauce on Sourdough\n\nSpicy Fried Chicken Ranch $20\nCrispy Chicken Breast, Bacon, Hot Pickles, Pickled Onions, Spicy Ranch on Brioche Bun",
-            "category_footer": "Add to Veganiese Sando | Chicken +$6.5  |  Shrimp +$8  |  Steak +$8.5  |  Ahi Tuna +$12.5"
+            "category_note": "*Served with Adobo Fries  *Choice of Ketchup or Aioli  *Add Egg +$3  *Additional Sauces 50¢",
+            "items": "Spicy Fried Chicken Ranch $20\nCrispy Chicken Breast, Bacon, Hot Pickles, Pickled Onions, Spicy Ranch on Brioche Bun\n\nCheeseburger $20\nBeef Patty or Lean Ground Turkey Patty, American Cheese, Lettuce, Tomatoes, House Pickles, T-Hill Dijonnaise on Brioche Bun\nAdd | Extra Patty +$7\nSub | Turkey Burger at No Cost\n\nShort Rib Dip $26\n12-Hour Braised Short Rib, Crispy Shallots, Hot Pickled Serranos, Wild Leek Aioli, Short Rib Au Jus Dip on French Roll\n\nBBQ Sandwich $26\nGrilled Flank Steak, Bacon, Tillamook Cheddar, Avocado, Arugula, Hot Pickles, Shaved Onions, T-Hill BBQ Sauce on Sourdough\n\nCubano Sandwich $21\nProsciutto di Parma, Coto Ham, Fontina Cheese, Hot Pickles, Pickled Sriracha, Mojo Aioli on Pressed French Baguette\n\nWarm Chicken Club Sandwich $20\nChicken Breast, Bacon, Cheddar, Avocado, Baby Spinach, Tomatoes, Sriracha Aioli on Ciabatta\n\nVegan Sandwich $19\nBlack Bean Patty, Hummus, Avocado, Heirloom Tomatoes, Baby Kale, Shaved Fennel, Onions, Peppers, Cucumbers on Multi-Grain. Comes with a Side House Salad\nAdd | Chicken +$6.50  |  Shrimp +$8  |  Steak +$8.50  |  Ahi Tuna +$12.50\n\nCrispy Chicken Caesar Wrap $18\nCrispy Chicken Tender, Parmesan, Baby Gem and Romaine, Garlic Croutons, House Caesar Dressing, Wrapped in Flour Tortilla\n\nSpicy Crispy Chicken Wrap $18\nCrispy and Spicy Chicken, Cheese Blend, Avocado, Adobo Fries, Onions, Spicy Ranch Slaw, Cilantro Mix, Wrapped in Flour Tortilla",
+            "category_footer": ""
           }
         },
         "category_nGhKKq": {
           "type": "category",
           "settings": {
-            "category_name": "Street Food",
-            "category_note": "",
-            "items": "Chicken Fajita Tacos (3) $16\nRoasted Chicken, Sweet Peppers, Onion, Cilantro Mix, Salsa Verde\n\nChicken Fajitas Burrito $17\nRoasted Chicken, Avocado, Sweet Onions and Peppers, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nAsada Tacos (3) $18\nFlank Steak, Sweet Onions, Cilantro Mix, Salsa Verde\n\nAsada Burrito $20\nFlank Steak, Cheese Blend, Queso Fresco, Avocado, Sweet Onions, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nVeggie Burrito $17\nRoasted Cauliflower, Queso Fresco, Avocado, Peppers, Onion and Corn Mix, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nShrimp Burrito $21\nSautéed Shrimp, Cheese Blend, Avocado, Pickled Onions, Adobo Fries, Cilantro Mix, Homemade Diablo Sauce, Salsa Verde Wrapped in Flour Tortilla\n\nFish Tacos (3) $19\nBeer Batter White Cod, T-Hill Coleslaw, Roasted Sriracha Yogurt\n\nSurf N' Turf Burrito $22\nFlank Steak, Shrimp (6), Cheese Blend, Avocado, Sweet Onion, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nQuesadilla $14\nCheese Blend\n\nChips N' Salsa $8\nHomemade Chips, Roasted Fire Tomato Salsa",
-            "category_footer": "Add to Quesadilla | Chicken +$6.5  |  Shrimp +$8  |  Steak +$8.5  |  Ahi Tuna +$12.5"
+            "category_name": "Tacos and Burritos",
+            "category_note": "*Burritos Served With Chips and Roasted Salsa Roja",
+            "items": "Chicken Fajita Tacos (3) $16\nRoasted Chicken, Sweet Peppers, Onion, Cilantro Mix, Salsa Verde\nSide | Limes + Radishes\n\nAsada Tacos (3) $18\nFlank Steak, Sweet Onions, Cilantro Mix, Salsa Verde\nSide | Limes + Radishes\n\nFish Tacos (3) $19\nBeer Battered White Cod, T-Hill Coleslaw, Roasted Sriracha Yogurt\nSide | Salsa Verde + Limes\n\nShrimp Burrito $21\nSautéed Shrimp, Cheese Blend, Avocado, Pickled Onions, Adobo Fries, Cilantro Mix, Homemade Diablo Sauce, Salsa Verde Wrapped in Flour Tortilla\n\nAsada Burrito $20\nFlank Steak, Cheese Blend, Queso Fresco, Avocado, Sweet Onions, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nVeggie Burrito $17\nRoasted Cauliflower, Queso Fresco, Avocado, Peppers, Onion and Corn Mix, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nChicken Fajita Burrito $17\nRoasted Chicken, Avocado, Sweet Onions and Peppers, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nSurf N' Turf Burrito $22\nFlank Steak, Shrimp (6), Cheese Blend, Avocado, Sweet Onion, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nQuesadilla $14\nCheese Blend\nAdd | Chicken +$6.50  |  Shrimp +$8  |  Steak +$8.50  |  Ahi Tuna +$12.50",
+            "category_footer": ""
           }
         },
         "category_DpxqbV": {
           "type": "category",
           "settings": {
             "category_name": "Salads",
-            "category_note": "",
-            "items": "Caesar $16\nBaby Gem and Romaine Lettuce, Parmesan, Garlic — House Caesar Dressing\n\nCobb $20\nArugula, Iceberg Mix, Chicken Breast, Bacon, Chino Valley Eggs, Point Reyes Blue Cheese, Avocado, Baby Tomatoes — Red Wine Vinaigrette\n\nMediterranean Salad $18\nBaby Kale, Feta Cheese, Kalamata Olives, Baby Heirloom Tomatoes, Quinoa, Shaved Fennel, Shaved Onions, Oregano — Sherry Vinegar, Extra Virgin Olive Oil\n\nThe Wedge $17\nBaby Iceberg, Bacon, Point Reyes Blue Cheese, Baby Heirloom Tomatoes — Point Reyes Blue Cheese Dressing",
-            "category_footer": "Add | Chicken +$6.5  |  Shrimp +$8  |  Steak +$8.5  |  Ahi Tuna +$12.5"
+            "category_note": "Add | Chicken +$6.50  |  Shrimp +$8  |  Steak +$8.50  |  Ahi Tuna +$12.50",
+            "items": "Caesar $16\nBaby Gem and Romaine Lettuce, Parmesan, Garlic Croutons\nDressing | Homemade Caesar\n\nWedge $17\nBaby Iceberg, Bacon, Point Reyes Blue Cheese, Baby Heirloom Tomatoes\nDressing | Point Reyes Blue Cheese Dressing\n\nMediterranean $18\nBaby Kale, Feta Cheese, Kalamata Olives, Baby Heirloom Tomatoes, Quinoa, Shaved Fennel, Shaved Onions, Oregano\nDressing | Sherry Vinegar, Extra Virgin Olive Oil\n\nCobb $20\nArugula, Iceberg Mix, Chicken Breast, Bacon, Chino Valley Eggs, Point Reyes Blue Cheese, Avocado, Baby Tomatoes\nDressing | Red Wine Vinaigrette",
+            "category_footer": ""
           }
         },
         "category_DVqFAi": {
@@ -88,7 +88,7 @@
           "settings": {
             "category_name": "Bites",
             "category_note": "",
-            "items": "Soft Pretzel $20\nJumbo Craft Bavarian Pretzel, IPA House Mustard — Add Ale Cheese Sauce +$4\n\nChicken Tenders $18\nFour Chicken Tenders — BBQ, Ranch, or Ketchup\n\nCharcuterie $75\nChef's Combination of Salumi and Cheese, Almonds, Traditional Condiments, Pretzel Bites and Pita Bread\n\nCheese Board $37\nChef's Choice of Two Imported Cheeses, Homemade Preserves, Almonds, Dried and Fresh Fruit, Toast Points\n\nBuffalo Cauliflower $13\nBeer Batter Cauliflower Tossed in Buffalo Sauce, Chives — Blue Cheese, Ranch\n\nFried Brussel Sprouts $13\nCrispy Shallots, Pickled Fresnos, Ponzu Sauce\n\nAdobo Fries $8.50\nFries Tossed in House Blend Spices — Sriracha Aioli, Ketchup\n\nTater Tots $9\nServed with Two Sauces — Sriracha Aioli, Ketchup\n\nHummus & Veggie Platter $15\nHummus, Lemon Segments, Sundried Tomato, Extra Virgin Olive Oil\n\nCrispy Chicken Caesar Wrap $18\nCrispy Chicken Tender, Parmesan, Baby Gem and Romaine, Garlic Croutons, House Caesar Dressing in Flour Tortilla\n\nGarlic Bread Bites $13\nRoasted Garlic, Oregano, Extra Virgin Olive Oil, Sea Salt — Marinara and Ranch\n\nHalf Dozen Oysters $30\nServed over Ice, Lemon, Tabasco, Cocktail Sauce\n\nT-Hill Wings (8) $20\nCarolina Gold, Buffalo, or BBQ — Ranch or Bleu Cheese\n\nT-Hill Wings (20) $30\nCarolina Gold, Buffalo, or BBQ — Ranch or Bleu Cheese",
+            "items": "T-Hill's Wings (8) $20\nChoose Your Sauce: Carolina Gold, Buffalo, and BBQ\n| Comes with ranch or bleu cheese upon request\n\nT-Hill's Wings (20) $30\nChoose Your Sauce: Carolina Gold, Buffalo, and BBQ\n| Comes with ranch or bleu cheese upon request\n\nChips N' Salsa $8\nHomemade Chips, Roasted Fire Tomato Salsa\n\nAdobo Fries $8.50\nFries Tossed in House Blend Spices\nSide | Sriracha Aioli, Ketchup\n\nTater Tots $9\nServed with Two Sauces\nSide | Sriracha Aioli, Ketchup\n\nGarlic Bread Bites $13\nRoasted Garlic, Oregano, Extra Virgin Olive Oil, Sea Salt\nSide | Marinara, Ranch\n\nFried Brussel Sprouts $13\nCrispy Shallots, Pickled Fresnos, Ponzu Sauce\n\nBuffalo Cauliflower $13\nBeer Battered Cauliflower Tossed in Buffalo Sauce, Chives\nSide | Blue Cheese, Ranch\n\nHummus & Veggies $15\nHummus, Lemon Segments, Sundried Tomato, Extra Virgin Olive Oil\n\nChicken Tenders $18\nFour Breaded Chicken Tenders, Adobo Fries\nSide | BBQ, Ranch, or Ketchup\n\nSoft Pretzel $20\nJumbo Craft Bavarian Pretzel, IPA House Mustard, and Ale Cheese Sauce\nExtra | Ale Cheese Sauce +$4\n\nHalf Dozen Oysters $30\nServed over Ice, Lemon, Tabasco, Cocktail Sauce\n\nCheese Board $37\nChef's Choice of Two Imported Cheeses, Homemade Preserves, Almonds, Dried and Fresh Fruit, Toast Points\n\nCharcuterie $75\nChef's Combination of Salumi and Cheese, Almonds, Traditional Condiments, Pretzel Bites and Pita Bread",
             "category_footer": ""
           }
         },
@@ -97,7 +97,7 @@
           "settings": {
             "category_name": "Kids Menu",
             "category_note": "",
-            "items": "Grilled Cheese $14\nAmerican and Tillamook Cheddar on Brioche — Tots\n\nPB & J $13\nPeanut Butter and Jelly on Brioche — Tots, Banana +$2\n\nChicken Tenders $14\nTwo Breaded Chicken Tenders — Tots\n\nKids Pizza $14\nMozzarella, Tomato Sauce\n\nKids Pasta $13\nSemolina Noodles, Parmesan Cheese — Red or Butter Sauce\n\nCheese Quesadilla $14\nCorn Tortilla, American Cheese, Cheese Blend",
+            "items": "Grilled Cheese $14\nAmerican and Tillamook Cheddar Cheese on Brioche\nSide | Tots\n\nPB & J $13\nPeanut Butter and Jelly on Brioche\nSide | Tots | Banana +$2\n\nChicken Tenders $14\nTwo Breaded Chicken Tenders\nSide | Tots\n\nKids Pasta $13\nSemolina Noodles, Parmesan Cheese\nSauce | Red or Butter\n\nKids Pizza $14\nMozzarella, Tomato Sauce\n\nCheese Quesadilla $14\nCorn Tortilla, American Cheese, Cheese Blend",
             "category_footer": ""
           }
         },
@@ -106,7 +106,7 @@
           "settings": {
             "category_name": "Late Night",
             "category_note": "Friday & Saturday  9PM – 11PM",
-            "items": "Asada Fries $18\nFlank Steak, Cheese Blend, Diced Onions, Cilantro Mix, Pickled Sriracha, Radishes on T-Hill Fries\n\nT-Hill Nachos $15\nCheese Blend, Black Beans, Onions, Cilantro Mix, Radishes, Pickled Jalapeños\n\nSoft Pretzel Bites & Cheese $18\n10 Pretzel Bites in Olive Oil and Sea Salt, Ale Cheese Sauce, IPA House Mustard\n\nCrispy Chicken Caesar Wrap $18\nCrispy Chicken Tender, Parmesan, Baby Gem and Romaine Lettuce, Garlic Croutons, House Caesar Dressing in Flour Tortilla\n\nWarm Chicken Club $18\nChicken Breast, Bacon, Cheddar, Avocado, Baby Spinach, Tomatoes on Ciabatta\n\nChicken Tenders $16\nFour Chicken Tenders, Adobo Fries — BBQ, Ranch, or Ketchup\n\nTater Tots $8\nServed with Two Sauces — Sriracha Aioli, Ketchup\n\nGarlic Bread Bites $11\nRoasted Garlic, Oregano, Extra Virgin Olive Oil, Sea Salt — Marinara, Ranch\n\nPizzas $18\nAll T-Hill Pizzas at Late Night Price",
+            "items": "Asada Fries $18\nFlank Steak, Cheese Blend, Diced Onions, Cilantro Mix, Pickled Sriracha, Radishes on T-Hill Fries\n\nT-Hill Nachos $15\nCheese Blend, Black Beans, Onions, Cilantro Mix, Radishes, Pickled Jalapeños\n\nSoft Pretzel Bites & Cheese $18\n10 Pretzel Bites in Olive Oil and Sea Salt, Ale Cheese Sauce, IPA House Mustard\n\nCrispy Chicken Caesar Wrap $18\nCrispy Chicken Tender, Parmesan, Baby Gem and Romaine, Garlic Croutons, House Caesar Dressing, Wrapped in Flour Tortilla\n\nWarm Chicken Club $18\nChicken Breast, Bacon, Cheddar, Avocado, Baby Spinach, Tomatoes, Sriracha Aioli on Ciabatta\n\nChicken Tenders $16\nFour Breaded Chicken Tenders, Adobo Fries\nSide | BBQ, Ranch, or Ketchup\n\nTater Tots $8\nServed with Two Sauces\nSide | Sriracha Aioli, Ketchup\n\nGarlic Bread Bites $11\nRoasted Garlic, Oregano, Extra Virgin Olive Oil, Sea Salt\nSide | Marinara, Ranch\n\nPizzas $18\nAll T-Hill Pizzas at Late Night Price",
             "category_footer": ""
           }
         },
@@ -122,9 +122,9 @@
         "category_z6jJ8P": {
           "type": "category",
           "settings": {
-            "category_name": "N/A Beverages",
+            "category_name": "Non-Alc Beverages",
             "category_note": "",
-            "items": "Fresh Squeezed Lemonade $4.50\n\nFresh Squeezed Orange Juice $4.50\n\nFresh Brewed Ice Tea $4.50\n\nCoke $4\n\nDiet Coke $4\n\nCream Soda $4\n\nGinger-Ale $4\n\nSprite $4\n\nSparkling Lemonade $4\n\nOrange Soda $4\n\nMilk $4\n\nSoda Water $3",
+            "items": "Soda Water $3\n\nCoke $4\n\nDiet Coke $4\n\nCream Soda $4\n\nGinger-ale $4\n\nSprite $4\n\nSparkling Lemonade $4\n\nOrange Soda $4\n\nMilk $4\n\nFresh Squeezed Lemonade $4.50\n\nFresh Squeezed Orange Juice $4.50\n\nFresh Brewed Ice Tea $4.50",
             "category_footer": ""
           }
         }
