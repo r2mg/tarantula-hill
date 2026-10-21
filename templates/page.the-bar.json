@@ -130,7 +130,7 @@
           "settings": {
             "category_name": "Signature Cocktails",
             "category_note": "",
-            "items": "Classic Margarita $14\nJuicy, tart, and endlessly customizable. Enjoy classic lime or mix it up with fresh fruit flavors—add a little spice if you're feeling bold!\nAdd | Make it a Cadillac +$2  |  Strawberry or Raspberry +$2  |  Make it Spicy +25¢\n| Make it Frozen at No Charge\n\nEl Mezcalero $14\nA smoky and floral mezcal cocktail with vibrant yuzu and sweet pineapple juice, finished with a Tajín rim for a tangy kick.\nSub | Los Vecinos +$1  |  Yuu Baal +$2\n\nT-Hill Old Fashioned $15\nHouse old Fashioned made with Buffalo Trace Bourbon, brown sugar syrup, and aromatic and orange bitters. Garnished with an Amarena Cherry and orange peel.\nAdd | Whistle Pig Maple Syrup +$4\nSub | Los Vecinos Mezcal or Arette Blanco\n\nBarrel Aged Maple Old Fashioned $15\nGarrison Brothers Small Batch Bourbon, Maple Syrup, and Orange Bitters. Poured straight from the Barrel.\n\nEspresso Martini $14\nA T-Hill twist on a Classic! Made with Local Ragamuffin Cold Brew, Mario's Hard Espresso, and Brown Sugar Syrup with a coffee bean and grounds garnish.\n\nRazzle Dazzle Vodka Lemonade $14\nA fruit forward and bubbly cocktail made with raspberry, fresh lemon juice, simple syrup and topped with Prosecco.\n\nTarantula Tea $19\nAs close as we get to a Long Island or AMF. Our take on a classic. Gin, Vodka, Tequila, Citrus, Soda Water and Creme de Violette.",
+            "items": "Classic Margarita $14\nJuicy, tart, and made to order. Keep it classic with lime or mix it up with fresh fruit—add a little spice if you're feeling bold.\nAdd | Make it a Cadillac +$2  |  Blackberry, Peach, Raspberry, or Strawberry +$2  |  Make it Spicy +$0.50\n\nBlood Orange Margarita $17\nOur blood orange twist on the classic margarita. Made with Gran Clásico Blanco Tequila, freshly squeezed blood orange juice, lime juice, and agave. Finished with a salt rim, blood orange slice, and marigold flower.\nAdd | Make it a Cadillac +$2  |  Make it Spicy +$0.50\n\nBlackberry Mezcal Mule $16\nSmoky, fruit-forward, and refreshing. Made with Rayu Mezcal, blackberry, lime juice, and fresh mint. Topped with Fever-Tree Ginger Beer.\n\nThe Peach Pit $18\nSilky, bright, and effortlessly smooth. Made with vodka, peach, lemon juice, and egg white.\n\nRazzle Dazzle Vodka Lemonade $15\nBright, fruity, and bubbly. Made with Gruven Vodka, fresh raspberry purée, lemon juice, and simple syrup. Topped with Prosecco.\n\nBasil Lemonade $15\nFresh basil gives this lemonade a bright, herbaceous twist. Made with vodka, lemon juice, fresh basil, and simple syrup. Topped with soda water.\nAdd | Blackberry, Peach, Raspberry, or Strawberry +$2\n\nT-Hill Espresso Martini $16\nOur take on the espresso martini, featuring locally roasted Ragamuffin Coffee. Choose vodka, tequila, or bourbon, shaken with Ragamuffin Better Day Bottled Espresso, Mario's Espresso Liqueur, and brown sugar syrup. Finished with coffee beans.\n\nTarantula Tea $19\nOur elevated twist on the Long Island. Made with rum, tequila, vodka, gin, lemon, and finished with Crème de Violette.\n\nStrawberry Bourbon Smash $15\nFresh strawberries and mint bring a bright summer twist to this bourbon classic. Made with Old Bardstown 90 Proof Bourbon, strawberry purée, lemon juice, and fresh mint.\n\nT-Hill Old Fashioned $16\nOur take on the classic Old Fashioned. Made with Buffalo Trace Bourbon, brown sugar syrup, and aromatic and orange bitters. Finished with an Amarena cherry and orange peel.\nItalian Style | Add Cherry Syrup +$1\n\nBarrel-Aged Maple Old Fashioned $19\nPoured straight from the barrel for a richer take on the Old Fashioned. Made with Garrison Brothers Small Batch Bourbon, barrel-aged maple syrup, and orange bitters.\n\nJapanese Old Fashioned $19\nA refined twist on the Old Fashioned featuring San-In Blended Japanese Whisky. Made with Japanese plum liqueur, brown sugar syrup, and aromatic and orange bitters. Finished with an Amarena cherry and orange peel.",
             "category_footer": ""
           }
         },
@@ -139,16 +139,7 @@
           "settings": {
             "category_name": "Classic Cocktails",
             "category_note": "",
-            "items": "Vodka Red Bull $14\nGruven Vodka with Redbull\nSub | Tito's +$1  |  Grey Goose +$2  |  Gran Clasico Tequila\n\nPaloma $13\nGran Clasico Tequila, Squirt\nSub | Tesoro Blanco +$1  |  Arette Blanco +$1  |  Tequila Ocho Blanco +$2  |  Lalo Blanco +$2  |  Siete Leguas +$4\n\nMule $15\nGruven Vodka with lime juice, simple syrup, ginger beer\nVodka | Tito's +$2  |  Grey Goose +$3\nTequila | Gran Clasico  |  Tesoro Blanco +$1  |  Arette Blanco +$1  |  Tequila Ocho Blanco +$2  |  Lalo Blanco +$2  |  Siete Leguas +$4\n\nMartini $16\nGruven Vodka Dry, add Dry Vermouth\nAdd | Dirty +$1  |  Extra Dirty +$1.50\nVodka | Tito's +$3  |  Grey Goose +$5\nGin | City of London  |  Hendrick's +$4  |  The Botanist +$4\n\nSour $15\nBuffalo Trace Bourbon, lemon juice and simple syrup\nAdd | Egg Whites +$2\nWhiskey | Michter's Bourbon +$1  |  Redwood Empire Lost Monarch Blended Whiskey +$1\nTequila | Gran Clasico  |  Tequila Ocho Blanco +$2\nVodka | Gruven  |  Tito's +$2  |  Grey Goose +$3\n\nCosmopolitan $15\nGruven Vodka, Cranberry, Lime Juice, Simple Syrup, Orange Liqueur\nSub | Tito's +$1  |  Grey Goose +$2\n\nManhattan $16\nSagamore Rye Whiskey, Sweet vermouth and Aromatic Bitters\nT-Hill Style | Sub Atost: A California Aperitif\nWhiskey | Michter's Rye +$1  |  Buffalo Trace +$1\n\nNegroni $15\nCity of London Gin, Sweet Vermouth, Negroni Bitter Apertivo\nGin | Hendrick's +$4\nBoulevardier | Buffalo Trace +$2\nTequila | Los Vecinos Mezcal +$1\n\nFrench 75 $15\nCity of London Gin, lemon juice, simple syrup topped with Prosecco\nGin | Hendrick's +$4  |  The Botanist +$4\nVodka (French 76) | Gruven  |  Tito's +$2  |  Grey Goose +$3",
-            "category_footer": ""
-          }
-        },
-        "category_bSp2Hz": {
-          "type": "category",
-          "settings": {
-            "category_name": "Spritzes",
-            "category_note": "",
-            "items": "California Spritz $14\nA unique California spritz; made with Atost California Aperitif, Prosecco, and Soda Water. Atost is a modern & bittersweet California Aperitif made with freshly picked oranges & juicy strawberries grown in the sun-soaked orchards of Ventura.\n\nAperol Spritz $14\nAn Italian classic that is both bubbly and refreshing. Made with Aperol from Negroni Apertivo Sixteen, Prosecco, and Soda Water.",
+            "items": "Vodka Red Bull $14\nVodka and Red Bull—simple, classic, effective.\n\nPaloma $14\nA refreshing blend of tequila and bubbly grapefruit soda.\n\nMule $15\nYour choice of liquor with lime and ginger, topped with Fever-tree Ginger Beer. Doesn't get much more refreshing.\n\nMartini $16\nAn elegant and classic chilled cocktail made of vodka or gin and dry vermouth rinse.\nAdd | Dirty +$1  |  Extra Dirty +$1.50\n\nLemon Drop Martini $14\nA bright, refreshing cocktail balancing tart citrus with just the right amount of sweetness.\n\nSour $16\nA balanced mix of your choice of liquor, fresh lemon, and a touch of sweetness. Add egg white for a silky finish.\nAdd | Egg Whites +$2\n\nCosmopolitan $15\nBright, balanced, and citrus-forward. Made with vodka, cranberry, orange liqueur, and lime juice.\n\nManhattan $17\nA classic, spirit-forward cocktail made with a rye whiskey, sweet vermouth, and bitters with an Amarena Cherry.\n\nNegroni $15\nA classic bittersweet Italian apertif made with equal parts gin, Negroni Bitter Apertivo, and sweet vermouth. Stirred and finished with an orange peel.\n\nFrench 75 $15\nA elegant sparkling cocktail made with gin, lemon, simple syrup, and Prosecco—bright and effervescent.\n\nBloody Mary $14\nHouse-made Bloody Mary mix with your choice of vodka or tequila",
             "category_footer": ""
           }
         },
@@ -157,7 +148,7 @@
           "settings": {
             "category_name": "Signature Shots",
             "category_note": "",
-            "items": "Mexican Candy Shot $8\nA sweet and tangy tequila shot. Bursting with juicy mango, balanced by a hint of lime and a tajin rim for the perfect finish.\n\nLemon Drop Shot $10\nA fun, lemony vodka shot with a sugar rim!\n\nGreen Tea Shot $11\nJameson, Peach Schnapps, Lemon Juice with a splash of Sprite\n\nWhite Tea Shot $10\nVodka, Peach Schnapps, Lemon Juice with a splash of Sprite",
+            "items": "Mexican Candy $8\nA sweet and tangy tequila shot with juicy mango, a hint of lime, and a Tajín rim.\nAdd some heat! | Dash of Habanero extract +$0.50\n\nBlood Orange Mexican Candy $11\nA bold twist on a favorite—sweet, citrusy, and finished with a spicy kick.\n\nLemon Drop $10\nA sweet and sour vodka shooter.\n\nGreen Tea $11\nJameson Whiskey with peach and citrus!",
             "category_footer": ""
           }
         },
@@ -166,7 +157,25 @@
           "settings": {
             "category_name": "Mocktails",
             "category_note": "",
-            "items": "No Es Real Non-Alc Margarita $10\nA booze-free take on a classic! With Lime, Orange Juice, Agave Nectar, and Soda Water.\n\nTropical Sipper $10\nPineapple, strawberry, lime, coconut and simple syrups\n\nNo-jito $10\nNo buzz, no problem. This cocktail features lime, simple syrup and fresh mint!\n\nNon-Alc Blood Orange Margarita $10\nNo buzz, no problem. This cocktail features lime, simple syrup and fresh mint!",
+            "items": "\"No es Real\" Non-Alc Margarita $10\nNo alcohol, but muy buena.\n\nNon-Alc Blood Orange Margarita $13\nA booze-free take on one of our fan-favorite signature cocktails.\n\nTropical Sipper $12\nA bright, fruity island escape with pineapple, strawberry, coconut, lime juice and simple syrup.\n\nNo-Jito $10\nNo buzz, no problem. Made with fresh squeezed lime juice, mint leaves, and simple syrup. Topped with bubbly soda water.",
+            "category_footer": ""
+          }
+        },
+        "category_bSp2Hz": {
+          "type": "category",
+          "settings": {
+            "category_name": "Spritzes",
+            "category_note": "",
+            "items": "Aperol Spritz $14\nA classic Italian cocktail known for its light, bubbly texture and bittersweet citrus flavor. Made with Aperol, Prosecco, and soda water. Finished with an orange slice.\n\nHugo Spritz $16\nA light, floral spritz with St-Germain Elderflower Liquer, Prosecco, soda water, and fresh mint.",
+            "category_footer": ""
+          }
+        },
+        "category_bFz3Lp": {
+          "type": "category",
+          "settings": {
+            "category_name": "Frozen Cocktails",
+            "category_note": "",
+            "items": "Frozen Cocktail Flight $25\nEverything looking good? Why not try them all? Get a sample of all three frozen cocktail options.\n\nPina Colada $17\nA creamy, tropical blend of pineapple and coconut—smooth, refreshing, and easy to sip.\n\nFrozen Blood Orange Margarita $17\nOur blood orange twist on the classic frozen margarita. Made with Gran Clásico Blanco Tequila, freshly squeezed blood orange juice, lime juice, and agave. Finished with a Tajín rim, blood orange slice, and marigold flower.\n\nMalibu Frosé $17\nLight, fruity, and refreshing. Made with Saddlerock Rosé, strawberries, and fresh lemon juice.",
             "category_footer": ""
           }
         }
@@ -174,9 +183,10 @@
       "block_order": [
         "category_bSg7Kt",
         "category_bCl4Rw",
-        "category_bSp2Hz",
         "category_bSh9Nq",
-        "category_bMk5Vd"
+        "category_bMk5Vd",
+        "category_bSp2Hz",
+        "category_bFz3Lp"
       ],
       "name": "Menu",
       "settings": {
