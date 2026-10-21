@@ -51,7 +51,7 @@
           "type": "category",
           "settings": {
             "category_name": "Pizza",
-            "category_note": "*Gluten Free Pizza +$6.5  *Vegan Cheese +$4  *Add Egg +$3",
+            "category_note": "*Gluten Free Pizza +$6.50  *Vegan Cheese +$4  *Add Egg +$3",
             "items": "Cheese $19\nMozzarella, Parmesan, Tomato Sauce\n\nMargherita $19\nFresh Mozzarella, Tomato Sauce, Fresh Basil, Extra Virgin Olive Oil, Sea Salt\n\nPepperoni $20\nPepperoni, Mozzarella, Oregano, Tomato Sauce\n\nThe Goomba $22\nPortobello, Cremini and Oyster Mushrooms, Fontina, Truffle Salt, Herbed Ricotta Sauce\n\nThe Spicy BBQ Chicken $22\nRoasted Chicken, Mozzarella, Fontina, Parmesan, Red Onions, Pickled Jalapeños, Cilantro Mix, Spicy BBQ Sauce\n\nHaole [How-ley] $21\nBacon, Mozzarella, Pineapple, Pickled Jalapeños, Tomato Sauce\n\nThe Carnivore $25\nPepperoni, Fennel Sausage, Bacon, Calabrese, Mozzarella, Tomato Sauce\n\nProsciutto Formaggio $25\nProsciutto di Parma, Burrata, Arugula, Oregano, Sea Salt, Saba, Tomato Sauce\n\nGoat Arugula $21\nGoat Cheese, Mozzarella, Fresh Mozzarella, Parmesan, Saba, Lemon Juice, Fresh Arugula Tossed in Extra Virgin Olive Oil\n\nHot Honey Pepperoni $23\nPepperoni, Mozzarella, Fresh Mozzarella, Oregano, Hot Honey Drizzle, Tomato Sauce\n\nHot Honey Short Rib $27\nBraised Short Rib, Fontina, Mushrooms, Red Onions, Crispy Shallots, Hot Honey Drizzle, Herbed Ricotta Sauce\n\nSpecial Pizza $25\nThe Pizza Special of the Day!",
             "category_footer": ""
           }
@@ -61,16 +61,25 @@
           "settings": {
             "category_name": "Sandwiches",
             "category_note": "*Served with Adobo Fries  *Choice of Ketchup or Aioli  *Add Egg +$3  *Additional Sauces 50¢",
-            "items": "Spicy Fried Chicken Ranch $20\nCrispy Chicken Breast, Bacon, Hot Pickles, Pickled Onions, Spicy Ranch on Brioche Bun\n\nCheeseburger $20\nBeef Patty or Lean Ground Turkey Patty, American Cheese, Lettuce, Tomatoes, House Pickles, T-Hill Dijonnaise on Brioche Bun\nAdd | Extra Patty +$7\nSub | Turkey Burger at No Cost\n\nShort Rib Dip $26\n12-Hour Braised Short Rib, Crispy Shallots, Hot Pickled Serranos, Wild Leek Aioli, Short Rib Au Jus Dip on French Roll\n\nBBQ Sandwich $26\nGrilled Flank Steak, Bacon, Tillamook Cheddar, Avocado, Arugula, Hot Pickles, Shaved Onions, T-Hill BBQ Sauce on Sourdough\n\nCubano Sandwich $21\nProsciutto di Parma, Coto Ham, Fontina Cheese, Hot Pickles, Pickled Sriracha, Mojo Aioli on Pressed French Baguette\n\nWarm Chicken Club Sandwich $20\nChicken Breast, Bacon, Cheddar, Avocado, Baby Spinach, Tomatoes, Sriracha Aioli on Ciabatta\n\nVegan Sandwich $19\nBlack Bean Patty, Hummus, Avocado, Heirloom Tomatoes, Baby Kale, Shaved Fennel, Onions, Peppers, Cucumbers on Multi-Grain. Comes with a Side House Salad\nAdd | Chicken +$6.5  |  Shrimp +$8  |  Steak +$8.5  |  Ahi Tuna +$12.5\n\nCrispy Chicken Caesar Wrap $18\nCrispy Chicken Tender, Parmesan, Baby Gem and Romaine, Garlic Croutons, House Caesar Dressing, Wrapped in Flour Tortilla\n\nSpicy Crispy Chicken Wrap $18\nCrispy and Spicy Chicken, Cheese Blend, Avocado, Adobo Fries, Onions, Spicy Ranch Slaw, Cilantro Mix, Wrapped in Flour Tortilla",
+            "items": "Spicy Fried Chicken Ranch $20\nCrispy Chicken Breast, Bacon, Hot Pickles, Pickled Onions, Spicy Ranch on Brioche Bun\n\nCheeseburger $20\nBeef Patty or Lean Ground Turkey Patty, American Cheese, Lettuce, Tomatoes, House Pickles, T-Hill Dijonnaise on Brioche Bun\nAdd | Extra Patty +$7\nSub | Turkey Burger at No Cost\n\nShort Rib Dip $26\n12-Hour Braised Short Rib, Crispy Shallots, Hot Pickled Serranos, Wild Leek Aioli, Short Rib Au Jus Dip on French Roll\n\nBBQ Sandwich $26\nGrilled Flank Steak, Bacon, Tillamook Cheddar, Avocado, Arugula, Hot Pickles, Shaved Onions, T-Hill BBQ Sauce on Sourdough\n\nCubano Sandwich $21\nProsciutto di Parma, Coto Ham, Fontina Cheese, Hot Pickles, Pickled Sriracha, Mojo Aioli on Pressed French Baguette\n\nWarm Chicken Club Sandwich $20\nChicken Breast, Bacon, Cheddar, Avocado, Baby Spinach, Tomatoes, Sriracha Aioli on Ciabatta\n\nVegan Sandwich $19\nBlack Bean Patty, Hummus, Avocado, Heirloom Tomatoes, Baby Kale, Shaved Fennel, Onions, Peppers, Cucumbers on Multi-Grain. Comes with a Side House Salad\nAdd | Chicken +$6.50  |  Shrimp +$8  |  Steak +$8.50  |  Ahi Tuna +$12.50\n\nCrispy Chicken Caesar Wrap $18\nCrispy Chicken Tender, Parmesan, Baby Gem and Romaine, Garlic Croutons, House Caesar Dressing, Wrapped in Flour Tortilla\n\nSpicy Crispy Chicken Wrap $18\nCrispy and Spicy Chicken, Cheese Blend, Avocado, Adobo Fries, Onions, Spicy Ranch Slaw, Cilantro Mix, Wrapped in Flour Tortilla",
             "category_footer": ""
           }
         },
         "category_nGhKKq": {
           "type": "category",
           "settings": {
-            "category_name": "Street Food",
-            "category_note": "*Burritos Served With Chips and Roasted Salsa Roja",
-            "items": "Chicken Fajita Tacos (3) $16\nRoasted Chicken, Sweet Peppers, Onion, Cilantro Mix, Salsa Verde\nSide | Limes + Radishes\n\nChicken Fajita Burrito $17\nRoasted Chicken, Avocado, Sweet Onions and Peppers, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nAsada Tacos (3) $18\nFlank Steak, Sweet Onions, Cilantro Mix, Salsa Verde\nSide | Limes + Radishes\n\nAsada Burrito $20\nFlank Steak, Cheese Blend, Queso Fresco, Avocado, Sweet Onions, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nVeggie Burrito $17\nRoasted Cauliflower, Queso Fresco, Avocado, Peppers, Onion and Corn Mix, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nShrimp Burrito $21\nSautéed Shrimp, Cheese Blend, Avocado, Pickled Onions, Adobo Fries, Cilantro Mix, Homemade Diablo Sauce, Salsa Verde Wrapped in Flour Tortilla\n\nFish Tacos (3) $19\nBeer Battered White Cod, T-Hill Coleslaw, Roasted Sriracha Yogurt\nSide | Salsa Verde + Limes\n\nSurf N' Turf Burrito $22\nFlank Steak, Shrimp (6), Cheese Blend, Avocado, Sweet Onion, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nQuesadilla $14\nCheese Blend\nAdd | Chicken +$6.5  |  Shrimp +$8  |  Steak +$8.5  |  Ahi Tuna +$12.5\n\nChips N' Salsa $8\nHomemade Chips, Roasted Fire Tomato Salsa",
+            "category_name": "Tacos",
+            "category_note": "",
+            "items": "Chicken Fajita Tacos (3) $16\nRoasted Chicken, Sweet Peppers, Onion, Cilantro Mix, Salsa Verde\nSide | Limes + Radishes\n\nAsada Tacos (3) $18\nFlank Steak, Sweet Onions, Cilantro Mix, Salsa Verde\nSide | Limes + Radishes\n\nFish Tacos (3) $19\nBeer Battered White Cod, T-Hill Coleslaw, Roasted Sriracha Yogurt\nSide | Salsa Verde + Limes",
+            "category_footer": ""
+          }
+        },
+        "category_Brt7Qx": {
+          "type": "category",
+          "settings": {
+            "category_name": "Burritos",
+            "category_note": "*Served With Chips and Roasted Salsa Roja",
+            "items": "Shrimp Burrito $21\nSautéed Shrimp, Cheese Blend, Avocado, Pickled Onions, Adobo Fries, Cilantro Mix, Homemade Diablo Sauce, Salsa Verde Wrapped in Flour Tortilla\n\nAsada Burrito $20\nFlank Steak, Cheese Blend, Queso Fresco, Avocado, Sweet Onions, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nVeggie Burrito $17\nRoasted Cauliflower, Queso Fresco, Avocado, Peppers, Onion and Corn Mix, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nChicken Fajita Burrito $17\nRoasted Chicken, Avocado, Sweet Onions and Peppers, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nSurf N' Turf Burrito $22\nFlank Steak, Shrimp (6), Cheese Blend, Avocado, Sweet Onion, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nQuesadilla $14\nCheese Blend\nAdd | Chicken +$6.50  |  Shrimp +$8  |  Steak +$8.50  |  Ahi Tuna +$12.50",
             "category_footer": ""
           }
         },
@@ -78,7 +87,7 @@
           "type": "category",
           "settings": {
             "category_name": "Salads",
-            "category_note": "Add | Chicken +$6.5  |  Shrimp +$8  |  Steak +$8.5  |  Ahi Tuna +$12.5",
+            "category_note": "Add | Chicken +$6.50  |  Shrimp +$8  |  Steak +$8.50  |  Ahi Tuna +$12.50",
             "items": "Caesar $16\nBaby Gem and Romaine Lettuce, Parmesan, Garlic Croutons\nDressing | Homemade Caesar\n\nWedge $17\nBaby Iceberg, Bacon, Point Reyes Blue Cheese, Baby Heirloom Tomatoes\nDressing | Point Reyes Blue Cheese Dressing\n\nMediterranean $18\nBaby Kale, Feta Cheese, Kalamata Olives, Baby Heirloom Tomatoes, Quinoa, Shaved Fennel, Shaved Onions, Oregano\nDressing | Sherry Vinegar, Extra Virgin Olive Oil\n\nCobb $20\nArugula, Iceberg Mix, Chicken Breast, Bacon, Chino Valley Eggs, Point Reyes Blue Cheese, Avocado, Baby Tomatoes\nDressing | Red Wine Vinaigrette",
             "category_footer": ""
           }
@@ -122,7 +131,7 @@
         "category_z6jJ8P": {
           "type": "category",
           "settings": {
-            "category_name": "Beverages",
+            "category_name": "Non-Alc Beverages",
             "category_note": "",
             "items": "Soda Water $3\n\nCoke $4\n\nDiet Coke $4\n\nCream Soda $4\n\nGinger-ale $4\n\nSprite $4\n\nSparkling Lemonade $4\n\nOrange Soda $4\n\nMilk $4\n\nFresh Squeezed Lemonade $4.50\n\nFresh Squeezed Orange Juice $4.50\n\nFresh Brewed Ice Tea $4.50",
             "category_footer": ""
@@ -133,6 +142,7 @@
         "category_hKKiPc",
         "category_gWRgWf",
         "category_nGhKKq",
+        "category_Brt7Qx",
         "category_DpxqbV",
         "category_DVqFAi",
         "category_3FnPk4",
