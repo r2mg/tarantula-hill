@@ -68,18 +68,9 @@
         "category_nGhKKq": {
           "type": "category",
           "settings": {
-            "category_name": "Tacos",
-            "category_note": "",
-            "items": "Chicken Fajita Tacos (3) $16\nRoasted Chicken, Sweet Peppers, Onion, Cilantro Mix, Salsa Verde\nSide | Limes + Radishes\n\nAsada Tacos (3) $18\nFlank Steak, Sweet Onions, Cilantro Mix, Salsa Verde\nSide | Limes + Radishes\n\nFish Tacos (3) $19\nBeer Battered White Cod, T-Hill Coleslaw, Roasted Sriracha Yogurt\nSide | Salsa Verde + Limes",
-            "category_footer": ""
-          }
-        },
-        "category_Brt7Qx": {
-          "type": "category",
-          "settings": {
-            "category_name": "Burritos",
-            "category_note": "*Served With Chips and Roasted Salsa Roja",
-            "items": "Shrimp Burrito $21\nSautéed Shrimp, Cheese Blend, Avocado, Pickled Onions, Adobo Fries, Cilantro Mix, Homemade Diablo Sauce, Salsa Verde Wrapped in Flour Tortilla\n\nAsada Burrito $20\nFlank Steak, Cheese Blend, Queso Fresco, Avocado, Sweet Onions, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nVeggie Burrito $17\nRoasted Cauliflower, Queso Fresco, Avocado, Peppers, Onion and Corn Mix, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nChicken Fajita Burrito $17\nRoasted Chicken, Avocado, Sweet Onions and Peppers, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nSurf N' Turf Burrito $22\nFlank Steak, Shrimp (6), Cheese Blend, Avocado, Sweet Onion, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nQuesadilla $14\nCheese Blend\nAdd | Chicken +$6.50  |  Shrimp +$8  |  Steak +$8.50  |  Ahi Tuna +$12.50",
+            "category_name": "Tacos and Burritos",
+            "category_note": "*Burritos Served With Chips and Roasted Salsa Roja",
+            "items": "Chicken Fajita Tacos (3) $16\nRoasted Chicken, Sweet Peppers, Onion, Cilantro Mix, Salsa Verde\nSide | Limes + Radishes\n\nAsada Tacos (3) $18\nFlank Steak, Sweet Onions, Cilantro Mix, Salsa Verde\nSide | Limes + Radishes\n\nFish Tacos (3) $19\nBeer Battered White Cod, T-Hill Coleslaw, Roasted Sriracha Yogurt\nSide | Salsa Verde + Limes\n\nShrimp Burrito $21\nSautéed Shrimp, Cheese Blend, Avocado, Pickled Onions, Adobo Fries, Cilantro Mix, Homemade Diablo Sauce, Salsa Verde Wrapped in Flour Tortilla\n\nAsada Burrito $20\nFlank Steak, Cheese Blend, Queso Fresco, Avocado, Sweet Onions, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nVeggie Burrito $17\nRoasted Cauliflower, Queso Fresco, Avocado, Peppers, Onion and Corn Mix, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nChicken Fajita Burrito $17\nRoasted Chicken, Avocado, Sweet Onions and Peppers, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nSurf N' Turf Burrito $22\nFlank Steak, Shrimp (6), Cheese Blend, Avocado, Sweet Onion, Black Beans, Adobo Fries, Cilantro Mix, Salsa Verde Wrapped in Flour Tortilla\n\nQuesadilla $14\nCheese Blend\nAdd | Chicken +$6.50  |  Shrimp +$8  |  Steak +$8.50  |  Ahi Tuna +$12.50",
             "category_footer": ""
           }
         },
@@ -142,7 +133,6 @@
         "category_hKKiPc",
         "category_gWRgWf",
         "category_nGhKKq",
-        "category_Brt7Qx",
         "category_DpxqbV",
         "category_DVqFAi",
         "category_3FnPk4",
