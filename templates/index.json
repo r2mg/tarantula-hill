@@ -504,11 +504,11 @@
             "banner_overlay": 40,
             "content_position": "middle-center",
             "content_box": false,
-            "subheading_text": "Looking to reserve a table for a large party",
+            "subheading_text": "Looking to book a table for your large party?",
             "heading_text": "Book a party",
             "heading_size": "h1",
             "text_content": "Got a big group coming? Perfect. We love when people bring their crew for good food and even better times. Just let us know what you need and we'll make it happen.",
-            "button_label": "reserve now",
+            "button_label": "Book now",
             "button_variant": "outline",
             "button_link": "shopify://pages/book-a-party",
             "color_scheme": ""

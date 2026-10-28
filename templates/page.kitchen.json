@@ -457,7 +457,7 @@
           "type": "collapse",
           "settings": {
             "heading": "Do you take reservations?",
-            "text": "<p>We operate on a first-come, first-served basis for parties under 15 people. Reservations are only available for groups of 15 or more. For large party bookings, please contact us directly to arrange your visit.</p>",
+            "text": "<p>We operate on a first-come, first-served basis for parties under 15 people. Booking a table is only available for groups of 15 or more. For large party bookings, please contact us directly to arrange your visit.</p>",
             "page": ""
           }
         },
