@@ -81,6 +81,7 @@
         },
         "location_6X3TQN": {
           "type": "location",
+          "disabled": true,
           "settings": {
             "location_name": "Westlake",
             "badge": "New Location",
@@ -109,7 +110,7 @@
       "settings": {
         "color_scheme": "invert",
         "eyebrow": "Find Us",
-        "heading": "Two Locations, One Obsession",
+        "heading": "Small batch, big flavor",
         "description": "",
         "heading_align": "center"
       }

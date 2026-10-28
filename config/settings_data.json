@@ -37,11 +37,6 @@
         "disabled": true,
         "settings": {}
       },
-      "9450951229966589494": {
-        "type": "shopify://apps/avp-age-verification/blocks/app-embed/0b530eb8-f19c-4a9b-87d4-bf625c71dec9",
-        "disabled": true,
-        "settings": {}
-      },
       "13768625480086291342": {
         "type": "shopify://apps/forms/blocks/forms/8744a304-fcb1-4347-b211-bb6b4759a76a",
         "disabled": false,
@@ -65,6 +60,11 @@
       "1513253815146976218": {
         "type": "shopify://apps/omnisend-email-marketing-sms/blocks/app-embed/44704aa2-794f-4c5d-8c8e-039c841158e9",
         "disabled": true,
+        "settings": {}
+      },
+      "9450951229966589494": {
+        "type": "shopify://apps/avp-age-verification/blocks/app-embed/0b530eb8-f19c-4a9b-87d4-bf625c71dec9",
+        "disabled": false,
         "settings": {}
       }
     },

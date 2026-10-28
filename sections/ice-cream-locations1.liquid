@@ -1,6 +1,7 @@
 {% comment %}
   Section: Ice Cream Locations — Hours & Addresses
   Displays two locations side by side with editable hours, address, and contact info.
+  With a single visible location, the card spans the row: image left, details right.
   Matches the T-Hill Nova theme layout patterns: section-wrapper, container,
   content blocks, heading classes, and color-scheme variables.
   Add via: Online Store > Themes > Customize > Add Section (ice cream page)
@@ -36,8 +37,9 @@
   {% endif %}
 
   {%- comment -%} Two-column location grid {%- endcomment -%}
+  {%- assign location_count = section.blocks | where: 'type', 'location' | size -%}
   <div class="container section-wrapper__body">
-    <div class="ic-locations-grid">
+    <div class="ic-locations-grid{% if location_count == 1 %} ic-locations-grid--single{% endif %}">
 
       {% for block in section.blocks %}
         {% if block.type == 'location' %}
@@ -391,8 +393,37 @@
     pointer-events: none;
   }
 
+  /* ─── Single location: image left, details right ─────── */
+  .ic-locations-grid--single {
+    grid-template-columns: 1fr;
+  }
+
+  .ic-locations-grid--single::after {
+    display: none;
+  }
+
+  .ic-locations-grid--single .ic-location {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .ic-locations-grid--single .ic-location__image {
+    margin-bottom: 0;
+  }
+
   /* ─── Responsive ──────────────────────────────────────── */
   @media (max-width: 768px) {
+    .ic-locations-grid--single .ic-location {
+      display: flex;
+      gap: 0;
+    }
+
+    .ic-locations-grid--single .ic-location__image {
+      margin-bottom: 1.75rem;
+    }
+
     .ic-locations-grid {
       grid-template-columns: 1fr;
       gap: 4rem;
