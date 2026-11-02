@@ -135,8 +135,8 @@
         "rule_RbALYr": {
           "type": "rule",
           "settings": {
-            "rule_text": "For groups of more than 20, contact us for a custom buffet quote",
-            "show_on": "both"
+            "rule_text": "For groups of more than 20, please select and complete the Buffet Service form",
+            "show_on": "table"
           }
         },
         "rule_dMbETw": {
@@ -156,7 +156,7 @@
         "rule_LeadTime": {
           "type": "rule",
           "settings": {
-            "rule_text": "Lead time: 14 day minimum for table rental",
+            "rule_text": "Lead time: 10 day minimum for table rental",
             "show_on": "table"
           }
         },
@@ -244,7 +244,7 @@
         "t_label": "Book a table",
         "t_guests": "Up to 20 people",
         "t_pitch": "Book a picnic table online for guaranteed seating.",
-        "t_meta": "From $100 · book 14+ days ahead",
+        "t_meta": "From $100 · book 10+ days ahead",
         "t_button": "Book a table",
         "b_eyebrow": "Option 2",
         "b_label": "Buffet service",
@@ -253,7 +253,7 @@
         "b_meta": "Custom quote · 3+ weeks ahead",
         "b_button": "Request a quote",
         "t_heading": "Book a table",
-        "t_description": "<p>Book a picnic table online up to 14 days in advance. Seating is subject to availability. Bookings are limited to 2 hours, unhosted, and non-refundable. Outside food, desserts, and drinks are not permitted without prior approval and applicable fees. Table locations cannot be guaranteed.</p><p>Fill out the form and we'll confirm our availability. For fastest response, please submit at least 14 days before your event date.</p>",
+        "t_description": "<p>Book a picnic table online up to 10 days in advance. Seating is subject to availability. Bookings are limited to 2 hours, unhosted, and non-refundable. Outside food, desserts, and drinks are not permitted without prior approval and applicable fees. Table locations cannot be guaranteed.</p><p>Fill out the form and we'll confirm our availability. For fastest response, please submit at least 10 days before your event date.</p>",
         "t_policy_heading": "Refund Policy",
         "t_policy_text": "<p>All rental fees are non-refundable and do not apply to food or beverage charges. Parties must begin on time. If your group has not arrived within 20 minutes of the scheduled start time, your booked tables may be released. Fees paid are non-refundable.</p>",
         "packages_button_label": "View food packages",
