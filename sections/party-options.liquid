@@ -851,6 +851,12 @@
     opacity: 0.8;
   }
 
+  {{ s }} .po-rule__text a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
   /* ══ Tripleseat form credit link ═════════════════════════════════════ */
   {{ s }} .po-form-credit {
     display: block !important;
@@ -1464,6 +1470,18 @@
       if (isKnown(name)) select(name, false, true);
     });
 
+    /* In-copy links to the other option (e.g. a house rule pointing at
+       #buffet-service) switch panels in place instead of reloading. */
+    root.addEventListener('click', function (event) {
+      var link = event.target.closest ? event.target.closest('a[href*="#"]') : null;
+      if (!link || link.pathname !== window.location.pathname) return;
+      var name = link.hash.replace('#', '');
+      if (!isKnown(name)) return;
+      event.preventDefault();
+      select(name, true, true);
+      root.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    });
+
     /* Food packages disclosure */
     var toggle = root.querySelector('[data-po-packages-toggle]');
     if (toggle) {
@@ -1826,9 +1844,10 @@
       "name": "House rule",
       "settings": [
         {
-          "type": "text",
+          "type": "inline_richtext",
           "id": "rule_text",
           "label": "Rule text",
+          "info": "Link to /pages/book-a-party#buffet-service or #rent-a-table to switch options instead of reloading the page.",
           "default": "Outside food, desserts, and drinks require prior approval and may incur additional fees"
         },
         {

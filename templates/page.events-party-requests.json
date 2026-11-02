@@ -135,7 +135,7 @@
         "rule_RbALYr": {
           "type": "rule",
           "settings": {
-            "rule_text": "For groups of more than 20, please select and complete the Buffet Service form",
+            "rule_text": "For groups of more than 20, please select and complete the <a href=\"/pages/book-a-party#buffet-service\" title=\"Buffet Service\">Buffet Service form</a>",
             "show_on": "table"
           }
         },
