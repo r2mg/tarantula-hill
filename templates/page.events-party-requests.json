@@ -122,7 +122,14 @@
           "type": "rule",
           "settings": {
             "rule_text": "Seating is limited to 2 hours. Parties must arrive on time, and table placement is subject to availability",
-            "show_on": "both"
+            "show_on": "table"
+          }
+        },
+        "rule_BuffetSeating": {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Seating is limited to 3 hours. Parties must arrive on time, and table placement is subject to availability",
+            "show_on": "buffet"
           }
         },
         "rule_xrmQQ4": {
@@ -139,18 +146,18 @@
             "show_on": "table"
           }
         },
-        "rule_dMbETw": {
-          "type": "rule",
-          "settings": {
-            "rule_text": "Seating and placement is subject to availability.",
-            "show_on": "both"
-          }
-        },
         "rule_YcT4yL": {
           "type": "rule",
           "settings": {
             "rule_text": "Booking start times are available between 12PM and 6PM, with all bookings concluding by 8PM.",
-            "show_on": "both"
+            "show_on": "table"
+          }
+        },
+        "rule_BuffetTimes": {
+          "type": "rule",
+          "settings": {
+            "rule_text": "Booking start times are available between 12PM and 6PM, with all bookings concluding by 9PM.",
+            "show_on": "buffet"
           }
         },
         "rule_LeadTime": {
@@ -220,10 +227,11 @@
         "rule_6aDtNV",
         "rule_CdW3rJ",
         "rule_7fKeYq",
+        "rule_BuffetSeating",
         "rule_xrmQQ4",
         "rule_RbALYr",
-        "rule_dMbETw",
         "rule_YcT4yL",
+        "rule_BuffetTimes",
         "rule_LeadTime",
         "rule_TableHours",
         "rule_Questions",
