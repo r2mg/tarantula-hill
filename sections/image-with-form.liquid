@@ -122,6 +122,26 @@
       '  background: none !important; pointer-events: auto !important;',
       '}',
 
+      /* The textarea label's backing strip would otherwise cover its text. */
+      'label[class*="formInputFieldLabel"]::before, label[class*="formInputFieldLabel"]::after,',
+      '[class*="formFieldContainer"]::before, [class*="formFieldContainer"]::after { content: none !important; display: none !important; }',
+
+      /* The dropdown opens downward over the empty space, as a square list. */
+      '[class*="dropdownContainer"] { top: calc(100% + 0.25rem) !important; bottom: auto !important; border-radius: 0 !important; }',
+      '[class*="optionList"] {',
+      '  border: 1px solid var(--color-scheme-border) !important; border-radius: 0 !important;',
+      '  background: var(--color-scheme-background) !important; box-shadow: none !important; padding: 0 !important;',
+      '}',
+      '[class*="optionList"] [role="option"], [class*="optionListItem"] {',
+      '  border-radius: 0 !important; font-family: var(--glob-body-font) !important;',
+      '  font-size: calc(var(--glob-text-scale-sm) * 1rem) !important; color: var(--color-scheme-text) !important;',
+      '}',
+      '[class*="optionList"] [role="option"] { background: transparent !important; }',
+      '[class*="optionList"] [role="option"]:hover, [class*="optionList"] [role="option"]:focus,',
+      '[class*="optionList"] [role="option"][aria-selected="true"], [class*="optionListItem"]:hover [role="option"] {',
+      '  background: color-mix(in srgb, var(--color-scheme-text) 8%, transparent) !important; outline: none !important; box-shadow: none !important;',
+      '}',
+
       /* Underlined fields, no boxes. */
       'input[class*="formInputField"], textarea, button[class*="selectToggle"] {',
       '  box-sizing: border-box !important; width: 100% !important; height: auto !important;',
