@@ -12,8 +12,13 @@
   theme CSS can't reach it. If the form's own title or intro repeats this
   section's heading or description, the script below hides the copy inside the
   form by matching its text. If the wording ever differs, the form simply shows
-  its own title too; nothing breaks. The script also removes the form's 450px
-  width cap and lines its first field up with the top of the image.
+  its own title too; nothing breaks. The script also lines the form's first
+  field up with the top of the image.
+
+  ── Form styling ────────────────────────────────────────────────────────
+  FORM_STYLES in the script restyles Shopify Forms to match the Book a Party
+  forms. Only the styling changes; submissions still go through Shopify Forms.
+  If Shopify renames the form's classes, the form falls back to its own look.
 {% endcomment %}
 
 <div class="section-wrapper color-scheme-{{ section.settings.color_scheme.id }} section-wrapper--y-offset--padding">
@@ -97,6 +102,59 @@
   (function () {
     if (customElements.get('image-with-form')) return;
 
+    /* The look of the Book a Party forms (sections/party-options.liquid), aimed at
+       Shopify Forms. Its class names end in a generated hash, hence [class*=]. */
+    var FORM_STYLES = [
+      /* Fill the column: the form otherwise caps itself at 450px and centers. */
+      '[class*="formContainer"] { display: block !important; max-width: none !important; width: 100% !important; margin: 0 !important; }',
+      '[class*="gridItem"] { width: 100% !important; }',
+      'form { box-sizing: border-box !important; width: 100% !important; padding: 0 !important; gap: 1.5rem !important; }',
+
+      /* Labels above the fields, in place of labels floating inside them. */
+      '[class*="formFieldContainer"] { flex-direction: column !important; align-items: stretch !important; }',
+      'label[class*="formInputFieldLabel"], [class*="selectContainer"] > p {',
+      '  position: static !important; order: -1; transform: none !important; display: block !important;',
+      '  font-family: var(--glob-subheading-font) !important; font-weight: var(--glob-subheading-weight) !important;',
+      '  text-transform: var(--glob-subheading-text-transform) !important;',
+      '  font-size: calc(var(--glob-text-scale-xs) * 1rem) !important; line-height: 1.4 !important;',
+      '  letter-spacing: 0.1em !important; opacity: 0.6 !important; margin: 0 0 0.35rem !important;',
+      '  padding: 0 !important; text-align: left !important; color: var(--color-scheme-text) !important;',
+      '  background: none !important; pointer-events: auto !important;',
+      '}',
+
+      /* Underlined fields, no boxes. */
+      'input[class*="formInputField"], textarea, button[class*="selectToggle"] {',
+      '  box-sizing: border-box !important; width: 100% !important; height: auto !important;',
+      '  font-family: var(--glob-body-font) !important; font-size: calc(var(--glob-text-scale-sm) * 1rem) !important;',
+      '  font-weight: var(--glob-body-font-weight) !important; color: var(--color-scheme-text) !important;',
+      '  background: transparent !important; border: none !important;',
+      '  border-bottom: 1px solid var(--color-scheme-border) !important; border-radius: 0 !important;',
+      '  padding: 0.55rem 0 !important; margin: 0 !important; box-shadow: none !important; outline: none !important;',
+      '  transition: border-color 0.15s ease !important;',
+      '}',
+      'button[class*="selectToggle"] { min-height: 2.6em !important; cursor: pointer !important; }',
+      'input[class*="formInputField"]:focus, textarea:focus, button[class*="selectToggle"]:focus, button[class*="selectToggle"]:hover {',
+      '  border-bottom-color: var(--color-scheme-text) !important;',
+      '}',
+      'textarea { min-height: 90px !important; resize: vertical !important; }',
+
+      /* Square button sized to its label, left aligned. */
+      'button[class*="formSubmitButton"] {',
+      '  display: inline-flex !important; justify-content: center !important; align-items: center !important;',
+      '  width: auto !important; min-width: 0 !important; max-width: max-content !important; height: auto !important;',
+      '  align-self: flex-start !important; font-family: var(--glob-button-font) !important;',
+      '  font-weight: var(--glob-button-weight) !important; text-transform: var(--glob-button-text-transform) !important;',
+      '  letter-spacing: calc(var(--glob-button-letter-spacing) * 0.1em) !important;',
+      '  font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;',
+      '  background: var(--color-scheme-button-background) !important; color: var(--color-scheme-button-text) !important;',
+      '  border: none !important; border-radius: 0 !important; padding: 0.9rem 2.5rem !important;',
+      '  margin: 0.25rem 0 0 !important; box-shadow: none !important; cursor: pointer !important;',
+      '  transition: opacity 0.15s ease !important;',
+      '}',
+      'button[class*="formSubmitButton"]:hover { opacity: 0.75 !important; }',
+      'button[class*="formSubmitButton"] * { font: inherit !important; letter-spacing: inherit !important; text-transform: inherit !important; color: inherit !important; }'
+    ].join('\n');
+
     function normalize(text) {
       return (text || '').replace(/[\s​-‍﻿]+/g, ' ').trim().toLowerCase();
     }
@@ -130,22 +188,19 @@
           });
         }
 
-        /* Shopify Forms caps itself at 450px and centers; fill the column instead. */
-        function fitForm(field) {
-          var el = field.parentElement;
-          while (el && el !== content) {
-            el.style.maxWidth = 'none';
-            el.style.width = '100%';
-            el.style.marginLeft = '0';
-            el.style.marginRight = '0';
-            /* At the top of a shadow root, step out to its host element. */
-            el = el.parentElement || el.getRootNode().host;
-          }
+        /* Theme CSS can't cross a shadow DOM, so the styles go inside it. */
+        function injectStyles(field) {
+          var root = field.getRootNode();
+          if (!root.host || root.querySelector('style[data-iwf-styles]')) return;
+          var style = document.createElement('style');
+          style.setAttribute('data-iwf-styles', '');
+          style.textContent = FORM_STYLES;
+          root.appendChild(style);
         }
 
-        /* Line the first field up with the top of the image, as in Find Us. */
+        /* Line the first field's label up with the top of the image, as in Find Us. */
         function alignTop(field) {
-          var delta = field.getBoundingClientRect().top - image.getBoundingClientRect().top;
+          var delta = field.parentElement.getBoundingClientRect().top - image.getBoundingClientRect().top;
           if (Math.abs(delta) < 1) return;
           var current = parseFloat(content.style.marginTop) || 0;
           content.style.marginTop = (current - delta) + 'px';
@@ -156,7 +211,7 @@
           hideRepeats(self);
           var field = findField(content);
           if (!field) return;
-          fitForm(field);
+          injectStyles(field);
           alignTop(field);
         }
         run();
