@@ -89,8 +89,22 @@
         "liquid_content": "<div style=\"text-align: center;\">\n  <iframe src=\"https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FLos_Angeles&bgcolor=%23ffffff&title=Events&src=Y18zYmQxYzM3OGEzZjE1Y2UwN2U0ZDAwN2MyMmMyOGJiNjU5MDZiNzU1NWRhZmJlYzIzNzkzOGZhZjU0OTY3YmRjQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%237CB342\" style=\"border-width:0\" width=\"800\" height=\"600\" frameborder=\"0\" scrolling=\"no\"></iframe>\n</div>"
       }
     },
+    "events_calendar_main": {
+      "type": "events-calendar",
+      "name": "Events calendar",
+      "settings": {
+        "section_heading": "Monthly Calendar",
+        "section_heading_size": "h1",
+        "section_center_heading": true,
+        "section_color_scheme": "invert",
+        "dialog_color_scheme": "invert",
+        "calendar_id": "c_3bd1c378a3f15ce07e4d007c22c28bb65906b7555dafbec237938faf54967bdc@group.calendar.google.com",
+        "time_zone": "America/Los_Angeles"
+      }
+    },
     "custom_liquid_pifbEF": {
       "type": "custom-liquid",
+      "disabled": true,
       "name": "Custom liquid",
       "settings": {
         "section_heading": "Monthly Calendar",
@@ -201,6 +215,7 @@
     "page",
     "hero_J3Fm7p",
     "custom_liquid_Thkc9c",
+    "events_calendar_main",
     "custom_liquid_pifbEF",
     "contact_form_RQA3bT",
     "175321014423ba6e34",
