@@ -215,7 +215,7 @@
         "image": "shopify://shop_images/d5c5eed13bc854-IC473618961.webp",
         "image_position": "left",
         "image_width": "medium",
-        "image_size": "auto",
+        "image_size": "ratio",
         "text_align": "left",
         "content_position": "middle-center"
       }
