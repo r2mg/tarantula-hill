@@ -183,8 +183,8 @@
         "color_scheme": ""
       }
     },
-    "image_with_form_featured": {
-      "type": "image-with-text",
+    "image_form_featured": {
+      "type": "image-with-form",
       "blocks": {
         "forms_inline_WzmFcU": {
           "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
@@ -209,15 +209,13 @@
       ],
       "name": "Want to be featured",
       "settings": {
-        "color_scheme": "",
-        "hover_parallax": false,
-        "use_bg": false,
+        "color_scheme": "main",
+        "eyebrow": "",
+        "heading": "Want to be featured?",
+        "description": "If you are interested in being a featured artist in our events lineup please inquire below!",
+        "heading_align": "center",
         "image": "shopify://shop_images/d5c5eed13bc854-IC473618961.webp",
-        "image_position": "left",
-        "image_width": "medium",
-        "image_size": "ratio",
-        "text_align": "left",
-        "content_position": "middle-center"
+        "image_position_y": 30
       }
     }
   },
@@ -229,7 +227,7 @@
     "events_calendar_main",
     "custom_liquid_pifbEF",
     "contact_form_RQA3bT",
-    "image_with_form_featured",
+    "image_form_featured",
     "hero_J3ME4q"
   ]
 }
