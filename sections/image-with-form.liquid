@@ -48,6 +48,7 @@
     <image-with-form
       class="iwf"
       data-repeated-text="{{ section.settings.heading | escape }}|{{ section.settings.description | escape }}"
+      {% if section.settings.all_required %}data-all-required{% endif %}
     >
       <div class="iwf__image" style="--iwf-image-y: {{ section.settings.image_position_y }}%;">
         {% if section.settings.image != blank %}
@@ -190,6 +191,9 @@
       'button[class*="formSubmitButton"] * { font: inherit !important; letter-spacing: inherit !important; text-transform: inherit !important; color: inherit !important; }'
     ].join('\n');
 
+    /* Shopify Forms doesn't expose which fields are required, hence the setting. */
+    var REQUIRED_STYLES = '\nlabel[class*="formInputFieldLabel"]::after, [class*="selectContainer"] > p::after { content: " *" !important; display: inline !important; }';
+
     function normalize(text) {
       return (text || '').replace(/[\s​-‍﻿]+/g, ' ').trim().toLowerCase();
     }
@@ -229,7 +233,7 @@
           if (!root.host || root.querySelector('style[data-iwf-styles]')) return;
           var style = document.createElement('style');
           style.setAttribute('data-iwf-styles', '');
-          style.textContent = FORM_STYLES;
+          style.textContent = FORM_STYLES + (self.hasAttribute('data-all-required') ? REQUIRED_STYLES : '');
           root.appendChild(style);
         }
 
@@ -314,6 +318,13 @@
       "step": 5,
       "unit": "%",
       "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "all_required",
+      "label": "Mark all form fields as required",
+      "info": "Adds an asterisk to each label. Turn off if the form has optional fields.",
+      "default": false
     }
   ],
   "blocks": [

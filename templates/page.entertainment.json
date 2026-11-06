@@ -215,7 +215,8 @@
         "description": "If you are interested in being a featured artist in our events lineup please inquire below!",
         "heading_align": "center",
         "image": "shopify://shop_images/d5c5eed13bc854-IC473618961.webp",
-        "image_position_y": 30
+        "image_position_y": 30,
+        "all_required": true
       }
     }
   },
