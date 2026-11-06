@@ -3,7 +3,7 @@
 {% capture banner %}
 	<div
 		class="banner banner--size--{{ section.settings.image_size }}"
-		style="--banner-placeholder-ar: 1/1;--banner-focal: {{ section.settings.image.presentation.focal_point }};{% if section.settings.image_size == 'ratio' %}--banner-ratio: 4/5;{% endif %}"
+		style="--banner-placeholder-ar: 1/1;--banner-focal: {{ section.settings.image.presentation.focal_point }};"
 	>
 		{% if section.settings.image != blank %}
 			<picture class="banner__image">
@@ -72,10 +72,6 @@
 							</p>
 						</div>
 					{% endif -%}
-				{%- when '@app' -%}
-					<div class="image-with-text__app" {{ block.shopify_attributes }}>
-						{% render block %}
-					</div>
 				{%- when 'description' -%}
 					{%- if block.settings.text_content != blank %}
 						<div class="content__text" {{ block.shopify_attributes }}>
@@ -324,10 +320,6 @@
 					{
 						"value": "screen",
 						"label": "Full screen"
-					},
-					{
-						"value": "ratio",
-						"label": "Portrait (4:5)"
 					}
 				],
 				"default": "auto"
@@ -388,9 +380,6 @@
 			}
 		],
 		"blocks": [
-			{
-				"type": "@app"
-			},
 			{
 				"name": "Countdown",
 				"type": "countdown",
