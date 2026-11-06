@@ -197,8 +197,8 @@
             "errors_color": "#e02229",
             "text_alignment": "left",
             "form_alignment": "center",
-            "padding_top": 40,
-            "padding_bottom": 40,
+            "padding_top": 0,
+            "padding_bottom": 0,
             "padding_right": 0,
             "padding_left": 0
           }
@@ -212,7 +212,7 @@
         "color_scheme": "",
         "hover_parallax": false,
         "use_bg": false,
-        "image": "shopify://shop_images/27dbec6f68fe56-QF473265815.webp",
+        "image": "shopify://shop_images/d5c5eed13bc854-IC473618961.webp",
         "image_position": "left",
         "image_width": "medium",
         "image_size": "auto",
