@@ -11,7 +11,8 @@
     because seven columns are unreadable on a phone.
   - All dates and times are worked out in the venue's time zone (the Time
     zone setting), so a visitor elsewhere still sees the time at the venue.
-  - Clicking an event opens its details in a native <dialog>.
+  - Clicking an event opens its details in the theme's x-modal, so it matches
+    the fade and blurred backdrop of the site's other popups.
   - One request per month viewed, cached for five minutes per browser tab.
 
   ── API key ─────────────────────────────────────────────────────────────
@@ -63,10 +64,10 @@
     >
       <div class="ec-toolbar">
         <div class="ec-nav">
+          <h3 class="heading heading--size--h4 ec-nav__title" data-ec-title aria-live="polite">&nbsp;</h3>
           <button type="button" class="ec-nav__arrow" data-ec-prev aria-label="Previous month">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
           </button>
-          <h3 class="heading heading--size--h4 ec-nav__title" data-ec-title aria-live="polite">&nbsp;</h3>
           <button type="button" class="ec-nav__arrow" data-ec-next aria-label="Next month">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
           </button>
@@ -85,16 +86,21 @@
       </div>
       <div class="ec-list-view" data-ec-list hidden></div>
 
-      <dialog class="ec-dialog color-scheme-{{ section.settings.dialog_color_scheme.id }}" data-ec-dialog aria-labelledby="EventsCalendarTitle-{{ section.id }}">
-        <button type="button" class="ec-dialog__close" data-ec-close aria-label="Close event details">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
-        </button>
-        <p class="subheading ec-dialog__type" data-ec-dialog-type></p>
-        <h3 class="heading heading--size--h4 ec-dialog__title" id="EventsCalendarTitle-{{ section.id }}" data-ec-dialog-title></h3>
-        <p class="ec-dialog__when" data-ec-dialog-when></p>
-        <p class="ec-dialog__location" data-ec-dialog-location hidden></p>
-        <div class="ec-dialog__description" data-ec-dialog-description></div>
-      </dialog>
+      {%- comment -%} The theme's modal: same fade and backdrop as other popups. {%- endcomment -%}
+      <x-modal class="modal ec-modal" data-ec-modal>
+        <dialog class="modal__dialog" data-modal-element="dialog" data-ec-dialog aria-labelledby="EventsCalendarTitle-{{ section.id }}">
+          <div class="modal__content ec-dialog color-scheme-{{ section.settings.dialog_color_scheme.id }}" data-modal-element="content">
+            <button type="button" class="ec-dialog__close" data-ec-close aria-label="Close event details">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+            </button>
+            <p class="subheading ec-dialog__type" data-ec-dialog-type></p>
+            <h3 class="heading heading--size--h4 ec-dialog__title" id="EventsCalendarTitle-{{ section.id }}" data-ec-dialog-title></h3>
+            <p class="ec-dialog__when" data-ec-dialog-when></p>
+            <p class="ec-dialog__location" data-ec-dialog-location hidden></p>
+            <div class="ec-dialog__description" data-ec-dialog-description></div>
+          </div>
+        </dialog>
+      </x-modal>
 
       <noscript>
         <p><a href="{{ fallback_url | escape }}">View the events calendar on Google Calendar</a></p>
@@ -122,10 +128,11 @@
     align-items: center;
     gap: 0.5rem;
   }
+  /* Wide enough for the longest month, so the arrows don't jump between months. */
   .ec-nav__title {
-    min-width: 11ch;
+    min-width: 11.5em;
     margin: 0;
-    text-align: center;
+    text-align: left;
   }
   .ec-nav__arrow {
     display: inline-flex;
@@ -138,9 +145,13 @@
     background: none;
     border: 1px solid var(--color-scheme-border);
     cursor: pointer;
-    transition: border-color 0.15s ease;
+    transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
   }
-  .ec-nav__arrow:hover { border-color: var(--color-scheme-text); }
+  .ec-nav__arrow:hover {
+    color: var(--color-scheme-background);
+    background: var(--color-scheme-text);
+    border-color: var(--color-scheme-text);
+  }
   .ec-nav__today { margin-left: 0.5rem; }
 
   .ec-filters {
@@ -160,7 +171,7 @@
     background: none;
     border: 1px solid var(--color-scheme-border);
     cursor: pointer;
-    transition: border-color 0.15s ease;
+    transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
   }
   .ec-chip:hover { border-color: var(--color-scheme-text); }
   .ec-chip[aria-pressed="true"] {
@@ -185,6 +196,8 @@
   .ec-message a { color: inherit; text-decoration: underline; }
   .ec-message .button { margin-left: 0.5rem; }
 
+  .ec-grid-view,
+  .ec-list-view { transition: opacity 0.3s ease; }
   .ec[aria-busy="true"] .ec-grid-view,
   .ec[aria-busy="true"] .ec-list-view { opacity: 0.5; }
 
@@ -324,7 +337,7 @@
     .ec-toolbar { justify-content: center; }
     .ec-nav {
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1fr) auto auto;
       width: 100%;
     }
     .ec .ec-nav__title { min-width: 0; font-size: 1.25rem; }
@@ -333,21 +346,20 @@
   }
 
   /* ══ Event details ═══════════════════════════════════════════════════ */
+  .ec-modal {
+    --modal-content-width: min(36rem, calc(100vw - 2rem));
+    --modal-content-overflow: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ec-modal { --modal-animation-time: 0.01s; }
+  }
   .ec-dialog {
-    /* The theme's reset removes the browser's default dialog centering. */
-    position: fixed;
-    inset: 0;
-    margin: auto;
-    height: fit-content;
-    width: min(36rem, calc(100vw - 2rem));
     max-height: calc(100dvh - 2rem);
     padding: 2rem;
-    overflow-y: auto;
     color: var(--color-scheme-text);
     background: var(--color-scheme-background);
     border: 1px solid var(--color-scheme-border);
   }
-  .ec-dialog::backdrop { background: rgba(0, 0, 0, 0.7); }
   .ec-dialog__close {
     position: absolute;
     top: 0.5rem;
@@ -554,6 +566,7 @@
         this.gridEl = this.querySelector('[data-ec-grid]');
         this.listEl = this.querySelector('[data-ec-list]');
         this.filtersEl = this.querySelector('[data-ec-filters]');
+        this.modal = this.querySelector('[data-ec-modal]');
         this.dialog = this.querySelector('[data-ec-dialog]');
 
         this.renderFilters();
@@ -571,9 +584,19 @@
           self.month = +p[1] - 1;
           self.load();
         });
-        this.querySelector('[data-ec-close]').addEventListener('click', function () { self.dialog.close(); });
-        this.dialog.addEventListener('click', function (event) {
-          if (event.target === self.dialog) self.dialog.close();
+        this.querySelector('[data-ec-close]').addEventListener('click', function () { self.modal.close(); });
+        /* x-modal already closes on a backdrop click. Esc would skip its fade. */
+        this.dialog.addEventListener('cancel', function (event) {
+          event.preventDefault();
+          self.modal.close();
+        });
+      }
+
+      /* The same 0.3s fade as the theme's popups, when the dates or filter change. */
+      fadeIn() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        [this.gridView, this.listEl].forEach(function (view) {
+          if (view.animate) view.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: 'ease' });
         });
       }
 
@@ -844,6 +867,7 @@
         this.listEl.appendChild(listFragment);
         this.gridView.hidden = false;
         this.listEl.hidden = false;
+        this.fadeIn();
 
         /* Message only when the visible view would otherwise look empty. */
         var monthHasMatch = Object.keys(this.days).some(function (key) {
@@ -904,7 +928,7 @@
         location.hidden = !event.location;
 
         renderDescription(this.querySelector('[data-ec-dialog-description]'), event.description);
-        this.dialog.showModal();
+        this.modal.open();
       }
     }
 

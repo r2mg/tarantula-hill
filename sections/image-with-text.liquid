@@ -72,6 +72,10 @@
 							</p>
 						</div>
 					{% endif -%}
+				{%- when '@app' -%}
+					<div class="image-with-text__app" {{ block.shopify_attributes }}>
+						{% render block %}
+					</div>
 				{%- when 'description' -%}
 					{%- if block.settings.text_content != blank %}
 						<div class="content__text" {{ block.shopify_attributes }}>
@@ -380,6 +384,9 @@
 			}
 		],
 		"blocks": [
+			{
+				"type": "@app"
+			},
 			{
 				"name": "Countdown",
 				"type": "countdown",
