@@ -117,7 +117,7 @@
       '  font-family: var(--glob-subheading-font) !important; font-weight: var(--glob-subheading-weight) !important;',
       '  text-transform: var(--glob-subheading-text-transform) !important;',
       '  font-size: calc(var(--glob-text-scale-xs) * 1rem) !important; line-height: 1.4 !important;',
-      '  letter-spacing: 0.1em !important; opacity: 0.6 !important; margin: 0 0 0.35rem !important;',
+      '  letter-spacing: 0.1em !important; opacity: 0.8 !important; margin: 0 0 0.35rem !important;',
       '  padding: 0 !important; text-align: left !important; color: var(--color-scheme-text) !important;',
       '  background: none !important; pointer-events: auto !important;',
       '}',
@@ -127,20 +127,31 @@
       '[class*="formFieldContainer"]::before, [class*="formFieldContainer"]::after { content: none !important; display: none !important; }',
 
       /* The dropdown opens downward over the empty space, as a square list. */
-      '[class*="dropdownContainer"] { top: calc(100% + 0.25rem) !important; bottom: auto !important; border-radius: 0 !important; }',
+      '[class*="dropdownContainer"] { top: calc(100% + 0.25rem) !important; bottom: auto !important; border-radius: 0 !important; z-index: 10 !important; }',
       '[class*="optionList"] {',
-      '  border: 1px solid var(--color-scheme-border) !important; border-radius: 0 !important;',
-      '  background: var(--color-scheme-background) !important; box-shadow: none !important; padding: 0 !important;',
+      '  border: 1px solid var(--color-scheme-text) !important; border-radius: 0 !important;',
+      '  background: var(--color-scheme-background) !important; padding: 0 !important;',
+      '  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;',
       '}',
-      '[class*="optionList"] [role="option"], [class*="optionListItem"] {',
-      '  border-radius: 0 !important; font-family: var(--glob-body-font) !important;',
-      '  font-size: calc(var(--glob-text-scale-sm) * 1rem) !important; color: var(--color-scheme-text) !important;',
+      '[class*="optionListItem"] { margin: 0 !important; padding: 0 !important; border-radius: 0 !important; }',
+      '[class*="optionList"] [role="option"] {',
+      '  display: flex !important; align-items: center !important; min-height: 44px !important;',
+      '  box-sizing: border-box !important; padding: 0.5rem 1rem !important; border: none !important; border-radius: 0 !important;',
+      '  font-family: var(--glob-body-font) !important; font-size: calc(var(--glob-text-scale-sm) * 1rem) !important;',
+      '  color: var(--color-scheme-text) !important; background: transparent !important; cursor: pointer !important;',
       '}',
-      '[class*="optionList"] [role="option"] { background: transparent !important; }',
+      /* Highlighted options invert, like the calendar filter buttons. */
       '[class*="optionList"] [role="option"]:hover, [class*="optionList"] [role="option"]:focus,',
       '[class*="optionList"] [role="option"][aria-selected="true"], [class*="optionListItem"]:hover [role="option"] {',
-      '  background: color-mix(in srgb, var(--color-scheme-text) 8%, transparent) !important; outline: none !important; box-shadow: none !important;',
+      '  color: var(--color-scheme-background) !important; background: var(--color-scheme-text) !important;',
+      '  outline: none !important; box-shadow: none !important;',
       '}',
+      '[class*="optionList"] [role="option"] * { color: inherit !important; }',
+
+      /* Say what the empty dropdown is for, and make its arrow easy to spot. */
+      '[class*="selectToggleText"] { color: var(--color-scheme-text) !important; }',
+      '[class*="selectToggleText"]:empty::before { content: "Select one"; opacity: 0.7; }',
+      '[class*="arrowDownIcon"] { transform: scale(1.5) !important; transform-origin: center !important; color: var(--color-scheme-text) !important; }',
 
       /* Underlined fields, no boxes. */
       'input[class*="formInputField"], textarea, button[class*="selectToggle"] {',
@@ -148,14 +159,18 @@
       '  font-family: var(--glob-body-font) !important; font-size: calc(var(--glob-text-scale-sm) * 1rem) !important;',
       '  font-weight: var(--glob-body-font-weight) !important; color: var(--color-scheme-text) !important;',
       '  background: transparent !important; border: none !important;',
-      '  border-bottom: 1px solid var(--color-scheme-border) !important; border-radius: 0 !important;',
+      /* Field edges at 55% of the text color, which clears the 3:1 contrast guideline. */
+      '  border-bottom: 1px solid color-mix(in srgb, var(--color-scheme-text) 55%, transparent) !important; border-radius: 0 !important;',
       '  padding: 0.55rem 0 !important; margin: 0 !important; box-shadow: none !important; outline: none !important;',
-      '  transition: border-color 0.15s ease !important;',
+      '  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;',
       '}',
-      'button[class*="selectToggle"] { min-height: 2.6em !important; cursor: pointer !important; }',
+      'button[class*="selectToggle"] { min-height: 44px !important; cursor: pointer !important; }',
+      /* A thicker line on focus, so keyboard users can see where they are. */
       'input[class*="formInputField"]:focus, textarea:focus, button[class*="selectToggle"]:focus, button[class*="selectToggle"]:hover {',
       '  border-bottom-color: var(--color-scheme-text) !important;',
+      '  box-shadow: 0 1px 0 0 var(--color-scheme-text) !important;',
       '}',
+      'button[class*="formSubmitButton"]:focus-visible { outline: 2px solid var(--color-scheme-text) !important; outline-offset: 2px !important; }',
       'textarea { min-height: 90px !important; resize: vertical !important; }',
 
       /* Square button sized to its label, left aligned. */
