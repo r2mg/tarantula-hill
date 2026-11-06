@@ -322,7 +322,13 @@
   @media (max-width: 899.98px) {
     .ec-grid-view { display: none !important; }
     .ec-toolbar { justify-content: center; }
-    .ec-nav { justify-content: center; }
+    .ec-nav {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      width: 100%;
+    }
+    .ec .ec-nav__title { min-width: 0; font-size: 1.25rem; }
+    .ec-nav__today { grid-column: 1 / -1; justify-self: center; margin: 0; }
     .ec-filters { justify-content: center; }
   }
 
