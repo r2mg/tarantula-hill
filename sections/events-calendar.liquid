@@ -1,0 +1,979 @@
+{% comment %}
+  Section: Events Calendar
+  Location: Tarantula Hill Brewing Co. — Entertainment page
+  Add via: Online Store > Themes > Customize > Add Section
+
+  Reads events live from a public Google Calendar in the visitor's browser,
+  using the Google Calendar API. Staff keep editing the calendar in Google.
+
+  ── How it works ────────────────────────────────────────────────────────
+  - Desktop shows a month grid; below 900px the same data shows as a list,
+    because seven columns are unreadable on a phone.
+  - All dates and times are worked out in the venue's time zone (the Time
+    zone setting), so a visitor elsewhere still sees the time at the venue.
+  - Clicking an event opens its details in a native <dialog>.
+  - One request per month viewed, cached for five minutes per browser tab.
+
+  ── API key ─────────────────────────────────────────────────────────────
+  Stored in the shop metafield custom.google_calendar_api_key, not in the theme,
+  so it stays out of the repo (Shopify commits theme settings back to GitHub).
+  It's still visible in the page source, which is normal for this setup. It
+  comes from the Google Cloud project "tarantula-hill-website" and is restricted
+  to the Calendar API and this site's domains. A new domain must be added to
+  the key's website restrictions or the calendar will stop loading there.
+
+  ── Sorting events into filters ─────────────────────────────────────────
+  Types come from the event title, so staff control them by how they name
+  events. See CATEGORY_RULES in the script. "Music: Band Name" shows as
+  "Band Name" filed under Music; all-day entries are the quieter "Specials".
+  Hours notices such as "CLOSED" or "Open Late" ignore the filters on purpose.
+{% endcomment %}
+
+{%- liquid
+  if section.settings.section_center_heading
+    assign heading_align = 'center'
+  else
+    assign heading_align = 'left'
+  endif
+  assign calendar_id = section.settings.calendar_id | strip
+  assign time_zone = section.settings.time_zone | strip
+  assign fallback_url = 'https://calendar.google.com/calendar/embed?src=' | append: calendar_id | append: '&ctz=' | append: time_zone
+-%}
+
+<div class="section-wrapper section-wrapper--y-offset--padding color-scheme-{{ section.settings.section_color_scheme.id }}">
+  {% if section.settings.section_heading != blank %}
+    <div class="container section-wrapper__header">
+      <div class="content content--align--{{ heading_align }}">
+        <div class="content__heading">
+          <h2 class="heading heading--size--{{ section.settings.section_heading_size }}">
+            {{ section.settings.section_heading }}
+          </h2>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="container section-wrapper__body">
+    <events-calendar
+      class="ec"
+      data-calendar-id="{{ calendar_id | escape }}"
+      data-api-key="{{ shop.metafields.custom.google_calendar_api_key.value | strip | escape }}"
+      data-time-zone="{{ time_zone | escape }}"
+      data-fallback-url="{{ fallback_url | escape }}"
+    >
+      <div class="ec-toolbar">
+        <div class="ec-nav">
+          <button type="button" class="ec-nav__arrow" data-ec-prev aria-label="Previous month">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <h3 class="heading heading--size--h4 ec-nav__title" data-ec-title aria-live="polite">&nbsp;</h3>
+          <button type="button" class="ec-nav__arrow" data-ec-next aria-label="Next month">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <button type="button" class="button button--variant--outline button--size--sm ec-nav__today" data-ec-today>Today</button>
+        </div>
+        <div class="ec-filters" data-ec-filters role="group" aria-label="Filter events by type"></div>
+      </div>
+
+      <p class="ec-message" data-ec-message role="status">Loading the calendar…</p>
+
+      <div class="ec-grid-view" data-ec-grid-view hidden>
+        <div class="ec-weekdays" aria-hidden="true">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+        <ol class="ec-grid" data-ec-grid></ol>
+      </div>
+      <div class="ec-list-view" data-ec-list hidden></div>
+
+      <dialog class="ec-dialog color-scheme-{{ section.settings.dialog_color_scheme.id }}" data-ec-dialog aria-labelledby="EventsCalendarTitle-{{ section.id }}">
+        <button type="button" class="ec-dialog__close" data-ec-close aria-label="Close event details">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
+        <p class="subheading ec-dialog__type" data-ec-dialog-type></p>
+        <h3 class="heading heading--size--h4 ec-dialog__title" id="EventsCalendarTitle-{{ section.id }}" data-ec-dialog-title></h3>
+        <p class="ec-dialog__when" data-ec-dialog-when></p>
+        <p class="ec-dialog__location" data-ec-dialog-location hidden></p>
+        <div class="ec-dialog__description" data-ec-dialog-description></div>
+      </dialog>
+
+      <noscript>
+        <p><a href="{{ fallback_url | escape }}">View the events calendar on Google Calendar</a></p>
+      </noscript>
+    </events-calendar>
+  </div>
+</div>
+
+<style>
+  .ec { display: block; }
+  .ec [hidden] { display: none !important; }
+
+  /* ══ Toolbar ═════════════════════════════════════════════════════════ */
+  .ec-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .ec-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .ec-nav__title {
+    min-width: 11ch;
+    margin: 0;
+    text-align: center;
+  }
+  .ec-nav__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    color: inherit;
+    background: none;
+    border: 1px solid var(--color-scheme-border);
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+  }
+  .ec-nav__arrow:hover { border-color: var(--color-scheme-text); }
+  .ec-nav__today { margin-left: 0.5rem; }
+
+  .ec-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .ec-chip {
+    min-height: 2.75rem;
+    padding: 0.25rem 1rem;
+    font-family: var(--glob-button-font);
+    font-weight: var(--glob-button-weight);
+    letter-spacing: var(--glob-button-letter-spacing);
+    text-transform: var(--glob-button-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 1rem);
+    color: inherit;
+    background: none;
+    border: 1px solid var(--color-scheme-border);
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+  }
+  .ec-chip:hover { border-color: var(--color-scheme-text); }
+  .ec-chip[aria-pressed="true"] {
+    color: var(--color-scheme-background);
+    background: var(--color-scheme-text);
+    border-color: var(--color-scheme-text);
+  }
+
+  .ec-nav__arrow:focus-visible,
+  .ec-chip:focus-visible,
+  .ec-event:focus-visible,
+  .ec-dialog__close:focus-visible {
+    outline: 2px solid var(--color-scheme-text);
+    outline-offset: 2px;
+  }
+
+  .ec-message {
+    margin: 0 0 1.5rem;
+    text-align: center;
+  }
+  .ec-message:empty { display: none; }
+  .ec-message a { color: inherit; text-decoration: underline; }
+  .ec-message .button { margin-left: 0.5rem; }
+
+  .ec[aria-busy="true"] .ec-grid-view,
+  .ec[aria-busy="true"] .ec-list-view { opacity: 0.5; }
+
+  /* ══ Events (shared by the grid and the list) ════════════════════════ */
+  .ec-event {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 0 0.25rem 0.5rem;
+    font: inherit;
+    text-align: left;
+    color: inherit;
+    background: none;
+    border: 0;
+    border-left: 2px solid var(--color-scheme-text);
+    cursor: pointer;
+    overflow-wrap: anywhere;
+  }
+  .ec-event:hover .ec-event__title { text-decoration: underline; }
+  .ec-event__meta {
+    display: block;
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 0.85rem);
+    line-height: 1.3;
+  }
+  .ec-event__title {
+    display: block;
+    font-family: var(--glob-body-font);
+    font-weight: 600;
+    font-size: calc(var(--glob-text-scale-sm) * 0.95rem);
+    line-height: 1.3;
+  }
+
+  /* All-day specials: quieter than shows and games, still easy to read. */
+  .ec-event--quiet {
+    border-left-color: transparent;
+    padding-left: 0.5rem;
+  }
+  .ec-event--quiet .ec-event__title { font-weight: var(--glob-body-font-weight); }
+
+  /* Hours notices (CLOSED, Open Late): these need to be seen. */
+  .ec-event--notice {
+    padding: 0.25rem 0.5rem;
+    color: var(--color-scheme-background);
+    background: var(--color-scheme-text);
+    border-left: 0;
+  }
+
+  .ec-event--inactive .ec-event__title { text-decoration: line-through; }
+  .ec-event--inactive:hover .ec-event__title { text-decoration: line-through; }
+
+  /* ══ Month grid ══════════════════════════════════════════════════════ */
+  .ec-weekdays,
+  .ec-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+  .ec-weekdays span {
+    padding: 0.5rem;
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 0.9rem);
+  }
+  .ec-grid {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-scheme-border);
+    border-left: 1px solid var(--color-scheme-border);
+  }
+  .ec-day {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    min-width: 0;
+    min-height: 8rem;
+    margin: 0;
+    padding: 0.5rem;
+    border-right: 1px solid var(--color-scheme-border);
+    border-bottom: 1px solid var(--color-scheme-border);
+  }
+  .ec-day__date {
+    align-self: flex-start;
+    min-width: 1.75rem;
+    padding: 0.125rem 0.25rem;
+    font-family: var(--glob-heading-font);
+    font-weight: var(--glob-heading-font-weight);
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    line-height: 1.3;
+    text-align: center;
+  }
+  .ec-day--today .ec-day__date {
+    color: var(--color-scheme-background);
+    background: var(--color-scheme-text);
+  }
+  .ec-day--past > *,
+  .ec-day--outside > * { opacity: 0.6; }
+
+  /* ══ List (phones and small tablets) ═════════════════════════════════ */
+  .ec-list-day {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--color-scheme-border);
+  }
+  .ec-list-day__date {
+    margin: 0;
+    font-family: var(--glob-heading-font);
+    font-weight: var(--glob-heading-font-weight);
+    font-size: calc(var(--glob-text-scale-sm) * 1rem);
+    line-height: 1.3;
+  }
+  .ec-list-day__tag {
+    display: block;
+    font-family: var(--glob-subheading-font);
+    font-weight: var(--glob-subheading-weight);
+    text-transform: var(--glob-subheading-text-transform);
+    font-size: calc(var(--glob-text-scale-xs) * 0.85rem);
+  }
+  .ec-list-day__events {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+  .ec-list-view .ec-event { min-height: 2.75rem; }
+  .ec-list-view .ec-event__title { font-size: calc(var(--glob-text-scale-sm) * 1rem); }
+
+  @media (min-width: 900px) {
+    .ec-list-view { display: none !important; }
+  }
+  @media (max-width: 899.98px) {
+    .ec-grid-view { display: none !important; }
+    .ec-toolbar { justify-content: center; }
+    .ec-nav { justify-content: center; }
+    .ec-filters { justify-content: center; }
+  }
+
+  /* ══ Event details ═══════════════════════════════════════════════════ */
+  .ec-dialog {
+    width: min(36rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    padding: 2rem;
+    overflow-y: auto;
+    color: var(--color-scheme-text);
+    background: var(--color-scheme-background);
+    border: 1px solid var(--color-scheme-border);
+  }
+  .ec-dialog::backdrop { background: rgba(0, 0, 0, 0.7); }
+  .ec-dialog__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .ec-dialog__type { margin: 0 2.5rem 0.5rem 0; }
+  .ec-dialog__title { margin: 0 2.5rem 0.75rem 0; overflow-wrap: anywhere; }
+  .ec-dialog__when,
+  .ec-dialog__location { margin: 0 0 0.25rem; font-weight: 600; }
+  .ec-dialog__description { margin-top: 1rem; overflow-wrap: anywhere; }
+  .ec-dialog__description p { margin: 0 0 0.75rem; }
+  .ec-dialog__description ul,
+  .ec-dialog__description ol { margin: 0 0 0.75rem; padding-left: 1.25rem; }
+  .ec-dialog__description a { color: inherit; text-decoration: underline; }
+</style>
+
+<script>
+  (function () {
+    if (customElements.get('events-calendar')) return;
+
+    /* Filter buttons, in display order. */
+    var CATEGORIES = [
+      { id: 'music', label: 'Music' },
+      { id: 'tv', label: 'TV & Sports' },
+      { id: 'comedy', label: 'Comedy' },
+      { id: 'events', label: 'Events' },
+      { id: 'specials', label: 'Specials' }
+    ];
+
+    /* Title prefixes, removed from the displayed title. */
+    var PREFIX_RULES = [
+      { pattern: /^(live\s+)?music\s*:\s*/i, category: 'music' },
+      { pattern: /^tv(\s+watch\s+party)?\s*:\s*/i, category: 'tv' },
+      { pattern: /^comedy\s*:\s*/i, category: 'comedy' }
+    ];
+
+    /* Events named without a prefix. Anything else timed is "Events". */
+    var KEYWORD_RULES = [
+      { pattern: /\bdjs?\b|dueling pianos|open mic|band bash|country nights|cumbia/i, category: 'music' },
+      { pattern: /\bcomedy\b/i, category: 'comedy' }
+    ];
+
+    var STATE_PATTERN = /^\[?\s*(postponed|cancell?ed)\s*\]?\s*[-:–—]?\s*/i;
+    var NOTICE_PATTERN = /^(closed\b|special hours\b)|\bopen (early|late)\b/i;
+
+    var ALLOWED_TAGS = { B: 1, STRONG: 1, I: 1, EM: 1, U: 1, BR: 1, P: 1, UL: 1, OL: 1, LI: 1 };
+    var DROPPED_TAGS = { SCRIPT: 1, STYLE: 1, IFRAME: 1, OBJECT: 1, EMBED: 1, TEMPLATE: 1 };
+    var URL_PATTERN = /(https?:\/\/[^\s<]+[^\s<.,;:!?)'"])/g;
+
+    var CACHE_MINUTES = 5;
+    var MAX_PAGES = 5;
+
+    /* ── Dates: plain YYYY-MM-DD keys, calculated in UTC to avoid DST drift ── */
+    function keyFromUtc(date) { return date.toISOString().slice(0, 10); }
+    function utcFromKey(key) {
+      var p = key.split('-');
+      return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2], 12));
+    }
+    function addDays(key, days) {
+      var d = utcFromKey(key);
+      d.setUTCDate(d.getUTCDate() + days);
+      return keyFromUtc(d);
+    }
+    function formatKey(key, options) {
+      options.timeZone = 'UTC';
+      return new Intl.DateTimeFormat('en-US', options).format(utcFromKey(key));
+    }
+
+    function partsIn(timeZone, date) {
+      var out = {};
+      new Intl.DateTimeFormat('en-US', {
+        timeZone: timeZone, year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: 'numeric', minute: '2-digit', hour12: true
+      }).formatToParts(date).forEach(function (p) { out[p.type] = p.value; });
+      return out;
+    }
+
+    /* ── Descriptions: Google sends plain text or HTML, so rebuild safely ──── */
+    function appendText(parent, text, linkify) {
+      text.split(/\r?\n/).forEach(function (line, index) {
+        if (index > 0) parent.appendChild(document.createElement('br'));
+        if (!linkify) { parent.appendChild(document.createTextNode(line)); return; }
+        var last = 0;
+        line.replace(URL_PATTERN, function (url, _group, offset) {
+          parent.appendChild(document.createTextNode(line.slice(last, offset)));
+          parent.appendChild(makeLink(url, url));
+          last = offset + url.length;
+          return url;
+        });
+        parent.appendChild(document.createTextNode(line.slice(last)));
+      });
+    }
+
+    function makeLink(href, text) {
+      var a = document.createElement('a');
+      a.href = href;
+      a.textContent = text;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      return a;
+    }
+
+    function isSafeHref(href) {
+      return /^(https?:|mailto:|tel:)/i.test((href || '').trim());
+    }
+
+    function copySafeNodes(from, to) {
+      Array.prototype.forEach.call(from.childNodes, function (node) {
+        if (node.nodeType === 3) {
+          appendText(to, node.nodeValue, true);
+        } else if (node.nodeType === 1 && !DROPPED_TAGS[node.tagName]) {
+          if (node.tagName === 'A' && isSafeHref(node.getAttribute('href'))) {
+            var link = makeLink(node.getAttribute('href').trim(), '');
+            link.textContent = node.textContent;
+            to.appendChild(link);
+          } else if (ALLOWED_TAGS[node.tagName]) {
+            var el = document.createElement(node.tagName);
+            copySafeNodes(node, el);
+            to.appendChild(el);
+          } else {
+            copySafeNodes(node, to);
+          }
+        }
+      });
+    }
+
+    function renderDescription(target, description) {
+      target.textContent = '';
+      if (!description) return;
+      /* DOMParser documents are inert: nothing here runs or loads. */
+      var parsed = new DOMParser().parseFromString(description, 'text/html');
+      copySafeNodes(parsed.body, target);
+    }
+
+    /* ── Sorting a raw Google event into what the calendar needs ───────────── */
+    function classify(rawTitle, allDay) {
+      var title = (rawTitle || '').trim();
+      var state = '';
+      var category = '';
+
+      var stateMatch = title.match(STATE_PATTERN);
+      if (stateMatch) {
+        state = /postponed/i.test(stateMatch[1]) ? 'Postponed' : 'Cancelled';
+        title = title.slice(stateMatch[0].length).trim();
+      }
+      PREFIX_RULES.some(function (rule) {
+        if (!rule.pattern.test(title)) return false;
+        category = rule.category;
+        title = title.replace(rule.pattern, '').trim();
+        return true;
+      });
+
+      var notice = !category && NOTICE_PATTERN.test(title);
+      if (!category && !allDay) {
+        KEYWORD_RULES.some(function (rule) {
+          if (!rule.pattern.test(title)) return false;
+          category = rule.category;
+          return true;
+        });
+      }
+      if (!category) category = allDay ? 'specials' : 'events';
+
+      return { title: title || 'Event', state: state, category: category, notice: notice };
+    }
+
+    function categoryLabel(id) {
+      for (var i = 0; i < CATEGORIES.length; i++) {
+        if (CATEGORIES[i].id === id) return CATEGORIES[i].label;
+      }
+      return '';
+    }
+
+    class EventsCalendar extends HTMLElement {
+      connectedCallback() {
+        if (this.ready) return;
+        this.ready = true;
+
+        this.calendarId = this.dataset.calendarId;
+        this.apiKey = this.dataset.apiKey;
+        this.timeZone = this.dataset.timeZone || 'America/Los_Angeles';
+        this.fallbackUrl = this.dataset.fallbackUrl;
+        this.filter = 'all';
+        this.memory = {};
+        this.requestId = 0;
+
+        var now = partsIn(this.timeZone, new Date());
+        this.todayKey = now.year + '-' + now.month + '-' + now.day;
+        this.year = +now.year;
+        this.month = +now.month - 1;
+
+        this.titleEl = this.querySelector('[data-ec-title]');
+        this.messageEl = this.querySelector('[data-ec-message]');
+        this.gridView = this.querySelector('[data-ec-grid-view]');
+        this.gridEl = this.querySelector('[data-ec-grid]');
+        this.listEl = this.querySelector('[data-ec-list]');
+        this.filtersEl = this.querySelector('[data-ec-filters]');
+        this.dialog = this.querySelector('[data-ec-dialog]');
+
+        this.renderFilters();
+        this.bind();
+        this.load();
+      }
+
+      bind() {
+        var self = this;
+        this.querySelector('[data-ec-prev]').addEventListener('click', function () { self.shift(-1); });
+        this.querySelector('[data-ec-next]').addEventListener('click', function () { self.shift(1); });
+        this.querySelector('[data-ec-today]').addEventListener('click', function () {
+          var p = self.todayKey.split('-');
+          self.year = +p[0];
+          self.month = +p[1] - 1;
+          self.load();
+        });
+        this.querySelector('[data-ec-close]').addEventListener('click', function () { self.dialog.close(); });
+        this.dialog.addEventListener('click', function (event) {
+          if (event.target === self.dialog) self.dialog.close();
+        });
+      }
+
+      shift(months) {
+        var d = new Date(Date.UTC(this.year, this.month + months, 1));
+        this.year = d.getUTCFullYear();
+        this.month = d.getUTCMonth();
+        this.load();
+      }
+
+      monthKey(day) {
+        var mm = String(this.month + 1).padStart(2, '0');
+        return this.year + '-' + mm + '-' + String(day).padStart(2, '0');
+      }
+
+      /* First and last day shown in the grid, Sunday to Saturday. */
+      gridRange() {
+        var first = this.monthKey(1);
+        var lastDay = new Date(Date.UTC(this.year, this.month + 1, 0)).getUTCDate();
+        var last = this.monthKey(lastDay);
+        return {
+          first: first,
+          last: last,
+          start: addDays(first, -utcFromKey(first).getUTCDay()),
+          end: addDays(last, 6 - utcFromKey(last).getUTCDay())
+        };
+      }
+
+      renderFilters() {
+        var self = this;
+        var options = [{ id: 'all', label: 'All' }].concat(CATEGORIES);
+        options.forEach(function (option) {
+          var chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'ec-chip';
+          chip.textContent = option.label;
+          chip.dataset.category = option.id;
+          chip.setAttribute('aria-pressed', String(option.id === self.filter));
+          chip.addEventListener('click', function () {
+            self.filter = option.id;
+            self.filtersEl.querySelectorAll('.ec-chip').forEach(function (other) {
+              other.setAttribute('aria-pressed', String(other.dataset.category === option.id));
+            });
+            self.render();
+          });
+          self.filtersEl.appendChild(chip);
+        });
+      }
+
+      /* ── Data ──────────────────────────────────────────────────────────── */
+      fetchMonth(range) {
+        var self = this;
+        var cacheKey = 'events-calendar:' + this.calendarId + ':' + range.start;
+
+        if (this.memory[cacheKey]) return Promise.resolve(this.memory[cacheKey]);
+        try {
+          var stored = JSON.parse(sessionStorage.getItem(cacheKey) || 'null');
+          if (stored && Date.now() - stored.time < CACHE_MINUTES * 60000) {
+            this.memory[cacheKey] = stored.items;
+            return Promise.resolve(stored.items);
+          }
+        } catch (error) { /* Storage can be blocked; just fetch instead. */ }
+
+        /* A day of padding each way: results are sorted by venue date below. */
+        var params = {
+          key: this.apiKey,
+          singleEvents: 'true',
+          orderBy: 'startTime',
+          maxResults: '250',
+          timeZone: this.timeZone,
+          timeMin: addDays(range.start, -1) + 'T00:00:00Z',
+          timeMax: addDays(range.end, 2) + 'T00:00:00Z',
+          /* Only what's displayed, which leaves out staff email addresses. */
+          fields: 'nextPageToken,items(id,status,summary,description,location,start,end)'
+        };
+
+        function page(token, items, count) {
+          var query = new URLSearchParams(params);
+          if (token) query.set('pageToken', token);
+          var url = 'https://www.googleapis.com/calendar/v3/calendars/' +
+            encodeURIComponent(self.calendarId) + '/events?' + query.toString();
+          return fetch(url).then(function (response) {
+            if (!response.ok) throw new Error('Google Calendar responded ' + response.status);
+            return response.json();
+          }).then(function (data) {
+            var all = items.concat(data.items || []);
+            if (data.nextPageToken && count < MAX_PAGES) return page(data.nextPageToken, all, count + 1);
+            return all;
+          });
+        }
+
+        return page('', [], 1).then(function (items) {
+          self.memory[cacheKey] = items;
+          try {
+            sessionStorage.setItem(cacheKey, JSON.stringify({ time: Date.now(), items: items }));
+          } catch (error) { /* Storage full or blocked; memory cache still works. */ }
+          return items;
+        });
+      }
+
+      normalize(raw) {
+        var allDay = !raw.start.dateTime;
+        var info = classify(raw.summary, allDay);
+        var event = {
+          title: info.title,
+          state: info.state,
+          category: info.category,
+          notice: info.notice,
+          allDay: allDay,
+          description: raw.description || '',
+          location: raw.location || ''
+        };
+
+        if (allDay) {
+          event.startKey = raw.start.date;
+          event.endKey = raw.end && raw.end.date ? raw.end.date : addDays(raw.start.date, 1);
+          event.sort = '';
+        } else {
+          var start = partsIn(this.timeZone, new Date(raw.start.dateTime));
+          event.startKey = start.year + '-' + start.month + '-' + start.day;
+          event.endKey = addDays(event.startKey, 1);
+          event.sort = new Date(raw.start.dateTime).getTime();
+          event.time = this.formatTime(start);
+          if (raw.end && raw.end.dateTime) {
+            event.endTime = this.formatTime(partsIn(this.timeZone, new Date(raw.end.dateTime)));
+          }
+        }
+        return event;
+      }
+
+      formatTime(parts) {
+        var minutes = parts.minute === '00' ? '' : ':' + parts.minute;
+        return parseInt(parts.hour, 10) + minutes + parts.dayPeriod.toLowerCase();
+      }
+
+      load() {
+        var self = this;
+        var range = this.gridRange();
+        var id = ++this.requestId;
+
+        this.titleEl.textContent = formatKey(range.first, { month: 'long', year: 'numeric' });
+
+        if (!this.apiKey || !this.calendarId) {
+          this.showError(false);
+          return;
+        }
+
+        this.setAttribute('aria-busy', 'true');
+        this.fetchMonth(range).then(function (items) {
+          if (id !== self.requestId) return;
+          self.removeAttribute('aria-busy');
+          self.days = {};
+          items.forEach(function (raw) {
+            if (raw.status === 'cancelled' || !raw.start) return;
+            var event = self.normalize(raw);
+            for (var key = event.startKey; key < event.endKey; key = addDays(key, 1)) {
+              if (key >= range.start && key <= range.end) {
+                (self.days[key] = self.days[key] || []).push(event);
+              }
+            }
+          });
+          self.render();
+        }).catch(function (error) {
+          if (id !== self.requestId) return;
+          self.removeAttribute('aria-busy');
+          console.warn('Events calendar could not load:', error);
+          self.showError(true);
+        });
+      }
+
+      showError(canRetry) {
+        var self = this;
+        this.days = null;
+        this.gridView.hidden = true;
+        this.listEl.hidden = true;
+        this.messageEl.textContent = 'We couldn’t load the calendar just now. ';
+        this.messageEl.appendChild(makeLink(this.fallbackUrl, 'View it on Google Calendar'));
+        if (canRetry) {
+          var retry = document.createElement('button');
+          retry.type = 'button';
+          retry.className = 'button button--variant--outline button--size--sm';
+          retry.textContent = 'Try again';
+          retry.addEventListener('click', function () { self.load(); });
+          this.messageEl.appendChild(retry);
+        }
+      }
+
+      /* ── Rendering ─────────────────────────────────────────────────────── */
+      eventsFor(key) {
+        var filter = this.filter;
+        var events = (this.days[key] || []).filter(function (event) {
+          return filter === 'all' || event.category === filter || event.notice;
+        });
+        /* Notices first, then the day's shows in time order, then specials. */
+        function rank(event) { return event.notice ? 0 : event.allDay ? 2 : 1; }
+        return events.sort(function (a, b) {
+          return rank(a) - rank(b) || (a.sort || 0) - (b.sort || 0);
+        });
+      }
+
+      eventButton(event) {
+        var self = this;
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'ec-event' +
+          (event.allDay && !event.notice ? ' ec-event--quiet' : '') +
+          (event.notice ? ' ec-event--notice' : '') +
+          (event.state ? ' ec-event--inactive' : '');
+
+        var bits = [];
+        if (event.state) bits.push(event.state);
+        if (event.time) bits.push(event.time);
+        if (!event.notice) bits.push(categoryLabel(event.category));
+
+        var meta = document.createElement('span');
+        meta.className = 'ec-event__meta';
+        meta.textContent = bits.join(' · ');
+        if (bits.length) button.appendChild(meta);
+
+        var title = document.createElement('span');
+        title.className = 'ec-event__title';
+        title.textContent = event.title;
+        button.appendChild(title);
+
+        button.addEventListener('click', function () { self.openEvent(event); });
+        return button;
+      }
+
+      render() {
+        /* A filter can be clicked before a month has loaded, or after an error. */
+        if (!this.days) return;
+        var range = this.gridRange();
+        var self = this;
+        var listCount = 0;
+        var gridFragment = document.createDocumentFragment();
+        var listFragment = document.createDocumentFragment();
+
+        for (var key = range.start; key <= range.end; key = addDays(key, 1)) {
+          var events = this.eventsFor(key);
+          var outside = key < range.first || key > range.last;
+          var past = key < this.todayKey;
+
+          var cell = document.createElement('li');
+          cell.className = 'ec-day' +
+            (outside ? ' ec-day--outside' : '') +
+            (past && !outside ? ' ec-day--past' : '') +
+            (key === this.todayKey ? ' ec-day--today' : '');
+          var date = document.createElement('time');
+          date.className = 'ec-day__date';
+          date.dateTime = key;
+          date.setAttribute('aria-label', formatKey(key, { weekday: 'long', month: 'long', day: 'numeric' }));
+          date.textContent = String(+key.slice(8));
+          cell.appendChild(date);
+          events.forEach(function (event) { cell.appendChild(self.eventButton(event)); });
+          gridFragment.appendChild(cell);
+
+          /* The list skips days already gone, so phones open on what's next. */
+          if (!outside && !past && events.length) {
+            listCount += 1;
+            listFragment.appendChild(this.listDay(key, events));
+          }
+        }
+
+        this.gridEl.textContent = '';
+        this.gridEl.appendChild(gridFragment);
+        this.listEl.textContent = '';
+        this.listEl.appendChild(listFragment);
+        this.gridView.hidden = false;
+        this.listEl.hidden = false;
+
+        /* Message only when the visible view would otherwise look empty. */
+        var monthHasMatch = Object.keys(this.days).some(function (key) {
+          return key >= range.first && key <= range.last && self.eventsFor(key).some(function (e) { return !e.notice; });
+        });
+        var message = '';
+        if (!monthHasMatch) {
+          message = this.filter === 'all'
+            ? 'Nothing on the calendar this month yet.'
+            : 'No ' + categoryLabel(this.filter) + ' on the calendar this month.';
+        } else if (!listCount && window.matchMedia('(max-width: 899.98px)').matches) {
+          message = 'Nothing left on the calendar this month.';
+        }
+        this.messageEl.textContent = message;
+      }
+
+      listDay(key, events) {
+        var self = this;
+        var row = document.createElement('div');
+        row.className = 'ec-list-day';
+
+        var heading = document.createElement('h4');
+        heading.className = 'ec-list-day__date';
+        if (key === this.todayKey) {
+          var tag = document.createElement('span');
+          tag.className = 'ec-list-day__tag';
+          tag.textContent = 'Today';
+          heading.appendChild(tag);
+        }
+        heading.appendChild(document.createTextNode(formatKey(key, { weekday: 'short', month: 'short', day: 'numeric' })));
+        row.appendChild(heading);
+
+        var list = document.createElement('div');
+        list.className = 'ec-list-day__events';
+        events.forEach(function (event) { list.appendChild(self.eventButton(event)); });
+        row.appendChild(list);
+        return row;
+      }
+
+      openEvent(event) {
+        var dateFormat = { weekday: 'long', month: 'long', day: 'numeric' };
+        var when = formatKey(event.startKey, dateFormat);
+        var lastDay = addDays(event.endKey, -1);
+        if (event.allDay && lastDay !== event.startKey) {
+          when += ' – ' + formatKey(lastDay, dateFormat);
+        }
+        if (event.time) {
+          when += ' · ' + event.time + (event.endTime ? ' – ' + event.endTime : '');
+        }
+
+        var type = event.notice ? 'Hours' : categoryLabel(event.category);
+        this.querySelector('[data-ec-dialog-type]').textContent = event.state ? event.state + ' · ' + type : type;
+        this.querySelector('[data-ec-dialog-title]').textContent = event.title;
+        this.querySelector('[data-ec-dialog-when]').textContent = when;
+
+        var location = this.querySelector('[data-ec-dialog-location]');
+        location.textContent = event.location;
+        location.hidden = !event.location;
+
+        renderDescription(this.querySelector('[data-ec-dialog-description]'), event.description);
+        this.dialog.showModal();
+      }
+    }
+
+    customElements.define('events-calendar', EventsCalendar);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Events calendar",
+  "class": "events-calendar-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "Monthly Calendar"
+    },
+    {
+      "type": "select",
+      "id": "section_heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_center_heading",
+      "label": "Center heading",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "Calendar color scheme",
+      "default": "invert"
+    },
+    {
+      "type": "color_scheme",
+      "id": "dialog_color_scheme",
+      "label": "Event details color scheme",
+      "default": "main"
+    },
+    {
+      "type": "header",
+      "content": "Google Calendar"
+    },
+    {
+      "type": "text",
+      "id": "calendar_id",
+      "label": "Calendar ID",
+      "info": "From the calendar's settings in Google Calendar. The calendar must be public."
+    },
+    {
+      "type": "paragraph",
+      "content": "The Google API key is stored in the shop metafield custom.google_calendar_api_key."
+    },
+    {
+      "type": "text",
+      "id": "time_zone",
+      "label": "Time zone",
+      "info": "Events always show in this time zone, wherever the visitor is.",
+      "default": "America/Los_Angeles"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Events calendar"
+    }
+  ]
+}
+{% endschema %}
