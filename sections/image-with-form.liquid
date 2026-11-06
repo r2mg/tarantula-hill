@@ -12,7 +12,8 @@
   theme CSS can't reach it. If the form's own title or intro repeats this
   section's heading or description, the script below hides the copy inside the
   form by matching its text. If the wording ever differs, the form simply shows
-  its own title too; nothing breaks.
+  its own title too; nothing breaks. The script also removes the form's 450px
+  width cap and lines its first field up with the top of the image.
 {% endcomment %}
 
 <div class="section-wrapper color-scheme-{{ section.settings.color_scheme.id }} section-wrapper--y-offset--padding">
@@ -100,11 +101,25 @@
       return (text || '').replace(/[\s​-‍﻿]+/g, ' ').trim().toLowerCase();
     }
 
+    function findField(root) {
+      var field = root.querySelector('input, select, textarea');
+      if (field) return field;
+      var hosts = root.querySelectorAll('*');
+      for (var i = 0; i < hosts.length; i++) {
+        if (hosts[i].shadowRoot) {
+          field = findField(hosts[i].shadowRoot);
+          if (field) return field;
+        }
+      }
+      return null;
+    }
+
     class ImageWithForm extends HTMLElement {
       connectedCallback() {
         var repeated = (this.dataset.repeatedText || '').split('|').map(normalize).filter(Boolean);
-        if (!repeated.length) return;
         var self = this;
+        var image = this.querySelector('.iwf__image');
+        var content = this.querySelector('.iwf__content');
 
         function hideRepeats(root) {
           root.querySelectorAll('*').forEach(function (el) {
@@ -115,8 +130,35 @@
           });
         }
 
+        /* Shopify Forms caps itself at 450px and centers; fill the column instead. */
+        function fitForm(field) {
+          var el = field.parentElement;
+          while (el && el !== content) {
+            el.style.maxWidth = 'none';
+            el.style.width = '100%';
+            el.style.marginLeft = '0';
+            el.style.marginRight = '0';
+            /* At the top of a shadow root, step out to its host element. */
+            el = el.parentElement || el.getRootNode().host;
+          }
+        }
+
+        /* Line the first field up with the top of the image, as in Find Us. */
+        function alignTop(field) {
+          var delta = field.getBoundingClientRect().top - image.getBoundingClientRect().top;
+          if (Math.abs(delta) < 1) return;
+          var current = parseFloat(content.style.marginTop) || 0;
+          content.style.marginTop = (current - delta) + 'px';
+        }
+
         /* The form renders late and can re-render, so keep watching for a while. */
-        function run() { hideRepeats(self); }
+        function run() {
+          hideRepeats(self);
+          var field = findField(content);
+          if (!field) return;
+          fitForm(field);
+          alignTop(field);
+        }
         run();
         var attempts = 0;
         var timer = setInterval(function () {
