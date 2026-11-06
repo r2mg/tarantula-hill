@@ -328,6 +328,11 @@
 
   /* ══ Event details ═══════════════════════════════════════════════════ */
   .ec-dialog {
+    /* The theme's reset removes the browser's default dialog centering. */
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
     width: min(36rem, calc(100vw - 2rem));
     max-height: calc(100dvh - 2rem);
     padding: 2rem;
@@ -775,7 +780,8 @@
         var bits = [];
         if (event.state) bits.push(event.state);
         if (event.time) bits.push(event.time);
-        if (!event.notice) bits.push(categoryLabel(event.category));
+        /* Specials are recognizable by their quieter style, so skip the label. */
+        if (!event.notice && event.category !== 'specials') bits.push(categoryLabel(event.category));
 
         var meta = document.createElement('span');
         meta.className = 'ec-event__meta';
