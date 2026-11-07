@@ -247,6 +247,14 @@
     border-left: 0;
   }
 
+  /* Category colors: the brand book's four accents that stay readable on black
+     (Poppy, Offshore, Golden Hour, Sandstone). The darker accents and any light
+     color scheme would fail contrast, so this only applies on the black scheme. */
+  .color-scheme-invert .ec-event--music .ec-event__meta { color: #F0863D; }
+  .color-scheme-invert .ec-event--tv .ec-event__meta { color: #4396A8; }
+  .color-scheme-invert .ec-event--comedy .ec-event__meta { color: #E4A857; }
+  .color-scheme-invert .ec-event--events .ec-event__meta { color: #D9AF88; }
+
   .ec-event--inactive .ec-event__title { text-decoration: line-through; }
   .ec-event--inactive:hover .ec-event__title { text-decoration: line-through; }
 
@@ -295,8 +303,20 @@
     color: var(--color-scheme-background);
     background: var(--color-scheme-text);
   }
-  .ec-day--past > *,
-  .ec-day--outside > * { opacity: 0.6; }
+  /* Dim past and other-month days, but keep the colored line readable:
+     0.85 is the lowest opacity at which every category color still passes. */
+  .ec-day--past > .ec-day__date,
+  .ec-day--outside > .ec-day__date,
+  .ec-day--past > .ec-event--notice,
+  .ec-day--outside > .ec-event--notice,
+  .ec-day--past > .ec-event:not(.ec-event--notice) .ec-event__title,
+  .ec-day--outside > .ec-event:not(.ec-event--notice) .ec-event__title { opacity: 0.6; }
+  .ec-day--past > .ec-event:not(.ec-event--notice) .ec-event__meta,
+  .ec-day--outside > .ec-event:not(.ec-event--notice) .ec-event__meta { opacity: 0.85; }
+  .ec-day--past > .ec-event:not(.ec-event--notice, .ec-event--quiet),
+  .ec-day--outside > .ec-event:not(.ec-event--notice, .ec-event--quiet) {
+    border-left-color: color-mix(in srgb, var(--color-scheme-text) 60%, transparent);
+  }
 
   /* ══ List (phones and small tablets) ═════════════════════════════════ */
   .ec-list-day {
@@ -803,7 +823,7 @@
         button.type = 'button';
         button.className = 'ec-event' +
           (event.allDay && !event.notice ? ' ec-event--quiet' : '') +
-          (event.notice ? ' ec-event--notice' : '') +
+          (event.notice ? ' ec-event--notice' : ' ec-event--' + event.category) +
           (event.state ? ' ec-event--inactive' : '');
 
         var bits = [];
