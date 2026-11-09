@@ -107,7 +107,12 @@
        Shopify Forms. Its class names end in a generated hash, hence [class*=]. */
     var FORM_STYLES = [
       /* Fill the column: the form otherwise caps itself at 450px and centers. */
-      '[class*="formContainer"] { display: block !important; max-width: none !important; width: 100% !important; margin: 0 !important; }',
+      '[class*="formContainer"] { display: block !important; max-width: none !important; width: 100% !important; margin: 0 !important; justify-self: stretch !important; }',
+      /* Below 490px, Forms makes its wrapper a centered grid, which shrinks the
+         form to its content; keep it as wide as the image instead. */
+      '[class*="_container_"] { display: block !important; width: 100% !important; }',
+      /* Below 768px, Forms caps the dropdown at 100px; show all the options. */
+      '[class*="optionList"] { max-height: none !important; }',
       '[class*="gridItem"] { width: 100% !important; }',
       'form { box-sizing: border-box !important; width: 100% !important; padding: 0 !important; gap: 1.5rem !important; }',
 
