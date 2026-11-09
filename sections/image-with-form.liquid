@@ -107,7 +107,12 @@
        Shopify Forms. Its class names end in a generated hash, hence [class*=]. */
     var FORM_STYLES = [
       /* Fill the column: the form otherwise caps itself at 450px and centers. */
-      '[class*="formContainer"] { display: block !important; max-width: none !important; width: 100% !important; margin: 0 !important; }',
+      '[class*="formContainer"] { display: block !important; max-width: none !important; width: 100% !important; margin: 0 !important; justify-self: stretch !important; }',
+      /* Below 490px, Forms makes its wrapper a centered grid, which shrinks the
+         form to its content; keep it as wide as the image instead. */
+      '[class*="_container_"] { display: block !important; width: 100% !important; }',
+      /* Below 768px, Forms caps the dropdown at 100px; show all the options. */
+      '[class*="optionList"] { max-height: none !important; }',
       '[class*="gridItem"] { width: 100% !important; }',
       'form { box-sizing: border-box !important; width: 100% !important; padding: 0 !important; gap: 1.5rem !important; }',
 
@@ -188,7 +193,22 @@
       '  transition: opacity 0.15s ease !important;',
       '}',
       'button[class*="formSubmitButton"]:hover { opacity: 0.75 !important; }',
-      'button[class*="formSubmitButton"] * { font: inherit !important; letter-spacing: inherit !important; text-transform: inherit !important; color: inherit !important; }'
+      'button[class*="formSubmitButton"] * { font: inherit !important; letter-spacing: inherit !important; text-transform: inherit !important; color: inherit !important; }',
+
+      /* The thank-you message after sending: the site's heading and body type,
+         left aligned like the form. Its close button would remove the form from
+         the page entirely, so it's hidden. */
+      '[class*="formBannerContainer"] { text-align: left !important; margin: 0 !important; }',
+      '[class*="formBannerHeading"] {',
+      '  display: block !important; margin: 0 0 0.75rem !important; color: var(--color-scheme-text) !important;',
+      '  font-family: var(--glob-heading-font) !important; font-weight: var(--glob-heading-font-weight) !important;',
+      '  text-transform: var(--glob-heading-transform) !important; font-size: 1.75rem !important; line-height: 1.2 !important;',
+      '}',
+      '[class*="formBannerContainer"] [class*="textBody"], [class*="formBannerContainer"] [class*="textBody"] p {',
+      '  font-family: var(--glob-body-font) !important; font-size: calc(var(--glob-text-scale-sm) * 1.1rem) !important;',
+      '  line-height: 1.5 !important; color: var(--color-scheme-text) !important;',
+      '}',
+      '[class*="formCloseButton"] { display: none !important; }'
     ].join('\n');
 
     /* Shopify Forms doesn't expose which fields are required, hence the setting. */
@@ -228,8 +248,7 @@
         }
 
         /* Theme CSS can't cross a shadow DOM, so the styles go inside it. */
-        function injectStyles(field) {
-          var root = field.getRootNode();
+        function injectStyles(root) {
           if (!root.host || root.querySelector('style[data-iwf-styles]')) return;
           var style = document.createElement('style');
           style.setAttribute('data-iwf-styles', '');
@@ -237,22 +256,42 @@
           root.appendChild(style);
         }
 
-        /* Line the first field's label up with the top of the image, as in Find Us. */
-        function alignTop(field) {
-          var delta = field.parentElement.getBoundingClientRect().top - image.getBoundingClientRect().top;
+        /* Line the form's first visible line (a field label, or the thank-you
+           heading) up with the top of the image, as in Find Us. Only side by
+           side: once stacked, the form sits below the image and needs no offset. */
+        var sideBySide = window.matchMedia('(min-width: 769px)');
+        function alignTop(root, field) {
+          if (!sideBySide.matches) {
+            content.style.marginTop = '';
+            return;
+          }
+          var banner = root.querySelector('[class*="formBannerContainer"]');
+          var target = banner || (field && field.parentElement);
+          if (!target) {
+            content.style.marginTop = '';
+            return;
+          }
+          var delta = target.getBoundingClientRect().top - image.getBoundingClientRect().top;
           if (Math.abs(delta) < 1) return;
           var current = parseFloat(content.style.marginTop) || 0;
           content.style.marginTop = (current - delta) + 'px';
         }
 
-        /* The form renders late and can re-render, so keep watching for a while. */
+        /* The form's shadow root, kept so the thank-you message (no fields) can
+           still be found after sending. */
+        var formRoot = null;
         function run() {
           hideRepeats(self);
           var field = findField(content);
-          if (!field) return;
-          injectStyles(field);
-          alignTop(field);
+          if (field) formRoot = field.getRootNode();
+          if (!formRoot) return;
+          injectStyles(formRoot);
+          alignTop(formRoot, field);
         }
+
+        /* The form renders late, so check often at first. After that, re-check
+           whenever the form changes size (sending it swaps in the thank-you
+           message) or the layout switches between side by side and stacked. */
         run();
         var attempts = 0;
         var timer = setInterval(function () {
@@ -260,6 +299,10 @@
           attempts += 1;
           if (attempts >= 40) clearInterval(timer);
         }, 250);
+        if (window.ResizeObserver) {
+          new ResizeObserver(function () { requestAnimationFrame(run); }).observe(content);
+        }
+        sideBySide.addEventListener('change', run);
       }
     }
 
