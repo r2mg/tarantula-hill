@@ -1,0 +1,341 @@
+{% comment %}
+  Section: Image With Form
+  Location: Tarantula Hill Brewing Co. — Entertainment page ("Want to be featured?")
+  Add via: Online Store > Themes > Customize > Add Section
+
+  Same layout as the Ice Cream page's "Find Us" section (ice-cream-locations1):
+  a heading above, then two equal columns aligned at the top, image on the left
+  at 4:3 and the content on the right.
+
+  ── Form heading ────────────────────────────────────────────────────────
+  Add a form as an app block. Shopify Forms renders inside a shadow DOM, so
+  theme CSS can't reach it. If the form's own title or intro repeats this
+  section's heading or description, the script below hides the copy inside the
+  form by matching its text. If the wording ever differs, the form simply shows
+  its own title too; nothing breaks. The script also lines the form's first
+  field up with the top of the image.
+
+  ── Form styling ────────────────────────────────────────────────────────
+  FORM_STYLES in the script restyles Shopify Forms to match the Book a Party
+  forms. Only the styling changes; submissions still go through Shopify Forms.
+  If Shopify renames the form's classes, the form falls back to its own look.
+{% endcomment %}
+
+<div class="section-wrapper color-scheme-{{ section.settings.color_scheme.id }} section-wrapper--y-offset--padding">
+  {% if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank %}
+    <div class="container section-wrapper__header" style="margin-bottom: 3rem;">
+      <div class="content content--align--{{ section.settings.heading_align }}">
+        {% if section.settings.eyebrow != blank %}
+          <div class="content__subheading">
+            <div class="subheading">{{ section.settings.eyebrow }}</div>
+          </div>
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          <div class="content__heading">
+            <h2 class="heading heading--size--h1">{{ section.settings.heading }}</h2>
+          </div>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div class="content__text">
+            <p class="text text--size--md">{{ section.settings.description }}</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="container section-wrapper__body">
+    <image-with-form
+      class="iwf"
+      data-repeated-text="{{ section.settings.heading | escape }}|{{ section.settings.description | escape }}"
+      {% if section.settings.all_required %}data-all-required{% endif %}
+    >
+      <div class="iwf__image" style="--iwf-image-y: {{ section.settings.image_position_y }}%;">
+        {% if section.settings.image != blank %}
+          {{ section.settings.image | image_url: width: 1500 | image_tag:
+            loading: 'lazy',
+            widths: '550, 750, 1100, 1500',
+            sizes: '(min-width: 769px) 50vw, 100vw',
+            alt: section.settings.image.alt
+          }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+      </div>
+      <div class="iwf__content">
+        {% for block in section.blocks %}
+          <div {{ block.shopify_attributes }}>
+            {% render block %}
+          </div>
+        {% endfor %}
+      </div>
+    </image-with-form>
+  </div>
+</div>
+
+<style>
+  .iwf {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .iwf__image {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+  .iwf__image img,
+  .iwf__image svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% var(--iwf-image-y, 50%);
+  }
+  .iwf__content { min-width: 0; }
+
+  @media (max-width: 768px) {
+    .iwf { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+
+<script>
+  (function () {
+    if (customElements.get('image-with-form')) return;
+
+    /* The look of the Book a Party forms (sections/party-options.liquid), aimed at
+       Shopify Forms. Its class names end in a generated hash, hence [class*=]. */
+    var FORM_STYLES = [
+      /* Fill the column: the form otherwise caps itself at 450px and centers. */
+      '[class*="formContainer"] { display: block !important; max-width: none !important; width: 100% !important; margin: 0 !important; }',
+      '[class*="gridItem"] { width: 100% !important; }',
+      'form { box-sizing: border-box !important; width: 100% !important; padding: 0 !important; gap: 1.5rem !important; }',
+
+      /* Labels above the fields, in place of labels floating inside them. */
+      '[class*="formFieldContainer"] { flex-direction: column !important; align-items: stretch !important; }',
+      'label[class*="formInputFieldLabel"], [class*="selectContainer"] > p {',
+      '  position: static !important; order: -1; transform: none !important; display: block !important;',
+      '  font-family: var(--glob-subheading-font) !important; font-weight: var(--glob-subheading-weight) !important;',
+      '  text-transform: var(--glob-subheading-text-transform) !important;',
+      '  font-size: calc(var(--glob-text-scale-xs) * 1rem) !important; line-height: 1.4 !important;',
+      '  letter-spacing: 0.1em !important; opacity: 0.8 !important; margin: 0 0 0.35rem !important;',
+      '  padding: 0 !important; text-align: left !important; color: var(--color-scheme-text) !important;',
+      '  background: none !important; pointer-events: auto !important;',
+      '}',
+
+      /* The textarea label's backing strip would otherwise cover its text. */
+      'label[class*="formInputFieldLabel"]::before, label[class*="formInputFieldLabel"]::after,',
+      '[class*="formFieldContainer"]::before, [class*="formFieldContainer"]::after { content: none !important; display: none !important; }',
+
+      /* The dropdown opens downward over the empty space, as a square list. */
+      '[class*="dropdownContainer"] { top: calc(100% + 0.25rem) !important; bottom: auto !important; border-radius: 0 !important; z-index: 10 !important; }',
+      '[class*="optionList"] {',
+      '  border: 1px solid var(--color-scheme-text) !important; border-radius: 0 !important;',
+      '  background: var(--color-scheme-background) !important; padding: 0 !important;',
+      '  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;',
+      '}',
+      '[class*="optionListItem"] { margin: 0 !important; padding: 0 !important; border-radius: 0 !important; }',
+      '[class*="optionList"] [role="option"] {',
+      '  display: flex !important; align-items: center !important; min-height: 44px !important;',
+      '  box-sizing: border-box !important; padding: 0.5rem 1rem !important; border: none !important; border-radius: 0 !important;',
+      '  font-family: var(--glob-body-font) !important; font-size: calc(var(--glob-text-scale-sm) * 1rem) !important;',
+      '  color: var(--color-scheme-text) !important; background: transparent !important; cursor: pointer !important;',
+      '}',
+      /* Highlighted options invert, like the calendar filter buttons. */
+      '[class*="optionList"] [role="option"]:hover, [class*="optionList"] [role="option"]:focus,',
+      '[class*="optionList"] [role="option"][aria-selected="true"], [class*="optionListItem"]:hover [role="option"] {',
+      '  color: var(--color-scheme-background) !important; background: var(--color-scheme-text) !important;',
+      '  outline: none !important; box-shadow: none !important;',
+      '}',
+      '[class*="optionList"] [role="option"] * { color: inherit !important; }',
+
+      /* Say what the empty dropdown is for, and make its arrow easy to spot. */
+      '[class*="selectToggleText"] { color: var(--color-scheme-text) !important; }',
+      '[class*="selectToggleText"]:empty::before { content: "Select one"; opacity: 0.7; }',
+      '[class*="arrowDownIcon"] { transform: scale(1.5) !important; transform-origin: center !important; color: var(--color-scheme-text) !important; }',
+
+      /* Underlined fields, no boxes. */
+      'input[class*="formInputField"], textarea, button[class*="selectToggle"] {',
+      '  box-sizing: border-box !important; width: 100% !important; height: auto !important;',
+      '  font-family: var(--glob-body-font) !important; font-size: calc(var(--glob-text-scale-sm) * 1rem) !important;',
+      '  font-weight: var(--glob-body-font-weight) !important; color: var(--color-scheme-text) !important;',
+      '  background: transparent !important; border: none !important;',
+      /* Field edges at 55% of the text color, which clears the 3:1 contrast guideline. */
+      '  border-bottom: 1px solid color-mix(in srgb, var(--color-scheme-text) 55%, transparent) !important; border-radius: 0 !important;',
+      '  padding: 0.55rem 0 !important; margin: 0 !important; box-shadow: none !important; outline: none !important;',
+      '  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;',
+      '}',
+      'button[class*="selectToggle"] { min-height: 44px !important; cursor: pointer !important; }',
+      /* A thicker line on focus, so keyboard users can see where they are. */
+      'input[class*="formInputField"]:focus, textarea:focus, button[class*="selectToggle"]:focus, button[class*="selectToggle"]:hover {',
+      '  border-bottom-color: var(--color-scheme-text) !important;',
+      '  box-shadow: 0 1px 0 0 var(--color-scheme-text) !important;',
+      '}',
+      'button[class*="formSubmitButton"]:focus-visible { outline: 2px solid var(--color-scheme-text) !important; outline-offset: 2px !important; }',
+      'textarea { min-height: 90px !important; resize: vertical !important; }',
+
+      /* Square button sized to its label, left aligned. */
+      'button[class*="formSubmitButton"] {',
+      '  display: inline-flex !important; justify-content: center !important; align-items: center !important;',
+      '  width: auto !important; min-width: 0 !important; max-width: max-content !important; height: auto !important;',
+      '  align-self: flex-start !important; font-family: var(--glob-button-font) !important;',
+      '  font-weight: var(--glob-button-weight) !important; text-transform: var(--glob-button-text-transform) !important;',
+      '  letter-spacing: calc(var(--glob-button-letter-spacing) * 0.1em) !important;',
+      '  font-size: calc(var(--glob-text-scale-xs) * 1rem) !important;',
+      '  background: var(--color-scheme-button-background) !important; color: var(--color-scheme-button-text) !important;',
+      '  border: none !important; border-radius: 0 !important; padding: 0.9rem 2.5rem !important;',
+      '  margin: 0.25rem 0 0 !important; box-shadow: none !important; cursor: pointer !important;',
+      '  transition: opacity 0.15s ease !important;',
+      '}',
+      'button[class*="formSubmitButton"]:hover { opacity: 0.75 !important; }',
+      'button[class*="formSubmitButton"] * { font: inherit !important; letter-spacing: inherit !important; text-transform: inherit !important; color: inherit !important; }'
+    ].join('\n');
+
+    /* Shopify Forms doesn't expose which fields are required, hence the setting. */
+    var REQUIRED_STYLES = '\nlabel[class*="formInputFieldLabel"]::after, [class*="selectContainer"] > p::after { content: " *" !important; display: inline !important; }';
+
+    function normalize(text) {
+      return (text || '').replace(/[\s​-‍﻿]+/g, ' ').trim().toLowerCase();
+    }
+
+    function findField(root) {
+      var field = root.querySelector('input, select, textarea');
+      if (field) return field;
+      var hosts = root.querySelectorAll('*');
+      for (var i = 0; i < hosts.length; i++) {
+        if (hosts[i].shadowRoot) {
+          field = findField(hosts[i].shadowRoot);
+          if (field) return field;
+        }
+      }
+      return null;
+    }
+
+    class ImageWithForm extends HTMLElement {
+      connectedCallback() {
+        var repeated = (this.dataset.repeatedText || '').split('|').map(normalize).filter(Boolean);
+        var self = this;
+        var image = this.querySelector('.iwf__image');
+        var content = this.querySelector('.iwf__content');
+
+        function hideRepeats(root) {
+          root.querySelectorAll('*').forEach(function (el) {
+            if (el.shadowRoot) hideRepeats(el.shadowRoot);
+            if (el.children.length === 0 && repeated.indexOf(normalize(el.textContent)) !== -1) {
+              el.style.display = 'none';
+            }
+          });
+        }
+
+        /* Theme CSS can't cross a shadow DOM, so the styles go inside it. */
+        function injectStyles(field) {
+          var root = field.getRootNode();
+          if (!root.host || root.querySelector('style[data-iwf-styles]')) return;
+          var style = document.createElement('style');
+          style.setAttribute('data-iwf-styles', '');
+          style.textContent = FORM_STYLES + (self.hasAttribute('data-all-required') ? REQUIRED_STYLES : '');
+          root.appendChild(style);
+        }
+
+        /* Line the first field's label up with the top of the image, as in Find Us. */
+        function alignTop(field) {
+          var delta = field.parentElement.getBoundingClientRect().top - image.getBoundingClientRect().top;
+          if (Math.abs(delta) < 1) return;
+          var current = parseFloat(content.style.marginTop) || 0;
+          content.style.marginTop = (current - delta) + 'px';
+        }
+
+        /* The form renders late and can re-render, so keep watching for a while. */
+        function run() {
+          hideRepeats(self);
+          var field = findField(content);
+          if (!field) return;
+          injectStyles(field);
+          alignTop(field);
+        }
+        run();
+        var attempts = 0;
+        var timer = setInterval(function () {
+          run();
+          attempts += 1;
+          if (attempts >= 40) clearInterval(timer);
+        }, 250);
+      }
+    }
+
+    customElements.define('image-with-form', ImageWithForm);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Image with form",
+  "class": "image-with-form-section",
+  "max_blocks": 1,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "main"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_position_y",
+      "label": "Image vertical position",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "all_required",
+      "label": "Mark all form fields as required",
+      "info": "Adds an asterisk to each label. Turn off if the form has optional fields.",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with form"
+    }
+  ]
+}
+{% endschema %}
